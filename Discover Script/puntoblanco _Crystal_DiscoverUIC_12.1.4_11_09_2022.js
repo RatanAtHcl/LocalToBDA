@@ -13216,21 +13216,18 @@ if (DCX && typeof DCX.addModule === "function") {
 //     }, 3000)
 // });
 ( function () { document.addEventListener("mouseup",() => {
-           if (event.target.id == "input" && event.target.value.length >3){
-               // Create New Event
-               const newEvent = new Event('change', { bubbles: true });
-               // Creste New Input
-               const newInput = document.createElement('input');
-               newInput.value = event.target.value;
-               // Listen for the event.
-               newInput.addEventListener('change', (e) => {
-                   alert(e.target.value)
-                   // Your code here...........
-               })
-               // Dispatch the event.
-               newInput.dispatchEvent(newEvent);
-               // Remove newley created Input
-               newInput.remove()
-           };
-       });
+        if (event.target.id == "input" && event.target.value.length >3){
+            const value = event.target.value;
+            setTimeout(()=>{
+                const element = document.getElementById('input');
+                element.value = value;
+                element.addEventListener('change',() => {
+                    element.blur()
+                    element.focus()
+                });
+                const changeEvent = new Event('change', { bubbles: true });
+                element.dispatchEvent(changeEvent)
+            })
+        };
+    });
 }());
