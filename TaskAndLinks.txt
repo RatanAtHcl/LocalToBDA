@@ -24,3 +24,14 @@ Hover Event getting triger from : Line 12135: position: {
 slider_slider
 
 
+https://www.ecn.cricket/
+
+Issue:
+
+Go to "Scores" then click on one of the matches - the URL will begin https://www.ecn.cricket/scores-fixtures/scorecard/..... and the screen has multiple lazy load steps (header, cricket ball, content, scores, etc.)
+
+Link to latest UIC for testing:
+
+https://github.com/HCLDiscover/Discover/tree/main/Customers/European%20Cricket%20Network
+
+

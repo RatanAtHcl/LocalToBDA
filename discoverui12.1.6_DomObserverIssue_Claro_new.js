@@ -5290,7 +5290,7 @@ DCX.addService("browserBase", function (core) {
             break;
         }
         returnObj.type = type;
-
+        
         return returnObj;
     }
 
@@ -11094,6 +11094,7 @@ DCX.addModule("replay", function (context) {
             timestamp: utils.getValue(options, "webEvent.timestamp", 0),
             type: 4,
             target: {
+                origID: target.element.id,
                 id: target.id || "",
                 idType: target.idType,
                 name: target.name,
@@ -11110,6 +11111,11 @@ DCX.addModule("replay", function (context) {
                 type: utils.getValue(options, "webEvent.type", "UNKNOWN")
             }
         };
+
+        // if origID is nul or empty, we remove origID from Object.
+        if(control.target.origID === undefined || control.target.origID === "") {
+            delete control.target.origID;
+        }
 
         if (targetSubtype) {
             control.target.subType = targetSubtype;
@@ -12190,6 +12196,7 @@ if (DCX && typeof DCX.addModule === "function") {
                         hoverToClick: utils.getValue(options, "hoverToClick")
                     },
                     target: {
+                        origID: target.element.id,
                         id: target.id || "",
                         idType: target.idType || "",
                         name: target.name || "",
@@ -12204,12 +12211,17 @@ if (DCX && typeof DCX.addModule === "function") {
                     }
                 };
 
-            // if id is null or empty, what are we firing on? it can't be replayed anyway
-            if ((typeof uiEvent.target.id) === undefined || uiEvent.target.id === "") {
-                return;
-            }
+                // if origID is nul or empty, we remove origID from Object.
+                if((typeof uiEvent.target.id) === undefined || control.target.origID === "") {
+                    delete uiEvent.target.origID;
+                }
 
-            context.post(uiEvent);
+                // if id is null or empty, what are we firing on? it can't be replayed anyway
+                if ((typeof uiEvent.target.id) === undefined || uiEvent.target.id === "") {
+                    return;
+                }
+
+                context.post(uiEvent);
         }
 
         function getNativeNode(node) {
@@ -13552,11 +13564,11 @@ DCX.addModule("digitalData", function (context) {
             browser: {
                 sizzleObject: "window.Sizzle",
                 jQueryObject: "window.jQuery",
-                /*blacklist: [{
-                regex: ".*",
-                flags: "ig"
-            }],*/
-                customid: ["data-dcxid", "name"]
+                blacklist: [{
+                    regex: ".*",
+                    flags: "ig"
+                }],
+                customid: ["data-dcxid" ,"data-test","name"]
             }
         },
         modules: {
