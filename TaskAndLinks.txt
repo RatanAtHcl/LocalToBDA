@@ -35,3 +35,12 @@ Link to latest UIC for testing:
 https://github.com/HCLDiscover/Discover/tree/main/Customers/European%20Cricket%20Network
 
 
+
+// Record original DOM size before manipulation/compression
+            if (captureObj.fullDOM) {
+                captureObj.origDOMSize = totalLength;
+            } else {
+                captureObj.origDiffSize = totalLength;
+            }
+
+

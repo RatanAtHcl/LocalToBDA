@@ -8597,6 +8597,7 @@ DCX.addService("domCapture", function (core) {
 					}
 					catch(e){}
                 }
+                
                 var style = rootCopy.createElement("style");
                 //style.innerHTML="/* Added by Discover */"+ CSS;
                 //style.innerHTML="<style>" + CSS + "/* Added by Discover */</style>";
@@ -8606,17 +8607,8 @@ DCX.addService("domCapture", function (core) {
                 // rootCopy.getElementsByTagName('body')[0].appendChild(style);
                 rootCopy.querySelector('head').appendChild(style);
 
-                var pMsg = {
-                    "description": "The number of bytes captured for Inline styling",
-                    "urlNormalized": URL,
-                    "CSSlength": CSS.length,
-                    "origSize": (new Blob([CSS]).size) * 0.001
-                };
-                var jMsg = { "description": "captureCSS Logging", "action": "retrieved", "value": pMsg };
                 if (typeof DCX !== "undefined" && length) {
-                    console.log('internall msg', jMsg);
-                    DCX.logCustomEvent("captureCSS Logging", jMsg); // CSS-JSS issue debugger (task no : 1950)
-                    //captureCSSMsg = jMsg
+                    captureObj["origCSSsize"] = CSS.length;
                 }
             }			
 			
@@ -12212,7 +12204,7 @@ if (DCX && typeof DCX.addModule === "function") {
                 };
 
                 // if origID is nul or empty, we remove origID from Object.
-                if((typeof uiEvent.target.id) === undefined || control.target.origID === "") {
+                if((typeof uiEvent.target.id) === undefined || uiEvent.target.id === "") {
                     delete uiEvent.target.origID;
                 }
 
@@ -12844,14 +12836,13 @@ if (DCX && typeof DCX.addModule === "function") {
 		//console.log("Set event count "+ eventCount);
         
 		var observer = new MutationObserver(function(mutations) {
-
+            //debugger
 			var eventCount = 0;
 			mutations.forEach(function(mutation) {
 				var takeSnapshot = "", target = undefined, customFunction = undefined;
-				
-				if (mutation.type === "attributes" || mutation.type === "childList") {
-					mutation.addedNodes.forEach(function(node) {
-						target = undefined;
+
+                var findTarget = function () {
+                        target = undefined;
 						target = targets.find(function(t) {
 								if (t.selector.indexOf(mutation.target.className) > -1 && mutation.className != "") { return(t) }
 						});
@@ -12870,78 +12861,46 @@ if (DCX && typeof DCX.addModule === "function") {
 								if (t.selector.toLowerCase() === "body") { return(t) }
 							});
 						}
-						
-						if (target && target.maxEvents > eventCount) {
-							if (typeof(node.id) === "string" && target && (target.added === 1 || target.added === 2)) {
-								if (node.id === target.childNode) {
-									takeSnapshot = target.eventName;
-								}
-							}
-							if (typeof(node.className) === "string" && target && takeSnapshot === "" && (target.added === 1 || target.added === 2)) {
-								if (node.className === target.childNode) {
-									takeSnapshot = target.eventName;
-								}
-							}
-							if (typeof(node.outerHTML) === "string" && target && takeSnapshot === "" && (target.added === 1 || target.added === 2)) {
-								if (node.outerHTML.indexOf(target.childNode) > -1) {
-									takeSnapshot = target.eventName;
-								}
-							}
-							if (typeof(node.nodeValue) === "string" && target &&  takeSnapshot === "" && (target.added === 1 || target.added === 2)) {
-								if (node.nodeValue.indexOf(target.childNode) > -1) {
-									takeSnapshot = target.eventName;
-								}
-							}
+                    };
+
+                var getSnapshot = function() {
+                        if (typeof(node.id) === "string" && target) {
+                            if (node.id === target.childNode) {
+                                takeSnapshot = target.eventName;
+                            }
+                        }
+                        if (typeof(node.className) === "string" && target && takeSnapshot === "") {
+                            if (node.className === target.childNode) {
+                                takeSnapshot = target.eventName;
+                            }
+                        }
+                        if (typeof(node.outerHTML) === "string" && target && takeSnapshot === "") {
+                            if (node.outerHTML.indexOf(target.childNode) > -1) {
+                                takeSnapshot = target.eventName;
+                            }
+                        }
+                        if (typeof(node.nodeValue) === "string" && target && takeSnapshot === "") {
+                            if (node.nodeValue.indexOf(target.childNode) > -1) {
+                                takeSnapshot = target.eventName;
+                            }
+                        }
+                    };
+				
+				if (mutation.type === "attributes" || mutation.type === "childList") {
+					mutation.addedNodes.forEach(function(node) {
+                        findTarget();
+						if (target && target.maxEvents > eventCount && (target.added === 1 || target.added === 2)) {
+							getSnapshot();
 						}
 					});
 
 					mutation.removedNodes.forEach(function(node) {
-						target = undefined;
-						console.log("mutationTarget" + mutation.target.className);
-						target = targets.find(function(t) {
-								if (t.selector.indexOf(mutation.target.className) > -1 && mutation.className != "") { return(t) }
-						});
-						if (!target) {
-							target = targets.find(function (t) { 
-								if (t.selector.indexOf(mutation.target.id) > -1 && mutation.target.id != "") { return(t) }
-							});
-						}
-						if (!target) {
-							target = targets.find(function (t) { 
-								if (t.selector.toLowerCase().indexOf(mutation.target.nodeName.toLowerCase()) > -1) { return(t) }
-							});
-						}
-						if (!target) {
-							target = targets.find(function (t) { 
-								if (t.selector.toLowerCase() === "body") { return(t) }
-							});
-						}
-						
-						if (target && target.maxEvents > eventCount) {
-							if (typeof(node.id) === "string" && target && (target.added === 0 || target.added === 2)) {
-								if (node.id === target.childNode) {
-									takeSnapshot = target.eventName;
-								}
-							}
-							if (typeof(node.className) === "string" && target && takeSnapshot === "" && (target.added === 0 || target.added === 2)) {
-								if (node.className === target.childNode) {
-									takeSnapshot = target.eventName;
-								}
-							}
-							if (typeof(node.outerHTML) === "string" && target && takeSnapshot === "" && (target.added === 0 || target.added === 2)) {
-								if (node.outerHTML.indexOf(target.childNode) > -1) {
-									takeSnapshot = target.eventName;
-								}
-							}
-							if (typeof(node.nodeValue) === "string" && target && takeSnapshot === "" && (target.added === 0 || target.added === 2)) {
-								if (node.nodeValue.indexOf(target.childNode) > -1) {
-									takeSnapshot = target.eventName;
-								}
-							}
+						findTarget();
+						if (target && target.maxEvents > eventCount && (target.added === 0 || target.added === 2)) {
+							getSnapshot();
 						}
 					});
 
-                    console.log('takeSnapshot ====>',takeSnapshot);
 					if (typeof DCX !== "undefined" && takeSnapshot !== "") {
 						if (typeof target.customFunction === "string") {
 							customFunction = utils.access(target.customFunction);
@@ -12954,7 +12913,7 @@ if (DCX && typeof DCX.addModule === "function") {
 						var evt = new CustomEvent(target.eventName); // DOM Oberver issue debugger (task no : 1970)
 						document.dispatchEvent(evt); // Dispatch custom event - must be configured in Replay (and optionally DOM Capture)
 						eventCount = eventCount + 1;
-						console.log ("DCX: Mutation Logged " + target.eventName + " custom event");
+						console.log ("DCX: Mutation Logged ===> " + target.eventName + " custom event");
 					} else {
 						console.log ("DCX: Mutation Ignored");
 					}
@@ -13483,8 +13442,8 @@ DCX.addModule("digitalData", function (context) {
                 queues: [
 					{
                         qid: "DEFAULT",
-                        endpoint: "https://unidiscover-packet-fwdr.sbx0201.play.hclsofy.com/DiscoverUIPost.php",
-						//endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php",
+                        //endpoint: "https://unidiscover-packet-fwdr.sbx0201.play.hclsofy.com/DiscoverUIPost.php",
+						endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php",
 						//endpoint: "https://discover.claro.com.ar/DiscoverUIPost.php",
                         maxEvents: 20,
                         timerInterval: 30000,
@@ -13577,15 +13536,72 @@ DCX.addModule("digitalData", function (context) {
             },
 			DOMObserver: {
 				targets: [
+                    // {
+					// 	selector: "#__next", // Parent selector
+					// 	//childNode: "MuiCircularProgress-circle", // Look for child node to trigger snapshot (blank for ANY)
+                    //     childNode: "Loading_bg__UgLQ3",
+					// 	eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+					// 	added: 0, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
+					// 	maxEvents: 1, // After triggering X number of times, stop monitoring this event (0=Unlimited)
+					// 	customFunction: false // Optional JavaScript function to be executed when event is triggered
+					// },
                     {
 						selector: "#__next", // Parent selector
 						//childNode: "MuiCircularProgress-circle", // Look for child node to trigger snapshot (blank for ANY)
-                        childNode: "Loading_bg__UgLQ3",
+                        childNode: "MuiCheckbox-root",
 						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-						added: 0, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
+						added: 2, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
 						maxEvents: 1, // After triggering X number of times, stop monitoring this event (0=Unlimited)
 						customFunction: false // Optional JavaScript function to be executed when event is triggered
 					},
+                    // {
+                    //     selector: ".wrapFrame", // Parent selector
+                    //     childNode: ".wrapFrameContent", // Look for child node to trigger snapshot (blank for ANY)
+                    //     eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                    //     added: 2, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
+                    //     maxEvents: 4, // After triggering X number of times, stop monitoring this event (0=Unlimited)
+                    //     customFunction: false // Optional JavaScript function to be executed when event is triggered
+                    // },
+                    // {
+                    //     selector: "#main-store-spinner", // Parent selector
+                    //     childNode: ".product-listing-container", // Look for child node to trigger snapshot (blank for ANY)
+                    //     eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                    //     added: 2, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
+                    //     maxEvents: 4, // After triggering X number of times, stop monitoring this event (0=Unlimited)
+                    //     customFunction: false // Optional JavaScript function to be executed when event is triggered
+                    // }, 
+                    // {
+                    //     selector: ".product-listing-container", // Parent selector
+                    //     childNode: ".infinite-scroll-component-circle", // Look for child node to trigger snapshot (blank for ANY)
+                    //     eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                    //     added: 2, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
+                    //     maxEvents: 4, // After triggering X number of times, stop monitoring this event (0=Unlimited)
+                    //     customFunction: false // Optional JavaScript function to be executed when event is triggered
+                    // },
+                    // {
+                    //     selector: ".carousel__slider-tray-wrapper", // Parent selector
+                    //     childNode: ".MuiGrid-Root", // Look for child node to trigger snapshot (blank for ANY)
+                    //     eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                    //     added: 2, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
+                    //     maxEvents: 4, // After triggering X number of times, stop monitoring this event (0=Unlimited)
+                    //     customFunction: false // Optional JavaScript function to be executed when event is triggered
+                    // },
+                    // {
+                    //     selector: "#__next", // Parent selector
+                    //     childNode: "MuiCircularProgress-svg", // Look for child node to trigger snapshot (blank for ANY)
+                    //     eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                    //     added: 0, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
+                    //     maxEvents: 1, // After triggering X number of times, stop monitoring this event (0=Unlimited)
+                    //     customFunction: false // Optional JavaScript function to be executed when event is triggered
+                    // },
+                    // {
+                    //     selector: "#__next", // Parent selector
+                    //     childNode: "slick-track", // Look for child node to trigger snapshot (blank for ANY)
+                    //     eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                    //     added: 0, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
+                    //     maxEvents: 1, // After triggering X number of times, stop monitoring this event (0=Unlimited)
+                    //     customFunction: false // Optional JavaScript function to be executed when event is triggered
+                    // }
 				]
 			},			
             performance: {
