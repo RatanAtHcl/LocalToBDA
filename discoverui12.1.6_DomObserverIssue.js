@@ -13913,36 +13913,6 @@ DCX.addModule("digitalData", function (context) {
         config.services.message.privacyPatterns = [];
     }
 
-    (function () {
-        let oldURL = window.location.href;
-        var URLChange = function () {
-            const newURL = window.location.href;
-            if (oldURL === newURL) {
-                return false;
-            } else {
-                oldURL = newURL;
-                return true;
-            } 
-        };
-
-        window.addEventListener("click", function () {
-            setTimeout(() => {
-                if (URLChange()) {
-                    if(DCX) {
-                        var DOMObserverModule = DCX.getModule('DOMObserver');
-                        if(DOMObserverModule) {
-                            var webEvent = {
-                                type: "load",
-                                name: oldURL,
-                            };
-                            DOMObserverModule.onevent(webEvent)
-                        }
-                    }
-                }
-            });
-        }, { capture: false });
-    }())
-
     DCX.init(config);
 
 }());

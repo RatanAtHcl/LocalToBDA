@@ -8600,6 +8600,11 @@ DCX.addService("domCapture", function (core) {
                 //style.innerHTML="<style>" + CSS + "/* Added by Discover */</style>";
                 rootCopy.getElementsByTagName('body')[0].appendChild(style);
                 //rootCopy.getElementsByTagName('head')[0].appendChild(style);
+                
+                // Capture original CSS size using  length prop in origCSSsize
+                if (typeof DCX !== "undefined" && length) {
+                    captureObj["origCSSsize"] = CSS.length;
+                }
             }
 
             // Remove base64 images, set "removeBase64: 0" to discard ALL base64 images
@@ -11044,6 +11049,7 @@ DCX.addModule("replay", function (context) {
             timestamp: utils.getValue(options, "webEvent.timestamp", 0),
             type: 4,
             target: {
+                origID: target.element.id || "",
                 id: target.id || "",
                 idType: target.idType,
                 name: target.name,
@@ -11060,6 +11066,11 @@ DCX.addModule("replay", function (context) {
                 type: utils.getValue(options, "webEvent.type", "UNKNOWN")
             }
         };
+
+        // if origID is nul or empty, we remove origID from Object.
+        if(control.target.origID === undefined || control.target.origID === "") {
+            delete control.target.origID;
+        }
 
         if (targetSubtype) {
             control.target.subType = targetSubtype;
@@ -12140,6 +12151,7 @@ if (DCX && typeof DCX.addModule === "function") {
                         hoverToClick: utils.getValue(options, "hoverToClick")
                     },
                     target: {
+                        origID: target.element.id || "",
                         id: target.id || "",
                         idType: target.idType || "",
                         name: target.name || "",
@@ -12153,6 +12165,11 @@ if (DCX && typeof DCX.addModule === "function") {
                         }
                     }
                 };
+            
+            // if origID is nul or empty, we remove origID from Object.
+            if((typeof uiEvent.target.id) === undefined || uiEvent.target.id === "") {
+                delete uiEvent.target.origID;
+            }
 
             // if id is null or empty, what are we firing on? it can't be replayed anyway
             if ((typeof uiEvent.target.id) === undefined || uiEvent.target.id === "") {
@@ -13055,12 +13072,9 @@ DCX.addModule("universalLogger", function(context) {
 									if (Object.keys(mappingResult).length > 0) {
 										jMsg["mapping"] = mappingResult;
 									}
-                                    debugger
 									DCX.logCustomEvent("dataLayer", jMsg);
 									console.log("DATA LAYER - TOTAL KEYS: " + dlKeys + " / TOTAL SIZE: " + JSON.stringify(dlObj).length + " bytes");
 								}
-
-                                return Array.prototype.push.apply(this, arguments);
 							};
 						};
 						pushListener(dlTarget, function(dlTarget) {});
@@ -13099,7 +13113,7 @@ DCX.addModule("universalLogger", function(context) {
 //-----------------------------------------------------
 // DOM Mutation Observer for Dynamic DOM Updates v4.1.7
 //-----------------------------------------------------
- DCX.addModule("DOMObserver", function (context) {
+DCX.addModule("DOMObserver", function (context) {
 	"use strict";
 	
     var moduleConfig = DCX.getModuleConfig("DOMObserver"),
@@ -13117,129 +13131,205 @@ DCX.addModule("universalLogger", function(context) {
 			characterData: false,
 			characterDataOldValue: false
 		};
-		var eventCount = 0;
-		var observer = new MutationObserver(function(mutations) {
-			mutations.forEach(function(mutation) {
+		
+		//var eventCount = 0;
+		//console.log("Set event count "+ eventCount);
+        const DOMMutationObserver = function (target) {
+            const element = document.querySelector(target.selector);
+            if (element) {
+                let observer = new MutationObserver(function(mutations) {
+                    var eventCount = 0;
+                    mutations.forEach(function(mutation) {
+                        var takeSnapshot = "", target = undefined, customFunction = undefined;
+                        
+                        if (mutation.type === "attributes" || mutation.type === "childList") {
+                            mutation.addedNodes.forEach(function(node) {
+                                target = undefined;
+                                target = targets.find(function(t) {
+                                        if (t.selector.indexOf(mutation.target.className) > -1 && mutation.className != "") { return(t) }
+                                });
+                                if (!target) {
+                                    target = targets.find(function (t) { 
+                                        if (t.selector.indexOf(mutation.target.id) > -1 && mutation.target.id != "") { return(t) }
+                                    });
+                                }
+                                if (!target) {
+                                    target = targets.find(function (t) { 
+                                        if (t.selector.toLowerCase().indexOf(mutation.target.nodeName.toLowerCase()) > -1) { return(t) }
+                                    });
+                                }
+                                if (!target) {
+                                    target = targets.find(function (t) { 
+                                        if (t.selector.toLowerCase() === "body") { return(t) }
+                                    });
+                                }
+                                
+                                if (target && target.maxEvents > eventCount) {
+                                    if (typeof(node.id) === "string" && target && (target.added === 1 || target.added === 2)) {
+                                        if (node.id === target.childNode) {
+                                            takeSnapshot = target.eventName;
+                                        }
+                                    }
+                                    if (typeof(node.className) === "string" && target && takeSnapshot === "" && (target.added === 1 || target.added === 2)) {
+                                        if (node.className === target.childNode) {
+                                            takeSnapshot = target.eventName;
+                                        }
+                                    }
+                                    if (typeof(node.outerHTML) === "string" && target && takeSnapshot === "" && (target.added === 1 || target.added === 2)) {
+                                        if (node.outerHTML.indexOf(target.childNode) > -1) {
+                                            takeSnapshot = target.eventName;
+                                        }
+                                    }
+                                    if (typeof(node.nodeValue) === "string" && target &&  takeSnapshot === "" && (target.added === 1 || target.added === 2)) {
+                                        if (node.nodeValue.indexOf(target.childNode) > -1) {
+                                            takeSnapshot = target.eventName;
+                                        }
+                                    }
+                                }
+                            });
+                
+                            mutation.removedNodes.forEach(function(node) {
+                                target = undefined;
+                                console.log("mutationTarget" + mutation.target.className);
+                                target = targets.find(function(t) {
+                                        if (t.selector.indexOf(mutation.target.className) > -1 && mutation.className != "") { return(t) }
+                                });
+                                if (!target) {
+                                    target = targets.find(function (t) { 
+                                        if (t.selector.indexOf(mutation.target.id) > -1 && mutation.target.id != "") { return(t) }
+                                    });
+                                }
+                                if (!target) {
+                                    target = targets.find(function (t) { 
+                                        if (t.selector.toLowerCase().indexOf(mutation.target.nodeName.toLowerCase()) > -1) { return(t) }
+                                    });
+                                }
+                                if (!target) {
+                                    target = targets.find(function (t) { 
+                                        if (t.selector.toLowerCase() === "body") { return(t) }
+                                    });
+                                }
+                                
+                                if (target && target.maxEvents > eventCount) {
+                                    if (typeof(node.id) === "string" && target && (target.added === 0 || target.added === 2)) {
+                                        if (node.id === target.childNode) {
+                                            takeSnapshot = target.eventName;
+                                        }
+                                    }
+                                    if (typeof(node.className) === "string" && target && takeSnapshot === "" && (target.added === 0 || target.added === 2)) {
+                                        if (node.className === target.childNode) {
+                                            takeSnapshot = target.eventName;
+                                        }
+                                    }
+                                    if (typeof(node.outerHTML) === "string" && target && takeSnapshot === "" && (target.added === 0 || target.added === 2)) {
+                                        if (node.outerHTML.indexOf(target.childNode) > -1) {
+                                            takeSnapshot = target.eventName;
+                                        }
+                                    }
+                                    if (typeof(node.nodeValue) === "string" && target && takeSnapshot === "" && (target.added === 0 || target.added === 2)) {
+                                        if (node.nodeValue.indexOf(target.childNode) > -1) {
+                                            takeSnapshot = target.eventName;
+                                        }
+                                    }
+                                }
+                            });
+                
+                            console.log('takeSnapshot ====>',takeSnapshot);
+                            debugger
+                            if (typeof DCX !== "undefined" && takeSnapshot !== "") {
+                                if (typeof target.customFunction === "string") {
+                                    customFunction = utils.access(target.customFunction);
+                                } else {
+                                    customFunction = target.customFunction;
+                                }
+                                if (typeof customFunction === "function") { 
+                                    customFunction(); // Execute custom JavaScript function
+                                }
+                                debugger
+                                var evt = new CustomEvent(target.eventName); // DOM Oberver issue  (task no : 1970)
+                                document.dispatchEvent(evt); // Dispatch custom event - must be configured in Replay (and optionally DOM Capture)
+                                eventCount = eventCount + 1;
+                                console.log ("DCX: Mutation Logged " + target.eventName + " custom event");
+                            } else {
+                                console.log ("DCX: Mutation Ignored");
+                            }
+                            console.log("last mutation target " + mutation.target);
+                        }
+                    });
+                });
+                observer.observe(element, config);
+            }
+        }
 
-				var takeSnapshot = "", target = undefined, customFunction = undefined;
-				
-				if (mutation.type === "attributes" || mutation.type === "childList") {
-					mutation.addedNodes.forEach(function(node) {
-						target = undefined;
-						target = targets.find(function(t) {
-								if (t.selector.indexOf(mutation.target.className) > -1 && mutation.className != "") { return(t) }
-						});
-						if (!target) {
-							target = targets.find(function (t) { 
-								if (t.selector.indexOf(mutation.target.id) > -1 && mutation.target.id != "") { return(t) }
-							});
-						}
-						if (!target) {
-							target = targets.find(function (t) { 
-								if (t.selector.toLowerCase().indexOf(mutation.target.nodeName.toLowerCase()) > -1) { return(t) }
-							});
-						}
-						if (!target) {
-							target = targets.find(function (t) { 
-								if (t.selector.toLowerCase() === "body") { return(t) }
-							});
-						}
-						
-						if (target && target.maxEvents > eventCount) {
-							if (typeof(node.id) === "string" && target && (target.added === 1 || target.added === 2)) {
-								if (node.id === target.childNode) {
-									takeSnapshot = target.eventName;
-								}
-							}
-							if (typeof(node.className) === "string" && target && takeSnapshot === "" && (target.added === 1 || target.added === 2)) {
-								if (node.className === target.childNode) {
-									takeSnapshot = target.eventName;
-								}
-							}
-							if (typeof(node.outerHTML) === "string" && target && takeSnapshot === "" && (target.added === 1 || target.added === 2)) {
-								if (node.outerHTML.indexOf(target.childNode) > -1) {
-									takeSnapshot = target.eventName;
-								}
-							}
-							if (typeof(node.nodeValue) === "string" && target &&  takeSnapshot === "" && (target.added === 1 || target.added === 2)) {
-								if (node.nodeValue.indexOf(target.childNode) > -1) {
-									takeSnapshot = target.eventName;
-								}
-							}
-						}
-					});
+		
+        
 
-					mutation.removedNodes.forEach(function(node) {
-						target = undefined;
-						target = targets.find(function(t) {
-								if (t.selector.indexOf(mutation.target.className) > -1 && mutation.className != "") { return(t) }
-						});
-						if (!target) {
-							target = targets.find(function (t) { 
-								if (t.selector.indexOf(mutation.target.id) > -1 && mutation.target.id != "") { return(t) }
-							});
-						}
-						if (!target) {
-							target = targets.find(function (t) { 
-								if (t.selector.toLowerCase().indexOf(mutation.target.nodeName.toLowerCase()) > -1) { return(t) }
-							});
-						}
-						if (!target) {
-							target = targets.find(function (t) { 
-								if (t.selector.toLowerCase() === "body") { return(t) }
-							});
-						}
-						
-						if (target && target.maxEvents > eventCount) {
-							if (typeof(node.id) === "string" && target && (target.added === 0 || target.added === 2)) {
-								if (node.id === target.childNode) {
-									takeSnapshot = target.eventName;
-								}
-							}
-							if (typeof(node.className) === "string" && target && takeSnapshot === "" && (target.added === 0 || target.added === 2)) {
-								if (node.className === target.childNode) {
-									takeSnapshot = target.eventName;
-								}
-							}
-							if (typeof(node.outerHTML) === "string" && target && takeSnapshot === "" && (target.added === 0 || target.added === 2)) {
-								if (node.outerHTML.indexOf(target.childNode) > -1) {
-									takeSnapshot = target.eventName;
-								}
-							}
-							if (typeof(node.nodeValue) === "string" && target && takeSnapshot === "" && (target.added === 0 || target.added === 2)) {
-								if (node.nodeValue.indexOf(target.childNode) > -1) {
-									takeSnapshot = target.eventName;
-								}
-							}
-						}
-					});
+        const DOMIntersectionObserve = function (target) {
+            let intervalCnt = 0;
+            let observer;
+          
+            const checkForElement = function() {
+              const elements = document.querySelectorAll(target.selector);
+              if (elements.length > 0) {
+                //debugger
+                if (!observer) {
+                  let count = 0;
+                  const threshold = elements.length < 8 ? elements.length : 8;
+                  observer = new IntersectionObserver(function (entries, observer) {
+                    entries.forEach(function(entry) {
+                      if (entry.isIntersecting && count <= elements.length) {
+                        count++;
+                        if (count % threshold === 0) {
+                          if (window.DCX) {
+                            setTimeout(() => {
+                              const evt = new CustomEvent(target.eventName);
+                              document.dispatchEvent(evt);
+                              //observer.unobserve(entry.target);
+                              debugger
+                            }, 1000);
+                          }
+                        }
+                      }
+                    });
+                  });
+                }
+          
+                elements.forEach(function(element) {
+                  observer.observe(element);
+                });
+          
+                // If any lazy-loaded elements were loaded before the intersection observer was created,
+                // re-observe them to ensure they get tracked correctly
+                window.addEventListener('load', function () {
+                  elements.forEach(function(element) {
+                    if (observer && observer.root && observer.root.contains(element)) {
+                      observer.observe(element);
+                    }
+                  });
+                });
+          
+                clearInterval(interval);
+              } else if (intervalCnt >= 4) {
+                clearInterval(interval);
+              } else {
+                intervalCnt++;
+              }
+            };
+          
+            const interval = setInterval(checkForElement, target.interval);
+          };
+          
+          
 
-					if (typeof DCX !== "undefined" && takeSnapshot !== "") {
-						if (typeof target.customFunction === "string") {
-							customFunction = utils.access(target.customFunction);
-						} else {
-							customFunction = target.customFunction;
-						}
-						if (typeof customFunction === "function") {
-							customFunction(); // Execute custom JavaScript function
-						}
-						var evt = new CustomEvent(target.eventName);
-						document.dispatchEvent(evt); // Dispatch custom event - must be configured in Replay (and optionally DOM Capture)
-						eventCount = eventCount + 1;
-						console.log ("DCX: Mutation Logged " + target.eventName + " custom event");
-					} else {
-						//console.log ("DCX: Mutation Ignored");
-					}
-					//console.log(mutation.target);
-				}
-			});
-		});
 		
 		for (let i=0; i<targets.length; i++) {
 			try {
-				observer.observe(document.querySelector(targets[i].selector), config);
+                if(!targets[i].lazyLoad) {
+                    DOMMutationObserver(targets[i]);
+                } else {
+                    DOMIntersectionObserve(targets[i]);
+                }
 				moduleLoaded = true;
-				console.log("Observer set: " + targets[i].selector + ", " + (targets[i].childNode == "" ? "ANY" : targets[i].childNode) + ", " + targets[i].added + ", " + targets[i].eventName);
 			} catch (e) {
 				console.log("Observer NOT set: " + targets[i].selector + " not detected");
 			};
@@ -13254,10 +13344,11 @@ DCX.addModule("universalLogger", function(context) {
 			moduleLoaded = false;
 		},
 		onevent: function(webEvent) {
+			//console.log("Observer LOAD:PreSwitch");
 			switch (webEvent.type) {
 				case "load":
 					if (window.MutationObserver) {
-						setTimeout (function(){observeDOM();}, 300);
+						setTimeout (function(){observeDOM();}, 200);
 					}
 					break;					
 				case "screenview_load":
@@ -13269,7 +13360,7 @@ DCX.addModule("universalLogger", function(context) {
 					break;
 			}
 		},
-		version: "4.1.7"
+		version: "4.1.6"
 	};
  });
  
@@ -13544,7 +13635,7 @@ DCX.addModule("universalLogger", function(context) {
 						{
 							event: "load",
 							fullDOMCapture: true,
-							delay: 3000 // ms
+							delay: 300 // ms
 						},
 						{
 							event: "click",
