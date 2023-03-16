@@ -12831,7 +12831,7 @@ if (DCX && typeof DCX.addModule === "function") {
 		var config = {
 			attributes: true, 
 			attributesOldValue: true, 
-			attributeFilter: ["id", "class", "style"], 
+			attributeFilter: ["id", "class"], 
 			subtree: true, 
 			childList: true, 
 			characterData: false,
@@ -12976,13 +12976,25 @@ if (DCX && typeof DCX.addModule === "function") {
             let observer;
           
             const checkForElement = function() {
-              const elements = document.querySelectorAll(target.selector);
+              var elements = [];
+                elements = Array.from(document.querySelectorAll(target.selector));
               if (elements.length > 0) {
+                debugger
                 if (!observer) {
                   let loadedCount = 0;
                   const threshold = elements.length < 8 ? elements.length : 8;
                   observer = new IntersectionObserver(function (entries, observer) {
                     entries.forEach(function(entry) {
+                      var newElements =  Array.from(document.querySelectorAll(target.selector));
+                      if(elements.length !== newElements.length) {
+                            var tempItems = Array.prototype.slice.call(newElements);
+                            var newItems = tempItems.slice(elements.length)
+                            newItems.forEach(function(newItem) {
+                                observer.observe(newItem);
+                            });
+                            elements.push(...newItems);
+                      }
+
                       if (entry.isIntersecting && loadedCount <= elements.length && !entry.target.src.includes('svg')) {
                         loadedCount++;
                         if(entry.target.hasAttribute("srcset")) {
@@ -13631,38 +13643,62 @@ DCX.addModule("digitalData", function (context) {
 			DOMObserver: {
 				targets: [
                     {
-						selector: "img[data-testid='lazy-image']", // Parent selector
-                        childNode: "",
-						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-						added: 0, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
-						maxEvents: 1, // After triggering X number of times, stop monitoring this event (0=Unlimited)
-						customFunction: false, // Optional JavaScript function to be executed when event is triggered
-                        lazyLoad: true,
-                        interval: 2000,
-					},
-                    {
-						selector: "img.product_img", // Parent selector
-                        childNode: "",
-						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-						added: 0, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
-						maxEvents: 1, // After triggering X number of times, stop monitoring this event (0=Unlimited)
-						customFunction: false, // Optional JavaScript function to be executed when event is triggered
-                        lazyLoad: true,
-                        interval: 2000,
-					},
-                    {
-						selector: "#sceneSevenImageBlock canvas", // Parent selector
+						selector: "img.image-product-item", // Parent selector
 						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
                         lazyLoad: true,
                         interval: 2000,
 					},
                     {
-						selector: ".rrItemContainer a>img", // Parent selector
+						selector: ".wrapFrameContent img.espacio-mobile", // Parent selector
 						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
                         lazyLoad: true,
                         interval: 2000,
-					}
-                    
+					},
+                    {
+						selector: ".container-gallery img", // Parent selector
+						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                        lazyLoad: true,
+                        interval: 2000,
+					},
+                    {
+						selector: ".container-fluid:not(.d-sm-none) img", // Parent selector
+						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                        lazyLoad: true,
+                        interval: 2000,
+					},
+                    {
+						selector: ".container-fluid:not(.d-sm-none) video", // Parent selector
+						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                        lazyLoad: true,
+                        interval: 2000,
+					},
+                    {
+						selector: "img.imgDesktop ", // Parent selector
+						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                        lazyLoad: true,
+                        interval: 2000,
+					},
+                    // work for galax.
+                    // {
+					// 	selector: ".container-fluid a img.imgDesktop", // Parent selector
+                    //     childNode: "",
+					// 	eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+					// 	added: 2 , // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
+					// 	maxEvents: 1, // After triggering X number of times, stop monitoring this event (0=Unlimited)
+					// 	customFunction: false, // Optional JavaScript function to be executed when event is triggered
+                    //     lazyLoad: true,
+                    //     interval: 2000,
+					// },
+                    // {
+					// 	selector: ".lazyload-wrapper img", // Parent selector
+                    //     childNode: "",
+					// 	eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+					// 	added: 2 , // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
+					// 	maxEvents: 1, // After triggering X number of times, stop monitoring this event (0=Unlimited)
+					// 	customFunction: false, // Optional JavaScript function to be executed when event is triggered
+                    //     lazyLoad: true,
+                    //     interval: 2000,
+					// },
 				]
 			},			
             performance: {
