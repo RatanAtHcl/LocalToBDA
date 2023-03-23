@@ -12972,12 +12972,6 @@ if (DCX && typeof DCX.addModule === "function") {
         const DOMIntersectionObserve = function (target) {
             let intervalCnt = 0;
             let observer;
-            const options = {
-                root: null, // set document viewport as root
-                rootMargin: '0px', // margin around root
-                threshold: 1.0 // 1.0 means that when 100% of the target is visible 
-                //inside the root, then observer callback is invoked.
-              };
           
             const checkForElement = function() {
               var elements = [];
@@ -13020,7 +13014,7 @@ if (DCX && typeof DCX.addModule === "function") {
                             }
                         }
                     });
-                  }, options);
+                  });
                 }
           
                 elements.forEach(function(element) {
