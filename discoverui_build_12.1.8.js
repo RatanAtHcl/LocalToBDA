@@ -4825,15 +4825,19 @@ DCX.addService("queue", function (core) {
      * @private
      * @name queueServive-flushAll
      */
-    function flushAll(sync) {
+     function flushAll(sync) {
         var conf = null,
             queues = CONFIG.queues,
             i = 0;
-        for (i = 0; i < queues.length; i += 1) {
-            conf = queues[i];
-            flushQueue(conf.qid, sync);
+        if(queues.length > 0) {
+            for (i = 0; i < queues.length; i += 1) {
+                conf = queues[i];
+                flushQueue(conf.qid, sync);
+            };
+            return true
         }
-        return true;
+        
+        return false;
     }
 
 
@@ -8581,7 +8585,6 @@ DCX.addService("domCapture", function (core) {
 
             // Add computed browser styles // Core Mod for JSS
             if (typeof rootCopy === 'object' && (typeof rootCopy.createElement === 'function') && options.captureJSS) {
-                //if (typeof rootCopy === 'object' && options.captureJSS) {
                     let length = document.styleSheets.length;
                     var CSS="";
                     for (let i = 0; i < length; i++) {
@@ -8592,13 +8595,15 @@ DCX.addService("domCapture", function (core) {
                             }
                         } catch (error) {}
                     }
+
+                    if(options.customStyle) {
+                        CSS = CSS + options.customStyle;
+                    }
+
                     var style = rootCopy.createElement("style");
                     style.innerHTML="/* Added by Discover */"+ CSS;
-                    //style.innerHTML="<style>" + CSS + "/* Added by Discover */</style>";
                     rootCopy.getElementsByTagName('body')[0].appendChild(style);
-                    //rootCopy.getElementsByTagName('head')[0].appendChild(style);
-                    
-                    // Capture original CSS size using  length prop in origCSSsize
+
                     if (typeof DCX !== "undefined" && length) {
                         captureObj["origCSSsize"] = CSS.length;
                     }
@@ -13536,7 +13541,8 @@ DCX.addModule("universalLogger", function(context) {
                     removeComments: true, // Should comments be removed from the captured snapshot
                     removeScripts: false,      // Should script tags be removed from the captured snapshot
                     removeBase64: 50000, // Remove embeded base64 images > size in bytes (0 = remove all base64 images)
-                    captureJSS: true        // Capture CSS Styles for React/JSS sites
+                    captureJSS: true,        // Capture CSS Styles for React/JSS sites
+                    //customStyle: ".anyCustomClass{ }" // user can pass custom style or can modify existing style on page.
                 }
             },
             browser: {

@@ -13630,7 +13630,6 @@ DCX.addModule("digitalData", function (context) {
                     removeScripts: false,      // Should script tags be removed from the captured snapshot
                     removeBase64: 50000,    // Remove embeded base64 images > size in bytes (0 = remove all base64 images)
                     captureJSS: true,        // Capture CSS Styles for React/JSS sites
-                    customStyle: "#main .oct-teaser-wrapper-link:empty{display: none !important;}" //user can pass custom style on page.
                 }
             },
             browser: {
