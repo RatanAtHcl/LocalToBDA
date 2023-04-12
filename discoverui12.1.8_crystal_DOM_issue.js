@@ -1031,7 +1031,7 @@ window.DCX = (function () {
              * @returns {void}
              */
             logExceptionEvent: function (msg, url, line) {
-
+                debugger
                 if (!core.isInitialized()) {
                     return;
                 }
@@ -10787,7 +10787,7 @@ DCX.addModule("replay", function (context) {
         firstDOMCaptureEventFlag = true,
         curClientState = null,
         pastClientState = null,
-        onerrorHandled = false,
+        onerrorHandled = true,
         errorCount = 0,
         visitOrder = "",
         lastVisit = "",
@@ -10808,6 +10808,7 @@ DCX.addModule("replay", function (context) {
         deviceScale = 1,
         previousDeviceScale = 1,
         extendGetItem,
+        loggedExceptions = {},
         gridValues = {
             cellMaxX : 10,
             cellMaxY : 10,
@@ -10959,7 +10960,6 @@ DCX.addModule("replay", function (context) {
             window.setTimeout(function () {
                 config.dcid = dcid;
                 context.performDOMCapture(root, config);
-                debugger
             }, delay);
         } else {
             delete config.dcid;
@@ -11241,15 +11241,34 @@ DCX.addModule("replay", function (context) {
         queue.splice(0, queue.length);
     }
 
+    function handleError(webEvent) {
+        //debugger
+        var errorMessage = null,
+            i,
+            msg = utils.getValue(webEvent, "nativeEvent.message"),
+            url = utils.getValue(webEvent, "nativeEvent.filename", ""),
+            line = utils.getValue(webEvent, "nativeEvent.lineno", -1),
+            errorObject = utils.getValue(webEvent, "nativeEvent.error");
 
-    if (typeof window.onerror !== "function") {
-        window.onerror = function (msg, url, line) {
-            var errorMessage = null;
+        if (typeof msg !== "string") {
+            return;
+        }
 
-            if (typeof msg !== "string") {
-                return;
-            }
-            line = line || -1;
+        // Normalize the URL
+        if (url) {
+            url = context.normalizeUrl(url, 6);
+        }
+
+        if (errorObject && errorObject.stack) {
+            i = errorObject.stack.toString();
+        } else {
+            i = (msg + " " + url + " " + line).toString();
+        }
+
+        if (loggedExceptions[i]) {
+            loggedExceptions[i].exception.repeats = loggedExceptions[i].exception.repeats + 1;
+        } else {
+            debugger
             errorMessage = {
                 type: 6,
                 exception: {
@@ -11258,11 +11277,19 @@ DCX.addModule("replay", function (context) {
                     line: line
                 }
             };
-
-            errorCount += 1;
             context.post(errorMessage);
-        };
-        onerrorHandled = true;
+
+            loggedExceptions[i] = {
+                exception: {
+                    description: msg,
+                    url: url,
+                    line: line,
+                    repeats: 1
+                }
+            };
+        }
+        
+        errorCount += 1;
     }
 
     /**
@@ -11715,6 +11742,7 @@ DCX.addModule("replay", function (context) {
             if (cs.viewPortHeight > 0 && cs.viewPortHeight < viewPortWidthHeightLimit &&
                     cs.viewPortWidth > 0 && cs.viewPortWidth < viewPortWidthHeightLimit) {
                 postUIEvent(curClientState);
+
             }
             pastClientState = curClientState;
             curClientState = null;
@@ -11777,7 +11805,7 @@ DCX.addModule("replay", function (context) {
             if (attentionMsg) {
                 // send the attentionMsg
                 curClientState = attentionMsg;
-                //sendClientState();
+                sendClientState();
             }
         }
 
@@ -11977,17 +12005,14 @@ DCX.addModule("replay", function (context) {
                 window.clearTimeout(sendClientState.timeoutId);
                 sendClientState.timeoutId = 0;
             }
-
-            if (onerrorHandled) {
-                // Detach the onerror handler
-                window.onerror = null;
-                onerrorHandled = false;
-            }
         },
         onevent: function (webEvent) {
             var id = null,
                 returnObj = null,
                 orientation,
+                loggedException,
+                exception,
+                errorMessage = null,
                 screenOrientation;
 
             // Sanity checks
@@ -12107,6 +12132,21 @@ DCX.addModule("replay", function (context) {
 
                 break;
             case "unload":
+                debugger
+                // check the logged Exception and attech them to cuttent context
+                for (loggedException in loggedExceptions) {
+                    if (loggedExceptions.hasOwnProperty(loggedException)) {
+                        exception = loggedExceptions[loggedException].exception;
+                        if (exception.repeats > 1) {
+                            errorMessage = {
+                                type: 6,
+                                exception: exception
+                            };
+                            context.post(errorMessage);
+                        }
+                    }
+                }
+
                 // Flush any saved control - added check for empty
                 if (tmpQueue != null) {
                     postEventQueue(tmpQueue);
@@ -12121,6 +12161,10 @@ DCX.addModule("replay", function (context) {
                 // XXX - Use the context instead?
                 DCX.logScreenviewUnload("root");
 
+                break;
+            case "error":
+                debugger
+                handleError(webEvent);
                 break;
             default:
                 // Call the default handler for all other DOM events
@@ -12849,7 +12893,6 @@ if (DCX && typeof DCX.addModule === "function") {
                         var takeSnapshot = "", target = undefined, customFunction = undefined;
                         
                         if (mutation.type === "attributes" || mutation.type === "childList") {
-                            debugger
                             mutation.addedNodes.forEach(function(node) {
                                 target = undefined;
                                 target = targets.find(function(t) {
@@ -12940,9 +12983,7 @@ if (DCX && typeof DCX.addModule === "function") {
                                     }
                                 }
                             });
-                
-                            console.log('takeSnapshot ====>',takeSnapshot);
-                            debugger
+
                             if (typeof DCX !== "undefined" && takeSnapshot !== "") {
                                 if (typeof target.customFunction === "string") {
                                     customFunction = utils.access(target.customFunction);
@@ -12952,7 +12993,6 @@ if (DCX && typeof DCX.addModule === "function") {
                                 if (typeof customFunction === "function") { 
                                     customFunction(); // Execute custom JavaScript function
                                 }
-                                debugger
                                 var evt = new CustomEvent(target.eventName); // DOM Oberver issue  (task no : 1970)
                                 document.dispatchEvent(evt); // Dispatch custom event - must be configured in Replay (and optionally DOM Capture)
                                 eventCount = eventCount + 1;
@@ -13008,7 +13048,6 @@ if (DCX && typeof DCX.addModule === "function") {
                                     setTimeout(() => {
                                         const evt = new CustomEvent(target.eventName);
                                         document.dispatchEvent(evt);
-                                        debugger
                                     }, 1000);
                                 }
                             }
@@ -13476,7 +13515,8 @@ DCX.addModule("digitalData", function (context) {
                         { name: "orientationchange", target: window},
                         { name: "touchend" },
 						{ name: "DCXLazyLoad" },
-                        { name: "touchstart" }
+                        { name: "touchstart" },
+                        { name: "error", target: window},
                     ]
                 },
 				slowResource: {

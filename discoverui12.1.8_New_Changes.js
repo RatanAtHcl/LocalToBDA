@@ -1031,7 +1031,7 @@ window.DCX = (function () {
              * @returns {void}
              */
             logExceptionEvent: function (msg, url, line) {
-
+                debugger
                 if (!core.isInitialized()) {
                     return;
                 }
@@ -5884,7 +5884,10 @@ DCX.addService("browserBase", function (core) {
         this.type = elementType.type;
         this.subType = elementType.subType;
         this.state = this.examineState(target);
+        // this.position = new Point(pos.x, pos.y);
         this.position = new Point(pos.x, pos.y);
+        this.position.relXY = pos.relXY;
+
         this.size = new Size(pos.width, pos.height);
         this.xPath = id.xPath;
         this.name = id.name;
@@ -6067,6 +6070,8 @@ DCX.addService("browserBase", function (core) {
 
         elPos.x = (posOnDoc.x || posOnDoc.y) ? Math.round(Math.abs(posOnDoc.x - elPos.x)) : elPos.width / 2;
         elPos.y = (posOnDoc.x || posOnDoc.y) ? Math.round(Math.abs(posOnDoc.y - elPos.y)) : elPos.height / 2;
+
+        elPos.relXY = utils.calculateRelativeXY(elPos);
 
         return elPos;
     };
@@ -10787,7 +10792,6 @@ DCX.addModule("replay", function (context) {
         firstDOMCaptureEventFlag = true,
         curClientState = null,
         pastClientState = null,
-        onerrorHandled = false,
         errorCount = 0,
         visitOrder = "",
         lastVisit = "",
@@ -10808,6 +10812,7 @@ DCX.addModule("replay", function (context) {
         deviceScale = 1,
         previousDeviceScale = 1,
         extendGetItem,
+        loggedExceptions = {},
         gridValues = {
             cellMaxX : 10,
             cellMaxY : 10,
@@ -10959,7 +10964,6 @@ DCX.addModule("replay", function (context) {
             window.setTimeout(function () {
                 config.dcid = dcid;
                 context.performDOMCapture(root, config);
-                debugger
             }, delay);
         } else {
             delete config.dcid;
@@ -11241,15 +11245,34 @@ DCX.addModule("replay", function (context) {
         queue.splice(0, queue.length);
     }
 
+    function handleError(webEvent) {
+        //debugger
+        var errorMessage = null,
+            i,
+            msg = utils.getValue(webEvent, "nativeEvent.message"),
+            url = utils.getValue(webEvent, "nativeEvent.filename", ""),
+            line = utils.getValue(webEvent, "nativeEvent.lineno", -1),
+            errorObject = utils.getValue(webEvent, "nativeEvent.error");
 
-    if (typeof window.onerror !== "function") {
-        window.onerror = function (msg, url, line) {
-            var errorMessage = null;
+        if (typeof msg !== "string") {
+            return;
+        }
 
-            if (typeof msg !== "string") {
-                return;
-            }
-            line = line || -1;
+        // Normalize the URL
+        if (url) {
+            url = context.normalizeUrl(url, 6);
+        }
+
+        if (errorObject && errorObject.stack) {
+            i = errorObject.stack.toString();
+        } else {
+            i = (msg + " " + url + " " + line).toString();
+        }
+
+        if (loggedExceptions[i]) {
+            loggedExceptions[i].exception.repeats = loggedExceptions[i].exception.repeats + 1;
+        } else {
+            // debugger
             errorMessage = {
                 type: 6,
                 exception: {
@@ -11258,11 +11281,18 @@ DCX.addModule("replay", function (context) {
                     line: line
                 }
             };
-
-            errorCount += 1;
             context.post(errorMessage);
-        };
-        onerrorHandled = true;
+
+            loggedExceptions[i] = {
+                exception: {
+                    description: msg,
+                    url: url,
+                    line: line,
+                    repeats: 1
+                }
+            };
+        }
+        errorCount += 1;
     }
 
     /**
@@ -11511,6 +11541,7 @@ DCX.addModule("replay", function (context) {
      */
     function handleClick(id, webEvent) {
         var relXY,
+             nativeEvent
             tmpQueueEvent;
 
         if (webEvent.target.type === "select" && lastClickEvent && lastClickEvent.target.id === id) {
@@ -11529,7 +11560,15 @@ DCX.addModule("replay", function (context) {
         tmpQueueEvent = tmpQueue[tmpQueue.length - 1];
         tmpQueueEvent.event.type = "click";
         tmpQueueEvent.event.dcEvent = getDCEvent(webEvent);
-        tmpQueueEvent.target.position.relXY = relXY;
+        //tmpQueueEvent.target.position.relXY = relXY;
+
+        nativeEvent = webEvent.nativeEvent;
+        // relXY shouldn't be contained when there is no mouse click.
+        if (nativeEvent && (!window.MouseEvent || !(nativeEvent instanceof MouseEvent && nativeEvent.detail === 0) ||
+            (window.PointerEvent && nativeEvent instanceof PointerEvent && nativeEvent.pointerType !== ""))) {
+                debugger
+            tmpQueueEvent.target.position.relXY = utils.getValue(webEvent, "target.position.relXY");
+        }
 
         pastEvents[id].webEvent = webEvent;
         pastEvents[id].processedClick = true;
@@ -11715,6 +11754,7 @@ DCX.addModule("replay", function (context) {
             if (cs.viewPortHeight > 0 && cs.viewPortHeight < viewPortWidthHeightLimit &&
                     cs.viewPortWidth > 0 && cs.viewPortWidth < viewPortWidthHeightLimit) {
                 postUIEvent(curClientState);
+
             }
             pastClientState = curClientState;
             curClientState = null;
@@ -11977,17 +12017,14 @@ DCX.addModule("replay", function (context) {
                 window.clearTimeout(sendClientState.timeoutId);
                 sendClientState.timeoutId = 0;
             }
-
-            if (onerrorHandled) {
-                // Detach the onerror handler
-                window.onerror = null;
-                onerrorHandled = false;
-            }
         },
         onevent: function (webEvent) {
             var id = null,
                 returnObj = null,
                 orientation,
+                loggedException,
+                exception,
+                errorMessage = null,
                 screenOrientation;
 
             // Sanity checks
@@ -12107,6 +12144,21 @@ DCX.addModule("replay", function (context) {
 
                 break;
             case "unload":
+                debugger
+                // check the logged Exception and attech them to cuttent context
+                for (loggedException in loggedExceptions) {
+                    if (loggedExceptions.hasOwnProperty(loggedException)) {
+                        exception = loggedExceptions[loggedException].exception;
+                        if (exception.repeats > 1) {
+                            errorMessage = {
+                                type: 6,
+                                exception: exception
+                            };
+                            context.post(errorMessage);
+                        }
+                    }
+                }
+
                 // Flush any saved control - added check for empty
                 if (tmpQueue != null) {
                     postEventQueue(tmpQueue);
@@ -12121,6 +12173,9 @@ DCX.addModule("replay", function (context) {
                 // XXX - Use the context instead?
                 DCX.logScreenviewUnload("root");
 
+                break;
+            case "error":
+                handleError(webEvent);
                 break;
             default:
                 // Call the default handler for all other DOM events
@@ -12518,8 +12573,10 @@ if (DCX && typeof DCX.addModule === "function") {
          * @return {object} Formats the x and y location
          */
         function formatRelXY(x, y) {
-            x = Math.floor(Math.min(Math.max(x, 0), 1) * 100) / 100;
-            y = Math.floor(Math.min(Math.max(y, 0), 1) * 100) / 100;
+            // x = Math.floor(Math.min(Math.max(x, 0), 1) * 100) / 100;
+            // y = Math.floor(Math.min(Math.max(y, 0), 1) * 100) / 100;
+            x = Math.floor(Math.min(Math.max(x, 0), 1) * 10000) / 10000;
+            y = Math.floor(Math.min(Math.max(y, 0), 1) * 10000) / 10000;
 
             return x +  "," + y;
         }
@@ -12538,9 +12595,11 @@ if (DCX && typeof DCX.addModule === "function") {
                 oHeight = boundingRect ? boundingRect.height : node.offsetHeight,
                 cellWidth = oWidth && oWidth > 0 ? Math.max(oWidth / getConfigValue("gridCellMaxX"), getConfigValue("gridCellMinWidth")) : getConfigValue("gridCellMinWidth"),
                 cellHeight = oHeight && oHeight > 0 ? Math.max(oHeight / getConfigValue("gridCellMaxY"), getConfigValue("gridCellMinHeight")) : getConfigValue("gridCellMinHeight"),
-
-                cellX = Math.floor(offsetX / cellWidth),
-                cellY = Math.floor(offsetY / cellHeight),
+                
+                // cellX = Math.floor(offsetX / cellWidth),
+                // cellY = Math.floor(offsetY / cellHeight),
+                cellX = Math.min(Math.floor(offsetX / cellWidth), getConfigValue("gridCellMaxX")),
+                cellY = Math.min(Math.floor(offsetY / cellHeight), getConfigValue("gridCellMaxY")),
                 xVal = oWidth > 0 ? offsetX / oWidth : 0,
                 yVal = oHeight > 0 ? offsetY / oHeight : 0,
                 relXYVal = "";
@@ -12849,7 +12908,6 @@ if (DCX && typeof DCX.addModule === "function") {
                         var takeSnapshot = "", target = undefined, customFunction = undefined;
                         
                         if (mutation.type === "attributes" || mutation.type === "childList") {
-                            debugger
                             mutation.addedNodes.forEach(function(node) {
                                 target = undefined;
                                 target = targets.find(function(t) {
@@ -12940,9 +12998,7 @@ if (DCX && typeof DCX.addModule === "function") {
                                     }
                                 }
                             });
-                
-                            console.log('takeSnapshot ====>',takeSnapshot);
-                            debugger
+
                             if (typeof DCX !== "undefined" && takeSnapshot !== "") {
                                 if (typeof target.customFunction === "string") {
                                     customFunction = utils.access(target.customFunction);
@@ -12952,7 +13008,6 @@ if (DCX && typeof DCX.addModule === "function") {
                                 if (typeof customFunction === "function") { 
                                     customFunction(); // Execute custom JavaScript function
                                 }
-                                debugger
                                 var evt = new CustomEvent(target.eventName); // DOM Oberver issue  (task no : 1970)
                                 document.dispatchEvent(evt); // Dispatch custom event - must be configured in Replay (and optionally DOM Capture)
                                 eventCount = eventCount + 1;
@@ -12968,8 +13023,6 @@ if (DCX && typeof DCX.addModule === "function") {
             }
         }
 
-		
-        
 
         const DOMIntersectionObserve = function (target) {
             let intervalCnt = 0;
@@ -12979,7 +13032,6 @@ if (DCX && typeof DCX.addModule === "function") {
               var elements = [];
                 elements = Array.from(document.querySelectorAll(target.selector));
               if (elements.length > 0) {
-                debugger
                 if (!observer) {
                   let loadedCount = 0;
                   let threshold = elements.length < 8 ? elements.length : 8;
@@ -13011,7 +13063,6 @@ if (DCX && typeof DCX.addModule === "function") {
                                     setTimeout(() => {
                                         const evt = new CustomEvent(target.eventName);
                                         document.dispatchEvent(evt);
-                                        debugger
                                     }, 1000);
                                 }
                             }
@@ -13479,7 +13530,8 @@ DCX.addModule("digitalData", function (context) {
                         { name: "orientationchange", target: window},
                         { name: "touchend" },
 						{ name: "DCXLazyLoad" },
-                        { name: "touchstart" }
+                        { name: "touchstart" },
+                        { name: "error", target: window},
                     ]
                 },
 				slowResource: {
@@ -13552,11 +13604,13 @@ DCX.addModule("digitalData", function (context) {
 					{
                         qid: "DEFAULT",
                         //endpoint: "https://unidiscover-packet-fwdr.sbx0201.play.hclsofy.com/DiscoverUIPost.php",
-						endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php",
+                        endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php",
+                        //endpoint: "https://10.115.147.14:8050/DiscoverUIPost.php",
 						//endpoint: "https://discover.claro.com.ar/DiscoverUIPost.php",
                         maxEvents: 20,
                         timerInterval: 30000,
-                        maxSize: 200000,
+                        maxSize: 2000, // lower number is fix
+
 						checkEndpoint: false,
                         endpointCheckTimeout: 3000,						
                         encoder: "gzip"
@@ -13615,7 +13669,7 @@ DCX.addModule("digitalData", function (context) {
                 }
             },
             domCapture: {
-                diffEnabled: true,
+                diffEnabled: true, // make it false to test maxSize issue.
                 // DOM Capture options
                 options: {
                     maxMutations: 300,       // If this threshold is met or exceeded, a full DOM is captured instead of a diff.
@@ -13627,7 +13681,6 @@ DCX.addModule("digitalData", function (context) {
                     removeScripts: false,      // Should script tags be removed from the captured snapshot
                     removeBase64: 50000,    // Remove embeded base64 images > size in bytes (0 = remove all base64 images)
                     captureJSS: true,        // Capture CSS Styles for React/JSS sites
-                    customStyle: "#main .oct-teaser-wrapper-link:empty{display: none !important;}" //user can pass custom style on page.
                 }
             },
             browser: {
@@ -13854,6 +13907,36 @@ DCX.addModule("digitalData", function (context) {
         config.services.message.privacyPatterns = [];
     }
 
+    (function () {
+        let oldURL = window.location.href;
+        var URLChange = function () {
+            const newURL = window.location.href;
+            if (oldURL === newURL) {
+                return false;
+            } else {
+                oldURL = newURL;
+                return true;
+            } 
+        };
+
+        window.addEventListener("click", function () {
+            setTimeout(() => {
+                if (URLChange()) {
+                    if(DCX) {
+                        var DOMObserverModule = DCX.getModule('DOMObserver');
+                        if(DOMObserverModule) {
+                            var webEvent = {
+                                type: "load",
+                                name: oldURL,
+                            };
+                            DOMObserverModule.onevent(webEvent)
+                        }
+                    }
+                }
+            });
+        }, { capture: false });
+    }())
+    
     DCX.init(config);
 
 }());
