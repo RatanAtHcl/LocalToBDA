@@ -3027,6 +3027,27 @@ window.DCX = (function () {
             },
 
             /**
+             * Calculates and returns the normalized (X, Y) values of the mouse/touch position relative to the
+             * target elements (top, left) position.
+             * @function
+             * @param {Object} info object {x: val, y: val, width: val, height: val}
+             * containing event x, y relative to element topLeft, width and height of element
+             * @return String value of relative X & Y. Default in case of error or negative values is "0.5,0.5"
+             */
+            calculateRelativeXY: function (info) {
+                if (utils.isUndefOrNull(info) || utils.isUndefOrNull(info.x) || utils.isUndefOrNull(info.y) || utils.isUndefOrNull(info.width) || utils.isUndefOrNull(info.height)) {
+                    return "0.5,0.5";
+                }
+                var relX = Math.abs(info.x / info.width).toFixed(4),
+                    relY = Math.abs(info.y / info.height).toFixed(4);
+
+                relX = relX > 1 || relX < 0 ? 0.5 : relX;
+                relY = relY > 1 || relY < 0 ? 0.5 : relY;
+
+                return relX + "," + relY;
+            },
+
+            /**
              *
              */
             createObject: (function () {
@@ -4832,7 +4853,7 @@ DCX.addService("queue", function (core) {
         var conf = null,
             queues = CONFIG.queues,
             i = 0;
-        if(queues.length > 0) {
+        if(queues && queues.length > 0) {
             for (i = 0; i < queues.length; i += 1) {
                 conf = queues[i];
                 flushQueue(conf.qid, sync);
@@ -6071,7 +6092,7 @@ DCX.addService("browserBase", function (core) {
         elPos.x = (posOnDoc.x || posOnDoc.y) ? Math.round(Math.abs(posOnDoc.x - elPos.x)) : elPos.width / 2;
         elPos.y = (posOnDoc.x || posOnDoc.y) ? Math.round(Math.abs(posOnDoc.y - elPos.y)) : elPos.height / 2;
 
-        elPos.relXY = utils.calculateRelativeXY(elPos);
+        if (utils.calculateRelativeXY)  elPos.relXY = utils.calculateRelativeXY(elPos);
 
         return elPos;
     };
@@ -11541,7 +11562,7 @@ DCX.addModule("replay", function (context) {
      */
     function handleClick(id, webEvent) {
         var relXY,
-             nativeEvent
+            nativeEvent,
             tmpQueueEvent;
 
         if (webEvent.target.type === "select" && lastClickEvent && lastClickEvent.target.id === id) {
@@ -11566,7 +11587,6 @@ DCX.addModule("replay", function (context) {
         // relXY shouldn't be contained when there is no mouse click.
         if (nativeEvent && (!window.MouseEvent || !(nativeEvent instanceof MouseEvent && nativeEvent.detail === 0) ||
             (window.PointerEvent && nativeEvent instanceof PointerEvent && nativeEvent.pointerType !== ""))) {
-                debugger
             tmpQueueEvent.target.position.relXY = utils.getValue(webEvent, "target.position.relXY");
         }
 
@@ -13604,7 +13624,8 @@ DCX.addModule("digitalData", function (context) {
 					{
                         qid: "DEFAULT",
                         //endpoint: "https://unidiscover-packet-fwdr.sbx0201.play.hclsofy.com/DiscoverUIPost.php",
-                        endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php",
+                        //endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php",
+                        endpoint: "https://unidiscover-packet-fwdr.sbx0033.play.products.pnpsofy.com/DiscoverUIPost.php",
                         //endpoint: "https://10.115.147.14:8050/DiscoverUIPost.php",
 						//endpoint: "https://discover.claro.com.ar/DiscoverUIPost.php",
                         maxEvents: 20,

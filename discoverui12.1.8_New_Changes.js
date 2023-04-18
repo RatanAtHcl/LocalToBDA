@@ -3026,6 +3026,27 @@ window.DCX = (function () {
                 return false;
             },
 
+             /**
+             * Calculates and returns the normalized (X, Y) values of the mouse/touch position relative to the
+             * target elements (top, left) position.
+             * @function
+             * @param {Object} info object {x: val, y: val, width: val, height: val}
+             * containing event x, y relative to element topLeft, width and height of element
+             * @return String value of relative X & Y. Default in case of error or negative values is "0.5,0.5"
+             */
+             calculateRelativeXY: function (info) {
+                if (utils.isUndefOrNull(info) || utils.isUndefOrNull(info.x) || utils.isUndefOrNull(info.y) || utils.isUndefOrNull(info.width) || utils.isUndefOrNull(info.height)) {
+                    return "0.5,0.5";
+                }
+                var relX = Math.abs(info.x / info.width).toFixed(4),
+                    relY = Math.abs(info.y / info.height).toFixed(4);
+
+                relX = relX > 1 || relX < 0 ? 0.5 : relX;
+                relY = relY > 1 || relY < 0 ? 0.5 : relY;
+
+                return relX + "," + relY;
+            },
+
             /**
              *
              */
@@ -6071,8 +6092,8 @@ DCX.addService("browserBase", function (core) {
         elPos.x = (posOnDoc.x || posOnDoc.y) ? Math.round(Math.abs(posOnDoc.x - elPos.x)) : elPos.width / 2;
         elPos.y = (posOnDoc.x || posOnDoc.y) ? Math.round(Math.abs(posOnDoc.y - elPos.y)) : elPos.height / 2;
 
-        elPos.relXY = utils.calculateRelativeXY(elPos);
-
+        if (utils.calculateRelativeXY)  elPos.relXY = utils.calculateRelativeXY(elPos);
+       
         return elPos;
     };
 
