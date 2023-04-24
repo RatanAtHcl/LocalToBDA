@@ -13623,15 +13623,15 @@ DCX.addModule("digitalData", function (context) {
                 queues: [
 					{
                         qid: "DEFAULT",
-                        //endpoint: "https://unidiscover-packet-fwdr.sbx0201.play.hclsofy.com/DiscoverUIPost.php",
-                        //endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php",
-                        endpoint: "https://unidiscover-packet-fwdr.sbx0033.play.products.pnpsofy.com/DiscoverUIPost.php",
-                        //endpoint: "https://10.115.147.14:8050/DiscoverUIPost.php",
-						//endpoint: "https://discover.claro.com.ar/DiscoverUIPost.php",
+                       //endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php", // local Env
+                        //endpoint: "http://206.198.145.110:8001/DiscoverUIPost2.php", // loryn env with port num
+                       //endpoint: "https://sky.discoverstore.hclcx.com/DiscoverUIPost.php", // loryn env
+                        //endpoint: "https://unidiscover-packet-fwdr.sbx0033.play.products.pnpsofy.com/DiscoverUIPost.php", // saurab env
+                        //endpoint: "https://10.115.147.14:8050/DiscoverUIPost.php", // ajay env
+                        endpoint: "https://sky.discoverstore.hclcx.com/DiscoverUIPost.php", // Gary env
                         maxEvents: 20,
                         timerInterval: 30000,
                         maxSize: 2000, // lower number is fix
-
 						checkEndpoint: false,
                         endpointCheckTimeout: 3000,						
                         encoder: "gzip"
@@ -13726,7 +13726,15 @@ DCX.addModule("digitalData", function (context) {
 						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
                         lazyLoad: true,
                         interval: 2000,
-					}
+					},
+                    {
+                        selector: ".MuiGrid-root", // Parent selector
+						childNode: "MuiCircularProgress-circle", // Look for child node to trigger snapshot (blank for ANY)
+						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+						added: 2, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
+						maxEvents: 1, // After triggering X number of times, stop monitoring this event (0=Unlimited)
+						customFunction: false // Optional JavaScript function to be executed when event is triggered
+                    }
 				]
 			},			
             performance: {
