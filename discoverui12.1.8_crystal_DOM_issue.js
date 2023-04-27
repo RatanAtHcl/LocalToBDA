@@ -1031,7 +1031,6 @@ window.DCX = (function () {
              * @returns {void}
              */
             logExceptionEvent: function (msg, url, line) {
-                debugger
                 if (!core.isInitialized()) {
                     return;
                 }
@@ -11242,7 +11241,6 @@ DCX.addModule("replay", function (context) {
     }
 
     function handleError(webEvent) {
-        //debugger
         var errorMessage = null,
             i,
             msg = utils.getValue(webEvent, "nativeEvent.message"),
@@ -11268,7 +11266,6 @@ DCX.addModule("replay", function (context) {
         if (loggedExceptions[i]) {
             loggedExceptions[i].exception.repeats = loggedExceptions[i].exception.repeats + 1;
         } else {
-            debugger
             errorMessage = {
                 type: 6,
                 exception: {
@@ -12132,7 +12129,6 @@ DCX.addModule("replay", function (context) {
 
                 break;
             case "unload":
-                debugger
                 // check the logged Exception and attech them to cuttent context
                 for (loggedException in loggedExceptions) {
                     if (loggedExceptions.hasOwnProperty(loggedException)) {
@@ -13049,7 +13045,6 @@ if (DCX && typeof DCX.addModule === "function") {
 
                             // Just to send first Lazy Event event.
                             if(loadedCount === 1) {
-                                debugger
                                 if (window.DCX) {
                                     sendLazyEvent(target.eventName)
                                 }
