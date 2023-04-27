@@ -12163,7 +12163,6 @@ DCX.addModule("replay", function (context) {
 
                 break;
             case "error":
-                debugger
                 handleError(webEvent);
                 break;
             default:
@@ -13012,6 +13011,12 @@ if (DCX && typeof DCX.addModule === "function") {
         const DOMIntersectionObserve = function (target) {
             let intervalCnt = 0;
             let observer;
+            let sendLazyEvent = function(eventName) { 
+                setTimeout(() => {
+                    const evt = new CustomEvent(eventName);
+                    document.dispatchEvent(evt);
+                }, 1000);
+            }
           
             const checkForElement = function() {
               var elements = [];
@@ -13042,13 +13047,17 @@ if (DCX && typeof DCX.addModule === "function") {
                                 entry.target.removeAttribute("srcset");
                             }
 
+                            // Just to send first Lazy Event event.
+                            if(loadedCount === 1) {
+                                debugger
+                                if (window.DCX) {
+                                    sendLazyEvent(target.eventName)
+                                }
+                            }
                             // check is loadedCount mod threshold "threshold is to reduse number of request"
                             if (loadedCount % threshold === 0) {
                                 if (window.DCX) {
-                                    setTimeout(() => {
-                                        const evt = new CustomEvent(target.eventName);
-                                        document.dispatchEvent(evt);
-                                    }, 1000);
+                                    sendLazyEvent(target.eventName)
                                 }
                             }
                         }
@@ -13589,8 +13598,9 @@ DCX.addModule("digitalData", function (context) {
 					{
                         qid: "DEFAULT",
                         //endpoint: "https://unidiscover-packet-fwdr.sbx0201.play.hclsofy.com/DiscoverUIPost.php",
-						endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php",
+						//endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php",
 						//endpoint: "https://discover.claro.com.ar/DiscoverUIPost.php",
+                        endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php",
                         maxEvents: 20,
                         timerInterval: 30000,
                         maxSize: 200000,
@@ -13687,25 +13697,31 @@ DCX.addModule("digitalData", function (context) {
 						selector: "img.image-product-item", // Parent selector
 						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
                         lazyLoad: true,
-                        interval: 2000,
+                        interval: 1000,
 					},{
                         selector: "#home img:not(.imgMobile)", // Parent selector
 						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
                         lazyLoad: true,
-                        interval: 2000,
+                        interval: 1000,
                     },
                     {
 						selector: "#home .container-fluid:not(.d-sm-none) img", // Parent selector
 						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
                         lazyLoad: true,
-                        interval: 2000,
+                        interval: 1000,
 					},
                     {
                         selector: "#category-page img:not(.imgMobile)", // Parent selector
 						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
                         lazyLoad: true,
-                        interval: 2000,
-                    }
+                        interval: 1000,
+                    },
+                    // {
+                    //     selector: "img[alt='Banner']:not(.imgMobile)", // Parent selector
+					// 	eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                    //     lazyLoad: true,
+                    //     interval: 2000,
+                    // },
 
 
                     // {
