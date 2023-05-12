@@ -46,9 +46,22 @@ DCX.addModule("usability", function (context) {
                 }
             };
 
+        // // if id is null or empty, what are we firing on? it can't be replayed anyway
+        // if ((typeof uiEvent.target.id) === undefined || uiEvent.target.id === "") {
+        //     return;
+        // }
+
         // if id is null or empty, what are we firing on? it can't be replayed anyway
-        if ((typeof uiEvent.target.id) === undefined || uiEvent.target.id === "") {
+        if (!uiEvent.target.id) {
             return;
+        }
+
+        if (target.accessibility) {
+            uiEvent.target.accessibility = target.accessibility;
+        }
+
+        if (target.attributes) {
+            uiEvent.target.attributes = target.attributes;
         }
 
         context.post(uiEvent);

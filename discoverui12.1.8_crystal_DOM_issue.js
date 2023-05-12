@@ -26,7 +26,7 @@
  * controlling their lifecycle, manages inter-module communication.
  * @namespace
  */
-// Sanity check
+// Sanity check 
 if (window.DCX) {
     throw "Attempting to recreate DCX. Library may be included more than once on the page.";
 }
@@ -13037,7 +13037,7 @@ if (DCX && typeof DCX.addModule === "function") {
                         }
                       
                         // check is element is Intersecting and loaded Count should be less then or = to element lenght. 
-                        if (entry.isIntersecting && loadedCount <= elements.length && !entry.target.src.includes('svg')) {
+                        if (entry.isIntersecting && loadedCount <= elements.length && !(entry.target.src && entry.target.src.includes('svg'))) {
                             loadedCount++;
                             if(entry.target.hasAttribute("srcset")) {
                                 entry.target.removeAttribute("srcset");

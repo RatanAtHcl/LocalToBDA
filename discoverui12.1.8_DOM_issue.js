@@ -10959,7 +10959,6 @@ DCX.addModule("replay", function (context) {
             window.setTimeout(function () {
                 config.dcid = dcid;
                 context.performDOMCapture(root, config);
-                debugger
             }, delay);
         } else {
             delete config.dcid;
@@ -12849,7 +12848,6 @@ if (DCX && typeof DCX.addModule === "function") {
                         var takeSnapshot = "", target = undefined, customFunction = undefined;
                         
                         if (mutation.type === "attributes" || mutation.type === "childList") {
-                            debugger
                             mutation.addedNodes.forEach(function(node) {
                                 target = undefined;
                                 target = targets.find(function(t) {
@@ -12942,7 +12940,6 @@ if (DCX && typeof DCX.addModule === "function") {
                             });
                 
                             console.log('takeSnapshot ====>',takeSnapshot);
-                            debugger
                             if (typeof DCX !== "undefined" && takeSnapshot !== "") {
                                 if (typeof target.customFunction === "string") {
                                     customFunction = utils.access(target.customFunction);
@@ -12979,7 +12976,6 @@ if (DCX && typeof DCX.addModule === "function") {
               var elements = [];
                 elements = Array.from(document.querySelectorAll(target.selector));
               if (elements.length > 0) {
-                debugger
                 if (!observer) {
                   let loadedCount = 0;
                   let threshold = elements.length < 8 ? elements.length : 8;
@@ -13552,8 +13548,9 @@ DCX.addModule("digitalData", function (context) {
 					{
                         qid: "DEFAULT",
                         //endpoint: "https://unidiscover-packet-fwdr.sbx0201.play.hclsofy.com/DiscoverUIPost.php",
-						endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php",
+						//endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php",
 						//endpoint: "https://discover.claro.com.ar/DiscoverUIPost.php",
+                        endpoint:'https://sky.discoverstore.hclcx.com/DiscoverUIPost.php',
                         maxEvents: 20,
                         timerInterval: 30000,
                         maxSize: 200000,
