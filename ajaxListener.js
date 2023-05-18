@@ -10798,7 +10798,7 @@ if (DCX && typeof DCX.addModule === "function") {
  * @exports ajaxListener
  */
 
-DCX.addModule("ajaxListener", function (context) {
+ DCX.addModule("ajaxListener", function (context) {
     "use strict";
 
     var moduleConfig = {},
@@ -10955,29 +10955,32 @@ DCX.addModule("ajaxListener", function (context) {
         return reqResObject;
     }
 
-    function applyprivacyPattern(reqResObject, privacyPatterns) {
+    function setPrivacyPattern(reqResObject, privacyPatterns) {
         try {
 
-            reqResObject["tempArr"] = ['test'];
-            reqResObject["attributes"] = {
-                name : {
-                    first : 'ratan'
-                },
+            // reqResObject["tempArr"] = ['test'];
+            // reqResObject["attributes"] = {
+            //     name : {
+            //         first : 'ratan'
+            //     },
     
-                InnerArr : [
-                    {
-                    nameInArr : {
-                        lastName : 'ratan'
-                    },
-                }]
-            };
+            //     InnerArr : [
+            //         {
+            //         nameInArr : {
+            //             lastName : 'ratan'
+            //         },
+            //     }]
+            // };
 
             privacyPatterns.forEach(config => {
                 var pattern = config.pattern,
                     regex = new RegExp(pattern.regex, pattern.flags);
                     if(typeof reqResObject !== "sting") {
                         debugger
-                        reqResObject = JSON.stringify(reqResObject).replace(regex, config.replacement);
+                        reqResObject = JSON.stringify(reqResObject);
+                        if(regex.test(reqResObject)) {
+                            reqResObject = JSON.stringify(reqResObject).replace(regex, config.replacement);
+                        }
                         reqResObject = JSON.parse(reqResObject);
                     }
             })
@@ -11042,7 +11045,7 @@ DCX.addModule("ajaxListener", function (context) {
 
             if(logOptions.privacyPatterns.length > 0 && Object.keys(xhrMsg.request).length) {
                 try {
-                    xhrMsg.request = applyprivacyPattern(xhrMsg.request, logOptions.privacyPatterns);
+                    xhrMsg.request = setPrivacyPattern(xhrMsg.request, logOptions.privacyPatterns);
                 } catch (e) {}
             }
 
@@ -11077,7 +11080,7 @@ DCX.addModule("ajaxListener", function (context) {
 
                 if(logOptions.privacyPatterns.length > 0 && Object.keys(xhrMsg.response).length) {
                     try {
-                        xhrMsg.response = applyprivacyPattern(xhrMsg.response, logOptions.privacyPatterns);
+                        xhrMsg.response = setPrivacyPattern(xhrMsg.response, logOptions.privacyPatterns);
                     } catch (e) {}
                 }
     
@@ -11204,7 +11207,7 @@ DCX.addModule("ajaxListener", function (context) {
 
             if(logOptions.privacyPatterns.length > 0 && Object.keys(xhrMsg.request).length) {
                 try {
-                    xhrMsg.request = applyprivacyPattern(xhrMsg.request, logOptions.privacyPatterns);
+                    xhrMsg.request = setPrivacyPattern(xhrMsg.request, logOptions.privacyPatterns);
                 } catch (e) {}
             }
 
@@ -11228,7 +11231,7 @@ DCX.addModule("ajaxListener", function (context) {
                     
                     if(logOptions.privacyPatterns.length > 0 && Object.keys(xhrMsg.response).length) {
                         try {
-                            xhrMsg.response = applyprivacyPattern(xhrMsg.response, logOptions.privacyPatterns);
+                            xhrMsg.response = setPrivacyPattern(xhrMsg.response, logOptions.privacyPatterns);
                         } catch (e) {}
                     }
         
@@ -11250,7 +11253,7 @@ DCX.addModule("ajaxListener", function (context) {
 
                     if(logOptions.privacyPatterns.length > 0 && Object.keys(xhrMsg.response).length) {
                         try {
-                            xhrMsg.response = applyprivacyPattern(xhrMsg.response, logOptions.privacyPatterns);
+                            xhrMsg.response = setPrivacyPattern(xhrMsg.response, logOptions.privacyPatterns);
                         } catch (e) {}
                     }
         
