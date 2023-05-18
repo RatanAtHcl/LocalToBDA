@@ -10904,6 +10904,90 @@ DCX.addModule("ajaxListener", function (context) {
         return headersObj;
     }
 
+    function replaceValueWithReplacements(data, key, replacement) {
+        if (typeof data === 'object' && data !== null) {
+          // If the input is an object, recursively iterate through its properties
+          for (let prop in data) {
+            if (prop === key) {
+              data[prop] = replacement;
+            } else if (typeof data[prop] === 'object') {
+                replaceValueWithReplacements(data[prop], key, replacement);
+            }
+          }
+        } else if (typeof data === 'string') {
+          // If the input is a string, replace the key's value with asterisks
+          const regex = new RegExp(key, 'gi');
+          data = data.replace(regex, replacement);
+        }
+      
+        return data;
+    }
+
+    /**
+     * Hide an sensitive information from request object.
+     * @param {String} reqResObject The XMLHttpRequest object to be recorded.
+     * @param {Array} sensitiveFields The Array of sensitive Fields that should be hide from request Object.
+     * @return {Object} Returns an request object where sensitive Fields modified for it's corresponding value.
+     */
+    function hideSensitiveInfo(reqResObject, sensitiveFields) {
+        try {
+            reqResObject["tempArr"] = ['test'];
+            reqResObject["attributes"] = {
+                name : {
+                    first : 'ratan'
+                },
+    
+                InnerArr : [
+                    {
+                    nameInArr : {
+                        lastName : 'ratan'
+                    },
+                }]
+            };
+    
+            sensitiveFields.forEach(config => {
+                reqResObject = replaceValueWithReplacements(reqResObject, config.field, config.replacement);
+            });
+        } catch (error) {
+           console.log('Somthing wrong with AjaxListner Sensitive Info') 
+        }
+
+        return reqResObject;
+    }
+
+    function applyprivacyPattern(reqResObject, privacyPatterns) {
+        try {
+
+            reqResObject["tempArr"] = ['test'];
+            reqResObject["attributes"] = {
+                name : {
+                    first : 'ratan'
+                },
+    
+                InnerArr : [
+                    {
+                    nameInArr : {
+                        lastName : 'ratan'
+                    },
+                }]
+            };
+
+            privacyPatterns.forEach(config => {
+                var pattern = config.pattern,
+                    regex = new RegExp(pattern.regex, pattern.flags);
+                    if(typeof reqResObject !== "sting") {
+                        debugger
+                        reqResObject = JSON.stringify(reqResObject).replace(regex, config.replacement);
+                        reqResObject = JSON.parse(reqResObject);
+                    }
+            })
+        } catch (error) {
+           console.log('Somthing wrong with AjaxListner PrivacyPattern') 
+        }
+
+        return reqResObject;
+    }
+
     /**
      * Posts the XHR object to the queue. The URL, method, status and time
      * fields are mandatory. The request/response headers and body are
@@ -10949,11 +11033,23 @@ DCX.addModule("ajaxListener", function (context) {
             xhrMsg.requestHeaders = xhr.tListener.reqHeaders;
         }
         if (logOptions.requestData && typeof xhr.tListener.reqData === "string" && !xhr.tListener.isSystemXHR) {
-            
+
             try {
                 xhrMsg.request = JSON.parse(xhr.tListener.reqData);
             } catch (e1) {
                 xhrMsg.request = xhr.tListener.reqData;
+            }
+
+            if(logOptions.privacyPatterns.length > 0 && Object.keys(xhrMsg.request).length) {
+                try {
+                    xhrMsg.request = applyprivacyPattern(xhrMsg.request, logOptions.privacyPatterns);
+                } catch (e) {}
+            }
+
+            if(logOptions.sensitiveFields.length > 0 && Object.keys(xhrMsg.request).length) {
+                try {
+                    xhrMsg.request = hideSensitiveInfo(xhrMsg.request, logOptions.sensitiveFields);
+                } catch (e) {}
             }
 
             debugger
@@ -10962,7 +11058,6 @@ DCX.addModule("ajaxListener", function (context) {
             xhrMsg.responseHeaders = extractResponseHeaders(xhr.getAllResponseHeaders());
         }
         if (logOptions.responseData) {
-            debugger
             if (typeof xhr.responseType === "undefined") {
                 respText = xhr.responseText;
             } else if (xhr.responseType === "" || xhr.responseType === "text") {
@@ -10979,13 +11074,26 @@ DCX.addModule("ajaxListener", function (context) {
                 } catch (e2) {
                     xhrMsg.response = respText;
                 }
+
+                if(logOptions.privacyPatterns.length > 0 && Object.keys(xhrMsg.response).length) {
+                    try {
+                        xhrMsg.response = applyprivacyPattern(xhrMsg.response, logOptions.privacyPatterns);
+                    } catch (e) {}
+                }
+    
+                if(logOptions.sensitiveFields.length > 0 && Object.keys(xhrMsg.response).length) {
+                    try {
+                        xhrMsg.response = hideSensitiveInfo(xhrMsg.response, logOptions.sensitiveFields);
+                    } catch (e) {}
+                }
             }
 
             if (xhr.responseType) {
                 xhrMsg.responseType = xhr.responseType;
             }
         }
-        console.log(msg);
+        
+        console.log('AjexListner Event',msg);
         context.post(msg);
     }
 
@@ -11092,8 +11200,19 @@ DCX.addModule("ajaxListener", function (context) {
         }
 
         if (logOptions.requestData && typeof fetchReq.body !== "undefined" && !fetchReq.isSystemXHR) {
-            debugger
             xhrMsg.request = extractFetchRequestBody(fetchReq.body);
+
+            if(logOptions.privacyPatterns.length > 0 && Object.keys(xhrMsg.request).length) {
+                try {
+                    xhrMsg.request = applyprivacyPattern(xhrMsg.request, logOptions.privacyPatterns);
+                } catch (e) {}
+            }
+
+            if(logOptions.sensitiveFields.length > 0 && Object.keys(xhrMsg.request).length) {
+                try {
+                    xhrMsg.request = hideSensitiveInfo(xhrMsg.request, logOptions.sensitiveFields);
+                } catch (e) {}
+            }
         }
 
         if (logOptions.responseHeaders) {
@@ -11106,7 +11225,20 @@ DCX.addModule("ajaxListener", function (context) {
             if (respContentType && respContentType.indexOf("application/json") !== -1) {
                 fetchResp.clone().json().then(function (responseData) {
                     xhrMsg.response = responseData;
-                    console.log(msg);
+                    
+                    if(logOptions.privacyPatterns.length > 0 && Object.keys(xhrMsg.response).length) {
+                        try {
+                            xhrMsg.response = applyprivacyPattern(xhrMsg.response, logOptions.privacyPatterns);
+                        } catch (e) {}
+                    }
+        
+                    if(logOptions.sensitiveFields.length > 0 && Object.keys(xhrMsg.response).length) {
+                        try {
+                            xhrMsg.response = hideSensitiveInfo(xhrMsg.response, logOptions.sensitiveFields);
+                        } catch (e) {}
+                    }
+
+                    console.log('AjexListner Event',msg);
                     context.post(msg);
                 });
                 return;
@@ -11115,7 +11247,20 @@ DCX.addModule("ajaxListener", function (context) {
             if (respContentType && (respContentType.indexOf("text") !== -1 || respContentType.indexOf("xml") !== -1)) {
                 fetchResp.clone().text().then(function (responseData) {
                     xhrMsg.response = responseData;
-                    console.log(msg);
+
+                    if(logOptions.privacyPatterns.length > 0 && Object.keys(xhrMsg.response).length) {
+                        try {
+                            xhrMsg.response = applyprivacyPattern(xhrMsg.response, logOptions.privacyPatterns);
+                        } catch (e) {}
+                    }
+        
+                    if(logOptions.sensitiveFields.length > 0 && Object.keys(xhrMsg.response).length) {
+                        try {
+                            xhrMsg.response = hideSensitiveInfo(xhrMsg.response, logOptions.sensitiveFields);
+                        } catch (e) {}
+                    }
+
+                    console.log('AjexListner Event',msg);
                     context.post(msg);
                 });
                 return;
@@ -11125,7 +11270,7 @@ DCX.addModule("ajaxListener", function (context) {
 
         }
 
-        console.log(msg);
+        console.log('AjexListner Event',msg);
         context.post(msg);
     }
 
@@ -11416,7 +11561,6 @@ DCX.addModule("ajaxListener", function (context) {
     return {
         init: function () {
             moduleConfig = context.getConfig();
-            debugger
             processConfig(moduleConfig);
         },
 
@@ -11428,12 +11572,10 @@ DCX.addModule("ajaxListener", function (context) {
             switch (webEvent.type) {
             case "load":
                 if (xhrEnabled) {
-                    debugger
                     addXHRHook();
                 }
 
                 if (fetchEnabled) {
-                    debugger
                     addFetchHook();
                 }
                 moduleLoaded = true;
@@ -14428,24 +14570,49 @@ DCX.addModule("digitalData", function (context) {
                 filters: [
                     //  filtering rule for logging XHR request data when HTTP status is 4xx and default data
                     {
-                        method: { regex: "GET", flags: "i" },
-                        // url: { regex: "login", flags: "i" },
-                        status: { regex: "^2\\d\\d$" },
+                        //method: { regex: "GET", flags: "i" },
+                        //url: { regex: "loginidentity", flags: "i" },
+                        //status: { regex: "^2\\d\\d$" },
                         log: {
                             requestHeaders: true,
                             requestData: true,
                             responseHeaders: true,
                             responseData: true,
-                            sensitive_fields: ['password', 'email', 'username',],
+                            sensitiveFields: [
+                                // {
+                                //     field : 'token',
+                                //     replacement: "*******"
+                                // },
+                                // {
+                                //     field : 'first',
+                                //     replacement: "rat**"
+                                // },
+                                // {
+                                //     field : 'nameInArr',
+                                //     replacement: "nameInArr**"
+                                // },
+                                // {
+                                //     field : 'tempArr',
+                                //     replacement: [],
+                                // },
+                            ],
                             privacyPatterns: [
-                                {
-                                    pattern: { regex: "password", flags: "g" },
-                                    replacement: "*******"
+                                {   
+                                    pattern: { regex: `("${'token'}"\\s*:\\s*)"[^"]*"`, flags: "g" }, 
+                                    replacement: '$1"***"',  // regex for key : value pair
                                 },
                                 {
-                                    pattern: { regex: "username", flags: "g" },
-                                    replacement: "XXXXX@XXXX"
-                                }
+                                    pattern: { regex: `("${'InnerArr'}"\\s*:\\s*)\\[[^\\]]*\\]|("${'InnerArr'}"\\s*:\\s*){[^}]*}`, flags: "g" },
+                                    replacement: '$1$2"***"', // If regex field value is type Object or array
+                                },
+                                {
+                                    pattern: { regex: `("${'name'}"\\s*:\\s*){[^}]*}`, flags: "g" },
+                                    replacement: '$1"{...}"', // If regex field value is type Object
+                                },
+                                {
+                                    pattern: { regex: `("${'tempArr'}"\\s*:\\s*)\\[[^\\]]*\\]`, flags: "g" },
+                                    replacement: '$1"[...]"', // If regex field value is type Object or array
+                                },
                             ],
                         }
                     },
