@@ -1031,7 +1031,6 @@ window.DCX = (function () {
              * @returns {void}
              */
             logExceptionEvent: function (msg, url, line) {
-                debugger
                 if (!core.isInitialized()) {
                     return;
                 }
@@ -10859,11 +10858,9 @@ if (DCX && typeof DCX.addModule === "function") {
             matchFound = true;
             
             if (filter.url) {
-                debugger
                 matchFound = filter.url.cRegex.test(url);
             }
             if (matchFound && filter.method) {
-                debugger
                 matchFound = filter.method.cRegex.test(method);
             }
             if (matchFound && filter.status) {
@@ -10904,22 +10901,22 @@ if (DCX && typeof DCX.addModule === "function") {
         return headersObj;
     }
 
-    function replaceValueWithReplacements(data, key, replacement) {
+    function replaceValueWithReplacements(data, fieldName, replacement) {
         if (typeof data === 'object' && data !== null) {
           // If the input is an object, recursively iterate through its properties
-          for (let prop in data) {
-            if (prop === key) {
-              data[prop] = replacement;
-            } else if (typeof data[prop] === 'object') {
-                replaceValueWithReplacements(data[prop], key, replacement);
+          for (let key in data) {
+            if (key === fieldName || (fieldName instanceof RegExp && fieldName.test(key))) {
+                data[key] = replacement;
+            } else if (typeof data[key] === 'object') {
+                replaceValueWithReplacements(data[key], fieldName, replacement);
             }
           }
         } else if (typeof data === 'string') {
           // If the input is a string, replace the key's value with asterisks
-          const regex = new RegExp(key, 'gi');
+          const regex = new RegExp(fieldName, 'gi');
           data = data.replace(regex, replacement);
         }
-      
+
         return data;
     }
 
@@ -10930,65 +10927,59 @@ if (DCX && typeof DCX.addModule === "function") {
      * @return {Object} Returns an request object where sensitive Fields modified for it's corresponding value.
      */
     function hideSensitiveInfo(reqResObject, sensitiveFields) {
+        if(typeof reqResObject !== 'object') return reqResObject;
+
+        var orgReqResObject = JSON.stringify(reqResObject);
         try {
-            reqResObject["tempArr"] = ['test'];
-            reqResObject["attributes"] = {
-                name : {
-                    first : 'ratan'
-                },
-    
-                InnerArr : [
-                    {
-                    nameInArr : {
-                        lastName : 'ratan'
-                    },
-                }]
-            };
-    
             sensitiveFields.forEach(config => {
                 reqResObject = replaceValueWithReplacements(reqResObject, config.field, config.replacement);
             });
+            return reqResObject;
         } catch (error) {
-           console.log('Somthing wrong with AjaxListner Sensitive Info') 
+           console.log('wrong Sensitive Info passed',error);
+           return JSON.parse(orgReqResObject);
         }
-
-        return reqResObject;
     }
 
     function setPrivacyPattern(reqResObject, privacyPatterns) {
-        try {
+        if(typeof reqResObject === 'object') {
+            var orgReqResObject = JSON.stringify(reqResObject);
+            try {
+                reqResObject = orgReqResObject;
+                privacyPatterns.forEach(config => {
+                    var pattern = config.pattern,
+                    regex = new RegExp(pattern.regex, pattern.flags);
+                    if(regex.test(reqResObject)) {
+                        // debugger
+                        reqResObject = reqResObject.replace(regex, config.replacement);
+                    }
+                })
+                return JSON.parse(reqResObject);
+            } catch (error) {
+                console.log('wrong Privacy Pattern passed',error);
+                return JSON.parse(orgReqResObject);
+            } 
 
-            // reqResObject["tempArr"] = ['test'];
-            // reqResObject["attributes"] = {
-            //     name : {
-            //         first : 'ratan'
-            //     },
-    
-            //     InnerArr : [
-            //         {
-            //         nameInArr : {
-            //             lastName : 'ratan'
-            //         },
-            //     }]
-            // };
-
+        } else {
+            // debugger
+            // reqResObject = `
+            // <note>
+            // <from>Jani</from>
+            // <to>Tove</to>
+            // <message>Remember me this weekend</message>
+            // </note>
+            // `; 
+            // debugger
             privacyPatterns.forEach(config => {
                 var pattern = config.pattern,
-                    regex = new RegExp(pattern.regex, pattern.flags);
-                    if(typeof reqResObject !== "sting") {
-                        debugger
-                        reqResObject = JSON.stringify(reqResObject);
-                        if(regex.test(reqResObject)) {
-                            reqResObject = JSON.stringify(reqResObject).replace(regex, config.replacement);
-                        }
-                        reqResObject = JSON.parse(reqResObject);
-                    }
+                regex = new RegExp(pattern.regex, pattern.flags);
+                if(regex.test(reqResObject)) {
+                    debugger
+                    reqResObject = reqResObject.replace(regex, config.replacement);
+                }
             })
-        } catch (error) {
-           console.log('Somthing wrong with AjaxListner PrivacyPattern') 
+            return reqResObject;
         }
-
-        return reqResObject;
     }
 
     /**
@@ -11000,10 +10991,9 @@ if (DCX && typeof DCX.addModule === "function") {
      *                 response headers and data should be recorded.
      */
     function logXHR(xhr, logOptions) {
-        debugger
         var msg = {
-                type: 5,
-                customEvent: {
+                type: 3, // Type 3: Connection - API calls including request/response data
+                connectionEvent: {
                     name: "ajaxListener",
                     data: {
                         interfaceType: "XHR"
@@ -11011,7 +11001,7 @@ if (DCX && typeof DCX.addModule === "function") {
                 }
             },
             dummyLink,
-            xhrMsg = msg.customEvent.data,
+            xhrMsg = msg.connectionEvent.data,
             respText;
 
         // Sanity check
@@ -11020,6 +11010,7 @@ if (DCX && typeof DCX.addModule === "function") {
         }
 
         dummyLink = document.createElement("a");
+        debugger
         dummyLink.href = xhr.tListener.url;
 
         xhrMsg.originalURL = dummyLink.host + (dummyLink.pathname[0] === "/" ? "" : "/") + dummyLink.pathname;
@@ -11032,9 +11023,15 @@ if (DCX && typeof DCX.addModule === "function") {
         xhrMsg.ajaxResponseTime = xhr.tListener.end - xhr.tListener.start;
         xhrMsg.locationHref = context.normalizeUrl(document.location.href, 3);
 
+        // Check if the query string exists before converting        
+        if (logOptions.queryString && window.location.search) {
+            xhrMsg.queryString = utils.getQueryString(window.location.search);
+        }
+
         if (logOptions.requestHeaders) {
             xhrMsg.requestHeaders = xhr.tListener.reqHeaders;
         }
+
         if (logOptions.requestData && typeof xhr.tListener.reqData === "string" && !xhr.tListener.isSystemXHR) {
 
             try {
@@ -11054,12 +11051,12 @@ if (DCX && typeof DCX.addModule === "function") {
                     xhrMsg.request = hideSensitiveInfo(xhrMsg.request, logOptions.sensitiveFields);
                 } catch (e) {}
             }
-
-            debugger
         }
+
         if (logOptions.responseHeaders) {
             xhrMsg.responseHeaders = extractResponseHeaders(xhr.getAllResponseHeaders());
         }
+
         if (logOptions.responseData) {
             if (typeof xhr.responseType === "undefined") {
                 respText = xhr.responseText;
@@ -11165,10 +11162,9 @@ if (DCX && typeof DCX.addModule === "function") {
      *                 response headers and data should be recorded.
      */
     function logFetch(fetchReq, fetchResp, logOptions) {
-        debugger
         var msg = {
-                type: 5,
-                customEvent: {
+                type: 3, // Type 3: Connection - API calls including request/response data
+                connectionEvent: {
                     name: "ajaxListener",
                     data: {
                         interfaceType: "fetch"
@@ -11176,7 +11172,7 @@ if (DCX && typeof DCX.addModule === "function") {
                 }
             },
             dummyLink,
-            xhrMsg = msg.customEvent.data,
+            xhrMsg = msg.connectionEvent.data,
             respContentType;
 
         dummyLink = document.createElement("a");
@@ -11192,6 +11188,11 @@ if (DCX && typeof DCX.addModule === "function") {
         xhrMsg.ajaxResponseTime = fetchReq.end - fetchReq.start;
         xhrMsg.responseType = fetchResp.type;
         xhrMsg.locationHref = context.normalizeUrl(document.location.href, 3);
+
+        // Check if the query string exists before converting        
+        if (logOptions.queryString && window.location.search) {
+            xhrMsg.queryString = utils.getQueryString(window.location.search);
+        }
 
         if (logOptions.requestHeaders) {
             //check if header data is encapsulated as "Headers" object which cannot be directly accessed
@@ -12084,7 +12085,6 @@ DCX.addModule("replay", function (context) {
     }
 
     function handleError(webEvent) {
-        //debugger
         var errorMessage = null,
             i,
             msg = utils.getValue(webEvent, "nativeEvent.message"),
@@ -12110,7 +12110,6 @@ DCX.addModule("replay", function (context) {
         if (loggedExceptions[i]) {
             loggedExceptions[i].exception.repeats = loggedExceptions[i].exception.repeats + 1;
         } else {
-            // debugger
             errorMessage = {
                 type: 6,
                 exception: {
@@ -12981,7 +12980,6 @@ DCX.addModule("replay", function (context) {
 
                 break;
             case "unload":
-                debugger
                 // check the logged Exception and attech them to cuttent context
                 for (loggedException in loggedExceptions) {
                     if (loggedExceptions.hasOwnProperty(loggedException)) {
@@ -14581,41 +14579,50 @@ DCX.addModule("digitalData", function (context) {
                             requestData: true,
                             responseHeaders: true,
                             responseData: true,
+                            queryString: true,
                             sensitiveFields: [
-                                // {
-                                //     field : 'token',
-                                //     replacement: "*******"
-                                // },
-                                // {
-                                //     field : 'first',
-                                //     replacement: "rat**"
-                                // },
-                                // {
-                                //     field : 'nameInArr',
-                                //     replacement: "nameInArr**"
-                                // },
-                                // {
-                                //     field : 'tempArr',
-                                //     replacement: [],
-                                // },
+                                {
+                                    field : /can_.*/,
+                                    replacement: "*******"
+                                },
+                                {
+                                    field : 'can_import',
+                                    replacement: "****_name"
+                                },
+                                {
+                                    field : 'branding',
+                                    replacement: {}
+                                },
+                                {
+                                    field : 'regions',
+                                    replacement: [],
+                                },
                             ],
                             privacyPatterns: [
-                                {   
-                                    pattern: { regex: `("${'token'}"\\s*:\\s*)"[^"]*"`, flags: "g" }, 
-                                    replacement: '$1"***"',  // regex for key : value pair
-                                },
-                                {
-                                    pattern: { regex: `("${'InnerArr'}"\\s*:\\s*)\\[[^\\]]*\\]|("${'InnerArr'}"\\s*:\\s*){[^}]*}`, flags: "g" },
-                                    replacement: '$1$2"***"', // If regex field value is type Object or array
-                                },
-                                {
-                                    pattern: { regex: `("${'name'}"\\s*:\\s*){[^}]*}`, flags: "g" },
-                                    replacement: '$1"{...}"', // If regex field value is type Object
-                                },
-                                {
-                                    pattern: { regex: `("${'tempArr'}"\\s*:\\s*)\\[[^\\]]*\\]`, flags: "g" },
-                                    replacement: '$1"[...]"', // If regex field value is type Object or array
-                                },
+                                // {   
+                                //     pattern: { regex: `("${'key'}"\\s*:\\s*)"[^"]*"`, flags: "g" }, 
+                                //     replacement: '$1"***"',  // regex for key : value pair
+                                // },
+                                // {   
+                                //     pattern: { regex: `("${'login_name'}"\\s*:\\s*)"[^"]*"`, flags: "g" }, 
+                                //     replacement: '$1"***"',  // regex for key : value pair
+                                // },
+                                // {
+                                //     pattern: { regex: /<svg>(.*?)<\/svg>/, flags: "g" },
+                                //     replacement: '<svg>XXXX</svg>', // If regex field value is type Object
+                                // },
+                                // {
+                                //     pattern: { regex: `("${'custom'}"\\s*:\\s*)\\[[^\\]]*\\]|("${'custom'}"\\s*:\\s*){[^}]*}`, flags: "g" },
+                                //     replacement: '$1$2"***"', // If regex field value is type Object or array
+                                // },
+                                // {
+                                //     pattern: { regex: `("${'tempArr'}"\\s*:\\s*)\\[[^\\]]*\\]`, flags: "g" },
+                                //     replacement: '$1"[...]"', // If regex field value is type Object or array
+                                // },
+                                // {
+                                //     pattern: { regex: `/("${'features'}"\\s*:\\s*){[^}]*}/`, flags: "g" },
+                                //     replacement: '$1"{...}"', // If regex field value is type Object
+                                // },
                             ],
                         }
                     },
