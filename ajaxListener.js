@@ -10914,7 +10914,7 @@ if (DCX && typeof DCX.addModule === "function") {
         } else if (typeof data === 'string') {
           // If the input is a string, replace the key's value with asterisks
           const regex = new RegExp(fieldName, 'gi');
-          data = data.replace(regex, replacement);
+          data = data.replace(regex, replacement).trim();
         }
 
         return data;
@@ -14596,6 +14596,10 @@ DCX.addModule("digitalData", function (context) {
                                 {
                                     field : 'regions',
                                     replacement: [],
+                                },
+                                {
+                                    field : /<from>(.*?)<\/from>/g,
+                                    replacement: "<from>XXXX</from>",
                                 },
                             ],
                             privacyPatterns: [
