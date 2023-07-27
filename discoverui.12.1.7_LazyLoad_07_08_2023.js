@@ -13297,14 +13297,23 @@ DCX.addModule("DOMObserver", function (context) {
 
 
         var DOMIntersectionObserve = function (target) {
-            var intervalCnt = 0;
-            var observer;
+            var intervalCnt = 0,
+            observer,
+            interSectSetTimeout,
+            // IntersectionObserver configuration options
+            options = {
+                root: null, // Use the viewport as the root
+                rootMargin: '0px',
+                threshold: 0.5, // When 50% of the image is visible, trigger the callback
+            };
+            
             var sendLazyEvent = function(eventName) { 
-                setTimeout(function () {
+                interSectSetTimeout = setTimeout(function () {
                     var evt = new CustomEvent(eventName);
                     document.dispatchEvent(evt);
+                    debugger
                 }, 1000);
-            }
+            };
         
             var checkForElement = function() {
               var elements = [];
@@ -13315,47 +13324,49 @@ DCX.addModule("DOMObserver", function (context) {
                   var threshold = elements.length < 8 ? elements.length : 8;
                   observer = new IntersectionObserver(function (entries, observer) {
                     entries.forEach(function(entry) {
-                        
                         // check's if new element added to DOM or List.
-                        var newElements =  Array.from(document.querySelectorAll(target.selector));
-                        if(elements.length !== newElements.length) {
-                                var tempItems = Array.prototype.slice.call(newElements);
-                                var newItems = tempItems.slice(elements.length)
+                        var newElements =  Array.from(document.querySelectorAll(target.selector)),
+                        hasNewItemAdded = elements.length !== newElements.length && elements.length < newElements.length;
+                        
+                        if(hasNewItemAdded) {
+                                var tempItems = Array.prototype.slice.call(newElements),
+                                newItems = tempItems.slice(elements.length);
+
                                 newItems.forEach(function(newItem) {
                                     observer.observe(newItem);
+                                    elements.push(newItem);
                                 });
                                 //elements.push(...newItems);
-                                elements.concat(newItems);
+                                clearTimeout(interSectSetTimeout)
                                 threshold = elements.length < 8 ? elements.length : 8;
                         }
                       
                         // check is element is Intersecting and loaded Count should be less then or = to element lenght. 
-                        if (entry.isIntersecting && loadedCount <= elements.length && !entry.target.src.includes('svg')) {
+                        if (entry.isIntersecting && loadedCount <= elements.length) {
                             loadedCount++;
-                            if(entry.target.hasAttribute("srcset")) {
-                                entry.target.removeAttribute("srcset");
-                            }
 
                             // Just to send first Lazy Event event.
                             if(loadedCount === 1) {
                                 if (window.DCX) {
+                                    clearTimeout(interSectSetTimeout)
                                     sendLazyEvent(target.eventName)
                                 }
                             }
                             // check is loadedCount mod threshold "threshold is to reduse number of request"
                             if (loadedCount % threshold === 0) {
                                 if (window.DCX) {
-                                    sendLazyEvent(target.eventName)
+                                    clearTimeout(interSectSetTimeout);
+                                    sendLazyEvent(target.eventName);
                                 }
                             }
                         }
                     });
-                  });
+                  }, options);
                 }
           
                 elements.forEach(function(element) {
                   observer.observe(element);
-                });
+                })
           
                 // If any lazy-loaded elements were loaded before the intersection observer was created,
                 // re-observe them to ensure they get tracked correctly
@@ -13568,8 +13579,8 @@ DCX.addModule("DOMObserver", function (context) {
                 queues: [
                     {
                         qid: "DEFAULT",
-						endpoint: "https://analytics.crystal.com.co/DiscoverUIPost.php",
-                        //endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php",
+						//endpoint: "https://analytics.crystal.com.co/DiscoverUIPost.php",
+                        endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php",
                         //endpoint: "/DiscoverUIPost.php",
                         maxEvents: 20,
                         timerInterval: 30000,
@@ -13647,18 +13658,10 @@ DCX.addModule("DOMObserver", function (context) {
 				targets: [
                     // configration for Mutation Observer
                     {
-                        selector: "body", // Parent selector
-                        childNode: "", // Look for child node to trigger snapshot (blank for ANY)
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        added: 1, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
-                        maxEvents: 1, // After triggering X number of times, stop monitoring this event (0=Unlimited)
-                        customFunction: false // Optional JavaScript function to be executed when event is triggered
-                    },
-                    {
                         selector: "span.loader-router", // Parent selector
                         childNode: "", // Look for child node to trigger snapshot (blank for ANY)
                         eventName: "spinner", // Name of event to log in DCX (must configure in UIC)
-                        added: 0, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
+                        added: 1, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
                         maxEvents: 0, // After triggering X number of times, stop monitoring this event (0=Unlimited)
                         customFunction: false // Optional JavaScript function to be executed when event is triggered
                     },
@@ -13674,15 +13677,10 @@ DCX.addModule("DOMObserver", function (context) {
                     // configration for Intersection Observer
                     {
 						selector: "img.image-product-item", // Parent selector
-						eventName: "imageLoad", // Name of event to log in DCX (must configure in UIC)
+						eventName: "ProductListLazyLoad", // Name of event to log in DCX (must configure in UIC)
                         lazyLoad: true,
                         interval: 2000,
-					},/*{
-                        selector: "#home img:not(.imgMobile)", // Parent selector
-						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true,
-                        interval: 1500,
-                    }, */
+					},
                     {
 						selector: "#home .container-fluid:not(.d-sm-none) img", // Parent selector
 						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
@@ -13701,6 +13699,12 @@ DCX.addModule("DOMObserver", function (context) {
                         lazyLoad: true,
                         interval: 1200,
                     }, 
+                    {
+                        selector: "#productCarousel", // Parent selector
+						eventName: "ProductDetailLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                        lazyLoad: true,
+                        interval: 1200,
+                    },
                     					 
 				]
 			},	
