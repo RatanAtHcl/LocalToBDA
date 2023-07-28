@@ -13344,6 +13344,7 @@ DCX.addModule("DOMObserver", function (context) {
                         // check is element is Intersecting and loaded Count should be less then or = to element lenght. 
                         if (entry.isIntersecting && loadedCount <= elements.length) {
                             loadedCount++;
+                            var currentImg = entry.target;
 
                             // Just to send first Lazy Event event.
                             if(loadedCount === 1) {
@@ -13352,6 +13353,8 @@ DCX.addModule("DOMObserver", function (context) {
                                     sendLazyEvent(target.eventName)
                                 }
                             }
+
+                            
                             // check is loadedCount mod threshold "threshold is to reduse number of request"
                             if (loadedCount % threshold === 0) {
                                 if (window.DCX) {
@@ -13359,6 +13362,9 @@ DCX.addModule("DOMObserver", function (context) {
                                     sendLazyEvent(target.eventName);
                                 }
                             }
+
+                            // Unobserve the image once it's loaded
+                            observer.unobserve(currentImg);
                         }
                     });
                   }, options);
@@ -13506,10 +13512,11 @@ DCX.addModule("DOMObserver", function (context) {
                         { name: "touchend" },
                         { name: "touchstart" },
                         { name: "DCXLazyLoad" },
-                        { name: "spinner" },
-                        { name: "imageLoad" },
+                        { name: "loaderRouterLazyLoad" },
+                        { name: "ProductListLazyLoad" },
                         { name: "cart-container" },
                         { name: "categoryLoad" },
+                        { name: "ProductDetailLazyLoad" }
                     ]
                 },
                 performance: {
@@ -13660,12 +13667,11 @@ DCX.addModule("DOMObserver", function (context) {
                     {
                         selector: "span.loader-router", // Parent selector
                         childNode: "", // Look for child node to trigger snapshot (blank for ANY)
-                        eventName: "spinner", // Name of event to log in DCX (must configure in UIC)
+                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
                         added: 1, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
                         maxEvents: 0, // After triggering X number of times, stop monitoring this event (0=Unlimited)
                         customFunction: false // Optional JavaScript function to be executed when event is triggered
                     },
-                  
                     {
                         selector: "div", // Parent selector
                         childNode: ".sc-jTYCaT", // Look for child node to trigger snapshot (blank for ANY)
@@ -13675,6 +13681,12 @@ DCX.addModule("DOMObserver", function (context) {
                         customFunction: false // Optional JavaScript function to be executed when event is triggered
                     },
                     // configration for Intersection Observer
+                    {
+                        selector: "span.loader-router", // Parent selector
+						eventName: "loaderRouterLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                        lazyLoad: true,
+                        interval: 2000,
+                    },
                     {
 						selector: "img.image-product-item", // Parent selector
 						eventName: "ProductListLazyLoad", // Name of event to log in DCX (must configure in UIC)
@@ -13699,6 +13711,12 @@ DCX.addModule("DOMObserver", function (context) {
                         lazyLoad: true,
                         interval: 1200,
                     }, 
+                    {
+                        selector: "img.imgMobile", // Parent selector
+						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                        lazyLoad: true,
+                        interval: 2000,
+                    },
                     {
                         selector: "#productCarousel", // Parent selector
 						eventName: "ProductDetailLazyLoad", // Name of event to log in DCX (must configure in UIC)
@@ -13772,7 +13790,11 @@ DCX.addModule("DOMObserver", function (context) {
 						},
                         { 
 							event: "DCXLazyLoad",
-							delay: 500 // ms -- Assists with Replay Fidelity on dynamic radio buttons & checkboxes
+							delay: 1000,
+						},
+                        { 
+							event: "loaderRouterLazyLoad",
+							delay: 1000 // ms -- Assists with Replay Fidelity on dynamic radio buttons & checkboxes
 						},
                            { 
 							event: "spinner",
@@ -13790,7 +13812,11 @@ DCX.addModule("DOMObserver", function (context) {
                             event: "categoryLoad",
 							delay: 1000 // ms -- Assists with Replay Fidelity on dynamic radio buttons & checkboxes
 						},
-                        ]
+                        { 
+                            event: "ProductDetailLazyLoad",
+							delay: 1000 // ms -- Assists with Replay Fidelity on dynamic radio buttons & checkboxes
+						},
+                    ]
                 }
             },
     		slowResource: {
