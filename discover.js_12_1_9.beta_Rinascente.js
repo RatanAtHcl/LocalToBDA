@@ -15214,8 +15214,16 @@ DCX.addModule("DOMObserver", function (context) {
 					// 	maxEvents: 1, // After triggering X number of times, stop monitoring this event (0=Unlimited)
 					// 	customFunction: false // Optional JavaScript function to be executed when event is triggered
 					// },
+
+                    // config for home
                     {
-                        selector: ".containerFixedWithWrapper", // Parent selector
+                        selector: ".containerFixedWithWrapper .slick-list", // Parent selector
+                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
+                        interval: 1000, // Set min interval 1000ms, so dom get ready.
+                    },
+                    {
+                        selector: ".containerFixedWithWrapper .imageWrapper", // Parent selector
                         eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
                         lazyLoad: true, // make lazyLoad true if page has lazy loading   
                         interval: 1000, // Set min interval 1000ms, so dom get ready.
@@ -15232,12 +15240,70 @@ DCX.addModule("DOMObserver", function (context) {
                         lazyLoad: true, // make lazyLoad true if page has lazy loading   
                         interval: 1000, // Set min interval 1000ms, so dom get ready.
                     },
+
+                    // config for product list
                     {
-                        selector: ".productImage img", // Parent selector
+                        selector: ".productImage    ", // Parent selector
                         eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
                         lazyLoad: true, // make lazyLoad true if page has lazy loading   
                         interval: 1000, // Set min interval 1000ms, so dom get ready.
                     },
+
+                    // config for brand with logo
+                    {
+                        selector: ".brandLogoWithDescription .brandListHeaderTextLogo", // Parent selector
+                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
+                        interval: 1000, // Set min interval 1000ms, so dom get ready.
+                    },
+
+                    // config for brand page
+                    {
+                        selector: ".brandGroupContainer", // Parent selector
+                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
+                        interval: 1000, // Set min interval 1000ms, so dom get ready.
+                    },
+                    // config for store and resto
+                    {
+                        selector: ".heroStoreLogoWrapper img", // Parent selector
+                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
+                        interval: 1000, // Set min interval 1000ms, so dom get ready.
+                    },
+                    {
+                        selector: ".storeServiceWrapper", // Parent selector
+                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
+                        interval: 1000, // Set min interval 1000ms, so dom get ready.
+                    },
+                    {
+                        selector: ".storeInformationWrapper", // Parent selector
+                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
+                        interval: 1000, // Set min interval 1000ms, so dom get ready.
+                    },
+                     // config for event page
+                     {
+                        selector: ".eventContainer .events img", // Parent selector
+                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
+                        interval: 1000, // Set min interval 1000ms, so dom get ready.
+                    },
+                    // config for side menu
+                    {
+                        selector: ".sideMenuOpen", // Parent selector
+                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
+                        interval: 1000, // Set min interval 1000ms, so dom get ready.
+                    },
+                     // config for cms page
+                     {
+                        selector: ".rctCms img", // Parent selector
+                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
+                        interval: 1000, // Set min interval 1000ms, so dom get ready.
+                    }
 				]
 			},
             DCCookie: {
@@ -15298,34 +15364,35 @@ DCX.addModule("DOMObserver", function (context) {
         config.services.message.privacyPatterns = [];
     }
 
-	// (function () {
-    //     let oldURL = window.location.href;
-    //     var URLChange = function () {
-    //         const newURL = window.location.href;
-    //         if (oldURL === newURL) {
-    //             return false;
-    //         } else {
-    //             oldURL = newURL;
-    //             return true;
-    //         } 
-    //     };
+	(function () {
+        let oldURL = window.location.href;
+        var URLChange = function () {
+            const newURL = window.location.href;
+            if (oldURL === newURL) {
+                return false;
+            } else {
+                oldURL = newURL;
+                return true;
+            } 
+        };
 
-    //     window.addEventListener("click", function () {
-    //         setTimeout(() => {
-    //             if (URLChange()) {
-    //                 if(DCX) {
-    //                     var DOMObserverModule = DCX.getModule('DOMObserver');
-    //                     if(DOMObserverModule) {
-    //                         var webEvent = {
-    //                             type: "load",
-    //                             name: oldURL,
-    //                         };
-    //                         DOMObserverModule.onevent(webEvent)
-    //                     }
-    //                 }
-    //             }
-    //         });
-    //     }, { capture: false });
-    // }())
+        window.addEventListener("click", function () {
+            setTimeout(() => {
+                if (URLChange()) {
+                    if(DCX) {
+                        var DOMObserverModule = DCX.getModule('DOMObserver');
+                        if(DOMObserverModule) {
+                            var webEvent = {
+                                type: "load",
+                                name: oldURL,
+                            };
+                            DOMObserverModule.onevent(webEvent)
+                        }
+                    }
+                }
+            });
+        }, { capture: false });
+    }())
+
     DCX.init(config);
 }());
