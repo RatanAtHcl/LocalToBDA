@@ -14671,13 +14671,11 @@ DCX.addModule("DOMObserver", function (context) {
             options = {
                 root: null, // Use the viewport as the root
                 rootMargin: '0px',
-                threshold: 0.2, // When 20% of the image is visible, trigger the callback
+                threshold: 0.5, // When 50% of the image is visible, trigger the callback
             };
             
             var sendLazyEvent = function(eventName) { 
                 interSectSetTimeout = setTimeout(function () {
-                    debugger
-                    console.log('intersection event',target.selector)
                     var evt = new CustomEvent(eventName);
                     document.dispatchEvent(evt);
                 }, 1000);
@@ -14688,7 +14686,6 @@ DCX.addModule("DOMObserver", function (context) {
                 elements = Array.from(document.querySelectorAll(target.selector));
               if (elements.length > 0) {
                 if (!observer) {
-                    console.log('intersection found',target.selector)
                   var loadedCount = 0;
                   var threshold = elements.length < 8 ? elements.length : 8;
                   observer = new IntersectionObserver(function (entries, observer) {
@@ -14917,7 +14914,7 @@ DCX.addModule("DOMObserver", function (context) {
 					]
 				},
 				DOMObserver: {
-					enabled: true,
+					enabled: false,
 					events: [
 						{ name: "load", target: window}
 					]	
@@ -14978,8 +14975,8 @@ DCX.addModule("DOMObserver", function (context) {
                 // dcxWorker: window.fetch && window.Worker ? new Worker("dcxWorker.js") : null,
                 queues: [{
                         qid: "DEFAULT",
-                        endpoint: "https://sky.discoverstore.hclcx.com/DiscoverUIPost.php",
-                        //endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php", // local Env
+                        //endpoint: "/DiscoverUIPost.php",
+                        endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php", // local Env
                         maxEvents: 20,
                         timerInterval: 30000,
                         maxSize: 400000,
@@ -15209,38 +15206,14 @@ DCX.addModule("DOMObserver", function (context) {
 			},
             DOMObserver: {
 				targets: [
-					// {
-					// 	selector: "body", // Parent selector
-					// 	childNode: "", // Look for child node to trigger snapshot (blank for ANY)
-					// 	eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-					// 	added: 2, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
-					// 	maxEvents: 1, // After triggering X number of times, stop monitoring this event (0=Unlimited)
-					// 	customFunction: false // Optional JavaScript function to be executed when event is triggered
-					// },
-                    {
-                        selector: ".containerFixedWithWrapper", // Parent selector
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
-                        interval: 1000, // Set min interval 1000ms, so dom get ready.
-                    },
-                    {
-                        selector: ".containerFixedWithWrapper .slideImage", // Parent selector
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
-                        interval: 1000, // Set min interval 1000ms, so dom get ready.
-                    },
-                    {
-                        selector: ".dailyEditsRoot", // Parent selector
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
-                        interval: 1000, // Set min interval 1000ms, so dom get ready.
-                    },
-                    {
-                        selector: ".productImage img", // Parent selector
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
-                        interval: 1000, // Set min interval 1000ms, so dom get ready.
-                    },
+					{
+						selector: ".MuiGrid-root", // Parent selector
+						childNode: "MuiCircularProgress-circle", // Look for child node to trigger snapshot (blank for ANY)
+						eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
+						added: 2, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
+						maxEvents: 1, // After triggering X number of times, stop monitoring this event (0=Unlimited)
+						customFunction: false // Optional JavaScript function to be executed when event is triggered
+					}
 				]
 			},
             DCCookie: {
@@ -15314,11 +15287,13 @@ DCX.addModule("DOMObserver", function (context) {
         };
 
         window.addEventListener("click", function () {
+            console.log('new change');
             setTimeout(() => {
                 if (URLChange()) {
                     if(DCX) {
                         var DOMObserverModule = DCX.getModule('DOMObserver');
                         if(DOMObserverModule) {
+                            debugger
                             var webEvent = {
                                 type: "load",
                                 name: oldURL,
@@ -15330,6 +15305,5 @@ DCX.addModule("DOMObserver", function (context) {
             });
         }, { capture: false });
     }())
-
     DCX.init(config);
 }());
