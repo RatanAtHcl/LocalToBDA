@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.div3  {
+  background-image: url("https://www.w3schools.com/cssref/paper.gif");
+}
+.div4  {
+  background-image: url("./paper.gif");
+}
+div {
+    width: 50%;
+    float: left;
+    height: 300px;
+}
+
+</style>
+
+</head>
+<body>
+
+<h1>The background-image Property</h1>
+
+<div style="background-image: url('https://www.w3schools.com/cssref/paper.gif');">
+    Inline with https
+</div>
+<div style="background-image: url('./paper.gif');">
+    Inline without https
+</div>
+<div class="div3">
+    background with class with https
+</div>
+<div class="div4">
+    background with class without https
+</div>
+<button onclick="DCX.logCustomEvent('state', {destroyedStatus: 'ddd'}, 6);">button</button>
+<script src="./discover.js_12_1_8.beta.js">
+
+</script>
+</body>
+</html>
