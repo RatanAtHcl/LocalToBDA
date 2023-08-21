@@ -64,6 +64,7 @@ window.DCX = (function () {
             replay = DCX.getModule("replay"),
             cookieModule = DCX.getModule("DCCookie"),
             performanceModule = DCX.getModule("performance"),
+            DOMObserverModule = DCX.getModule("DOMObserver"),
             webEvent = null,
             urlInfo = utils.getOriginAndPath(),
             queryString = utils.getQueryString(window.location.search);
@@ -128,6 +129,10 @@ window.DCX = (function () {
 
         if (webEvent && performanceModule) {
             performanceModule.onevent(webEvent);
+        }
+
+        if (webEvent && DOMObserverModule) {
+            DOMObserverModule.onevent(webEvent);
         }
     }
 
@@ -5185,6 +5190,8 @@ DCX.addService("queue", function (core) {
                     core.fail("Cross domain iframe not found");
                 }
             }
+             
+            debugger
 
             queueManager.add(conf.qid, {
                 url: conf.endpoint,
@@ -13381,11 +13388,11 @@ DCX.addModule("replay", function (context) {
                 DCX.logScreenviewLoad("rootWithFrames");
                 break;
             case "load":
-                // If console capture enabled
-                if (coreConfig && coreConfig.captureConsole) {
-                    // Intercept console functions
-                    interceptConsole();
-                }
+                // // If console capture enabled
+                // if (coreConfig && coreConfig.captureConsole) {
+                //     // Intercept console functions
+                //     interceptConsole();
+                // }
                 // initialize the orientation
                 currOrientation = webEvent.orientation;
 
@@ -13453,36 +13460,36 @@ DCX.addModule("replay", function (context) {
                 break;
             case "unload":
 				// check the logged Exception and attech them to cuttent context
-                for (loggedException in loggedExceptions) {
-                    if (loggedExceptions.hasOwnProperty(loggedException)) {
-                        exception = loggedExceptions[loggedException].exception;
-                        if (exception.repeats > 1) {
-                            errorMessage = {
-                                type: 6,
-                                exception: exception
-                            };
-                            context.post(errorMessage);
-                        }
-                    }
-                }
+                // for (loggedException in loggedExceptions) {
+                //     if (loggedExceptions.hasOwnProperty(loggedException)) {
+                //         exception = loggedExceptions[loggedException].exception;
+                //         if (exception.repeats > 1) {
+                //             errorMessage = {
+                //                 type: 6,
+                //                 exception: exception
+                //             };
+                //             context.post(errorMessage);
+                //         }
+                //     }
+                // }
                 
-                // If console capture enabled
-                if (coreConfig && coreConfig.captureConsole) {
-                    for (var consoleTrack in loggedConsole) {
-                        // Loop through logged console
-                        if (loggedConsole.hasOwnProperty(consoleTrack)) {
-                            // Console object
-                            consoleMessage = loggedConsole[consoleTrack].console;
-                            // if (consoleMessage.repeats > 1) {
-                                // Message post
-                                context.post({
-                                    type: 6,
-                                    console: consoleMessage
-                                });
-                            // }
-                        }
-                    }
-                }
+                //If console capture enabled
+                // if (coreConfig && coreConfig.captureConsole) {
+                //     for (var consoleTrack in loggedConsole) {
+                //         // Loop through logged console
+                //         if (loggedConsole.hasOwnProperty(consoleTrack)) {
+                //             // Console object
+                //             consoleMessage = loggedConsole[consoleTrack].console;
+                //             // if (consoleMessage.repeats > 1) {
+                //                 // Message post
+                //                 context.post({
+                //                     type: 6,
+                //                     console: consoleMessage
+                //                 });
+                //             // }
+                //         }
+                //     }
+                // }
                 
                 // Flush any saved control - added check for empty
                 if (tmpQueue != null) {
@@ -14546,7 +14553,7 @@ DCX.addModule("DOMObserver", function (context) {
 		
         var DOMMutationObserver = function (target) {
             var element = document.querySelector(target.selector);
-            debugger
+            //debugger
             if (element) {
                 var observer = new MutationObserver(function(mutations) {
                     var eventCount = 0;
@@ -14676,6 +14683,9 @@ DCX.addModule("DOMObserver", function (context) {
                     var evt = new CustomEvent(eventName);
                     document.dispatchEvent(evt);
                     debugger
+                    // if (location.pathname === "/checkout/review") {
+                    //     DCX.flushAll()
+                    // }
                 }, 1000);
             };
         
@@ -14968,7 +14978,7 @@ DCX.addModule("DOMObserver", function (context) {
         services: {
             queue: {
                 asyncReqOnUnload: true, // Must be set to true due to changes in browser technology
-                useBeacon: false, // DNCA must be version 12.1.5 or higher
+                useBeacon: true, // DNCA must be version 12.1.5 or higher
                 useFetch: true, // Set to true to help prevent data loss
                 xhrLogging: false, // Useful for debgging
                 // dcxWorker: window.fetch && window.Worker ? new Worker("dcxWorker.js") : null,
@@ -14981,7 +14991,7 @@ DCX.addModule("DOMObserver", function (context) {
                         maxSize: 400000,
                         checkEndpoint: false,
                         encoder: "gzip",
-                        endpointCheckTimeout: 3000
+                        endpointCheckTimeout: 3000,
                 }]
             },
             message: {
@@ -15258,42 +15268,9 @@ DCX.addModule("DOMObserver", function (context) {
 			}
 		]
 	}
-    if (navigator.userAgent.indexOf("Firefox") !== -1) { //------------------------- Work arond for FETCH issues
-        config.services.queue.asyncReqOnUnload = false;
-        config.services.queue.useFetch = false;
-        config.services.queue.endpointCheck = true;
-        config.services.queue.endpointCheckTimeout = 2000;
-    }
 
-    //----------------------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------- Alternate IE Configs
-    //----------------------------------------------------------------------------------------------------------
-    if (document.documentMode === 10) { //-------------------------- Alternate config for IE10 (No Diff Support)
-        config.services.queue.useFetch = false;
-        config.services.queue.useBeacon = false;
-        config.services.queue.DCXWorker = false;
-        config.services.domCapture.diffEnabled = false;
-        config.modules.replay.domCapture.triggers = [{
-                event: 'click',
-                targets: ['a', 'a *', 'button', 'button *']
-            },
-            {
-                event: "change"
-            },
-            {
-                event: "load",
-                delay: 500
-            }
-        ];
-    }
-    if (document.documentMode === 11) { //-------------------------------------------- Alternate Config for IE11
-        config.services.queue.useFetch = false;
-        config.services.queue.useBeacon = false;
-        config.services.queue.DCXWorker = false;
-        config.services.message.privacyPatterns = [];
-    }
 
-	/*(function () {
+	(function () {
         let oldURL = window.location.href;
         var URLChange = function () {
             const newURL = window.location.href;
@@ -15309,8 +15286,14 @@ DCX.addModule("DOMObserver", function (context) {
             setTimeout(() => {
                 if (URLChange()) {
                     if(DCX) {
-                        var DOMObserverModule = DCX.getModule('DOMObserver');
+                        var DOMObserverModule = DCX.getModule('replay');
                         if(DOMObserverModule) {
+                            var webEvent = {
+                                type: "unload",
+                                name: oldURL,
+                            };
+                            DOMObserverModule.onevent(webEvent);
+
                             var webEvent = {
                                 type: "load",
                                 name: oldURL,
@@ -15321,13 +15304,7 @@ DCX.addModule("DOMObserver", function (context) {
                 }
             });
         }, { capture: false });
-    }()) */
-    
-    window.addEventListener('beforeunload', function(event) {
-        var evt = new CustomEvent('BrowerCloseLazyLoad');
-        document.dispatchEvent(evt);
+    }())
 
-        DCX.flushAll();
-    });
     DCX.init(config);
 }());
