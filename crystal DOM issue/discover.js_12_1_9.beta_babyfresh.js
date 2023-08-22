@@ -13460,36 +13460,36 @@ DCX.addModule("replay", function (context) {
                 break;
             case "unload":
 				// check the logged Exception and attech them to cuttent context
-                // for (loggedException in loggedExceptions) {
-                //     if (loggedExceptions.hasOwnProperty(loggedException)) {
-                //         exception = loggedExceptions[loggedException].exception;
-                //         if (exception.repeats > 1) {
-                //             errorMessage = {
-                //                 type: 6,
-                //                 exception: exception
-                //             };
-                //             context.post(errorMessage);
-                //         }
-                //     }
-                // }
+                for (loggedException in loggedExceptions) {
+                    if (loggedExceptions.hasOwnProperty(loggedException)) {
+                        exception = loggedExceptions[loggedException].exception;
+                        if (exception.repeats > 1) {
+                            errorMessage = {
+                                type: 6,
+                                exception: exception
+                            };
+                            context.post(errorMessage);
+                        }
+                    }
+                }
                 
                 //If console capture enabled
-                // if (coreConfig && coreConfig.captureConsole) {
-                //     for (var consoleTrack in loggedConsole) {
-                //         // Loop through logged console
-                //         if (loggedConsole.hasOwnProperty(consoleTrack)) {
-                //             // Console object
-                //             consoleMessage = loggedConsole[consoleTrack].console;
-                //             // if (consoleMessage.repeats > 1) {
-                //                 // Message post
-                //                 context.post({
-                //                     type: 6,
-                //                     console: consoleMessage
-                //                 });
-                //             // }
-                //         }
-                //     }
-                // }
+                if (coreConfig && coreConfig.captureConsole) {
+                    for (var consoleTrack in loggedConsole) {
+                        // Loop through logged console
+                        if (loggedConsole.hasOwnProperty(consoleTrack)) {
+                            // Console object
+                            consoleMessage = loggedConsole[consoleTrack].console;
+                            // if (consoleMessage.repeats > 1) {
+                                // Message post
+                                context.post({
+                                    type: 6,
+                                    console: consoleMessage
+                                });
+                            // }
+                        }
+                    }
+                }
                 
                 // Flush any saved control - added check for empty
                 if (tmpQueue != null) {
@@ -14797,8 +14797,18 @@ DCX.addModule("DOMObserver", function (context) {
 						setTimeout (function(){observeDOM();}, 300);
 					}
 					break;					
-				case "screenview_load":
-					break;					
+				case "screenview_unload":
+                    debugger
+                    if (window.MutationObserver) {
+						setTimeout (function(){observeDOM();}, 300);
+					}
+					break;
+                case "screenview_load":
+                    debugger
+                    if (window.MutationObserver) {
+						setTimeout (function(){observeDOM();}, 300);
+					}
+                    break;					
 				case "unload":
 					moduleLoaded = false;
 					break;
@@ -15281,29 +15291,6 @@ DCX.addModule("DOMObserver", function (context) {
                 return true;
             } 
         };
-
-        window.addEventListener("click", function () {
-            setTimeout(() => {
-                if (URLChange()) {
-                    if(DCX) {
-                        var DOMObserverModule = DCX.getModule('replay');
-                        if(DOMObserverModule) {
-                            var webEvent = {
-                                type: "unload",
-                                name: oldURL,
-                            };
-                            DOMObserverModule.onevent(webEvent);
-
-                            var webEvent = {
-                                type: "load",
-                                name: oldURL,
-                            };
-                            DOMObserverModule.onevent(webEvent)
-                        }
-                    }
-                }
-            });
-        }, { capture: false });
     }())
 
     DCX.init(config);
