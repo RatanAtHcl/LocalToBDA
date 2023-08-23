@@ -132,8 +132,10 @@ window.DCX = (function () {
         }
 
         if(webEvent && usabilityModule) {
-            usabilityModule.onevent(webEvent);
-            debugger
+            // webEvent.type = "unload",
+            usabilityModule.destroy();
+            usabilityModule.init();
+            //debugger
         }
     }
 
@@ -13215,6 +13217,7 @@ if (DCX && typeof DCX.addModule === "function") {
              * Initialize the usability module.
              */
             init: function () {
+                debugger
             },
 
             /**
@@ -13222,6 +13225,7 @@ if (DCX && typeof DCX.addModule === "function") {
              */
             destroy: function () {
                 var key, i;
+                debugger
                 for (key in eventMap) {
                     if (eventMap.hasOwnProperty(key)) {
                         eventMap[key].dispose();

@@ -14660,7 +14660,7 @@ DCX.addModule("DOMObserver", function (context) {
                                 if (typeof customFunction === "function") { 
                                     customFunction(); // Execute custom JavaScript function
                                 }
-                                debugger
+                                
                                 var evt = new CustomEvent(target.eventName);
                                 document.dispatchEvent(evt); // Dispatch custom event - must be configured in Replay (and optionally DOM Capture)
                                 eventCount = eventCount + 1;
@@ -14798,13 +14798,11 @@ DCX.addModule("DOMObserver", function (context) {
 					}
 					break;					
 				case "screenview_unload":
-                    debugger
                     if (window.MutationObserver) {
 						setTimeout (function(){observeDOM();}, 300);
 					}
 					break;
                 case "screenview_load":
-                    debugger
                     if (window.MutationObserver) {
 						setTimeout (function(){observeDOM();}, 300);
 					}
