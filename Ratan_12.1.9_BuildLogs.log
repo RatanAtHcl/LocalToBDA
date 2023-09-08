@@ -1,0 +1,632 @@
+PS D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture> ant -f build.xml build.dev
+Buildfile: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\build.xml
+
+build.dev:
+
+-clean:
+
+killWebDriverProcesses:
+     [echo] Close drivers - Firefox
+     [exec] 
+     [exec] PsKill v1.16 - Terminates processes on local or remote systems
+     [exec] Copyright (C) 1999-2016  Mark Russinovich
+     [exec] Sysinternals - www.sysinternals.com
+     [exec] 
+     [exec] Unable to kill process firefox.exe:
+     [exec] Process does not exist.
+     [exec] Result: -1
+     [exec] 
+     [exec] PsKill v1.16 - Terminates processes on local or remote systems
+     [exec] Copyright (C) 1999-2016  Mark Russinovich
+     [exec] Sysinternals - www.sysinternals.com
+     [exec]
+     [exec] Unable to kill process geckodriver.exe:
+     [exec] Process does not exist.
+     [exec] Result: -1
+     [echo] Close drivers - Chrome
+     [exec] 
+     [exec] PsKill v1.16 - Terminates processes on local or remote systems
+     [exec] Copyright (C) 1999-2016  Mark Russinovich
+     [exec] Sysinternals - www.sysinternals.com
+     [exec]
+     [exec] Unable to kill process chromedriver.exe:
+     [exec] Process does not exist.
+     [exec] Result: -1
+     [echo] Close drivers - IExplorer
+     [exec] 
+     [exec] PsKill v1.16 - Terminates processes on local or remote systems
+     [exec] Copyright (C) 1999-2016  Mark Russinovich
+     [exec] Sysinternals - www.sysinternals.com
+     [exec]
+     [exec] Unable to kill process IEDriverServer.exe:
+     [exec] Process does not exist.
+     [exec] Result: -1
+     [echo] Close drivers - Android
+     [exec] 
+     [exec] PsKill v1.16 - Terminates processes on local or remote systems
+     [exec] Copyright (C) 1999-2016  Mark Russinovich
+     [exec] Sysinternals - www.sysinternals.com
+     [exec]
+     [exec] Unable to kill process adb.exe:
+     [exec] Process does not exist.
+     [exec] Result: -1
+     [echo] Cleaning up previous build directories...
+   [delete] Deleting directory D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\build
+   [delete] Deleting directory D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate
+     [echo] Cleaning previous testWebSites from C:\inetpub\wwwroot with older date of 08/25/2023 12:36 PM...
+
+-mkdirs:
+     [echo] Creating directory structure...
+    [mkdir] Created dir: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\build
+    [mkdir] Created dir: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\build\docs
+    [mkdir] Created dir: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate
+    [mkdir] Created dir: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\testresults
+    [mkdir] Created dir: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\testresults\jscoverresults
+    [mkdir] Created dir: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\performanceresults\plot
+     [copy] Copied 9 empty directories to 9 empty directories under D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate
+
+-browserServiceCheck:
+
+-preprocess:
+     [echo] Executing js-preprocessor and copying the processed files from src to intermediate...
+     [echo] Using following build flags:
+     [echo] DEBUG,SUPPORT_LEGACY_HEADERS,ENABLE_LOCALSTORAGE_CAPTURE,w3c
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\eventTarget.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\moduleContext.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\utils.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\DCCookie.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\performance.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\usability.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\other\ajaxListener\ajaxListener.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\other\bridge\iOSBridge.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\other\gestures\gestures.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\other\xdomain\core.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\other\xdomain\xdomainService.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\ajaxService.jQuery.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\ajaxService.w3c.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\browserBaseService.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\browserService.jQuery.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\browserService.w3c.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\configService.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\encoderService.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\messageService.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\queueService.js
+[preprocess] Preprocessing: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\serializerService.js
+
+-setbuildinfo:
+[propertyfile] Creating new property file: D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\build\build.properties
+     [echo] Set build version: 12.1.9
+     [echo] Set json version: 10.0.0.0
+
+jshint-dev:
+     [echo] JSHint Successful
+
+jslint-dev:
+    [apply] 
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:91 col: 1  
+    [apply]     Unexpected '(space)'.
+    [apply]     evidence:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:172 col: 9 
+    [apply]     Combine this with the previous 'var' statement.
+    [apply]     evidence: var dcxStartTime = (new Date()).getTime(),
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:438 col: 44
+    [apply]     'core' was used before it was defined.
+    [apply]     evidence: localTop = localTop || core._getLocalTop();
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:724 col: 41
+    [apply]     Expected exactly one space between 'function' and '('.
+    [apply]     evidence: getInternalVersion: function() {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:773 col: 1 
+    [apply]     Unexpected '(space)'.
+    [apply]     evidence:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:828 col: 57
+    [apply]     Unexpected '(space)'.
+    [apply]     evidence: setState: function (destroyedParent, jMsg) {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:830 col: 55
+    [apply]     Unexpected '(space)'.
+    [apply]     evidence: destroyedParent : destroyedParent,
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:838 col: 1 
+    [apply]     Unexpected '(space)'.
+    [apply]     evidence:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:845 col: 38
+    [apply]     Expected exactly one space between 'function' and '('.
+    [apply]     evidence: setWorkerStatus: function(value) {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:852 col: 38
+    [apply]     Expected exactly one space between 'function' and '('.
+    [apply]     evidence: getWorkerStatus: function() {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:909 col: 19
+    [apply]     Expected exactly one space between 'if' and '('.
+    [apply]     evidence: if(state === 'unloading' || state === 'loaded') {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:944 col: 41
+    [apply]     Unexpected 'continue'.
+    [apply]     evidence: continue;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:959 col: 29
+    [apply]     Combine this with the previous 'var' statement.
+    [apply]     evidence: var jMsg = {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:1084 col: 1
+    [apply]     Unexpected '(space)'.
+    [apply]     evidence:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:1835 col: 33
+    [apply]     Unexpected 'continue'.
+    [apply]     evidence: continue;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:1842 col: 33
+    [apply]     Unexpected 'continue'.
+    [apply]     evidence: continue;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:1887 col: 30
+    [apply]     Don't make functions within a loop.
+    [apply]     evidence: }(moduleName, moduleEvents, hIFrame));
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:2507 col: 19
+    [apply]     Expected exactly one space between 'if' and '('.
+    [apply]     evidence: if(!coreConfig.sessionKeepAlive) {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:2511 col: 13
+    [apply]     Expected exactly one space between '}' and 'catch'.
+    [apply]     evidence: catch(e) {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:2511 col: 13
+    [apply]     Expected 'catch' at column 17, not column 13.
+    [apply]     evidence: catch(e) {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:2511 col: 18
+    [apply]     Expected exactly one space between 'catch' and '('.
+    [apply]     evidence: catch(e) {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:2512 col: 17
+    [apply]     Expected 'core' at column 21, not column 17.
+    [apply]     evidence: core.destroy();
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:2513 col: 13
+    [apply]     Expected '}' at column 17, not column 13.
+    [apply]     evidence: }
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:2578 col: 21
+    [apply]     Combine this with the previous 'var' statement.
+    [apply]     evidence: var jMsg = {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:2593 col: 21
+    [apply]     Combine this with the previous 'var' statement.
+    [apply]     evidence: var jMsg = {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\core.js:2593 col: 21
+    [apply]     Too many errors. (94% scanned).
+    [apply]     evidence:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\moduleContext.js:219 col: 14
+    [apply]     Don't make functions within a loop.
+    [apply]     evidence: }(coreMethod));
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\utils.js:470 col: 25
+    [apply]     Unexpected 'continue'.
+    [apply]     evidence: continue;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\utils.js:681 col: 37
+    [apply]     Expected exactly one space between 'function' and '('.
+    [apply]     evidence: getQueryString: function(str) {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\utils.js:683 col: 50
+    [apply]     Expected 'String' and instead saw ''''.
+    [apply]     evidence: str = str.replace("?", "") + "";
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\utils.js:686 col: 29
+    [apply]     Combine this with the previous 'var' statement.
+    [apply]     evidence: var query = {};
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\utils.js:687 col: 29
+    [apply]     Combine this with the previous 'var' statement.
+    [apply]     evidence: var bit, first, second;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\utils.js:688 col: 30
+    [apply]     Move 'var' declarations to the top of the function.
+    [apply]     evidence: for (var i = 0; i < s.length; i++) {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\core\utils.js:688 col: 30
+    [apply]     Stopping.  (57% scanned).
+    [apply]     evidence:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\DCCookie.js:144 
+col: 6
+    [apply]     Expected 'function' at column 5, not column 6.
+    [apply]     evidence: function getVIDFromStorage(vidKey) {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\DCCookie.js:148 
+col: 13
+    [apply]     Combine this with the previous 'var' statement.
+    [apply]     evidence: var localStorage = window.localStorage;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\DCCookie.js:156 
+col: 9
+    [apply]     Expected exactly one space between ')' and '{'.
+    [apply]     evidence: {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\DCCookie.js:156 
+col: 9
+    [apply]     Expected '{' at column 13, not column 9.
+    [apply]     evidence: {
+    [apply] 
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\DCCookie.js:157 
+col: 13
+    [apply]     Expected 'vidValue' at column 17, not column 13.
+    [apply]     evidence: vidValue = utils.getRandomString(28);
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\DCCookie.js:158 
+col: 13
+    [apply]     Expected 'localStorage' at column 17, not column 13.
+    [apply]     evidence: localStorage.setItem(vidKey, vidValue);
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\DCCookie.js:159 
+col: 9
+    [apply]     Expected '}' at column 13, not column 9.
+    [apply]     evidence: }
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\performance.js:87 col: 13
+    [apply]     The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+    [apply]     evidence: for (prop in timing) {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:335 col: 32
+    [apply]     Expected exactly one space between 'function' and '('.
+    [apply]     evidence: getOrgID = function(target) {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:336 col: 19
+    [apply]     Expected exactly one space between 'if' and '('.
+    [apply]     evidence: if(target && target.element && target.element.id) return target.element.id;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:336 col: 67
+    [apply]     Expected '{' and instead saw 'return'.
+    [apply]     evidence: if(target && target.element && target.element.id) return target.element.id;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:336 col: 67
+    [apply]     Expected 'return' at column 17, not column 67.
+    [apply]     evidence: if(target && target.element && target.element.id) return target.element.id;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:363 col: 11
+    [apply]     Expected exactly one space between 'if' and '('.
+    [apply]     evidence: if(control.target.origID === undefined || control.target.origID === "") {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:460 col: 17
+    [apply]     Unexpected 'continue'.
+    [apply]     evidence: continue;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:547 col: 13
+    [apply]     Expected 'if' at column 9, not column 13.
+    [apply]     evidence: if (typeof msg !== "string") {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:548 col: 17
+    [apply]     Expected 'return' at column 13, not column 17.
+    [apply]     evidence: return;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:549 col: 13
+    [apply]     Expected '}' at column 9, not column 13.
+    [apply]     evidence: }
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:574 col: 1
+    [apply]     Unexpected '(space)'.
+    [apply]     evidence:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:586 col: 1
+    [apply]     Unexpected '(space)'.
+    [apply]     evidence:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:1390 col: 37
+    [apply]     Expected ';' and instead saw 'if'.
+    [apply]     evidence: var console = window.console
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:1392 col: 23
+    [apply]     Expected '{' and instead saw 'return'.
+    [apply]     evidence: if (!console) return;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:1392 col: 23
+    [apply]     Expected 'return' at column 9, not column 23.
+    [apply]     evidence: if (!console) return;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:1394 col: 35
+    [apply]     Expected exactly one space between ')' and '{'.
+    [apply]     evidence: function intercept(method){
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:1394 col: 35
+    [apply]     Missing space between ')' and '{'.
+    [apply]     evidence: function intercept(method){
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:1398 col: 39
+    [apply]     Expected exactly one space between 'function' and '('.
+    [apply]     evidence: console[method] = function() {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:1401 col: 21
+    [apply]     Combine this with the previous 'var' statement.
+    [apply]     evidence: var argStringCollection = [];
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:1402 col: 38
+    [apply]     Expected exactly one space between 'function' and '('.
+    [apply]     evidence: args.forEach(function(arg) {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:1407 col: 21
+    [apply]     Combine this with the previous 'var' statement.
+    [apply]     evidence: var message = argStringCollection.join(' ');
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:1412 col: 14
+    [apply]     Expected ';' and instead saw '}'.
+    [apply]     evidence: }
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:1415 col: 13
+    [apply]     Combine this with the previous 'var' statement.
+    [apply]     evidence: var methods = ['log', 'warn', 'info', 'error'];
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:1417 col: 14
+    [apply]     Move 'var' declarations to the top of the function.
+    [apply]     evidence: for (var i = 0; i < methods.length; i++)
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\replay.js:1417 col: 14
+    [apply]     Stopping.  (83% scanned).
+    [apply]     evidence:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\usability.js:52 
+col: 36
+    [apply]     Expected exactly one space between 'function' and '('.
+    [apply]     evidence: getOrgID = function(target) {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\usability.js:53 
+col: 23
+    [apply]     Expected exactly one space between 'if' and '('.
+    [apply]     evidence: if(target && target.element && target.element.id) return target.element.id
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\usability.js:53 
+col: 71
+    [apply]     Expected '{' and instead saw 'return'.
+    [apply]     evidence: if(target && target.element && target.element.id) return target.element.id
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\usability.js:53 
+col: 71
+    [apply]     Expected 'return' at column 21, not column 71.
+    [apply]     evidence: if(target && target.element && target.element.id) return target.element.id
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\usability.js:53 
+col: 95
+    [apply]     Expected ';' and instead saw 'return'.
+    [apply]     evidence: if(target && target.element && target.element.id) return target.element.id
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\usability.js:54 
+col: 30
+    [apply]     Expected ';' and instead saw '}'.
+    [apply]     evidence: return ""
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\modules\usability.js:79 
+col: 15
+    [apply]     Expected exactly one space between 'if' and '('.
+    [apply]     evidence: if((typeof uiEvent.target.origID) === undefined || uiEvent.target.origID === "") {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\other\ajaxListener\ajaxListener.js:77 col: 1
+    [apply]     Unexpected '(space)'.
+    [apply]     evidence:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\other\ajaxListener\ajaxListener.js:125 col: 11
+    [apply]     Expected 'for' at column 13, not column 11.
+    [apply]     evidence: for (var key in data) {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\other\ajaxListener\ajaxListener.js:125 col: 16
+    [apply]     Move 'var' declarations to the top of the function.
+    [apply]     evidence: for (var key in data) {
+    [apply] 
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\other\ajaxListener\ajaxListener.js:125 col: 16
+    [apply]     Stopping.  (15% scanned).
+    [apply]     evidence:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\other\gestures\gestures.js:684 col: 26
+    [apply]     Don't make functions within a loop.
+    [apply]     evidence: });
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\other\gestures\gestures.js:721 col: 89
+    [apply]     Confusing use of '!'.
+    [apply]     evidence: if (typeof webEvent !== "object" || !webEvent.type || (!webEvent.gesture && !webEvent.type === "unload") || !webEvent.target) {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\ajaxService.w3c.js:91 col: 1
+    [apply]     Unexpected '(space)'.
+    [apply]     evidence:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\ajaxService.w3c.js:143 col: 13
+    [apply]     'makeAjaxCall' was used before it was defined.
+    [apply]     evidence: makeAjaxCall(message);
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\ajaxService.w3c.js:369 col: 14
+    [apply]     Unexpected '(space)'.
+    [apply]     evidence: }
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\browserBaseService.js:238 col: 25
+    [apply]     Unexpected 'continue'.
+    [apply]     evidence: continue;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\browserBaseService.js:244 col: 36
+    [apply]     Missing space between ',' and '9'.
+    [apply]     evidence: node && [1,9].indexOf(node.nodeType) > -1 && node !== document && (wantFullPath || !idValid);
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\browserBaseService.js:303 col: 28
+    [apply]     Expected '{' and instead saw 'try'.
+    [apply]     evidence: } else try {
+    [apply] 
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\browserBaseService.js:306 col: 25
+    [apply]     Expected 'loop' at column 29, not column 25.
+    [apply]     evidence: loop = true;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\browserBaseService.js:307 col: 25
+    [apply]     Expected 'shadowRoot' at column 29, not column 25.
+    [apply]     evidence: shadowRoot = node.getRootNode();
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\browserBaseService.js:308 col: 25
+    [apply]     Expected 'node' at column 29, not column 25.
+    [apply]     evidence: node = shadowRoot.host;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\browserBaseService.js:309 col: 25
+    [apply]     Expected 'setHost' at column 29, not column 25.
+    [apply]     evidence: setHost = true;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\browserBaseService.js:312 col: 21
+    [apply]     Expected exactly one space between '}' and 'catch'.
+    [apply]     evidence: catch (e) {}
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\browserBaseService.js:312 col: 21
+    [apply]     Expected 'catch' at column 25, not column 21.
+    [apply]     evidence: catch (e) {}
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\configService.js:36 col: 9
+    [apply]     'configService' was used before it was defined.
+    [apply]     evidence: configService.publish("configupdated", configService.getConfig());
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:323 col: 40
+    [apply]     Unexpected '(space)'.
+    [apply]     evidence: return attributeName === "type"
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:324 col: 105
+    [apply]     Expected ';' and instead saw '}'.
+    [apply]     evidence: && mutationRecord.oldValue === 'password' && mutationRecord.target[attributeName] === 'text'
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:332 col: 9
+    [apply]     Expected 'dcService' at column 13, not column 9.
+    [apply]     evidence: dcService = configService.getServiceConfig("domCapture");
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:472 col: 25
+    [apply]     Expected 'case' at column 21, not column 25.
+    [apply]     evidence: case "characterData":
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:473 col: 25
+    [apply]     Expected 'case' at column 21, not column 25.
+    [apply]     evidence: case "childList":
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:475 col: 29
+    [apply]     Expected 'mutationCount' at column 25, not column 29.
+    [apply]     evidence: mutationCount += addToMutatedTargets(xpath, record);
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:476 col: 29
+    [apply]     Expected 'break' at column 25, not column 29.
+    [apply]     evidence: break;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:477 col: 25
+    [apply]     Expected 'case' at column 21, not column 25.
+    [apply]     evidence: case "attributes":
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:478 col: 29
+    [apply]     Expected 'mutationCount' at column 25, not column 29.
+    [apply]     evidence: mutationCount += addToMutatedAttributeTargets(xpath, record);
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:479 col: 29
+    [apply]     Expected 'break' at column 25, not column 29.
+    [apply]     evidence: break;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:480 col: 25
+    [apply]     Expected 'default' at column 21, not column 25.
+    [apply]     evidence: default:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:481 col: 29
+    [apply]     Expected 'utils' at column 25, not column 29.
+    [apply]     evidence: utils.clog("Unknown mutation type: " + record.type);
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:482 col: 29
+    [apply]     Expected 'break' at column 25, not column 29.
+    [apply]     evidence: break;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:499 col: 13
+    [apply]     Combine this with the previous 'var' statement.
+    [apply]     evidence: var i,
+    [apply] 
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:504 col: 1
+    [apply]     Unexpected '(space)'.
+    [apply]     evidence:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:523 col: 33
+    [apply]     Expected 'case' at column 29, not column 33.
+    [apply]     evidence: case "attributes":
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:525 col: 37
+    [apply]     Expected 'onPasswordAttributeChange' at column 33, not column 37.
+    [apply]     evidence: onPasswordAttributeChange(record);
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:526 col: 37
+    [apply]     Expected 'break' at column 33, not column 37.
+    [apply]     evidence: break;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:527 col: 33
+    [apply]     Expected 'default' at column 29, not column 33.
+    [apply]     evidence: default:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:529 col: 37
+    [apply]     Expected 'break' at column 33, not column 37.
+    [apply]     evidence: break;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:796 col: 6
+    [apply]     Expected 'function' at column 5, not column 6.
+    [apply]     evidence: function removeElementsByTagNames(node, tagName) {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:800 col: 1
+    [apply]     Unexpected '(space)'.
+    [apply]     evidence:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:805 col: 1
+    [apply]     Unexpected '(space)'.
+    [apply]     evidence:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:811 col: 17
+    [apply]     Expected '}' at column 13, not column 17.
+    [apply]     evidence: }
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:812 col: 13
+    [apply]     Expected '}' at column 9, not column 13.
+    [apply]     evidence: }
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\domCaptureService.js:812 col: 13
+    [apply]     Too many errors. (42% scanned).
+    [apply]     evidence:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\messageService.js:91 col: 11
+    [apply]     Expected exactly one space between 'if' and '('.
+    [apply]     evidence: if(!event.screenview) {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\messageService.js:94 col: 1
+    [apply]     Unexpected '(space)'.
+    [apply]     evidence:
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\messageService.js:836 col: 17
+    [apply]     Combine this with the previous 'var' statement.
+    [apply]     evidence: var tabID = 0;
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\messageService.js:844 col: 17
+    [apply]     Combine this with the previous 'var' statement.
+    [apply]     evidence: var messagePackage = {
+    [apply] 
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\queueService.js:506 col: 13
+    [apply]     Expected an identifier and instead saw 'let'.
+    [apply]     evidence: let jMsg = {
+    [apply]
+    [apply] Issue in file D:\Ajay\Code\git_Discover_Workspace\HCL_Discover_Capture\SDK\UISDK\UICapture\intermediate\services\queueService.js:506 col: 13
+    [apply]     Stopping.  (50% scanned).
+    [apply]     evidence:
+    [apply]
+    [apply]
+    [apply] Result: 2
+     [echo] JSLint Successful
+
+-concatenate:
+     [echo] Concatenate all JavaScript source files into one file: build/discoverui.concat.js ...
+     [echo] Concatenate frame-related JavaScript source files into one file: build/discoverui.frame.js ...
+     [echo] Concatenate gesture-related JavaScript source files into one file: build/discoverui.gestures.js ...
+     [echo] Concatenate ajaxListener-related JavaScript source files into one file: build/ajaxListener/ajaxListener.js ...
+
+-build.dev:
+
+BUILD SUCCESSFUL
+Total time: 10 seconds
