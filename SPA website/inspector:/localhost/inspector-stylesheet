@@ -1,6 +1,0 @@
-mat-tree > mat-nested-tree-node > .mat-tree-node:first-child > .mat-icon-button {}#orcr {
-    background: red;
-}mat-tree > mat-nested-tree-node > .mat-tree-node:first-child > .mat-icon-button {
-    background-color: rebeccapurple;
-    display: none;
-}
