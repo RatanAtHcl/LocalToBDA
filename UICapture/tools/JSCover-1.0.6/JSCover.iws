@@ -1,0 +1,1128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/jscover/Main.java" line="457" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="edb193e6-87ee-4293-b262-504f7bf6cd73" name="Default" comment="" />
+    <ignored path="JSCover.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <file path="/Dummy.txt" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383435821136" ignored="false" />
+    <file path="/a.dummy" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383302637836" ignored="false" />
+    <file path="/Readme.md" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383435027214" ignored="false" />
+    <file path="/*.regexp" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382051396178" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-stdio/src/test/java/jscover/stdout/StdOutInstrumenterTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1380000127131" ignored="false" />
+    <file path="/StdOutInstrumenterTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1380000112246" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-stdio/src/main/java/jscover/stdout/StdOutInstrumenter.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1379999914715" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-stdio/src/main/java/jscover/stdout/ConfigurationForStdOut.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1380004990193" ignored="false" />
+    <file path="/ConfigurationForStdOut.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1379997843232" ignored="false" />
+    <file path="/fragment.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383204676538" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-stdio/src/test/java/jscover/stdout/ConfigurationForStdOutTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1379999226876" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-stdio/src/main/java/jscover/ConfigurationCommon.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1379997676175" ignored="false" />
+    <file path="/ConfigurationCommon.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381020324157" ignored="false" />
+    <file path="/StdOutInstrumenter.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381315455144" ignored="false" />
+    <file path="/ConfigurationForStdOutTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1379999154178" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-stdio/build.xml" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1379998056932" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-stdio/src/test/java/jscover/instrument/InstrumenterServiceTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1380005015331" ignored="false" />
+    <file path="/InstrumenterServiceTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1379999569522" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-stdio/src/test/java/jscover/server/InstrumentingRequestHandlerTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1379999537977" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-stdio/src/main/java/jscover/instrument/InstrumenterService.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1380004955297" ignored="false" />
+    <file path="/InstrumenterService.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1379999611722" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-stdio/src/test/java/jscover/MainParsingTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1380003326434" ignored="false" />
+    <file path="/MainParsingTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1380003286451" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-stdio/src/test/java/jscover/MainInstanceTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1380003792352" ignored="false" />
+    <file path="/MainInstanceTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1380003729870" ignored="false" />
+    <file path="/Main.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381313421200" ignored="false" />
+    <file path="/bookmarks.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383208735096" ignored="false" />
+    <file path="/manual.xml" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383435801391" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/src/main/java/jscover/maven/JSCoverMojo.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381052297302" ignored="false" />
+    <file path="/JSCoverMojo.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383043641268" ignored="false" />
+    <file path="/pom.xml" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383111144049" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/pom.xml" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383039724571" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/src/main/java/jscover/maven/TestRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381313911893" ignored="false" />
+    <file path="/TestRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381313911893" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/src/main/java/jscover/maven/JasmineWebDriverRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381052877232" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/target/generated-sources/plugin/jscover/maven/HelpMojo.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381052969960" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/src/main/java/jscover/maven/QUnitWebDriverRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381052905835" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-samples/pom.xml" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383111184669" ignored="false" />
+    <file path="$MAVEN_REPOSITORY$/com/github/tntim96/jscover-maven-plugin/1.0-SNAPSHOT/jscover-maven-plugin-1.0-SNAPSHOT.jar!/META-INF/maven/plugin.xml" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381052969960" ignored="false" />
+    <file path="$MAVEN_REPOSITORY$/com/github/tntim96/JSCover/1.0.6-SNAPSHOT/JSCover-1.0.6-SNAPSHOT.jar!/jscover/Main.class" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381019150745" ignored="false" />
+    <file path="/ConfigurationCommonTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381016660195" ignored="false" />
+    <file path="/ConfigurationForServerTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381315523426" ignored="false" />
+    <file path="/History.md" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383215625608" ignored="false" />
+    <file path="/build.xml" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382761715619" ignored="false" />
+    <file path="$MAVEN_REPOSITORY$/com/github/tntim96/JSCover/1.0.6-SNAPSHOT/JSCover-1.0.6-SNAPSHOT.jar!/jscover/util/IoUtils.class" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381018233441" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/.idea/workspace.xml" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382792156364" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-samples/jscoverage.json" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381022260520" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-samples/jscoverage.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381022260520" ignored="false" />
+    <file path="/ConfigurationForReportTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381048204889" ignored="false" />
+    <file path="/MainTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381049955683" ignored="false" />
+    <file path="$PROJECT_DIR$/../saga/saga-maven-plugin/src/main/java/com/github/timurstrekalov/saga/maven/SagaMojo.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381052371460" ignored="false" />
+    <file path="/JasmineWebDriverRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381052814781" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/src/main/java/jscover/maven/WebDriverRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381052723620" ignored="false" />
+    <file path="/WebDriverRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381052699462" ignored="false" />
+    <file path="/QUnitWebDriverRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381052902451" ignored="false" />
+    <file path="/ConfigurationForFS.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381314121254" ignored="false" />
+    <file path="/FileMojo.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382953062129" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/src/main/java/jscover/maven/FileMojo.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381314215288" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/target/generated-sources/plugin/jscover/maven/WebDriverService.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381313826759" ignored="false" />
+    <file path="/WebDriverService.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381313818922" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/src/main/java/jscover/maven/ServerMojo.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381313913138" ignored="false" />
+    <file path="/ServerMojo.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382865621989" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/src/main/java/jscover/maven/ServerTestRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381313913138" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/src/main/java/jscover/maven/FileTestRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381315801158" ignored="false" />
+    <file path="/FileTestRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383080093747" ignored="false" />
+    <file path="$MAVEN_REPOSITORY$/com/github/tntim96/JSCover/1.0.6-SNAPSHOT/JSCover-1.0.6-SNAPSHOT.jar!/jscover/ConfigurationCommon.class" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381315536452" ignored="false" />
+    <file path="/ConfigurationForFSTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381350141520" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/reweight_member_search_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/equity_buy_confirm_trade_wizard_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/fcfs_edit_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/equity_sell_confirm_trade_wizard_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/equity_buy_trade_wizard_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/address_details_editor_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/run-all-suites.htm" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/order_monitor_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/email_details_editor_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/change_contact_details_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/lost_member_reporting_editor_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/equity_sell_trade_wizard_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/ecomms-popup_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/address_details_editor_lost_member_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/equity_sell_error_comms_trade_wizard_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/address_details_editor_inactive_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/advanced_member_search_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/bulk_switch_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/change_comms_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/portfolio_reports_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/defined_benefit_reports_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/member_list_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/reset_password_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/telephone_details_editor_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/member_registration_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/privacy_policy_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/transactions_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/bulk_switch_confirm_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/login_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/comms_editor_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/contact_information_tooltip_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/investment_list_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/address_details_editor_no_addresses_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/adviser_registration_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/reweight_portfolio_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/menu_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/change_password_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/equity_sell_error_pending_trade_wizard_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/provide_tfn_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/javascript/spec/gen/investment_tabs_suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381374204773" ignored="false" />
+    <file path="C:/development/projects/POL/src/main/au/com/ioof/portfolioonline/controller/gsm/GSMCalculatorController.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381893937441" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/main/resources/messages.properties" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1381897004906" ignored="false" />
+    <file path="$PROJECT_DIR$/../jasmine-maven-plugin/src/main/java/com/github/searls/jasmine/mojo/ServerMojo.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382156156687" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test/java/au/com/awmlimited/asis/builder/AdviserBuilder.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382049896102" ignored="false" />
+    <file path="/AdviserBuilder.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382049891547" ignored="false" />
+    <file path="C:/development/projects/ASISWeb/src/test-integration/java/au/com/awmlimited/asis/repository/InvestmentStrategyMatcherBuilder.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382051421782" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-plugin-MonsterMetroid/pom.xml" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382696638606" ignored="false" />
+    <file path="/configuration.properties" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382756102321" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-samples/src/test/java/jscover/webdriver/jasmine/WebDriverJasmineIETest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382756390123" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-samples/src/test/java/jscover/webdriver/jasmine/WebDriverJasmineChromeTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382756427291" ignored="false" />
+    <file path="/build-maven.xml" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383207969812" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/pom.xml" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382776381708" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/server/pom.xml" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382877019966" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/server/README.md" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383111709983" ignored="false" />
+    <file path="/README.md" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383214991432" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/Readme.md" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383435027214" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-samples/README.md" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383214991432" ignored="false" />
+    <file path="$MAVEN_REPOSITORY$/com/github/tntim96/jscover-server-maven-plugin/1.0-SNAPSHOT/jscover-server-maven-plugin-1.0-SNAPSHOT.jar!/META-INF/maven/plugin.xml" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383080015483" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/server/jscover-server-maven-plugin.iml" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382776637600" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/file-system/src/main/java/jscover/maven/FileMojo.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383039220349" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/common/pom.xml" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382776606307" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/common/src/main/java/jscover/maven/JSCoverMojo.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383080221788" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/server/src/main/java/jscover/maven/ServerMojo.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382953087389" ignored="false" />
+    <file path="$MAVEN_REPOSITORY$/com/github/tntim96/jscover-file-maven-plugin/1.0-SNAPSHOT/jscover-file-maven-plugin-1.0-SNAPSHOT.jar!/META-INF/maven/plugin.xml" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383080015483" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/server/src/main/java/jscover/maven/ServerTestRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382953494533" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/file-system/target/generated-sources/plugin/jscover/maven/FileTestRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383038999409" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/file-system/target/generated-sources/plugin/jscover/maven/HelpMojo.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383039252968" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/file-system/README.md" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383028108329" ignored="false" />
+    <file path="/ServerTestRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1382953489142" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-samples/src/main/java/jscover/webdriver/jasmine/WebDriverJasmineTestBase.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383039802314" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/common/src/main/java/jscover/maven/JasmineWebDriverRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383027993178" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/common/src/main/java/jscover/maven/QUnitWebDriverRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383028000566" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/common/src/main/java/jscover/maven/JasmineHtmlReporterWebDriverRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383028039459" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/common/src/main/java/jscover/maven/JasmineTrivialReporterWebDriverRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383029581985" ignored="false" />
+    <file path="/JasmineTrivialReporterWebDriverRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383028650083" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-samples/src/test/javascript/jasmine-trivial-reporter-code-pass.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383078000943" ignored="false" />
+    <file path="/jasmine-trivial-reporter-code-pass.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383077859137" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/common/src/main/java/jscover/maven/TestType.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383029894096" ignored="false" />
+    <file path="/TestType.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383029894402" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-maven-plugin/plugin-parent/file-system/src/main/java/jscover/maven/FileTestRunner.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383080183396" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-samples/src/test/javascript/spec/jasmine-code-fail-spec.js" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383077816531" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-samples/src/test/javascript/qunit-code-fail.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383077975201" ignored="false" />
+    <file path="/qunit-code-fail.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383077975201" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-samples/src/test/javascript/spec/qunit-code-fail-spec.js" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383078176205" ignored="false" />
+    <file path="$PROJECT_DIR$/../JSCover-samples/src/main/webapp/js/unloaded.js" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383110846506" ignored="false" />
+    <file path="/unloaded.js" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383110840341" ignored="false" />
+    <file path="/log.properties" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383182333770" ignored="false" />
+    <file path="/JSONDataMergerTest.java" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383182963261" ignored="false" />
+    <file path="/jscoverage-branch.js" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383203780726" ignored="false" />
+    <file path="/suite.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383183939468" ignored="false" />
+    <file path="/branch_data_spec.js" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383203683540" ignored="false" />
+    <file path="/downloads.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383205659264" ignored="false" />
+    <file path="/home.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383210924427" ignored="false" />
+    <file path="/examples.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383211520296" ignored="false" />
+    <file path="/buzz.html" changelist="edb193e6-87ee-4293-b262-504f7bf6cd73" time="1383302812032" ignored="false" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/JSCover$InstrumentingRequestHandlerTest.coverage" NAME="InstrumentingRequestHandlerTest Coverage Results" MODIFIED="1382677681661" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>jscover.server.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/JSCover$BranchInstrumentorIntegrationTest.coverage" NAME="BranchInstrumentorIntegrationTest Coverage Results" MODIFIED="1382677901025" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>jscover.instrument.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/JSCover$JSONDataMergerTest.coverage" NAME="JSONDataMergerTest Coverage Results" MODIFIED="1382677743324" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>jscover.report.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/JSCover$BranchDataTest.coverage" NAME="BranchDataTest Coverage Results" MODIFIED="1382677795908" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>jscover.report.*</FILTER>
+    </SUITE>
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="C:\data\JSCover\patches" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="DebuggerManager">
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/jscover/server/InstrumentingRequestHandler.java" line="419" class="jscover.server.InstrumentingRequestHandler" package="jscover.server">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/jscover/report/JSONDataMerger.java" line="431" class="jscover.report.JSONDataMerger" package="jscover.report">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
+    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <breakpoint_rules />
+    <ui_properties />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="JSCover" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="manual.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/doc/manual/manual.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1648" column="57" selection-start="85655" selection-end="85655" vertical-scroll-proportion="-14.8">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/build.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="294" column="18" selection-start="11993" selection-end="11993" vertical-scroll-proportion="0.80145985">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitLogSettings">
+    <option name="myDateState">
+      <MyDateState />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/doc/downloads.html" />
+        <option value="$PROJECT_DIR$/build-maven.xml" />
+        <option value="$PROJECT_DIR$/bookmarks.html" />
+        <option value="$PROJECT_DIR$/doc/home.html" />
+        <option value="$PROJECT_DIR$/examples/file-system/Readme.md" />
+        <option value="$PROJECT_DIR$/examples/localStorage-file-system/Readme.md" />
+        <option value="$PROJECT_DIR$/examples/localStorage-proxy/Readme.md" />
+        <option value="$PROJECT_DIR$/examples/localStorage-server/Readme.md" />
+        <option value="$PROJECT_DIR$/doc/examples.html" />
+        <option value="$PROJECT_DIR$/examples/Readme.md" />
+        <option value="$PROJECT_DIR$/src/main/resources/jscover/configuration.properties" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/History.md" />
+        <option value="$PROJECT_DIR$/doc/buzz.html" />
+        <option value="$PROJECT_DIR$/doc/links.html" />
+        <option value="$PROJECT_DIR$/doc/manual/manual.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1066" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JSCover" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JSCover" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JSCover" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JSCover" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JSCover" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="doc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="271" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="289" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="293" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../JSCover-stdio" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="296" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="968" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="975" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="288" />
+    <property name="GoToClass.includeJavaFiles" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="282" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FullScreen" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="dynamic.classpath" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\java\JSCover\examples" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.InstrumenterIntegrationTest">
+    <configuration default="false" name="JSONDataMergerTest.shouldBug105" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="jscover.report.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="JSCover" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="jscover.report" />
+      <option name="MAIN_CLASS_NAME" value="jscover.report.JSONDataMergerTest" />
+      <option name="METHOD_NAME" value="shouldBug105" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="MainTest" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="jscover.report.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="JSCover" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="jscover.report" />
+      <option name="MAIN_CLASS_NAME" value="jscover.report.MainTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="BranchDataTest" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="jscover.report.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="JSCover" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="jscover.report" />
+      <option name="MAIN_CLASS_NAME" value="jscover.report.BranchDataTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Cover" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Cover" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="BranchInstrumentorIntegrationTest" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="jscover.instrument.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="JSCover" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="jscover.instrument" />
+      <option name="MAIN_CLASS_NAME" value="jscover.instrument.BranchInstrumentorIntegrationTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Cover" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Cover" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="InstrumenterIntegrationTest" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="jscover.instrument.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="JSCover" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="jscover.instrument" />
+      <option name="MAIN_CLASS_NAME" value="jscover.instrument.InstrumenterIntegrationTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local" singleton="true">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method />
+    </configuration>
+    <list size="21">
+      <item index="0" class="java.lang.String" itemvalue="Application.HttpServerDriver" />
+      <item index="1" class="java.lang.String" itemvalue="Application.InstrumentingRequestHandlerDriver - proxy" />
+      <item index="2" class="java.lang.String" itemvalue="Application.Main - merge" />
+      <item index="3" class="java.lang.String" itemvalue="Application.Main - phantom qunit" />
+      <item index="4" class="java.lang.String" itemvalue="Application.Main - run filesystem" />
+      <item index="5" class="java.lang.String" itemvalue="Application.Main - run filesystem qunit" />
+      <item index="6" class="java.lang.String" itemvalue="Application.Main - run log properties" />
+      <item index="7" class="java.lang.String" itemvalue="Application.Main - run proxy server" />
+      <item index="8" class="java.lang.String" itemvalue="Application.Main - run server" />
+      <item index="9" class="java.lang.String" itemvalue="Application.Main - run server - test" />
+      <item index="10" class="java.lang.String" itemvalue="Application.Main - run server --log" />
+      <item index="11" class="java.lang.String" itemvalue="Application.Main - run server help" />
+      <item index="12" class="java.lang.String" itemvalue="Application.Main - run server localStorage" />
+      <item index="13" class="java.lang.String" itemvalue="Application.Main help" />
+      <item index="14" class="java.lang.String" itemvalue="Application.Main version" />
+      <item index="15" class="java.lang.String" itemvalue="Application.SimpleWebServer" />
+      <item index="16" class="java.lang.String" itemvalue="JUnit.JSONDataMergerTest.shouldBug105" />
+      <item index="17" class="java.lang.String" itemvalue="JUnit.MainTest" />
+      <item index="18" class="java.lang.String" itemvalue="JUnit.BranchDataTest" />
+      <item index="19" class="java.lang.String" itemvalue="JUnit.BranchInstrumentorIntegrationTest" />
+      <item index="20" class="java.lang.String" itemvalue="JUnit.InstrumenterIntegrationTest" />
+    </list>
+    <recent_temporary>
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="JUnit.InstrumenterIntegrationTest" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.JSONDataMergerTest.shouldBug105" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.BranchInstrumentorIntegrationTest" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.BranchDataTest" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.MainTest" />
+      </list>
+    </recent_temporary>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="edb193e6-87ee-4293-b262-504f7bf6cd73" name="Default" comment="" />
+      <created>1379992571161</created>
+      <updated>1379992571161</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Rename TXT file to MD and format">
+      <created>1379993260968</created>
+      <updated>1379993260968</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Fix typo">
+      <created>1380001897188</created>
+      <updated>1380001897188</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Increase coverage threshold">
+      <created>1380005458789</created>
+      <updated>1380005458789</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Update to v1.0.6 for &quot;Adding support for single file instrumentation via stdio&quot; (https://github.com/tntim96/JSCover/pull/100)">
+      <created>1380179804135</created>
+      <updated>1380179804135</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Checkstyle improvements">
+      <created>1380180304917</created>
+      <updated>1380180304917</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add to contributors">
+      <created>1380184111629</created>
+      <updated>1380184111629</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Improve manual and add link">
+      <created>1380363787551</created>
+      <updated>1380363787551</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Minor modifications for maven plugin integration">
+      <created>1381017528254</created>
+      <updated>1381017528254</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Minor modifications for maven plugin integration">
+      <created>1381023172865</created>
+      <updated>1381023172865</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Minor modifications for maven plugin integration">
+      <created>1381050059733</created>
+      <updated>1381050059733</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Minor modifications for maven plugin integration">
+      <created>1381097326051</created>
+      <updated>1381097326051</updated>
+    </task>
+    <task id="LOCAL-00012" summary="API changes for maven plugin integration">
+      <created>1381350360001</created>
+      <updated>1381350360001</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Fix typo - https://github.com/tntim96/JSCover/issues/104">
+      <created>1382001587130</created>
+      <updated>1382001587130</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Fix typo - force page reload">
+      <created>1382002028648</created>
+      <updated>1382002028648</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Upgrade Selenium from 2.35 to 2.37, HTML Unit 2.12 to 2.13">
+      <created>1382170570930</created>
+      <updated>1382170570930</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Move some Maven targets to separate Ant XML.">
+      <created>1382761825380</created>
+      <updated>1382761825380</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Minor modifications for maven plugin integration">
+      <created>1382878642496</created>
+      <updated>1382878642496</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Fix link">
+      <created>1383203875221</created>
+      <updated>1383203875221</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Fix JSON construction where object may have added properties (https://github.com/tntim96/JSCover/pull/105)">
+      <created>1383204656840</created>
+      <updated>1383204656840</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Move links from JSCover manual to JSCover-Samples README.md">
+      <created>1383215311690</created>
+      <updated>1383215311690</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Improve examples Readme.md. Minor tidying.">
+      <created>1383215379128</created>
+      <updated>1383215379128</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Add examples readme">
+      <created>1383215515086</created>
+      <updated>1383215515086</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Prepare for 1.0.6 release">
+      <created>1383435417757</created>
+      <updated>1383435417757</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Add reference to jscover-maven-plugin">
+      <created>1383435747384</created>
+      <updated>1383435747384</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Documentation">
+      <created>1383435825184</created>
+      <updated>1383435825184</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1547492" sideWeight="0.7830396" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43502203" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32929516" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21696036" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12753469" sideWeight="0.7830396" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3270925" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.67180616" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2753304" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="CHECK_NEW_TODO" value="true" />
+    <option name="myTodoPanelSettings">
+      <value>
+        <are-packages-shown value="false" />
+        <are-modules-shown value="false" />
+        <flatten-packages value="false" />
+        <is-autoscroll-to-source value="false" />
+      </value>
+    </option>
+    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
+    <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="false" />
+    <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
+    <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
+    <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
+    <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
+    <option name="SHORT_DIFF_HORIZONTALLY" value="true" />
+    <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
+    <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
+    <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
+    <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+    <option name="SHOW_FILE_HISTORY_DETAILS" value="true" />
+    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
+    <option name="SHOW_DIRTY_RECURSIVELY" value="false" />
+    <option name="LIMIT_HISTORY" value="true" />
+    <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
+    <option name="UPDATE_FILTER_SCOPE_NAME" />
+    <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
+    <option name="COMMIT_MESSAGE_MARGIN_SIZE" value="72" />
+    <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
+    <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
+    <option name="LAST_COMMIT_MESSAGE" value="Documentation" />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
+    <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
+    <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
+    <option name="ACTIVE_VCS_NAME" />
+    <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
+    <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
+    <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
+    <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
+    <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
+    <MESSAGE value="Rename TXT file to MD and format" />
+    <MESSAGE value="Fix typo" />
+    <MESSAGE value="Increase coverage threshold" />
+    <MESSAGE value="Update to v1.0.6 for &quot;Adding support for single file instrumentation via stdio&quot; (https://github.com/tntim96/JSCover/pull/100)" />
+    <MESSAGE value="Checkstyle improvements" />
+    <MESSAGE value="Add to contributors" />
+    <MESSAGE value="Improve manual and add link" />
+    <MESSAGE value="API changes for maven plugin integration" />
+    <MESSAGE value="Fix typo - https://github.com/tntim96/JSCover/issues/104" />
+    <MESSAGE value="Fix typo - force page reload" />
+    <MESSAGE value="Upgrade Selenium from 2.35 to 2.37, HTML Unit 2.12 to 2.13" />
+    <MESSAGE value="Move some Maven targets to separate Ant XML." />
+    <MESSAGE value="Minor modifications for maven plugin integration" />
+    <MESSAGE value="Fix link" />
+    <MESSAGE value="Fix JSON construction where object may have added properties (https://github.com/tntim96/JSCover/pull/105)" />
+    <MESSAGE value="Move links from JSCover manual to JSCover-Samples README.md" />
+    <MESSAGE value="Improve examples Readme.md. Minor tidying." />
+    <MESSAGE value="Add examples readme" />
+    <MESSAGE value="Prepare for 1.0.6 release" />
+    <MESSAGE value="Add reference to jscover-maven-plugin" />
+    <MESSAGE value="Documentation" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+    <buildFile url="file://$PROJECT_DIR$/build.xml">
+      <targetFilters>
+        <filter targetName="mvn-init" isVisible="false" />
+        <filter targetName="clean" isVisible="false" />
+        <filter targetName="init" isVisible="false" />
+        <filter targetName="dirsetup" isVisible="false" />
+        <filter targetName="compile" isVisible="false" />
+        <filter targetName="stop-server" isVisible="false" />
+        <filter targetName="jar" isVisible="false" />
+        <filter targetName="jar-all" isVisible="false" />
+        <filter targetName="zip" isVisible="false" />
+        <filter targetName="release" isVisible="true" />
+        <filter targetName="maven-files" isVisible="true" />
+        <filter targetName="maven-bundle" isVisible="true" />
+        <filter targetName="cobertura-setup" isVisible="false" />
+        <filter targetName="coverage-report" isVisible="false" />
+        <filter targetName="coverage-report-all" isVisible="false" />
+        <filter targetName="coverage-check" isVisible="false" />
+        <filter targetName="coverage-check-all" isVisible="false" />
+        <filter targetName="compile-tests" isVisible="false" />
+        <filter targetName="compile-integration-tests" isVisible="false" />
+        <filter targetName="compile-acceptance-tests" isVisible="false" />
+        <filter targetName="run-tests" isVisible="false" />
+        <filter targetName="run-acceptance-tests" isVisible="false" />
+        <filter targetName="jar-test" isVisible="false" />
+        <filter targetName="jar-all-test" isVisible="false" />
+        <filter targetName="report-if-failed" isVisible="false" />
+        <filter targetName="junit-report" isVisible="false" />
+        <filter targetName="junit" isVisible="false" />
+        <filter targetName="pre-commit" isVisible="true" />
+        <filter targetName="deploy" isVisible="true" />
+      </targetFilters>
+      <expanded value="true" />
+    </buildFile>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/examples/phantomJS-file-system/Readme.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/phantomJS-server/Readme.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/proxy/Readme.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/server/Readme.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="69" selection-start="167" selection-end="167" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="4" selection-start="2705" selection-end="2705" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/Readme.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="40" selection-start="74" selection-end="74" vertical-scroll-proportion="0.038548753">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/jscover/configuration.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="13" selection-start="13" selection-end="13" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="18" selection-start="554" selection-end="554" vertical-scroll-proportion="0.019274376">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/History.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="18" selection-start="18" selection-end="18" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/contribute.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="8" selection-start="707" selection-end="707" vertical-scroll-proportion="0.019859813">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/buzz.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="0" selection-start="4508" selection-end="4508" vertical-scroll-proportion="0.65717673">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/links.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="99" selection-start="1628" selection-end="1628" vertical-scroll-proportion="0.53621495">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/examples.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="38" selection-start="269" selection-end="269" vertical-scroll-proportion="-4.576923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/downloads.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="0" selection-start="1738" selection-end="1738" vertical-scroll-proportion="0.42348754">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/manual/manual.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1648" column="57" selection-start="85655" selection-end="85655" vertical-scroll-proportion="-14.8">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="294" column="18" selection-start="11993" selection-end="11993" vertical-scroll-proportion="0.80145985">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+

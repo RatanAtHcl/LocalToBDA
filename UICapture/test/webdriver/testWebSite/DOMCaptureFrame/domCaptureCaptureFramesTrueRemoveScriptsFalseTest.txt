@@ -1,0 +1,447 @@
+<html><head>
+        <title>DOM Diff Test page</title>
+        <style>
+            .redbg {
+                background-color: #ffcfcf;
+            }
+            .greenbg {
+                background-color: #7fff7f;
+            }
+            .bluebg {
+                background-color: #cfcfff;
+            }
+        </style>
+        <script type="text/javascript">
+            function addChildInputs() {
+                var div,
+                    targets = ["container_1.target.td", "container_2.target.td"],
+                    ip;
+    
+                targets.forEach(function(id) {
+                    ip = document.createElement("input");
+                    ip.type = "password";
+                    ip.name = id + "_ip";
+                    div = document.getElementById(id);
+                    div.appendChild(ip);
+                });
+            }
+    
+            function addToTargetDiv(id) {
+                var div,
+                    div2,
+                    ip,
+                    txtNode;
+    
+                div = document.getElementsByClassName("bluebg")[0];
+    
+                div2 = document.createElement("div");
+                div.appendChild(div2);
+    
+                // Add text inputs
+                for (i = 1; i <= 3; i++) {
+                    div = document.createElement("div");
+                    div2.appendChild(div);
+                    ip = document.createElement("input");
+                    ip.type = "text";
+                    if (i < 3) {
+                        ip.name = "ip-x-" + i;
+                    }
+                    if (i === 2) {
+                        ip.id = ip.name + "-pwd";
+                        ip.type = "password";
+                    }
+                    txtNode = document.createTextNode("Input " + i);
+                    div.appendChild(txtNode);
+                    div.appendChild(ip);
+                }
+    
+                // Add radio input
+                div = document.createElement("div");
+                for (i = 1; i <= 3; i++) {
+                    ip = document.createElement("input");
+                    ip.type = "radio";
+                    ip.name = "ip.radio";
+                    ip.className = "toggle";
+                    txtNode = document.createTextNode("Radio " + i + ":");
+                    div.appendChild(txtNode);
+                    div.appendChild(ip);
+                }
+                div2.appendChild(div);
+    
+                // Add checkbox input
+                div = document.createElement("div");
+                for (i = 1; i <= 3; i++) {
+                    ip = document.createElement("input");
+                    ip.type = "checkbox";
+                    ip.name = "ip.checkbox." + i;
+                    ip.className = "toggle";
+                    txtNode = document.createTextNode("Checkbox " + i + ":");
+                    div.appendChild(txtNode);
+                    div.appendChild(ip);
+                }
+                div2.appendChild(div);
+    
+                // Add textarea
+                div = document.createElement("div");
+                ip = document.createElement("textarea");
+                ip.name = "txtarea.pvt";
+                txtNode = document.createTextNode("Textarea:");
+                div.appendChild(txtNode);
+                div.appendChild(ip);
+                div2.appendChild(div);
+     
+                // Add Select list
+                div = document.createElement("div");
+                ip = document.createElement("select");
+                ip.name = "select.pvt";
+                for (i = 1; i <= 3; i++) {
+                    opt = document.createElement("option");
+                    opt.value = "Option " + i;
+                    opt.text = opt.value;
+                    ip.add(opt);
+                }
+                txtNode = document.createTextNode("Select List:");
+                div.appendChild(txtNode);
+                div.appendChild(ip);
+                div2.appendChild(div);
+            }
+    
+            function removeDiv(id) {
+                var div = document.getElementById(id);
+                
+                if (!div) {
+                    console.log("removeDiv1: Div <" + id + "> not found.");
+                    return;
+                }
+            
+                document.body.removeChild(div);
+                // Update the button label
+                btn = document.getElementById("addDivBtn");
+                btn.value = "Add Div";            
+            }
+            
+            function toggleAttributes1() {
+                var i, len,
+                    elem,
+                    elems = document.getElementsByClassName("toggle");
+    
+                for (i = 0, len = elems.length; i < len; i += 1) {
+                    elem = elems[i];
+                    if (elem.style.visibility === "hidden") {
+                        elem.style.visibility = "";
+                    } else {
+                        elem.style.visibility = "hidden";
+                    }
+                }
+            }
+        </script>
+        
+    </head>
+    <body>
+        <input type="button" class="domcapture" value="Trigger DOM Snapshot">
+        <input type="button" id="addDivBtn" onclick="setTimeout(addToTargetDiv, 500);" value="Add to Target Div">
+        <input type="button" id="addChildInputsBtn" onclick="setTimeout(addChildInputs, 500);" value="Add nested inputs">
+        <input type="button" id="toggleAttribute" onclick="toggleAttributes1();" value="Toggle Attributes">
+        <div id="container_1" class="redbg">
+            Static div 1
+            <table>
+                <tbody><tr>
+                    <td>CHECKBOX</td>
+                    <td><input class="toggle" type="checkbox" name="redBox" id="cb1" value="red" style="height: 13px; width: 13px;"><label for="cb1">RED</label></td>
+                    <td><input class="toggle" type="checkbox" name="greenBox" id="cb2" value="green"><label for="cb2">GREEN</label></td>
+                    <td><input class="toggle" type="checkbox" name="blueBox" id="cb3" value="blue"><label for="cb3">BLUE</label></td>
+                </tr>
+                <tr>
+                    <td>RADIO</td>
+                    <td><input type="radio" name="radioButton" id="rb1" value="red">Red</td>
+                    <td><input type="radio" name="radioButton" id="rb2" value="green" checked="checked">Green</td>
+                    <td><input type="radio" name="radioButton" id="rb3" value="blue">Blue</td>
+                </tr>
+                <tr>
+                    <td>SELECT LIST</td>
+                    <td>
+                        <select name="selectList" class="toggle">
+                            <optgroup label="color">
+                                <option label="red" selected="selected">RED</option>
+                                <option label="green">GREEN</option>
+                                <option label="blue">BLUE</option>
+                            </optgroup>
+                            <optgroup label="days">
+                                <option>Mon</option>
+                                <option>Tue</option>
+                                <option>Wed</option>
+                            </optgroup>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>TEXT INPUT</td>
+                    <td>Regular Text:<br><input type="text" name="textInput" id="ti_pvt" myattr="ti_pvt" value=""></td>
+                    <td>Password:<br><input type="password" name="passwordInput" id="pi" value=""></td>
+                    <td id="container_1.target.td">Dynamic:<br></td>
+                </tr>
+            </tbody></table>
+        </div>
+        <div class="bluebg"></div>
+        <div id="container_2" class="greenbg">
+            Static div 2
+            <table>
+                <tbody><tr>
+                    <td>CHECKBOX</td>
+                    <td><input type="checkbox" name="redBox.2" id="cb.2.1" value="red" style="height:13px;width:13px;"><label for="cb.2.1">RED</label></td>
+                    <td><input type="checkbox" name="greenBox.2" id="cb.2.2" value="green"><label for="cb.2.2">GREEN</label></td>
+                    <td><input type="checkbox" name="blueBox.2" id="cb.2.3" value="blue"><label for="cb.2.3">BLUE</label></td>
+                </tr>
+                <tr>
+                    <td>RADIO</td>
+                    <td><input type="radio" name="radioBttn.2" id="rb.2.1" value="red">Red</td>
+                    <td><input type="radio" name="radioBttn.2" id="rb.2.2" value="green" checked="checked">Green</td>
+                    <td><input type="radio" name="radioBttn.2" id="rb.2.3" value="blue">Blue</td>
+                </tr>
+                <tr>
+                    <td>SELECT LIST</td>
+                    <td>
+                        <select name="selectList.2">
+                            <optgroup label="color">
+                                <option label="red" selected="selected">RED</option>
+                                <option label="green">GREEN</option>
+                                <option label="blue">BLUE</option>
+                            </optgroup>
+                            <optgroup label="days">
+                                <option>Mon</option>
+                                <option>Tue</option>
+                                <option>Wed</option>
+                            </optgroup>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>TEXT INPUT</td>
+                    <td>Regular Text:<br><input type="text" name="textInput.2" id="ti.2" value=""></td>
+                    <td>Password:<br><input type="password" name="passwordInput.2" id="pi.2" value=""></td>
+                    <td id="container_2.target.td">Dynamic:<br></td>
+                </tr>
+            </tbody></table>
+        </div>
+    
+    </body></html>
+Root:
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>
+		<title>Page with Custom events </title>
+		<script type="text/javascript">
+		
+	    function onSubmitBtnClickIE()
+        {
+
+          var evt = document.createEvent("Event");
+          evt.initEvent("customIEEvent",true,false);
+          document.getElementById("submitbtnIE").dispatchEvent(evt);
+          
+        }
+		
+			function onSubmitBtnClick(e) {
+				//e.preventDefault();
+				
+				var fname= document.getElementById("firstname");
+				var lname=document.getElementById("lastname");
+				var submitbtn = document.getElementById("submitbtn");
+				
+				if(!(fname.value && lname.value)) return true;
+				
+				// On Successful login (if there are no empty fields are found in the form, it is a successful login)
+				// A new Login custom event is triggered
+				var event = new CustomEvent(
+					"Login", 
+					{
+						detail: {
+							message: "FirstName: " + fname.value + " LastName: " + lname.value,
+							time: new Date(),
+						},
+						bubbles: true,
+						cancelable: true
+					}
+				);
+				submitbtn.dispatchEvent(event);
+				return true;
+			}
+
+			// Listen for the event.
+			document.addEventListener('Login', function (e) { 
+				var capturedEventDiv = document.getElementById("capturedEvent");
+				capturedEventDiv.innerHTML= "Received Login Event </br>" + 
+											" Target ID : " + e.target.id + 
+											" Details: " + e.detail.message
+											;											
+			}, false);
+			
+		</script>
+	</head>
+	<body>
+		<form action="demo_form.asp">
+			First name: <input type="text" name="fname" id="firstname" value=""><br>
+			Last name: <input type="text" name="lname" id="lastname" value=""><br>
+			<input type="button" value="Submit" id="submitbtn" onclick="onSubmitBtnClick('e');return false">
+			<br>
+			<input type="button" value="Submit IE" id="submitbtnIE" onclick="onSubmitBtnClickIE();return false">
+		</form>
+		<div id="capturedEvent">
+			
+		</div>
+			
+		
+	
+
+</body></html>
+Root:
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>
+    <title>DOM Diff Test page</title>
+    <style>
+        .redbg {
+            background-color: #ffcfcf;
+        }
+        .greenbg {
+            background-color: #7fff7f;
+        }
+        .bluebg {
+            background-color: #cfcfff;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+	
+	    var PrivacyTest = {mask: function (value) {return "!@#$%*";}};
+	
+        function addChildInputs() {
+            var div,
+                targets = ["container_1.target.td", "container_2.target.td"],
+                ip;
+
+            targets.forEach(function(id) {
+                ip = document.createElement("input");
+                ip.type = "password";
+                ip.name = id + "_ip";
+                div = document.getElementById(id);
+                div.appendChild(ip);
+            });
+        }
+
+        function addToTargetDiv(id) {
+            var div,
+                div2,
+                ip,
+                txtNode;
+
+            div = document.getElementsByClassName("bluebg")[0];
+
+            div2 = document.createElement("div");
+            div.appendChild(div2);
+
+            // Add text inputs
+            for (i = 1; i <= 3; i++) {
+                div = document.createElement("div");
+                div2.appendChild(div);
+                ip = document.createElement("input");
+                ip.type = "text";
+                if (i < 3) {
+                    ip.name = "ip-x-" + i;
+                }
+                if (i === 2) {
+                    ip.id = ip.name + "-pwd";
+                    ip.type = "password";
+                }
+                txtNode = document.createTextNode("Input " + i);
+                div.appendChild(txtNode);
+                div.appendChild(ip);
+            }
+
+            // Add radio input
+            div = document.createElement("div");
+            for (i = 1; i <= 3; i++) {
+                ip = document.createElement("input");
+                ip.type = "radio";
+                ip.name = "ip.radio";
+                ip.className = "toggle";
+                txtNode = document.createTextNode("Radio " + i + ":");
+                div.appendChild(txtNode);
+                div.appendChild(ip);
+            }
+            div2.appendChild(div);
+
+            // Add checkbox input
+            div = document.createElement("div");
+            for (i = 1; i <= 3; i++) {
+                ip = document.createElement("input");
+                ip.type = "checkbox";
+                ip.name = "ip.checkbox." + i;
+                ip.className = "toggle";
+                txtNode = document.createTextNode("Checkbox " + i + ":");
+                div.appendChild(txtNode);
+                div.appendChild(ip);
+            }
+            div2.appendChild(div);
+
+            // Add textarea
+            div = document.createElement("div");
+            ip = document.createElement("textarea");
+            ip.name = "txtarea.pvt";
+            txtNode = document.createTextNode("Textarea:");
+            div.appendChild(txtNode);
+            div.appendChild(ip);
+            div2.appendChild(div);
+ 
+            // Add Select list
+            div = document.createElement("div");
+            ip = document.createElement("select");
+            ip.name = "select.pvt";
+			ip.id = "foo_private";
+            for (i = 1; i <= 3; i++) {
+                opt = document.createElement("option");
+                opt.value = "Option " + i;
+                opt.text = opt.value;
+                ip.add(opt);
+            }
+            txtNode = document.createTextNode("Select List:");
+            div.appendChild(txtNode);
+            div.appendChild(ip);
+            div2.appendChild(div);
+        }
+
+        function removeDiv(id) {
+            var div = document.getElementById(id);
+            
+            if (!div) {
+                console.log("removeDiv: Div <" + id + "> not found.");
+                return;
+            }
+        
+            document.body.removeChild(div);
+            // Update the button label
+            btn = document.getElementById("addDivBtn");
+            btn.value = "Add Div";            
+        }
+        
+        function toggleAttributes() {
+            var i, len,
+                elem,
+                elems = document.getElementsByClassName("toggle");
+
+            for (i = 0, len = elems.length; i < len; i += 1) {
+                elem = elems[i];
+                if (elem.style.visibility === "hidden") {
+                    elem.style.visibility = "";
+                } else {
+                    elem.style.visibility = "hidden";
+                }
+            }
+        }
+    </script>
+    <script type="text/javascript" src="../jquery/jquery-1.8.1.js"></script>
+    <script type="text/javascript" src="../js/DiscoverSDK.js"></script>
+</head>
+    <frameset rows="40%,40%,*">
+        <frame id="frame" name="frame" src="./frameSimple.html" width="60%" height="350px" scrolling="yes" frameborder="1" cd_frame_id_="33860ecd4a0f8b4ea1a9c4edc6df84f1" dcxid="dcx-4">
+        <frame id="CustomEvent" name="CustomEvent" src="./CustomEvent.html" width="60%" height="350px" scrolling="yes" frameborder="1" dcxid="dcx-5"> 
+    </frameset>	
+
+</html>
+Root:
