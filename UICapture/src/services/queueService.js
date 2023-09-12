@@ -512,17 +512,13 @@ DCX.addService("queue", function (core) {
         // handle worker related error
         function handleWorkerError() {
             // Error loading the worker
-            console.log('Failed to load worker file.');
-            let jMsg = {
-                state: false,
-                error : 'Failed to load worker file.',
-            };
+            var jMsg = { state: false, error : 'Failed to load worker file.'};
             DCX.logCustomEvent('workerStatus', jMsg, 6);
             // set dcxWorker to null.
             CONFIG.dcxWorker =null;
             dcxWorker = null;
             DCX.setWorkerStatus(false);
-        }
+        };
 
         // Method to check is worker  script is loaded or not.
         function loadWorker() {
@@ -544,7 +540,7 @@ DCX.addService("queue", function (core) {
                 handleXhrCallback(result);
             };
             });
-        }
+        };
 
         // Check if Web Worker is not null and available.
         if (dcxWorker && !DCX.getWorkerStatus()) {
