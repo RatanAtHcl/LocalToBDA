@@ -1,3 +1,5 @@
+// Prod
+// 21 Jan 23
 /*pako 1.0.10 nodeca/pako */
 !function(t){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=t();else if("function"==typeof define&&define.amd)define([],t);else{("undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:this).pako=t()}}(function(){return function i(s,h,l){function o(e,t){if(!h[e]){if(!s[e]){var a="function"==typeof require&&require;if(!t&&a)return a(e,!0);if(_)return _(e,!0);var n=new Error("Cannot find module '"+e+"'");throw n.code="MODULE_NOT_FOUND",n}var r=h[e]={exports:{}};s[e][0].call(r.exports,function(t){return o(s[e][1][t]||t)},r,r.exports,i,s,h,l)}return h[e].exports}for(var _="function"==typeof require&&require,t=0;t<l.length;t++)o(l[t]);return o}({1:[function(t,e,a){"use strict";var n="undefined"!=typeof Uint8Array&&"undefined"!=typeof Uint16Array&&"undefined"!=typeof Int32Array;a.assign=function(t){for(var e,a,n=Array.prototype.slice.call(arguments,1);n.length;){var r=n.shift();if(r){if("object"!=typeof r)throw new TypeError(r+"must be non-object");for(var i in r)e=r,a=i,Object.prototype.hasOwnProperty.call(e,a)&&(t[i]=r[i])}}return t},a.shrinkBuf=function(t,e){return t.length===e?t:t.subarray?t.subarray(0,e):(t.length=e,t)};var r={arraySet:function(t,e,a,n,r){if(e.subarray&&t.subarray)t.set(e.subarray(a,a+n),r);else for(var i=0;i<n;i++)t[r+i]=e[a+i]},flattenChunks:function(t){var e,a,n,r,i,s;for(e=n=0,a=t.length;e<a;e++)n+=t[e].length;for(s=new Uint8Array(n),e=r=0,a=t.length;e<a;e++)i=t[e],s.set(i,r),r+=i.length;return s}},i={arraySet:function(t,e,a,n,r){for(var i=0;i<n;i++)t[r+i]=e[a+i]},flattenChunks:function(t){return[].concat.apply([],t)}};a.setTyped=function(t){t?(a.Buf8=Uint8Array,a.Buf16=Uint16Array,a.Buf32=Int32Array,a.assign(a,r)):(a.Buf8=Array,a.Buf16=Array,a.Buf32=Array,a.assign(a,i))},a.setTyped(n)},{}],2:[function(t,e,a){"use strict";var l=t("./common"),r=!0,i=!0;try{String.fromCharCode.apply(null,[0])}catch(t){r=!1}try{String.fromCharCode.apply(null,new Uint8Array(1))}catch(t){i=!1}for(var o=new l.Buf8(256),n=0;n<256;n++)o[n]=252<=n?6:248<=n?5:240<=n?4:224<=n?3:192<=n?2:1;function _(t,e){if(e<65534&&(t.subarray&&i||!t.subarray&&r))return String.fromCharCode.apply(null,l.shrinkBuf(t,e));for(var a="",n=0;n<e;n++)a+=String.fromCharCode(t[n]);return a}o[254]=o[254]=1,a.string2buf=function(t){var e,a,n,r,i,s=t.length,h=0;for(r=0;r<s;r++)55296==(64512&(a=t.charCodeAt(r)))&&r+1<s&&56320==(64512&(n=t.charCodeAt(r+1)))&&(a=65536+(a-55296<<10)+(n-56320),r++),h+=a<128?1:a<2048?2:a<65536?3:4;for(e=new l.Buf8(h),r=i=0;i<h;r++)55296==(64512&(a=t.charCodeAt(r)))&&r+1<s&&56320==(64512&(n=t.charCodeAt(r+1)))&&(a=65536+(a-55296<<10)+(n-56320),r++),a<128?e[i++]=a:(a<2048?e[i++]=192|a>>>6:(a<65536?e[i++]=224|a>>>12:(e[i++]=240|a>>>18,e[i++]=128|a>>>12&63),e[i++]=128|a>>>6&63),e[i++]=128|63&a);return e},a.buf2binstring=function(t){return _(t,t.length)},a.binstring2buf=function(t){for(var e=new l.Buf8(t.length),a=0,n=e.length;a<n;a++)e[a]=t.charCodeAt(a);return e},a.buf2string=function(t,e){var a,n,r,i,s=e||t.length,h=new Array(2*s);for(a=n=0;a<s;)if((r=t[a++])<128)h[n++]=r;else if(4<(i=o[r]))h[n++]=65533,a+=i-1;else{for(r&=2===i?31:3===i?15:7;1<i&&a<s;)r=r<<6|63&t[a++],i--;1<i?h[n++]=65533:r<65536?h[n++]=r:(r-=65536,h[n++]=55296|r>>10&1023,h[n++]=56320|1023&r)}return _(h,n)},a.utf8border=function(t,e){var a;for((e=e||t.length)>t.length&&(e=t.length),a=e-1;0<=a&&128==(192&t[a]);)a--;return a<0?e:0===a?e:a+o[t[a]]>e?a:e}},{"./common":1}],3:[function(t,e,a){"use strict";e.exports=function(t,e,a,n){for(var r=65535&t|0,i=t>>>16&65535|0,s=0;0!==a;){for(a-=s=2e3<a?2e3:a;i=i+(r=r+e[n++]|0)|0,--s;);r%=65521,i%=65521}return r|i<<16|0}},{}],4:[function(t,e,a){"use strict";var h=function(){for(var t,e=[],a=0;a<256;a++){t=a;for(var n=0;n<8;n++)t=1&t?3988292384^t>>>1:t>>>1;e[a]=t}return e}();e.exports=function(t,e,a,n){var r=h,i=n+a;t^=-1;for(var s=n;s<i;s++)t=t>>>8^r[255&(t^e[s])];return-1^t}},{}],5:[function(t,e,a){"use strict";var l,u=t("../utils/common"),o=t("./trees"),f=t("./adler32"),c=t("./crc32"),n=t("./messages"),_=0,d=4,p=0,g=-2,m=-1,b=4,r=2,v=8,w=9,i=286,s=30,h=19,y=2*i+1,k=15,z=3,x=258,B=x+z+1,A=42,C=113,S=1,j=2,E=3,U=4;function D(t,e){return t.msg=n[e],e}function I(t){return(t<<1)-(4<t?9:0)}function O(t){for(var e=t.length;0<=--e;)t[e]=0}function q(t){var e=t.state,a=e.pending;a>t.avail_out&&(a=t.avail_out),0!==a&&(u.arraySet(t.output,e.pending_buf,e.pending_out,a,t.next_out),t.next_out+=a,e.pending_out+=a,t.total_out+=a,t.avail_out-=a,e.pending-=a,0===e.pending&&(e.pending_out=0))}function T(t,e){o._tr_flush_block(t,0<=t.block_start?t.block_start:-1,t.strstart-t.block_start,e),t.block_start=t.strstart,q(t.strm)}function L(t,e){t.pending_buf[t.pending++]=e}function N(t,e){t.pending_buf[t.pending++]=e>>>8&255,t.pending_buf[t.pending++]=255&e}function R(t,e){var a,n,r=t.max_chain_length,i=t.strstart,s=t.prev_length,h=t.nice_match,l=t.strstart>t.w_size-B?t.strstart-(t.w_size-B):0,o=t.window,_=t.w_mask,d=t.prev,u=t.strstart+x,f=o[i+s-1],c=o[i+s];t.prev_length>=t.good_match&&(r>>=2),h>t.lookahead&&(h=t.lookahead);do{if(o[(a=e)+s]===c&&o[a+s-1]===f&&o[a]===o[i]&&o[++a]===o[i+1]){i+=2,a++;do{}while(o[++i]===o[++a]&&o[++i]===o[++a]&&o[++i]===o[++a]&&o[++i]===o[++a]&&o[++i]===o[++a]&&o[++i]===o[++a]&&o[++i]===o[++a]&&o[++i]===o[++a]&&i<u);if(n=x-(u-i),i=u-x,s<n){if(t.match_start=e,h<=(s=n))break;f=o[i+s-1],c=o[i+s]}}}while((e=d[e&_])>l&&0!=--r);return s<=t.lookahead?s:t.lookahead}function H(t){var e,a,n,r,i,s,h,l,o,_,d=t.w_size;do{if(r=t.window_size-t.lookahead-t.strstart,t.strstart>=d+(d-B)){for(u.arraySet(t.window,t.window,d,d,0),t.match_start-=d,t.strstart-=d,t.block_start-=d,e=a=t.hash_size;n=t.head[--e],t.head[e]=d<=n?n-d:0,--a;);for(e=a=d;n=t.prev[--e],t.prev[e]=d<=n?n-d:0,--a;);r+=d}if(0===t.strm.avail_in)break;if(s=t.strm,h=t.window,l=t.strstart+t.lookahead,o=r,_=void 0,_=s.avail_in,o<_&&(_=o),a=0===_?0:(s.avail_in-=_,u.arraySet(h,s.input,s.next_in,_,l),1===s.state.wrap?s.adler=f(s.adler,h,_,l):2===s.state.wrap&&(s.adler=c(s.adler,h,_,l)),s.next_in+=_,s.total_in+=_,_),t.lookahead+=a,t.lookahead+t.insert>=z)for(i=t.strstart-t.insert,t.ins_h=t.window[i],t.ins_h=(t.ins_h<<t.hash_shift^t.window[i+1])&t.hash_mask;t.insert&&(t.ins_h=(t.ins_h<<t.hash_shift^t.window[i+z-1])&t.hash_mask,t.prev[i&t.w_mask]=t.head[t.ins_h],t.head[t.ins_h]=i,i++,t.insert--,!(t.lookahead+t.insert<z)););}while(t.lookahead<B&&0!==t.strm.avail_in)}function F(t,e){for(var a,n;;){if(t.lookahead<B){if(H(t),t.lookahead<B&&e===_)return S;if(0===t.lookahead)break}if(a=0,t.lookahead>=z&&(t.ins_h=(t.ins_h<<t.hash_shift^t.window[t.strstart+z-1])&t.hash_mask,a=t.prev[t.strstart&t.w_mask]=t.head[t.ins_h],t.head[t.ins_h]=t.strstart),0!==a&&t.strstart-a<=t.w_size-B&&(t.match_length=R(t,a)),t.match_length>=z)if(n=o._tr_tally(t,t.strstart-t.match_start,t.match_length-z),t.lookahead-=t.match_length,t.match_length<=t.max_lazy_match&&t.lookahead>=z){for(t.match_length--;t.strstart++,t.ins_h=(t.ins_h<<t.hash_shift^t.window[t.strstart+z-1])&t.hash_mask,a=t.prev[t.strstart&t.w_mask]=t.head[t.ins_h],t.head[t.ins_h]=t.strstart,0!=--t.match_length;);t.strstart++}else t.strstart+=t.match_length,t.match_length=0,t.ins_h=t.window[t.strstart],t.ins_h=(t.ins_h<<t.hash_shift^t.window[t.strstart+1])&t.hash_mask;else n=o._tr_tally(t,0,t.window[t.strstart]),t.lookahead--,t.strstart++;if(n&&(T(t,!1),0===t.strm.avail_out))return S}return t.insert=t.strstart<z-1?t.strstart:z-1,e===d?(T(t,!0),0===t.strm.avail_out?E:U):t.last_lit&&(T(t,!1),0===t.strm.avail_out)?S:j}function K(t,e){for(var a,n,r;;){if(t.lookahead<B){if(H(t),t.lookahead<B&&e===_)return S;if(0===t.lookahead)break}if(a=0,t.lookahead>=z&&(t.ins_h=(t.ins_h<<t.hash_shift^t.window[t.strstart+z-1])&t.hash_mask,a=t.prev[t.strstart&t.w_mask]=t.head[t.ins_h],t.head[t.ins_h]=t.strstart),t.prev_length=t.match_length,t.prev_match=t.match_start,t.match_length=z-1,0!==a&&t.prev_length<t.max_lazy_match&&t.strstart-a<=t.w_size-B&&(t.match_length=R(t,a),t.match_length<=5&&(1===t.strategy||t.match_length===z&&4096<t.strstart-t.match_start)&&(t.match_length=z-1)),t.prev_length>=z&&t.match_length<=t.prev_length){for(r=t.strstart+t.lookahead-z,n=o._tr_tally(t,t.strstart-1-t.prev_match,t.prev_length-z),t.lookahead-=t.prev_length-1,t.prev_length-=2;++t.strstart<=r&&(t.ins_h=(t.ins_h<<t.hash_shift^t.window[t.strstart+z-1])&t.hash_mask,a=t.prev[t.strstart&t.w_mask]=t.head[t.ins_h],t.head[t.ins_h]=t.strstart),0!=--t.prev_length;);if(t.match_available=0,t.match_length=z-1,t.strstart++,n&&(T(t,!1),0===t.strm.avail_out))return S}else if(t.match_available){if((n=o._tr_tally(t,0,t.window[t.strstart-1]))&&T(t,!1),t.strstart++,t.lookahead--,0===t.strm.avail_out)return S}else t.match_available=1,t.strstart++,t.lookahead--}return t.match_available&&(n=o._tr_tally(t,0,t.window[t.strstart-1]),t.match_available=0),t.insert=t.strstart<z-1?t.strstart:z-1,e===d?(T(t,!0),0===t.strm.avail_out?E:U):t.last_lit&&(T(t,!1),0===t.strm.avail_out)?S:j}function M(t,e,a,n,r){this.good_length=t,this.max_lazy=e,this.nice_length=a,this.max_chain=n,this.func=r}function P(){this.strm=null,this.status=0,this.pending_buf=null,this.pending_buf_size=0,this.pending_out=0,this.pending=0,this.wrap=0,this.gzhead=null,this.gzindex=0,this.method=v,this.last_flush=-1,this.w_size=0,this.w_bits=0,this.w_mask=0,this.window=null,this.window_size=0,this.prev=null,this.head=null,this.ins_h=0,this.hash_size=0,this.hash_bits=0,this.hash_mask=0,this.hash_shift=0,this.block_start=0,this.match_length=0,this.prev_match=0,this.match_available=0,this.strstart=0,this.match_start=0,this.lookahead=0,this.prev_length=0,this.max_chain_length=0,this.max_lazy_match=0,this.level=0,this.strategy=0,this.good_match=0,this.nice_match=0,this.dyn_ltree=new u.Buf16(2*y),this.dyn_dtree=new u.Buf16(2*(2*s+1)),this.bl_tree=new u.Buf16(2*(2*h+1)),O(this.dyn_ltree),O(this.dyn_dtree),O(this.bl_tree),this.l_desc=null,this.d_desc=null,this.bl_desc=null,this.bl_count=new u.Buf16(k+1),this.heap=new u.Buf16(2*i+1),O(this.heap),this.heap_len=0,this.heap_max=0,this.depth=new u.Buf16(2*i+1),O(this.depth),this.l_buf=0,this.lit_bufsize=0,this.last_lit=0,this.d_buf=0,this.opt_len=0,this.static_len=0,this.matches=0,this.insert=0,this.bi_buf=0,this.bi_valid=0}function G(t){var e;return t&&t.state?(t.total_in=t.total_out=0,t.data_type=r,(e=t.state).pending=0,e.pending_out=0,e.wrap<0&&(e.wrap=-e.wrap),e.status=e.wrap?A:C,t.adler=2===e.wrap?0:1,e.last_flush=_,o._tr_init(e),p):D(t,g)}function J(t){var e,a=G(t);return a===p&&((e=t.state).window_size=2*e.w_size,O(e.head),e.max_lazy_match=l[e.level].max_lazy,e.good_match=l[e.level].good_length,e.nice_match=l[e.level].nice_length,e.max_chain_length=l[e.level].max_chain,e.strstart=0,e.block_start=0,e.lookahead=0,e.insert=0,e.match_length=e.prev_length=z-1,e.match_available=0,e.ins_h=0),a}function Q(t,e,a,n,r,i){if(!t)return g;var s=1;if(e===m&&(e=6),n<0?(s=0,n=-n):15<n&&(s=2,n-=16),r<1||w<r||a!==v||n<8||15<n||e<0||9<e||i<0||b<i)return D(t,g);8===n&&(n=9);var h=new P;return(t.state=h).strm=t,h.wrap=s,h.gzhead=null,h.w_bits=n,h.w_size=1<<h.w_bits,h.w_mask=h.w_size-1,h.hash_bits=r+7,h.hash_size=1<<h.hash_bits,h.hash_mask=h.hash_size-1,h.hash_shift=~~((h.hash_bits+z-1)/z),h.window=new u.Buf8(2*h.w_size),h.head=new u.Buf16(h.hash_size),h.prev=new u.Buf16(h.w_size),h.lit_bufsize=1<<r+6,h.pending_buf_size=4*h.lit_bufsize,h.pending_buf=new u.Buf8(h.pending_buf_size),h.d_buf=1*h.lit_bufsize,h.l_buf=3*h.lit_bufsize,h.level=e,h.strategy=i,h.method=a,J(t)}l=[new M(0,0,0,0,function(t,e){var a=65535;for(a>t.pending_buf_size-5&&(a=t.pending_buf_size-5);;){if(t.lookahead<=1){if(H(t),0===t.lookahead&&e===_)return S;if(0===t.lookahead)break}t.strstart+=t.lookahead,t.lookahead=0;var n=t.block_start+a;if((0===t.strstart||t.strstart>=n)&&(t.lookahead=t.strstart-n,t.strstart=n,T(t,!1),0===t.strm.avail_out))return S;if(t.strstart-t.block_start>=t.w_size-B&&(T(t,!1),0===t.strm.avail_out))return S}return t.insert=0,e===d?(T(t,!0),0===t.strm.avail_out?E:U):(t.strstart>t.block_start&&(T(t,!1),t.strm.avail_out),S)}),new M(4,4,8,4,F),new M(4,5,16,8,F),new M(4,6,32,32,F),new M(4,4,16,16,K),new M(8,16,32,32,K),new M(8,16,128,128,K),new M(8,32,128,256,K),new M(32,128,258,1024,K),new M(32,258,258,4096,K)],a.deflateInit=function(t,e){return Q(t,e,v,15,8,0)},a.deflateInit2=Q,a.deflateReset=J,a.deflateResetKeep=G,a.deflateSetHeader=function(t,e){return t&&t.state?2!==t.state.wrap?g:(t.state.gzhead=e,p):g},a.deflate=function(t,e){var a,n,r,i;if(!t||!t.state||5<e||e<0)return t?D(t,g):g;if(n=t.state,!t.output||!t.input&&0!==t.avail_in||666===n.status&&e!==d)return D(t,0===t.avail_out?-5:g);if(n.strm=t,a=n.last_flush,n.last_flush=e,n.status===A)if(2===n.wrap)t.adler=0,L(n,31),L(n,139),L(n,8),n.gzhead?(L(n,(n.gzhead.text?1:0)+(n.gzhead.hcrc?2:0)+(n.gzhead.extra?4:0)+(n.gzhead.name?8:0)+(n.gzhead.comment?16:0)),L(n,255&n.gzhead.time),L(n,n.gzhead.time>>8&255),L(n,n.gzhead.time>>16&255),L(n,n.gzhead.time>>24&255),L(n,9===n.level?2:2<=n.strategy||n.level<2?4:0),L(n,255&n.gzhead.os),n.gzhead.extra&&n.gzhead.extra.length&&(L(n,255&n.gzhead.extra.length),L(n,n.gzhead.extra.length>>8&255)),n.gzhead.hcrc&&(t.adler=c(t.adler,n.pending_buf,n.pending,0)),n.gzindex=0,n.status=69):(L(n,0),L(n,0),L(n,0),L(n,0),L(n,0),L(n,9===n.level?2:2<=n.strategy||n.level<2?4:0),L(n,3),n.status=C);else{var s=v+(n.w_bits-8<<4)<<8;s|=(2<=n.strategy||n.level<2?0:n.level<6?1:6===n.level?2:3)<<6,0!==n.strstart&&(s|=32),s+=31-s%31,n.status=C,N(n,s),0!==n.strstart&&(N(n,t.adler>>>16),N(n,65535&t.adler)),t.adler=1}if(69===n.status)if(n.gzhead.extra){for(r=n.pending;n.gzindex<(65535&n.gzhead.extra.length)&&(n.pending!==n.pending_buf_size||(n.gzhead.hcrc&&n.pending>r&&(t.adler=c(t.adler,n.pending_buf,n.pending-r,r)),q(t),r=n.pending,n.pending!==n.pending_buf_size));)L(n,255&n.gzhead.extra[n.gzindex]),n.gzindex++;n.gzhead.hcrc&&n.pending>r&&(t.adler=c(t.adler,n.pending_buf,n.pending-r,r)),n.gzindex===n.gzhead.extra.length&&(n.gzindex=0,n.status=73)}else n.status=73;if(73===n.status)if(n.gzhead.name){r=n.pending;do{if(n.pending===n.pending_buf_size&&(n.gzhead.hcrc&&n.pending>r&&(t.adler=c(t.adler,n.pending_buf,n.pending-r,r)),q(t),r=n.pending,n.pending===n.pending_buf_size)){i=1;break}L(n,i=n.gzindex<n.gzhead.name.length?255&n.gzhead.name.charCodeAt(n.gzindex++):0)}while(0!==i);n.gzhead.hcrc&&n.pending>r&&(t.adler=c(t.adler,n.pending_buf,n.pending-r,r)),0===i&&(n.gzindex=0,n.status=91)}else n.status=91;if(91===n.status)if(n.gzhead.comment){r=n.pending;do{if(n.pending===n.pending_buf_size&&(n.gzhead.hcrc&&n.pending>r&&(t.adler=c(t.adler,n.pending_buf,n.pending-r,r)),q(t),r=n.pending,n.pending===n.pending_buf_size)){i=1;break}L(n,i=n.gzindex<n.gzhead.comment.length?255&n.gzhead.comment.charCodeAt(n.gzindex++):0)}while(0!==i);n.gzhead.hcrc&&n.pending>r&&(t.adler=c(t.adler,n.pending_buf,n.pending-r,r)),0===i&&(n.status=103)}else n.status=103;if(103===n.status&&(n.gzhead.hcrc?(n.pending+2>n.pending_buf_size&&q(t),n.pending+2<=n.pending_buf_size&&(L(n,255&t.adler),L(n,t.adler>>8&255),t.adler=0,n.status=C)):n.status=C),0!==n.pending){if(q(t),0===t.avail_out)return n.last_flush=-1,p}else if(0===t.avail_in&&I(e)<=I(a)&&e!==d)return D(t,-5);if(666===n.status&&0!==t.avail_in)return D(t,-5);if(0!==t.avail_in||0!==n.lookahead||e!==_&&666!==n.status){var h=2===n.strategy?function(t,e){for(var a;;){if(0===t.lookahead&&(H(t),0===t.lookahead)){if(e===_)return S;break}if(t.match_length=0,a=o._tr_tally(t,0,t.window[t.strstart]),t.lookahead--,t.strstart++,a&&(T(t,!1),0===t.strm.avail_out))return S}return t.insert=0,e===d?(T(t,!0),0===t.strm.avail_out?E:U):t.last_lit&&(T(t,!1),0===t.strm.avail_out)?S:j}(n,e):3===n.strategy?function(t,e){for(var a,n,r,i,s=t.window;;){if(t.lookahead<=x){if(H(t),t.lookahead<=x&&e===_)return S;if(0===t.lookahead)break}if(t.match_length=0,t.lookahead>=z&&0<t.strstart&&(n=s[r=t.strstart-1])===s[++r]&&n===s[++r]&&n===s[++r]){i=t.strstart+x;do{}while(n===s[++r]&&n===s[++r]&&n===s[++r]&&n===s[++r]&&n===s[++r]&&n===s[++r]&&n===s[++r]&&n===s[++r]&&r<i);t.match_length=x-(i-r),t.match_length>t.lookahead&&(t.match_length=t.lookahead)}if(t.match_length>=z?(a=o._tr_tally(t,1,t.match_length-z),t.lookahead-=t.match_length,t.strstart+=t.match_length,t.match_length=0):(a=o._tr_tally(t,0,t.window[t.strstart]),t.lookahead--,t.strstart++),a&&(T(t,!1),0===t.strm.avail_out))return S}return t.insert=0,e===d?(T(t,!0),0===t.strm.avail_out?E:U):t.last_lit&&(T(t,!1),0===t.strm.avail_out)?S:j}(n,e):l[n.level].func(n,e);if(h!==E&&h!==U||(n.status=666),h===S||h===E)return 0===t.avail_out&&(n.last_flush=-1),p;if(h===j&&(1===e?o._tr_align(n):5!==e&&(o._tr_stored_block(n,0,0,!1),3===e&&(O(n.head),0===n.lookahead&&(n.strstart=0,n.block_start=0,n.insert=0))),q(t),0===t.avail_out))return n.last_flush=-1,p}return e!==d?p:n.wrap<=0?1:(2===n.wrap?(L(n,255&t.adler),L(n,t.adler>>8&255),L(n,t.adler>>16&255),L(n,t.adler>>24&255),L(n,255&t.total_in),L(n,t.total_in>>8&255),L(n,t.total_in>>16&255),L(n,t.total_in>>24&255)):(N(n,t.adler>>>16),N(n,65535&t.adler)),q(t),0<n.wrap&&(n.wrap=-n.wrap),0!==n.pending?p:1)},a.deflateEnd=function(t){var e;return t&&t.state?(e=t.state.status)!==A&&69!==e&&73!==e&&91!==e&&103!==e&&e!==C&&666!==e?D(t,g):(t.state=null,e===C?D(t,-3):p):g},a.deflateSetDictionary=function(t,e){var a,n,r,i,s,h,l,o,_=e.length;if(!t||!t.state)return g;if(2===(i=(a=t.state).wrap)||1===i&&a.status!==A||a.lookahead)return g;for(1===i&&(t.adler=f(t.adler,e,_,0)),a.wrap=0,_>=a.w_size&&(0===i&&(O(a.head),a.strstart=0,a.block_start=0,a.insert=0),o=new u.Buf8(a.w_size),u.arraySet(o,e,_-a.w_size,a.w_size,0),e=o,_=a.w_size),s=t.avail_in,h=t.next_in,l=t.input,t.avail_in=_,t.next_in=0,t.input=e,H(a);a.lookahead>=z;){for(n=a.strstart,r=a.lookahead-(z-1);a.ins_h=(a.ins_h<<a.hash_shift^a.window[n+z-1])&a.hash_mask,a.prev[n&a.w_mask]=a.head[a.ins_h],a.head[a.ins_h]=n,n++,--r;);a.strstart=n,a.lookahead=z-1,H(a)}return a.strstart+=a.lookahead,a.block_start=a.strstart,a.insert=a.lookahead,a.lookahead=0,a.match_length=a.prev_length=z-1,a.match_available=0,t.next_in=h,t.input=l,t.avail_in=s,a.wrap=i,p},a.deflateInfo="pako deflate (from Nodeca project)"},{"../utils/common":1,"./adler32":3,"./crc32":4,"./messages":6,"./trees":7}],6:[function(t,e,a){"use strict";e.exports={2:"need dictionary",1:"stream end",0:"","-1":"file error","-2":"stream error","-3":"data error","-4":"insufficient memory","-5":"buffer error","-6":"incompatible version"}},{}],7:[function(t,e,a){"use strict";var l=t("../utils/common"),h=0,o=1;function n(t){for(var e=t.length;0<=--e;)t[e]=0}var _=0,s=29,d=256,u=d+1+s,f=30,c=19,g=2*u+1,m=15,r=16,p=7,b=256,v=16,w=17,y=18,k=[0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0],z=[0,0,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13],x=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,7],B=[16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15],A=new Array(2*(u+2));n(A);var C=new Array(2*f);n(C);var S=new Array(512);n(S);var j=new Array(256);n(j);var E=new Array(s);n(E);var U,D,I,O=new Array(f);function q(t,e,a,n,r){this.static_tree=t,this.extra_bits=e,this.extra_base=a,this.elems=n,this.max_length=r,this.has_stree=t&&t.length}function i(t,e){this.dyn_tree=t,this.max_code=0,this.stat_desc=e}function T(t){return t<256?S[t]:S[256+(t>>>7)]}function L(t,e){t.pending_buf[t.pending++]=255&e,t.pending_buf[t.pending++]=e>>>8&255}function N(t,e,a){t.bi_valid>r-a?(t.bi_buf|=e<<t.bi_valid&65535,L(t,t.bi_buf),t.bi_buf=e>>r-t.bi_valid,t.bi_valid+=a-r):(t.bi_buf|=e<<t.bi_valid&65535,t.bi_valid+=a)}function R(t,e,a){N(t,a[2*e],a[2*e+1])}function H(t,e){for(var a=0;a|=1&t,t>>>=1,a<<=1,0<--e;);return a>>>1}function F(t,e,a){var n,r,i=new Array(m+1),s=0;for(n=1;n<=m;n++)i[n]=s=s+a[n-1]<<1;for(r=0;r<=e;r++){var h=t[2*r+1];0!==h&&(t[2*r]=H(i[h]++,h))}}function K(t){var e;for(e=0;e<u;e++)t.dyn_ltree[2*e]=0;for(e=0;e<f;e++)t.dyn_dtree[2*e]=0;for(e=0;e<c;e++)t.bl_tree[2*e]=0;t.dyn_ltree[2*b]=1,t.opt_len=t.static_len=0,t.last_lit=t.matches=0}function M(t){8<t.bi_valid?L(t,t.bi_buf):0<t.bi_valid&&(t.pending_buf[t.pending++]=t.bi_buf),t.bi_buf=0,t.bi_valid=0}function P(t,e,a,n){var r=2*e,i=2*a;return t[r]<t[i]||t[r]===t[i]&&n[e]<=n[a]}function G(t,e,a){for(var n=t.heap[a],r=a<<1;r<=t.heap_len&&(r<t.heap_len&&P(e,t.heap[r+1],t.heap[r],t.depth)&&r++,!P(e,n,t.heap[r],t.depth));)t.heap[a]=t.heap[r],a=r,r<<=1;t.heap[a]=n}function J(t,e,a){var n,r,i,s,h=0;if(0!==t.last_lit)for(;n=t.pending_buf[t.d_buf+2*h]<<8|t.pending_buf[t.d_buf+2*h+1],r=t.pending_buf[t.l_buf+h],h++,0===n?R(t,r,e):(R(t,(i=j[r])+d+1,e),0!==(s=k[i])&&N(t,r-=E[i],s),R(t,i=T(--n),a),0!==(s=z[i])&&N(t,n-=O[i],s)),h<t.last_lit;);R(t,b,e)}function Q(t,e){var a,n,r,i=e.dyn_tree,s=e.stat_desc.static_tree,h=e.stat_desc.has_stree,l=e.stat_desc.elems,o=-1;for(t.heap_len=0,t.heap_max=g,a=0;a<l;a++)0!==i[2*a]?(t.heap[++t.heap_len]=o=a,t.depth[a]=0):i[2*a+1]=0;for(;t.heap_len<2;)i[2*(r=t.heap[++t.heap_len]=o<2?++o:0)]=1,t.depth[r]=0,t.opt_len--,h&&(t.static_len-=s[2*r+1]);for(e.max_code=o,a=t.heap_len>>1;1<=a;a--)G(t,i,a);for(r=l;a=t.heap[1],t.heap[1]=t.heap[t.heap_len--],G(t,i,1),n=t.heap[1],t.heap[--t.heap_max]=a,t.heap[--t.heap_max]=n,i[2*r]=i[2*a]+i[2*n],t.depth[r]=(t.depth[a]>=t.depth[n]?t.depth[a]:t.depth[n])+1,i[2*a+1]=i[2*n+1]=r,t.heap[1]=r++,G(t,i,1),2<=t.heap_len;);t.heap[--t.heap_max]=t.heap[1],function(t,e){var a,n,r,i,s,h,l=e.dyn_tree,o=e.max_code,_=e.stat_desc.static_tree,d=e.stat_desc.has_stree,u=e.stat_desc.extra_bits,f=e.stat_desc.extra_base,c=e.stat_desc.max_length,p=0;for(i=0;i<=m;i++)t.bl_count[i]=0;for(l[2*t.heap[t.heap_max]+1]=0,a=t.heap_max+1;a<g;a++)c<(i=l[2*l[2*(n=t.heap[a])+1]+1]+1)&&(i=c,p++),l[2*n+1]=i,o<n||(t.bl_count[i]++,s=0,f<=n&&(s=u[n-f]),h=l[2*n],t.opt_len+=h*(i+s),d&&(t.static_len+=h*(_[2*n+1]+s)));if(0!==p){do{for(i=c-1;0===t.bl_count[i];)i--;t.bl_count[i]--,t.bl_count[i+1]+=2,t.bl_count[c]--,p-=2}while(0<p);for(i=c;0!==i;i--)for(n=t.bl_count[i];0!==n;)o<(r=t.heap[--a])||(l[2*r+1]!==i&&(t.opt_len+=(i-l[2*r+1])*l[2*r],l[2*r+1]=i),n--)}}(t,e),F(i,o,t.bl_count)}function V(t,e,a){var n,r,i=-1,s=e[1],h=0,l=7,o=4;for(0===s&&(l=138,o=3),e[2*(a+1)+1]=65535,n=0;n<=a;n++)r=s,s=e[2*(n+1)+1],++h<l&&r===s||(h<o?t.bl_tree[2*r]+=h:0!==r?(r!==i&&t.bl_tree[2*r]++,t.bl_tree[2*v]++):h<=10?t.bl_tree[2*w]++:t.bl_tree[2*y]++,i=r,(h=0)===s?(l=138,o=3):r===s?(l=6,o=3):(l=7,o=4))}function W(t,e,a){var n,r,i=-1,s=e[1],h=0,l=7,o=4;for(0===s&&(l=138,o=3),n=0;n<=a;n++)if(r=s,s=e[2*(n+1)+1],!(++h<l&&r===s)){if(h<o)for(;R(t,r,t.bl_tree),0!=--h;);else 0!==r?(r!==i&&(R(t,r,t.bl_tree),h--),R(t,v,t.bl_tree),N(t,h-3,2)):h<=10?(R(t,w,t.bl_tree),N(t,h-3,3)):(R(t,y,t.bl_tree),N(t,h-11,7));i=r,(h=0)===s?(l=138,o=3):r===s?(l=6,o=3):(l=7,o=4)}}n(O);var X=!1;function Y(t,e,a,n){var r,i,s,h;N(t,(_<<1)+(n?1:0),3),i=e,s=a,h=!0,M(r=t),h&&(L(r,s),L(r,~s)),l.arraySet(r.pending_buf,r.window,i,s,r.pending),r.pending+=s}a._tr_init=function(t){X||(function(){var t,e,a,n,r,i=new Array(m+1);for(n=a=0;n<s-1;n++)for(E[n]=a,t=0;t<1<<k[n];t++)j[a++]=n;for(j[a-1]=n,n=r=0;n<16;n++)for(O[n]=r,t=0;t<1<<z[n];t++)S[r++]=n;for(r>>=7;n<f;n++)for(O[n]=r<<7,t=0;t<1<<z[n]-7;t++)S[256+r++]=n;for(e=0;e<=m;e++)i[e]=0;for(t=0;t<=143;)A[2*t+1]=8,t++,i[8]++;for(;t<=255;)A[2*t+1]=9,t++,i[9]++;for(;t<=279;)A[2*t+1]=7,t++,i[7]++;for(;t<=287;)A[2*t+1]=8,t++,i[8]++;for(F(A,u+1,i),t=0;t<f;t++)C[2*t+1]=5,C[2*t]=H(t,5);U=new q(A,k,d+1,u,m),D=new q(C,z,0,f,m),I=new q(new Array(0),x,0,c,p)}(),X=!0),t.l_desc=new i(t.dyn_ltree,U),t.d_desc=new i(t.dyn_dtree,D),t.bl_desc=new i(t.bl_tree,I),t.bi_buf=0,t.bi_valid=0,K(t)},a._tr_stored_block=Y,a._tr_flush_block=function(t,e,a,n){var r,i,s=0;0<t.level?(2===t.strm.data_type&&(t.strm.data_type=function(t){var e,a=4093624447;for(e=0;e<=31;e++,a>>>=1)if(1&a&&0!==t.dyn_ltree[2*e])return h;if(0!==t.dyn_ltree[18]||0!==t.dyn_ltree[20]||0!==t.dyn_ltree[26])return o;for(e=32;e<d;e++)if(0!==t.dyn_ltree[2*e])return o;return h}(t)),Q(t,t.l_desc),Q(t,t.d_desc),s=function(t){var e;for(V(t,t.dyn_ltree,t.l_desc.max_code),V(t,t.dyn_dtree,t.d_desc.max_code),Q(t,t.bl_desc),e=c-1;3<=e&&0===t.bl_tree[2*B[e]+1];e--);return t.opt_len+=3*(e+1)+5+5+4,e}(t),r=t.opt_len+3+7>>>3,(i=t.static_len+3+7>>>3)<=r&&(r=i)):r=i=a+5,a+4<=r&&-1!==e?Y(t,e,a,n):4===t.strategy||i===r?(N(t,2+(n?1:0),3),J(t,A,C)):(N(t,4+(n?1:0),3),function(t,e,a,n){var r;for(N(t,e-257,5),N(t,a-1,5),N(t,n-4,4),r=0;r<n;r++)N(t,t.bl_tree[2*B[r]+1],3);W(t,t.dyn_ltree,e-1),W(t,t.dyn_dtree,a-1)}(t,t.l_desc.max_code+1,t.d_desc.max_code+1,s+1),J(t,t.dyn_ltree,t.dyn_dtree)),K(t),n&&M(t)},a._tr_tally=function(t,e,a){return t.pending_buf[t.d_buf+2*t.last_lit]=e>>>8&255,t.pending_buf[t.d_buf+2*t.last_lit+1]=255&e,t.pending_buf[t.l_buf+t.last_lit]=255&a,t.last_lit++,0===e?t.dyn_ltree[2*a]++:(t.matches++,e--,t.dyn_ltree[2*(j[a]+d+1)]++,t.dyn_dtree[2*T(e)]++),t.last_lit===t.lit_bufsize-1},a._tr_align=function(t){var e;N(t,2,3),R(t,b,A),16===(e=t).bi_valid?(L(e,e.bi_buf),e.bi_buf=0,e.bi_valid=0):8<=e.bi_valid&&(e.pending_buf[e.pending++]=255&e.bi_buf,e.bi_buf>>=8,e.bi_valid-=8)}},{"../utils/common":1}],8:[function(t,e,a){"use strict";e.exports=function(){this.input=null,this.next_in=0,this.avail_in=0,this.total_in=0,this.output=null,this.next_out=0,this.avail_out=0,this.total_out=0,this.msg="",this.state=null,this.data_type=2,this.adler=0}},{}],"/lib/deflate.js":[function(t,e,a){"use strict";var s=t("./zlib/deflate"),h=t("./utils/common"),l=t("./utils/strings"),r=t("./zlib/messages"),i=t("./zlib/zstream"),o=Object.prototype.toString,_=0,d=-1,u=0,f=8;function c(t){if(!(this instanceof c))return new c(t);this.options=h.assign({level:d,method:f,chunkSize:16384,windowBits:15,memLevel:8,strategy:u,to:""},t||{});var e=this.options;e.raw&&0<e.windowBits?e.windowBits=-e.windowBits:e.gzip&&0<e.windowBits&&e.windowBits<16&&(e.windowBits+=16),this.err=0,this.msg="",this.ended=!1,this.chunks=[],this.strm=new i,this.strm.avail_out=0;var a=s.deflateInit2(this.strm,e.level,e.method,e.windowBits,e.memLevel,e.strategy);if(a!==_)throw new Error(r[a]);if(e.header&&s.deflateSetHeader(this.strm,e.header),e.dictionary){var n;if(n="string"==typeof e.dictionary?l.string2buf(e.dictionary):"[object ArrayBuffer]"===o.call(e.dictionary)?new Uint8Array(e.dictionary):e.dictionary,(a=s.deflateSetDictionary(this.strm,n))!==_)throw new Error(r[a]);this._dict_set=!0}}function n(t,e){var a=new c(e);if(a.push(t,!0),a.err)throw a.msg||r[a.err];return a.result}c.prototype.push=function(t,e){var a,n,r=this.strm,i=this.options.chunkSize;if(this.ended)return!1;n=e===~~e?e:!0===e?4:0,"string"==typeof t?r.input=l.string2buf(t):"[object ArrayBuffer]"===o.call(t)?r.input=new Uint8Array(t):r.input=t,r.next_in=0,r.avail_in=r.input.length;do{if(0===r.avail_out&&(r.output=new h.Buf8(i),r.next_out=0,r.avail_out=i),1!==(a=s.deflate(r,n))&&a!==_)return this.onEnd(a),!(this.ended=!0);0!==r.avail_out&&(0!==r.avail_in||4!==n&&2!==n)||("string"===this.options.to?this.onData(l.buf2binstring(h.shrinkBuf(r.output,r.next_out))):this.onData(h.shrinkBuf(r.output,r.next_out)))}while((0<r.avail_in||0===r.avail_out)&&1!==a);return 4===n?(a=s.deflateEnd(this.strm),this.onEnd(a),this.ended=!0,a===_):2!==n||(this.onEnd(_),!(r.avail_out=0))},c.prototype.onData=function(t){this.chunks.push(t)},c.prototype.onEnd=function(t){t===_&&("string"===this.options.to?this.result=this.chunks.join(""):this.result=h.flattenChunks(this.chunks)),this.chunks=[],this.err=t,this.msg=this.strm.msg},a.Deflate=c,a.deflate=n,a.deflateRaw=function(t,e){return(e=e||{}).raw=!0,n(t,e)},a.gzip=function(t,e){return(e=e||{}).gzip=!0,n(t,e)}},{"./utils/common":1,"./utils/strings":2,"./zlib/deflate":5,"./zlib/messages":6,"./zlib/zstream":8}]},{},[])("/lib/deflate.js")});
 /*
@@ -8,10 +10,9 @@
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  *  
- *  @version 12.1.9
+ *  @version 12.1.6
  *  @flags w3c,NDEBUG
  */
-
 /**
  * @fileOverview Defines the core of the system, namely the DCX object.
  * @exports DCX
@@ -30,9 +31,7 @@ if (window.DCX) {
     throw "Attempting to recreate DCX. Library may be included more than once on the page.";
 }
 window.DCX = (function () {
-
     "use strict";
-
     /**
      * Cached services, utils and configuration references. These will be set in _init
      */
@@ -45,7 +44,6 @@ window.DCX = (function () {
         serializerService,
         coreConfig,
         utils;
-
     /**
      * Create and add a screenview message to the default queue. Also
      * notifies any listeners of the screenview load/unload event.
@@ -64,6 +62,7 @@ window.DCX = (function () {
             replay = DCX.getModule("replay"),
             cookieModule = DCX.getModule("DCCookie"),
             performanceModule = DCX.getModule("performance"),
+            usabilityModule = DCX.getModule('usability'),
             webEvent = null,
             urlInfo = utils.getOriginAndPath(),
             queryString = utils.getQueryString(window.location.search);
@@ -72,7 +71,9 @@ window.DCX = (function () {
         if (!name || typeof name !== "string") {
             return;
         }
-
+        if (!referrerName || typeof referrerName !== "string") {
+            referrerName = "";
+        }
         screenviewMsg = {
             type: 2,
             screenview: {
@@ -86,15 +87,6 @@ window.DCX = (function () {
                 queryString: queryString
             }
         };
-
-        if (!queryString) {
-            delete screenviewMsg.screenview.queryString;
-        }
-        
-        if (!referrerName || typeof referrerName !== "string") {
-            delete screenviewMsg.screenview.referrer;
-        }
-
         // TODO: Send a fully populated WebEvent object.
         // Ideally, want to use the publishEvent to route this to the correct modules.
         if (type === "LOAD") {
@@ -108,26 +100,25 @@ window.DCX = (function () {
                 name: name
             };
         }
-
         if (webEvent && replay) {
             dcid = replay.onevent(webEvent);
         }
-
         // If DOM Capture was triggered for this add it to the screenview message.
         if (dcid) {
             screenviewMsg.dcid = dcid;
         }
-
         if (type === "LOAD" || type === "UNLOAD") {
             queueService.post("", screenviewMsg);
         }
-
         if (webEvent && cookieModule) {
             cookieModule.onevent(webEvent);
         }
-
         if (webEvent && performanceModule) {
             performanceModule.onevent(webEvent);
+        }
+        if(webEvent && usabilityModule) {
+            usabilityModule.destroy();
+            usabilityModule.init();
         }
     }
 
@@ -139,11 +130,9 @@ window.DCX = (function () {
      */
     function addGeolocationMsg(position) {
         var geolocationMsg;
-
         if (!position || !position.coords) {
             return;
         }
-
         geolocationMsg = {
             type: 13,
             geolocation: {
@@ -152,13 +141,10 @@ window.DCX = (function () {
                 "accuracy": Math.ceil(position.coords.accuracy)
             }
         };
-
         queueService.post("", geolocationMsg);
     }
-
     function addGeolocationErrorMsg() {
         var geolocationMsg;
-
         geolocationMsg = {
             type: 13,
             geolocation: {
@@ -166,14 +152,10 @@ window.DCX = (function () {
                 "error": "Permission denied."
             }
         };
-
         queueService.post("", geolocationMsg);
     }
-
-
     var dcxStartTime = (new Date()).getTime(),
         dcxPageId,
-
         /**
          * A collection of module information. The keys in this object are the
          * module names and the values are an object consisting of three pieces
@@ -182,7 +164,6 @@ window.DCX = (function () {
          * @private
          */
         modules = {},
-
         /**
          * A collection of service information. The keys in this object are the
          * service names and the values are an object consisting of two pieces
@@ -190,15 +171,12 @@ window.DCX = (function () {
          * @private
          */
         services = {},
-
         /**
          * Indicates if the core has been initialized or not.
          * @private
          */
         initialized = false,
         state = null,
-        workerLoaded = false,
-
         /**
          * Checks whether given frame is blacklisted (in the config) or not.
          * @function
@@ -209,7 +187,6 @@ window.DCX = (function () {
         isFrameBlacklisted = (function () {
             var blacklistedFrames,
                 checkedFrames = [];
-
             function prepareBlacklistedFrames(scope) {
                 var blacklist = coreConfig.framesBlacklist,
                     foundFrames,
@@ -226,27 +203,22 @@ window.DCX = (function () {
                     checkedFrames = checkedFrames.concat(browserService.queryAll('iframe', scope));
                 }
             }
-
             function isFrameBlacklisted(iframe) {
                 if (utils.indexOf(checkedFrames, iframe) < 0) {
                     prepareBlacklistedFrames(iframe.ownerDocument);
                 }
                 return utils.indexOf(blacklistedFrames, iframe) > -1;
             }
-
             isFrameBlacklisted.clearCache = function () {
                 blacklistedFrames = null;
             };
-
             return isFrameBlacklisted;
         }()),
-
         /**
          * Last clicked element, needed for IE and 'beforeunload'
          * @private
          */
         lastClickedElement = null,
-
         /**
          * List of service passthroughs. These are methods that are called
          * from DCX and simply pass through to the given service without
@@ -255,9 +227,7 @@ window.DCX = (function () {
          * @private
          */
         servicePassthroughs = {
-
             "config": [
-
                 /**
                  * Returns the global configuration object (the one passed to init()).
                  * @name getConfig
@@ -266,7 +236,6 @@ window.DCX = (function () {
                  * @returns {Object} The global configuration object.
                  */
                 "getConfig",
-
                 /**
                  * Updates the global configuration object (the one passed to init()).
                  * @name updateConfig
@@ -275,7 +244,6 @@ window.DCX = (function () {
                  * @returns {void}
                  */
                 "updateConfig",
-
                 /**
                  * Returns the core configuration object.
                  * @name getCoreConfig
@@ -284,7 +252,6 @@ window.DCX = (function () {
                  * @returns {Object} The core configuration object.
                  */
                 "getCoreConfig",
-
                 /**
                  * Updates the core configuration object.
                  * @name updateCoreConfig
@@ -294,7 +261,6 @@ window.DCX = (function () {
                  * @returns {void}
                  */
                 "updateCoreConfig",
-
                 /**
                  * Returns the configuration object for a module.
                  * @name getModuleConfig
@@ -304,7 +270,6 @@ window.DCX = (function () {
                  * @returns {Object} The configuration object for the given module.
                  */
                 "getModuleConfig",
-
                 /**
                  * Updates a configuration object for a module.
                  * @name updateModuleConfig
@@ -315,7 +280,6 @@ window.DCX = (function () {
                  * @returns {void}
                  */
                 "updateModuleConfig",
-
                 /**
                  * Returns a configuration object for a service.
                  * @name getServiceConfig
@@ -325,7 +289,6 @@ window.DCX = (function () {
                  * @returns {Object} The configuration object for the given module.
                  */
                 "getServiceConfig",
-
                 /**
                  * Updates a configuration object for a service.
                  * @name updateServiceConfig
@@ -336,9 +299,7 @@ window.DCX = (function () {
                  * @returns {void}
                  */
                 "updateServiceConfig"
-
             ],
-
             "queue": [
                 /**
                  * Send event information to the module's default queue.
@@ -371,9 +332,7 @@ window.DCX = (function () {
                  * @function
                  */
                 "flushAll"
-
             ],
-
             "browserBase": [
                 /**
                  * Calculates the xpath of the given DOM Node.
@@ -384,7 +343,6 @@ window.DCX = (function () {
                  * @returns {String} The calculated xpath.
                  */
                 "getXPathFromNode",
-
                 /**
                  * Let the UIC library process a DOM event, which was prevented
                  * from bubbling by the application.
@@ -396,7 +354,6 @@ window.DCX = (function () {
                 "processDOMEvent"
             ]
         },
-
         /**
          * Provides methods for handling load/unload events to make sure that this
          * kind of events will be handled independently to browser caching mechanism
@@ -405,9 +362,7 @@ window.DCX = (function () {
          */
         loadUnloadHandler = (function () {
             var status = {};
-
             return {
-
                 /**
                  * Normalizes the events specified in the configuration in the following ways:
                  * - For each load/unload module event adds corresponding pageshow/pagehide event.
@@ -422,20 +377,16 @@ window.DCX = (function () {
                     var modStatus = status[moduleName],
                         load = false,
                         unload = false;
-
                     localTop = localTop || core._getLocalTop();
                     documentScope = documentScope || localTop.document;
-
                     if (modStatus) {
                         // Normalization has already occurred. This could be a call from rebind.
                         return;
                     }
-
                     status[moduleName] = {
                         loadFired: false,
                         pageHideFired: false
                     };
-
                     utils.forEach(moduleEvents, function (eventConfig) {
                         switch (eventConfig.name) {
                         case "load":
@@ -444,7 +395,6 @@ window.DCX = (function () {
                                 name: "pageshow"
                             }));
                             break;
-
                         case "unload":
                             unload = true;
                             moduleEvents.push(utils.mixin(utils.mixin({}, eventConfig), {
@@ -454,7 +404,6 @@ window.DCX = (function () {
                                 name: "beforeunload"
                             }));
                             break;
-
                         // IE6, IE7 and IE8 - catching 'onpropertychange' event to
                         // simulate correct 'change' events on radio and checkbox.
                         // required for W3C only as jQuery normalizes it.
@@ -480,7 +429,6 @@ window.DCX = (function () {
                         moduleEvents.push({name: "unload", target: localTop});
                     }
                 },
-
                 /**
                  * Checks if event can be published for the module(s) or not.
                  * The negative case can take place for load/unload events only, to avoid
@@ -518,7 +466,6 @@ window.DCX = (function () {
                     }
                     return true;
                 },
-
                 /**
                  * Checks if event indicates the core context is unloading.
                  * @param {WebEvent} event An instance of WebEvent
@@ -530,47 +477,37 @@ window.DCX = (function () {
                             false;
                 }
             };
-
         }()),
-
 		/**
-
          * The WebEvent object being handled in publishEvent.
          * @private
          */
         currentWebEvent = {},
-
         /**
          * Keeps track of the events being handled.
          * @private
          */
         events = {},
-
         /**
          * Keeps track of callback functions registered by the iOS and Android native libraries.
          * These are used for communication with the native library.
          */
         bridgeCallbacks = {},
-
         /**
          * init implementation (defined later)
          * @private
          */
         _init = function () {},
         _callback = null,
-
         /**
          * Flag to track if DCX.init API can been called.
          * @private
          */
         okToCallInit = true,
-
         // Placeholder for the inactivity timeout setup function, defined after core.
         resetInactivityTimer = function () {},
-
         // Keeps track if the queue was flushed after the 1st full DOM capture.
         fullDOMFlushed = false,
-
         /**
          * Keeps track of the URL path and hash. If either value changes,
          * then logs the appropriate screenview unload/load message.
@@ -580,19 +517,16 @@ window.DCX = (function () {
                 prevPathname = location.pathname,
                 prevHash = location.hash,
                 prevScreenview = "";
-
             return function () {
                 var currPathname = location.pathname,
                     currHash = location.hash,
                     currScreenview = prevScreenview;
-
                 // Check if pathname or hash do not match previously saved values
                 if (currPathname !== prevPathname) {
                     currScreenview = DCX.normalizeUrl(currPathname + currHash);
                 } else if (currHash !== prevHash) {
                     currScreenview = DCX.normalizeUrl(currHash);
                 }
-
                 // Has the screenview changed?
                 if (currScreenview !== prevScreenview) {
                     if (prevScreenview) {
@@ -607,7 +541,6 @@ window.DCX = (function () {
                 }
             };
         }()),
-
         /**
          * Checks if the element is on the list of blocked elements.
          * @param {DOMElement} element The element to be checked.
@@ -622,19 +555,16 @@ window.DCX = (function () {
                 blockedElem,
                 blockedElems,
                 blockedElemsLen;
-
             // Sanity check
             if (!blockedList || !blockedList.length) {
                 // Self-rewrite to optimize for next time
                 isElementBlocked = function () { return false; };
                 return isBlocked;
             }
-
             // Sanity check
             if (!element || !element.nodeType) {
                 return isBlocked;
             }
-
             scope = scope || utils.getDocument(element);
             for (i = 0, len = blockedList.length; i < len && !isBlocked; i += 1) {
                 blockedElems = browserService.queryAll(blockedList[i], scope);
@@ -643,27 +573,21 @@ window.DCX = (function () {
                     isBlocked = blockedElem.contains ? blockedElem.contains(element) : blockedElem === element;
                 }
             }
-
             return isBlocked;
         },
-
         /**
          * Checks if link has one of the blacklisted protocols.
          */
         hasExcludedProtocol = function (element) {
             var hasExcluded = false,
                 list = ["intent:", "mailto:", "sms:", "tel:"];
-
             if (element && utils.getTagName(element) === "a" && list.indexOf(element.protocol) !== -1) {
                 hasExcluded = true;
             }
             return hasExcluded;
         },
-
         // main interface for the core
         core = /**@lends DCX*/ {
-
-
             /**
              * Load cached vars for unit tests.
              */
@@ -678,28 +602,24 @@ window.DCX = (function () {
                 serializerService = global.getService("serializer");
                 coreConfig = configService ? configService.getCoreConfig() : null;
             },
-
             /**
              * @returns {integer} Returns the recorded timestamp in milliseconds corresponding to when the DCX object was created.
              */
             getStartTime: function () {
                 return dcxStartTime;
             },
-
             /**
              * @returns {String} Returns the unique page id corresponding to this page instance.
              */
             getPageId: function () {
                 return dcxPageId || "#";
             },
-
             /**
              * @returns {String} The library version string.
              */
             getLibraryVersion: function () {
-                return "12.1.9";
+                return "12.1.6";
             },
-
             /**
              * @returns {String} Internal/customizable version string.
              */
@@ -709,7 +629,6 @@ window.DCX = (function () {
                     return config.version;
                 }
             },
-
 			/**
              * @returns {Object} Returns the WebEvent object currently being handled by _publishEvent
              */
@@ -726,11 +645,9 @@ window.DCX = (function () {
                 }
                 return url;
             },
-
             //---------------------------------------------------------------------
             // Core Lifecycle
             //---------------------------------------------------------------------
-
             /**
              * Initializes the system. The configuration information is passed to the
              * config service to management it. All modules are started (unless their
@@ -744,10 +661,8 @@ window.DCX = (function () {
              */
             init: function (config, callback) {
                 var timeoutCallback;
-
                 // Setup utils to reference DCX.utils
                 utils = this.utils;
-
 				// Legacy IE (IE 8 and below) not supported.
                 if (utils.isLegacyIE) {
                     return;
@@ -757,10 +672,8 @@ window.DCX = (function () {
                 if (!okToCallInit) {
                     throw "init must only be called once!";
                 }
-
                 // Set the page id.
                 dcxPageId = "P." + utils.getRandomString(28);
-
                 okToCallInit = false;
                 timeoutCallback = function (event) {
                     event = event || window.event || {};
@@ -775,7 +688,6 @@ window.DCX = (function () {
                         _init(config, callback);
                     }
                 };
-
                 // case when DOM already loaded (lazy-loaded UIC)
                 if (document.readyState === "complete" || (document.readyState === "interactive" && !utils.isIE)) {
                     // Lets the current browser cycle to complete before calling init
@@ -790,7 +702,6 @@ window.DCX = (function () {
                     window.attachEvent("onload", timeoutCallback);
                 }
             },
-
             /**
              * Indicates if the system has been initialized.
              * @returns {Boolean} True if init() has been called, false if not.
@@ -798,43 +709,9 @@ window.DCX = (function () {
             isInitialized: function () {
                 return initialized;
             },
-
             getState: function () {
                 return state;
             },
-
-            /**
-             * method to set state when lab get destroyed.
-             * @returns 
-             */
-            setState: function (destroyedParent, jMsg) {  
-                var destroyedStatus = {
-                    destroyedParent : destroyedParent, 
-                    jMsg : jMsg
-                };
-
-                state = destroyedParent + "(" + jMsg.destroyedBy + ")" + " : " + jMsg.destroyedReason;
-
-                DCX.logCustomEvent('state', destroyedStatus, 6);
-                sessionStorage.setItem('DCXLabState', JSON.stringify(destroyedStatus));
-                
-            },
-
-            /**
-             * set worker loaded or not status.
-             * @param {value} value 
-             */
-            setWorkerStatus: function(value) {
-                workerLoaded = value;
-            },
-
-            /**
-             * get worker loaded status.
-             */
-            getWorkerStatus: function() {
-                return workerLoaded;
-            },
-
             /**
              * Shuts down the system. All modules are stopped and all web events
              * are unsubscribed.
@@ -842,20 +719,16 @@ window.DCX = (function () {
              */
             // destroy: function (skipEvents, callback) {
             destroy: function (skipEvents) {
-
                 var token = "",
                     eventName = "",
                     target = null,
                     serviceName = null,
                     service = null,
                     delegateTarget = false;
-
                 if (okToCallInit) { //nothing to do
                     return false;
                 }
-
                 this.stopAll();
-
                 if (!skipEvents) {
                     // Unregister events
                     for (token in events) {
@@ -867,31 +740,22 @@ window.DCX = (function () {
                         }
                     }
                 }
-
                 // call destroy on services that have it
                 for (serviceName in services) {
                     if (services.hasOwnProperty(serviceName)) {
                         service = services[serviceName].instance;
-
                         if (service && typeof service.destroy === "function") {
                             service.destroy();
                         }
-
                         services[serviceName].instance = null;
                     }
                 }
-
                 isFrameBlacklisted.clearCache();
                 events = {};
                 initialized = false;
-
                 // Reset to allow re-initialization.
                 okToCallInit = true;
-
-                if(state === 'unloading' || state === 'loaded') {
-                    state = "destroyed";
-                }
-
+                state = "destroyed";
                 if (typeof _callback === "function") {
                     // Protect against unexpected exceptions since _callback is 3rd party code.
                     try {
@@ -901,7 +765,6 @@ window.DCX = (function () {
                     }
                 }
             },
-
             /**
              * Iterates over each module and starts or stops it according to
              * configuration information.
@@ -909,25 +772,20 @@ window.DCX = (function () {
              * @private
              */
             _updateModules: function (scope) {
-
                 var moduleConfig = null,
                     moduleName = null,
                     result = true;
-
                 if (coreConfig && coreConfig.modules) {
                     try {
                         for (moduleName in coreConfig.modules) {
                             if (coreConfig.modules.hasOwnProperty(moduleName)) {
                                 moduleConfig = coreConfig.modules[moduleName];
-
                                 if (modules.hasOwnProperty(moduleName)) {
                                     if (moduleConfig.enabled === false) {
                                         this.stop(moduleName);
                                         continue;
                                     }
-
                                     this.start(moduleName);
-
                                     // If the module has specified events in the configuration
                                     // register event handlers for them.
                                     if (moduleConfig.events) {
@@ -938,13 +796,6 @@ window.DCX = (function () {
                         }
                         this._registerModuleEvents.clearCache();
                     } catch (e) {
-                        var jMsg = {
-                            destroyedReason: "UIC destroyed while update Modules.",
-                            destroyedBy: '_updateModules',
-                            destroyedByModule: moduleName
-                        };
-                        DCX.setState("_updateModules", jMsg);
-
                         core.destroy();
                         result = false;
                     }
@@ -953,7 +804,6 @@ window.DCX = (function () {
                 }
                 return result;
             },
-
             /**
              * Registers event handlers for all modules in a specific scope.
              * E.g. if the application changed the DOM via ajax and want to let
@@ -963,7 +813,6 @@ window.DCX = (function () {
             rebind: function (scope) {
                 core._updateModules(scope);
             },
-
             /**
              * Public API which returns the Discover session data that has been
              * configured to be shared with 3rd party scripts.
@@ -971,22 +820,17 @@ window.DCX = (function () {
              * name-value pairs. If no data is available then returns null.
              */
             getSessionData: function () {
-
                 if (!core.isInitialized()) {
                     return;
                 }
-
                 var rv = null,
                     sessionData = null,
                     scName,
                     scValue;
-
                 if (!coreConfig || !coreConfig.sessionDataEnabled) {
                     return null;
                 }
-
                 sessionData = coreConfig.sessionData || {};
-
                 // Add any session ID data
                 scName = sessionData.sessionQueryName;
                 if (scName) {
@@ -996,17 +840,14 @@ window.DCX = (function () {
                     scName = sessionData.sessionCookieName || "TLTSID";
                     scValue = utils.getCookieValue(scName);
                 }
-
                 if (scName && scValue) {
                     rv = rv || {};
                     rv.dcxSCN = scName;
                     rv.dcxSCV = scValue;
                     rv.dcxSCVNeedsHashing = !!sessionData.sessionValueNeedsHashing;
                 }
-
                 return rv;
             },
-
             /**
              * Public API to create and add a geolocation message to the default
              * queue. This API accepts an optional position object which is defined
@@ -1024,7 +865,6 @@ window.DCX = (function () {
                     }),
                     geolocationEnabled = utils.getValue(replayConfig, "geolocation.enabled", false),
                     navigator = window.navigator;
-
                 if (!position) {
                     if (!geolocationEnabled || !navigator || !navigator.geolocation || !navigator.geolocation.getCurrentPosition) {
                         // Geolocation is not enabled or it is not supported by this browser
@@ -1035,7 +875,6 @@ window.DCX = (function () {
                     addGeolocationMsg(position);
                 }
             },
-
             /**
              * Public API to create and add a custom event message to the default
              * queue.
@@ -1044,28 +883,18 @@ window.DCX = (function () {
              * to JSON and included with the custom message.
              * @returns {void}
              */
-            logCustomEvent: function (name, customMsgObj, logLevel) {
-
+            logCustomEvent: function (name, customMsgObj) {
                 if (!core.isInitialized()) {
                     return;
                 }
-
                 var customMsg = null;
-
                 // Sanity checks
                 if (!name || typeof name !== "string") {
                     name = "CUSTOM";
                 }
-
-                // Sanity checks
-                if (!logLevel || typeof logLevel !== "number") {
-                    logLevel = 5;
-                }
-                
                 customMsgObj = customMsgObj || {};
-
                 customMsg = {
-                    type: logLevel,
+                    type: 5,
                     customEvent: {
                         name: name,
                         data: customMsgObj
@@ -1073,7 +902,6 @@ window.DCX = (function () {
                 };
                 queueService.post("", customMsg);
             },
-
             /**
              * Public API to create and add an exception event message to the
              * default queue.
@@ -1083,20 +911,16 @@ window.DCX = (function () {
              * @returns {void}
              */
             logExceptionEvent: function (msg, url, line) {
-
                 if (!core.isInitialized()) {
                     return;
                 }
-
                 var exceptionMsg = null;
-
                 // Sanity checks
                 if (!msg || typeof msg !== "string") {
                     return;
                 }
                 url = url || "";
                 line = line || "";
-
                 exceptionMsg = {
                     type: 6,
                     exception: {
@@ -1105,10 +929,8 @@ window.DCX = (function () {
                         line: line
                     }
                 };
-
                 queueService.post("", exceptionMsg);
             },
-
             /**
              * Public API to create and add a form completion message. Form completion indicates
              * if the user submitted a form (or form equivalent) and if the form was validated.
@@ -1121,11 +943,9 @@ window.DCX = (function () {
              * @returns {void}
              */
             logFormCompletion: function (submitted, valid) {
-
                 if (!core.isInitialized()) {
                     return;
                 }
-
                 var formCompletionMsg = {
                         type: 15,
                         formCompletion: {
@@ -1133,10 +953,8 @@ window.DCX = (function () {
                             valid: (typeof valid === "boolean" ? valid : null)
                         }
                     };
-
                 queueService.post("", formCompletionMsg);
             },
-
             /**
              * Public API to create and add a screenview LOAD message to the
              * default queue.
@@ -1150,14 +968,11 @@ window.DCX = (function () {
              * @returns {void}
              */
             logScreenviewLoad: function (name, referrerName, root) {
-
                 if (!core.isInitialized()) {
                     return;
                 }
-
                 logScreenview("LOAD", name, referrerName, root);
             },
-
             /**
              * Public API to create and add a screenview UNLOAD message to the
              * default queue.
@@ -1167,14 +982,11 @@ window.DCX = (function () {
              * @returns {void}
              */
             logScreenviewUnload: function (name) {
-
                 if (!core.isInitialized()) {
                     return;
                 }
-
                 logScreenview("UNLOAD", name);
             },
-
             /**
              * Public API to log a DOM Capture message to the default queue.
              * @param {DOMElement} [root] Parent element from which to start the capture.
@@ -1187,16 +999,13 @@ window.DCX = (function () {
                     domCaptureData,
                     domCaptureServiceConfig,
                     msg;
-
                 if (!this.isInitialized()) {
                     return dcid;
                 }
-
                 // DOM Capture is not supported on IE 8 and below
                 if (utils.isLegacyIE) {
                     return dcid;
                 }
-
                 if (domCaptureService) {
                     root = root || window.document;
                     domCaptureServiceConfig = this.getServiceConfig("domCapture");
@@ -1226,7 +1035,6 @@ window.DCX = (function () {
                 }
                 return dcid;
             },
-
             /**
              * Function invoked by modules to log a DOM Capture message to the default queue.
              * @param {String} moduleName Name of the module which invoked this function.
@@ -1238,7 +1046,6 @@ window.DCX = (function () {
             performDOMCapture: function (moduleName, root, config) {
                 return this.logDOMCapture(root, config);
             },
-
             /**
              * Function invoked by modules to log a Form Completion message.
              * @param {String} moduleName Name of the module which invoked this function.
@@ -1252,7 +1059,6 @@ window.DCX = (function () {
             performFormCompletion: function (moduleName, submitted, valid) {
                 return this.logFormCompletion(submitted, valid);
             },
-
             /**
              * Helper function for registerBridgeCallbacks
              * It checks if the call back type is valid and enabled.
@@ -1263,13 +1069,11 @@ window.DCX = (function () {
              */
             _bridgeCallback: function (cbType) {
                 var callBackType = bridgeCallbacks[cbType];
-
                 if (callBackType && callBackType.enabled) {
                     return callBackType;
                 }
                 return null;
             },
-
             /**
              * Public API to add a screenshot capture. This needs to be
              * implemented and registered (see registerBridgeCallbacks)
@@ -1286,7 +1090,6 @@ window.DCX = (function () {
                     bridgeCallback.cbFunction();
                 }
             },
-
             /**
              * Public API to enable Discover framework. This needs to be
              * implemented and registered (see registerBridgeCallbacks)
@@ -1299,12 +1102,10 @@ window.DCX = (function () {
                     return;
                 }
                 var bridgeCallback = core._bridgeCallback("enableDiscoverFramework");
-
                 if (bridgeCallback !== null) {
                     bridgeCallback.cbFunction();
                 }
             },
-
             /**
              * Public API to disable Discover framework. This needs to be
              * implemented and registered (see registerBridgeCallbacks)
@@ -1317,12 +1118,10 @@ window.DCX = (function () {
                     return;
                 }
                 var bridgeCallback = core._bridgeCallback("disableDiscoverFramework");
-
                 if (bridgeCallback !== null) {
                     bridgeCallback.cbFunction();
                 }
             },
-
             /**
              * Public API to start a new Discover session. This needs to be
              * implemented and registered (see registerBridgeCallbacks)
@@ -1335,12 +1134,10 @@ window.DCX = (function () {
                     return;
                 }
                 var bridgeCallback = core._bridgeCallback("startNewTLFSession");
-
                 if (bridgeCallback !== null) {
                     bridgeCallback.cbFunction();
                 }
             },
-
             /**
              * Public API to start get current Discover session Id. This needs to be
              * implemented and registered (see registerBridgeCallbacks)
@@ -1354,13 +1151,11 @@ window.DCX = (function () {
                 }
                 var sessionId,
                     bridgeCallback = core._bridgeCallback("currentSessionId");
-
                 if (bridgeCallback !== null) {
                     sessionId = bridgeCallback.cbFunction();
                 }
                 return sessionId;
             },
-
             /**
              * Public API to get default value of a configurable item in
              * TLFConfigurableItems.properties file.  This needs to be
@@ -1376,13 +1171,11 @@ window.DCX = (function () {
                 }
                 var value,
                     bridgeCallback = core._bridgeCallback("defaultValueForConfigurableItem");
-
                 if (bridgeCallback !== null) {
                     value = bridgeCallback.cbFunction(configItem);
                 }
                 return value;
             },
-
             /**
              * Public API to get the value of a configurable item either from TLFConfigurableItems.properties file
              * or in memory data structure. This needs to be implemented and registered (see registerBridgeCallbacks)
@@ -1397,13 +1190,11 @@ window.DCX = (function () {
                 }
                 var value,
                     bridgeCallback = core._bridgeCallback("valueForConfigurableItem");
-
                 if (bridgeCallback !== null) {
                     value = bridgeCallback.cbFunction(configItem);
                 }
                 return value;
             },
-
             /**
              * Public API to set the value of a configurable item in TLFConfigurableItems.properties file.
              * This updates only in the memory value. This needs to be
@@ -1420,13 +1211,11 @@ window.DCX = (function () {
                 }
                 var result = false,
                     bridgeCallback = core._bridgeCallback("setConfigurableItem");
-
                 if (bridgeCallback !== null) {
                     result = bridgeCallback.cbFunction(configItem, value);
                 }
                 return result;
             },
-
             /**
              * Public API to add additional http header.
              * This needs to be implemented and registered (see registerBridgeCallbacks)
@@ -1442,13 +1231,11 @@ window.DCX = (function () {
                 }
                 var result = false,
                     bridgeCallback = core._bridgeCallback("addAdditionalHttpHeader");
-
                 if (bridgeCallback !== null) {
                     result = bridgeCallback.cbFunction(key, value);
                 }
                 return result;
             },
-
             /**
              * Public API to log custom event.
              * This needs to be implemented and registered (see registerBridgeCallbacks)
@@ -1465,13 +1252,11 @@ window.DCX = (function () {
                 }
                 var result = false,
                     bridgeCallback = core._bridgeCallback("logCustomEventBridge");
-
                 if (bridgeCallback !== null) {
                     result = bridgeCallback.cbFunction(eventName, jsonData, logLevel);
                 }
                 return result;
             },
-
             /**
              * Public API to allow registration of callback functions
              * These callback types are supported currently:
@@ -1501,7 +1286,6 @@ window.DCX = (function () {
                     cbEntry,
                     cbList,
                     cbListLen;
-
                 // Sanity check
                 if (!callbacks) {
                     return false;
@@ -1520,7 +1304,6 @@ window.DCX = (function () {
                                 cbFunction: cb.cbFunction,
                                 cbOrder: cb.order || 0
                             };
-
                             if (utils.isUndefOrNull(bridgeCallbacks[cb.cbType])) {
                                 // If this is the first callback then directly save it as an object.
                                 bridgeCallbacks[cb.cbType] = cbEntry;
@@ -1545,7 +1328,6 @@ window.DCX = (function () {
                 }
                 return true;
             },
-
             /**
              * Core function which is invoked by the queue service to allow
              * for the queue to be redirected if a messageRedirect callback
@@ -1562,23 +1344,19 @@ window.DCX = (function () {
                     cbList,
                     cbListLen,
                     retval;
-
                 // Sanity check
                 if (!queue || !queue.length) {
                     return queue;
                 }
-
                 cb = bridgeCallbacks.messageRedirect;
                 if (!cb) {
                     return queue;
                 }
-
                 if (!utils.isArray(cb)) {
                     cbList = [cb];
                 } else {
                     cbList = cb;
                 }
-
                 for (j = 0, cbListLen = cbList.length; j < cbListLen; j += 1) {
                     cb = cbList[j];
                     if (cb && cb.enabled) {
@@ -1596,7 +1374,6 @@ window.DCX = (function () {
                 }
                 return queue;
             },
-
             _hasSameOrigin: function (iframe) {
                 try {
                     return iframe.document.location.host === document.location.host && iframe.document.location.protocol === document.location.protocol;
@@ -1608,7 +1385,6 @@ window.DCX = (function () {
                 }
                 return false;
             },
-
             /**
              * Core function which is invoked by the queue service to allow
              * for the addRequestHeaders callback (if registered) to be invoked.
@@ -1624,14 +1400,11 @@ window.DCX = (function () {
             provideRequestHeaders: function () {
                 var headers = null,
                     addHeadersCB = bridgeCallbacks.addRequestHeaders;
-
                 if (addHeadersCB && addHeadersCB.enabled) {
                     headers = addHeadersCB.cbFunction();
                 }
-
                 return headers;
             },
-
             /**
              * Utility function used by core._updateModules.
              * It registers event listeners according to module configuration.
@@ -1643,7 +1416,6 @@ window.DCX = (function () {
              *                 object or to IFrame's content window
              */
             _registerModuleEvents: (function () {
-
                 /**
                  * An instance of DCX.utils.WeakMap us as a cache for mapping DOM elements with their IDs.
                  * Introduced to reduce number of expensive browserBase.ElementData.prototype.examineID calls.
@@ -1677,7 +1449,6 @@ window.DCX = (function () {
                         }
                         return prop;
                     };
-
                 /**
                  * Helper function for core._registerModuleEvents
                  * It does actual event listeners registration, while the main function manages the scopes.
@@ -1691,10 +1462,8 @@ window.DCX = (function () {
                         frameId,
                         e,
                         i;
-
                     scope = scope || documentScope;
                     loadUnloadHandler.normalizeModuleEvents(moduleName, moduleEvents, localTop, documentScope);
-
                     if (isFrame) {
                         frameId = browserBaseService.ElementData.prototype.examineID(scope).id;
                         // remove one closing ']'
@@ -1714,21 +1483,17 @@ window.DCX = (function () {
                             }
                         }
                     }
-
                     utils.forEach(moduleEvents, function (eventConfig) {
                         var target = normalizeToObject(eventConfig.target, localTop, documentScope) || documentScope,
                             delegateTarget = normalizeToObject(eventConfig.delegateTarget, localTop, documentScope),
                             token = "";
-
                         if (eventConfig.recurseFrames !== true && isFrame) {
                             return;
                         }
-
                         // If the target is a string it is a CSS query selector, specified in the config.
                         if (typeof target === "string") {
                             if (eventConfig.delegateTarget && core.getFlavor() === "jQuery") {
                                 token = core._buildToken4delegateTarget(eventConfig.name, target, eventConfig.delegateTarget);
-
                                 if (!events.hasOwnProperty(token)) {
                                     events[token] = [moduleName];
                                     events[token].target = target;
@@ -1771,7 +1536,6 @@ window.DCX = (function () {
                                 }
                             }
                         }
-
                         if (token !== "") {
                             if (typeof target !== "string") {
                                 events[token].target = target;
@@ -1779,7 +1543,6 @@ window.DCX = (function () {
                         }
                     });
                 }
-
                 /**
                  * Helper function for core._registerModuleEvents. Checks load status of iframes.
                  * @function
@@ -1793,12 +1556,10 @@ window.DCX = (function () {
                             (iFrameWindow.document !== null) &&
                             iFrameWindow.document.readyState === "complete";
                 }
-
                 // actual implementation of core._registerModuleEvents
                 function registerModuleEvents(moduleName, moduleEvents, scope) {
                     scope = scope || core._getLocalTop().document;
                     idCache = idCache || new utils.WeakMap();
-
                     _registerModuleEventsOnScope(moduleName, moduleEvents, scope);
                     if (moduleName !== "performance") {
                         var hIFrame = null,
@@ -1806,7 +1567,6 @@ window.DCX = (function () {
                             cIFrames = browserService.queryAll("iframe, frame", scope),
                             i,
                             iLength;
-
                         for (i = 0, iLength = cIFrames.length; i < iLength; i += 1) {
                             hIFrame = cIFrames[i];
                             if (isFrameBlacklisted(hIFrame)) {
@@ -1819,19 +1579,15 @@ window.DCX = (function () {
                                 domCaptureService.observeWindow(hIFrameWindow);
                                 continue;
                             }
-
                             frameLoadPending += 1;
-
                             (function (moduleName, moduleEvents, hIFrame) {
                                 var hIFrameWindow = null,
                                     _iframeContext = {
                                         moduleName: moduleName,
                                         moduleEvents: moduleEvents,
                                         hIFrame: hIFrame,
-
                                         _registerModuleEventsDelayed: function () {
                                             var hIFrameWindow = null;
-
                                             if (!isFrameBlacklisted(hIFrame)) {
                                                 hIFrameWindow = utils.getIFrameWindow(hIFrame);
                                                 if (core._hasSameOrigin(hIFrameWindow)) {
@@ -1850,34 +1606,27 @@ window.DCX = (function () {
                                             }
                                         }
                                     };
-
                                 utils.addEventListener(hIFrame, "load", function () {
                                     _iframeContext._registerModuleEventsDelayed();
                                 });
-
                                 if (utils.isLegacyIE && _isFrameLoaded(hIFrame)) {
                                     hIFrameWindow = utils.getIFrameWindow(hIFrame);
                                     utils.addEventListener(hIFrameWindow.document, "readystatechange", function () {
                                         _iframeContext._registerModuleEventsDelayed();
                                     });
                                 }
-
                             }(moduleName, moduleEvents, hIFrame));
                         }
                     }
                 }
-
                 registerModuleEvents.clearCache = function () {
                     if (idCache) {
                         idCache.clear();
                         idCache = null;
                     }
                 };
-
                 return registerModuleEvents;
             }()), // end of _registerModuleEvents factory
-
-
             /**
              * Build the token for an event using the currentTarget of the event
              * (only if the current browser supports currenTarget) Otherwise uses
@@ -1895,7 +1644,6 @@ window.DCX = (function () {
                             };
                 return event.type + "|" + idData.id + idData.idType;
             },
-
             /**
              * Build the token for delegate targets
              * @param  {String} eventType The event.type property of the WebEvent
@@ -1907,7 +1655,6 @@ window.DCX = (function () {
             _buildToken4delegateTarget: function (eventType, target, delegateTarget) {
                 return eventType + "|" + target + "|" + delegateTarget;
             },
-
             /**
              * Build the token for bubble targets (either window or document)
              * @param  {String} eventType The event.type property of the WebEvent
@@ -1921,11 +1668,9 @@ window.DCX = (function () {
                     localWindow,
                     _getIframeElement = function (documentScope) {
                         var retVal = null;
-
                         if (core._hasSameOrigin(localWindow.parent)) {
                             utils.forEach(browserService.queryAll("iframe, frame", localWindow.parent.document), function (iframe) {
                                 var iFrameWindow = null;
-
                                 if (!isFrameBlacklisted(iframe)) {
                                     iFrameWindow = utils.getIFrameWindow(iframe);
                                     if (core._hasSameOrigin(iFrameWindow) && iFrameWindow.document === documentScope) {
@@ -1941,11 +1686,9 @@ window.DCX = (function () {
                     tmpTarget,
                     retVal = eventType,
                     idData;
-
                 if (documentScope) {
                     localWindow = documentScope.defaultView || documentScope.parentWindow;
                 }
-
                 if (target === window || target === window.window) {
                     retVal += "|null-2|window";
                 } else {
@@ -1963,21 +1706,17 @@ window.DCX = (function () {
                         retVal += "|null-2|document";
                     }
                 }
-
                 return retVal;
             },
-
             /**
              * Event handler for when configuration gets updated.
              * @returns {void}
              * @private
              */
             _reinitConfig: function () {
-
                 // NOTE: Don't use "this" in this method, only use "core" to preserve context.
                 core._updateModules();
             },
-
             /**
              * Iterates over each module delivers the event object if the module
              * is interested in that event.
@@ -1986,9 +1725,7 @@ window.DCX = (function () {
              * @private
              */
             _publishEvent: function (event) {
-
                 // NOTE: Don't use "this" in this method, only use "core" to preserve context.
-
                 var moduleName = null,
                     module = null,
                     // generate the explicit token for the element which received the event
@@ -2004,7 +1741,6 @@ window.DCX = (function () {
                     delegateTarget = event.delegateTarget || null,
                     screenviewAutoDetect,
                     clickedEl;
-
 				// Set the current WebEvent being handled in _publishEvent
                 currentWebEvent = event;
                 // Only click, change, mouse* and touch* events reset the inactivity timer.
@@ -2012,30 +1748,25 @@ window.DCX = (function () {
                     resetInactivityTimer();
                     queueService.resetFlushTimer();
                 }
-
                 screenviewAutoDetect = utils.getValue(coreConfig, "screenviewAutoDetect", true);
                 if (screenviewAutoDetect) {
                     // auto detect screenview changes on each event handling cycle
                     detectScreenviewChange();
                 }
-
                 // ignore native browser 'load' events
                 if ((event.type === "load" || event.type === "pageshow") && !event.nativeEvent.customLoad) {
 					currentWebEvent = {};
 					return;
                 }
-
                 // ignore 'beforeunload' fired by link placed in blacklist of excluded links
                 if (event.type === "click") {
                     lastClickedElement = event.target.element;
                 }
                 if (event.type === "beforeunload") {
                     canIgnore = false;
-
                     // Chrome, FF, IE has anchor element on document.activeElement
                     // Safari has anchor element on lastClickedElement
                     clickedEl = (utils.getTagName(lastClickedElement) === "a") ? lastClickedElement : document.activeElement;
-
                     if (clickedEl) {
                         if (hasExcludedProtocol(clickedEl)) {
                             canIgnore = true;
@@ -2044,7 +1775,6 @@ window.DCX = (function () {
                                 var i,
                                     len,
                                     el = browserService.queryAll(selector);
-
                                 for (i = 0, len = el ? el.length : 0; i < len; i += 1) {
                                     if (typeof el[i] !== undefined && el[i] === lastClickedElement) {
                                         // Last clicked element was in the blacklist. Set the ignore flag.
@@ -2061,19 +1791,16 @@ window.DCX = (function () {
                         return;
                     }
                 }
-
                 // if an unload event is triggered update the core's internal state to "unloading"
                 if (loadUnloadHandler.isUnload(event)) {
                     state = "unloading";
                 }
-
                 // ignore native browser 'change' events on IE<9/W3C for radio buttons and checkboxes
                 if (event.type === "change" && utils.isLegacyIE && core.getFlavor() === "w3c" &&
                         (event.target.element.type === "checkbox" || event.target.element.type === "radio")) {
 					currentWebEvent = {};
                     return;
                 }
-
                 // use 'propertychange' event in IE<9 to simulate 'change' event on radio and checkbox
                 if (event.type === "propertychange") {
                     if (event.nativeEvent.propertyName === "checked" && (event.target.element.type === "checkbox" || (event.target.element.type === "radio" && event.target.element.checked))) {
@@ -2084,13 +1811,11 @@ window.DCX = (function () {
                         return;
                     }
                 }
-
                 // Is the target element in the blocked list?
                 if (event.target && isElementBlocked(event.target.element)) {
 					currentWebEvent = {};
                     return;
                 }
-
                 // No module has registered the event for the currentTarget,
                 // build token for bubble target (document or window)
                 if (!events.hasOwnProperty(token)) {
@@ -2099,7 +1824,6 @@ window.DCX = (function () {
                     }
                     token = core._buildToken4bubbleTarget(event.type, target, true, delegateTarget);
                 }
-
                 if (events.hasOwnProperty(token)) {
                     modules = events[token];
                     for (i = 0, len = modules.length; i < len; i += 1) {
@@ -2114,25 +1838,20 @@ window.DCX = (function () {
                         }
                     }
                 }
-
                 if (modEvent && modEvent.type === "unload" && canPublish) {
                     core.destroy();
                 }
-
 				currentWebEvent = {};
             },
-
             _getLocalTop: function () {
                 // Return window.window instead of window due to an IE quirk where (window == top) is true but (window === top) is false
                 // In such cases, (window.window == top) is true and so is (window.window === top)  Hence window.window is more reliable
                 // to compare to see if the library is included in the top window.
                 return window.window;
             },
-
             //---------------------------------------------------------------------
             // Module Registration and Lifecycle
             //---------------------------------------------------------------------
-
             /**
              * Registers a module creator with DCX.
              * @param {String} moduleName The name of the module that is created using
@@ -2141,21 +1860,17 @@ window.DCX = (function () {
              * @returns {void}
              */
             addModule: function (moduleName, creator) {
-
-
                 modules[moduleName] = {
                     creator: creator,
                     instance: null,
                     context: null,
                     messages: []
                 };
-
                 // If the core is initialized, then this module has been dynamically loaded. Start it.
                 if (this.isInitialized()) {
                     this.start(moduleName);
                 }
             },
-
             /**
              * Returns the module instance of the given module.
              * @param {String} moduleName The name of the module to retrieve.
@@ -2167,18 +1882,15 @@ window.DCX = (function () {
                 }
                 return null;
             },
-
             /**
              * Unregisters a module and stops and destroys its instance.
              * @param {String} moduleName The name of the module to remove.
              * @returns {void}
              */
             removeModule: function (moduleName) {
-
                 this.stop(moduleName);
                 delete modules[moduleName];
             },
-
             /**
              * Determines if a module is started by looking for the instance.
              * @param {String} moduleName The name of the module to check.
@@ -2187,94 +1899,72 @@ window.DCX = (function () {
             isStarted: function (moduleName) {
                 return modules.hasOwnProperty(moduleName) && modules[moduleName].instance !== null;
             },
-
             /**
              * Creates a new module instance and calls it's init() method.
              * @param {String} moduleName The name of the module to start.
              * @returns {void}
              */
             start: function (moduleName) {
-
                 var moduleData = modules[moduleName],
                     instance = null;
-
-
                 // Only continue if the module data exists and there's not already an instance
                 if (moduleData && moduleData.instance === null) {
-
                     // create the context and instance
                     moduleData.context = new DCX.ModuleContext(moduleName, this);
                     instance = moduleData.instance = moduleData.creator(moduleData.context);
-
                     // allow module to initialize itself
                     if (typeof instance.init === "function") {
                         instance.init();
                     }
-
                 }
             },
-
             /**
              * Starts all registered modules, creating an instance and calling their
              * init() methods.
              * @returns {void}
              */
             startAll: function () {
-
                 var moduleName = null;
-
                 for (moduleName in modules) {
                     if (modules.hasOwnProperty(moduleName)) {
                         this.start(moduleName);
                     }
                 }
             },
-
             /**
              * Stops a module, calls it's destroy() method, and deletes the instance.
              * @param {String} moduleName The name of the module to stop.
              * @returns {void}
              */
             stop: function (moduleName) {
-
                 var moduleData = modules[moduleName],
                     instance = null;
-
                 // Only continue if the module instance exists
                 if (moduleData && moduleData.instance !== null) {
-
                     instance = moduleData.instance;
-
                     // allow module to clean up after itself
                     if (typeof instance.destroy === "function") {
                         instance.destroy();
                     }
-
                     moduleData.instance = moduleData.context = null;
-
                 }
             },
-
             /**
              * Stops all registered modules, calling their destroy() methods,
              * and removing their instances.
              * @returns {void}
              */
             stopAll: function () {
-
                 var moduleName = null;
-
                 for (moduleName in modules) {
                     if (modules.hasOwnProperty(moduleName)) {
                         this.stop(moduleName);
                     }
                 }
             },
-
             //---------------------------------------------------------------------
             // Service Registration and Lifecycle
             //---------------------------------------------------------------------
-
             /**
              * Registers a service creator with DCX.
              * @param {String} serviceName The name of the service that is created using
@@ -2283,14 +1973,11 @@ window.DCX = (function () {
              * @returns {void}
              */
             addService: function (serviceName, creator) {
-
-
                 services[serviceName] = {
                     creator: creator,
                     instance: null
                 };
             },
-
             /**
              * Retrieves a service instance, creating it if one doesn't already exist.
              * @param {String} serviceName The name of the service to retrieve.
@@ -2321,7 +2008,6 @@ window.DCX = (function () {
                 }
                 return null;
             },
-
             /**
              * Unregisters a service and destroys its instance.
              * @param {String} serviceName The name of the service to remove.
@@ -2330,11 +2016,9 @@ window.DCX = (function () {
             removeService: function (serviceName) {
                 delete services[serviceName];
             },
-
             //---------------------------------------------------------------------
             // Intermodule Communication
             //---------------------------------------------------------------------
-
             /**
              * Broadcasts a message throughout the system to all modules who are
              * interested.
@@ -2347,14 +2031,10 @@ window.DCX = (function () {
                     len = 0,
                     prop = null,
                     module = null;
-
                 if (message && typeof message === "object") {
-
-
                     for (prop in modules) {
                         if (modules.hasOwnProperty(prop)) {
                             module = modules[prop];
-
                             if (utils.indexOf(module.messages, message.type) > -1) {
                                 if (typeof module.instance.onmessage === "function") {
                                     module.instance.onmessage(message);
@@ -2364,7 +2044,6 @@ window.DCX = (function () {
                     }
                 }
             },
-
             /**
              * Instructs a module to listen for a particular type of message.
              * @param {String} moduleName The module that's interested in the message.
@@ -2373,10 +2052,8 @@ window.DCX = (function () {
              */
             listen: function (moduleName, messageType) {
                 var module = null;
-
                 if (this.isStarted(moduleName)) {
                     module = modules[moduleName];
-
                     if (utils.indexOf(module.messages, messageType) === -1) {
                         module.messages.push(messageType);
                     }
@@ -2390,19 +2067,12 @@ window.DCX = (function () {
             fail: function (message, failcode, skipEvents) {
                 message = "UIC FAILED. " + message;
                 try {
-                    var jMsg = {
-                        destroyedReason: "UIC FAILED. " + message,
-                        destroyedBy: 'fail',
-                    };
-                    DCX.setState("_publishEvent", jMsg);
-
                     core.destroy(!!skipEvents);
                 } finally {
                     utils.clog(message);
                     throw new core.UICError(message, failcode);
                 }
             },
-
             /**
              * @constructor
              */
@@ -2416,8 +2086,6 @@ window.DCX = (function () {
                 UICError.prototype.constructor = UICError;
                 return UICError;
             }()),
-
-
             /**
              * Return the name of UIC flavor ("w3c" or "jQuery")
              * @function
@@ -2427,8 +2095,6 @@ window.DCX = (function () {
                 return "w3c";
             }
         };  // End of "core"
-
-
     /**
      * Inactivity timeout implementation.
      * We perform a one time initialization to setup the timeout value from the configuration and
@@ -2439,13 +2105,11 @@ window.DCX = (function () {
         var inactivityTimerId = null,
             // If no inactivityTimeout is configured, the built-in default is 10 minutes (600000 milliseconds)
             inactivityTimeout = utils.getValue(coreConfig, "inactivityTimeout", 600000);
-
         if (!inactivityTimeout) {
             // An inactivityTimeout value of 0 disables this feature.
             resetInactivityTimer = function () {};
             return;
         }
-
         /**
          * Inactivity timeout handler function. When the timer expires,
          * log a message on the console indicating the timeout and shutdown.
@@ -2453,13 +2117,6 @@ window.DCX = (function () {
          */
         function inactivityTimeoutHandler() {
             utils.clog("UIC self-terminated due to inactivity timeout.");
-
-            var jMsg = {
-                destroyedReason: "UIC self-terminated due to inactivity timeout.",
-                destroyedBy: 'inactivityTimeoutHandler'
-            };
-			DCX.setState("resetInactivityTimer", jMsg);
-
             try {
                 if(!coreConfig.sessionKeepAlive) {
                     core.destroy();
@@ -2469,7 +2126,6 @@ window.DCX = (function () {
                 core.destroy();
             }
         }
-
         /**
          * Actual implementation of resetInactivityTimer
          */
@@ -2479,13 +2135,10 @@ window.DCX = (function () {
                 clearTimeout(inactivityTimerId);
                 inactivityTimerId = null;
             }
-
             inactivityTimerId = setTimeout(inactivityTimeoutHandler, inactivityTimeout);
         };
-
         resetInactivityTimer();
     };
-
     /**
      * Actual init function called from DCX.init when the DOM is ready.
      * @private
@@ -2502,20 +2155,16 @@ window.DCX = (function () {
             endpointURL,
             killswitchURL,
             i;
-
         if (initialized) {
             utils.clog("DCX.init() called more than once. Ignoring.");
             return;
         }
-
         // Do not initialize if replay is enabled.
         if (DCX && DCX.replay) {
             return;
         }
-
         configService = core.getService("config");
         configService.updateConfig(config);
-
         // Setup cached service references
         ajaxService = core.getService("ajax");
         browserBaseService = core.getService("browserBase");
@@ -2523,47 +2172,29 @@ window.DCX = (function () {
         domCaptureService = core.getService("domCapture");
         queueService = core.getService("queue");
         serializerService = core.getService("serializer");
-
         coreConfig = configService.getCoreConfig();
-
         // Check if sessionization cookie value is "DND" indicating kill switch is enabled.
         cookieModuleConfig = configService.getModuleConfig("DCCookie") || {};
         sessionCookieName = cookieModuleConfig.sessionizationCookieName || "TLTSID";
         sessionCookieValue = utils.getCookieValue(sessionCookieName);
         if (sessionCookieValue === "DND") {
             if (state !== "destroyed") {
-                var jMsg = {
-                    destroyedReason: "Cookie value is DND",
-                    destroyedBy: 'sessionCookieValue'
-                };
-                DCX.setState("_init", jMsg);
-
                 core.destroy();
             }
             return;
         }
-
         // Enable modules
         if (!core._updateModules()) {
             if (state !== "destroyed") {
-                var jMsg = {
-                    destroyedReason: "UIC destroyed while updating modules",
-                    destroyedBy: 'core._updateModules'
-                };
-                DCX.setState("_init", jMsg);
-
                 core.destroy();
             }
             return;
         }
-
         if (configService.subscribe) {
             configService.subscribe("configupdated", core._reinitConfig);
         }
-
         initialized = true;
         state = "loaded";
-
         // Invoke the Usability Snapshot Extension callback (if any)
         try {
             if (typeof DCExtensionNotify === "function") {
@@ -2571,7 +2202,6 @@ window.DCX = (function () {
             }
         } catch (e1) {
         }
-
         //generate fake load event to send for modules
         event = {
             type: 'load',
@@ -2584,13 +2214,10 @@ window.DCX = (function () {
             timeStamp: +new Date(),
             customLoad: true
         };
-
         webEvent = new browserBaseService.WebEvent(event);
         core._publishEvent(webEvent);
-
         queueServiceConfig = core.getServiceConfig("queue");
         queues = queueServiceConfig.queues || [];
-
         for (i = 0; i < queues.length; i += 1) {
             // Killswitch check only if session was newly created.
             if (!sessionCookieValue && cookieModuleConfig.dcAppKey) {
@@ -2607,13 +2234,6 @@ window.DCX = (function () {
                             if (result.responseText === "0") {
                                 core.setAutoFlush(false);
                                 utils.setCookie(sessionCookieName, "DND");
-
-                                var jMsg = {
-                                    destroyedReason: "UIC destroyed while kill switch URL",
-                                    destroyedBy: 'killswitchURl'
-                                };
-                                DCX.setState("_init", jMsg);
-
                                 core.destroy();
                             }
                         }
@@ -2639,19 +2259,11 @@ window.DCX = (function () {
                             return;
                         }
                         core.setAutoFlush(false);
-
-                        var jMsg = {
-                            destroyedReason: "UIC destroyed while checking end point.",
-                            destroyedBy: 'checkEndPointinit'
-                        };
-                        DCX.setState("_init", jMsg);
-
                         core.destroy();
                     }
                 });
             }
         }
-
         if (typeof _callback === "function") {
             // Protect against unexpected exceptions since _callback is 3rd party code.
             try {
@@ -2660,21 +2272,12 @@ window.DCX = (function () {
                 // Do nothing!
             }
         }
-
-        if(JSON.parse(sessionStorage.getItem('DCXLabState')) !== null) {
-            var jMsg = JSON.parse(sessionStorage.getItem('DCXLabState'));
-            DCX.logCustomEvent('LastState', jMsg, 6);
-            sessionStorage.removeItem('DCXLabState');
-        }
     };
-
     // Add methods that passthrough to services
     (function () {
-
         var name = null,
             i,
             len;
-
         for (name in servicePassthroughs) {
             if (servicePassthroughs.hasOwnProperty(name)) {
                 for (i = 0, len = servicePassthroughs[name].length; i < len; i += 1) {
@@ -2686,16 +2289,12 @@ window.DCX = (function () {
                             }
                         };
                     }(name, servicePassthroughs[name][i]));
-
                 }
             }
         }
-
     }());
-
     return core;
 }());
-
 /*
  *  **************************************************************************
  *  Licensed Materials - Property of HCL
@@ -2704,38 +2303,26 @@ window.DCX = (function () {
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  */
-
 /**
  * @fileOverview Defines utility functions available to all modules via context object or as DCX.utils
  * @exports DCX.utils
  */
-
 /*global DCX, window*/
 /*jshint loopfunc:true*/
-
 (function () {
-
     "use strict";
-
     var ua = window.navigator.userAgent.toLowerCase(),
-
         // IE user-agent strings contain "MSIE" and/or "Trident" (code name for IE's rendering engine)
         _isIE = (ua.indexOf("msie") !== -1 || ua.indexOf("trident") !== -1),
-
         _isLegacyIE = (function () {
             // W3 Navigation timing spec. supported from IE 9 onwards.
             var isNavTimingSupported = !!window.performance;
             return (_isIE && (!isNavTimingSupported || document.documentMode < 9));
         }()),
-
         _isAndroid = (ua.indexOf("android") !== -1),
-
         _isiOS = /(ipad|iphone|ipod)/.test(ua),
-
         _isOperaMini = (ua.indexOf("opera mini") !== -1),
-
         dcxUniqueIndex = 1,
-
         dcTypes = {
             // Keep these sorted for readability.
             "a:": "link",
@@ -2768,39 +2355,32 @@ window.DCX = (function () {
             "textarea:": "textBox",
             "textarea:textarea": "textBox"
         },
-
         utils = {
             /**
              * Indicates if browser is IE.
              */
             isIE: _isIE,
-
             /**
              * Indicates if browser is IE<9 or IE 9+ running in
              * compatibility mode.
              */
             isLegacyIE: _isLegacyIE,
-
             /**
              * Indicates if the browser is based on an Android platform device.
              */
             isAndroid: _isAndroid,
-
             /**
              * Indicates if the device considers zero degrees to be landscape and 90 degrees to be portrait
              */
             isLandscapeZeroDegrees: false,
-
             /**
              * Indicates if the browser is based on an iOS platform device.
              */
             isiOS: _isiOS,
-
             /**
              * Indicates if the browser is Opera Mini.
              */
             isOperaMini: _isOperaMini,
-
             /**
              * Checks whether given parameter is null or undefined
              * @param {*} obj Any value
@@ -2809,7 +2389,6 @@ window.DCX = (function () {
             isUndefOrNull: function (obj) {
                 return typeof obj === "undefined" || obj === null;
             },
-
             /**
              * Checks if the given parameter is an Array.
              * @param {*} obj Any value
@@ -2818,20 +2397,16 @@ window.DCX = (function () {
             isArray: function (obj) {
                 return !!(obj && Object.prototype.toString.call(obj) === "[object Array]");
             },
-
             /**
              * Returns a unique serial number
              * @returns {int} A number that can be used as a unique identifier.
              */
             getSerialNumber: function () {
                 var id;
-
                 id = dcxUniqueIndex;
                 dcxUniqueIndex += 1;
-
                 return id;
             },
-
             /**
              * Generates a random string of specified length and comprised of
              * characters from the specified data set or any alphanumeric.
@@ -2845,24 +2420,19 @@ window.DCX = (function () {
                     dataSetLength,
                     defaultDataSet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789",
                     randomString = "";
-
                 // Sanity check
                 if (!length) {
                     return randomString;
                 }
-
                 if (typeof dataSet !== "string") {
                     dataSet = defaultDataSet;
                 }
-
                 for (i = 0, dataSetLength = dataSet.length; i < length; i += 1) {
                     // AppScan: IGNORE (false flag) - Math.random is not used in a cryptographical context.
                     randomString += dataSet.charAt(Math.floor(Math.random() * dataSetLength));
                 }
-
                 return randomString;
             },
-
             /**
              * Used to test and get value from an object.
              * @private
@@ -2878,14 +2448,11 @@ window.DCX = (function () {
                 var i,
                     len,
                     properties;
-
                 defaultValue = typeof defaultValue === "undefined" ? null : defaultValue;
-
                 // Sanity check
                 if (!parentObj || typeof parentObj !== "object" || typeof propertyAsStr !== "string") {
                     return defaultValue;
                 }
-
                 properties = propertyAsStr.split(".");
                 for (i = 0, len = properties.length; i < len; i += 1) {
                     if (this.isUndefOrNull(parentObj) || typeof parentObj[properties[i]] === "undefined") {
@@ -2895,7 +2462,6 @@ window.DCX = (function () {
                 }
                 return parentObj;
             },
-
             /**
              * Helper function to find an item in an array.
              * @param {Array} array The array to search.
@@ -2905,11 +2471,9 @@ window.DCX = (function () {
             indexOf: function (array, item) {
                 var i,
                     len;
-
                 if (array && array.indexOf) {
                     return array.indexOf(item);
                 }
-
                 if (array && array instanceof Array) {
                     for (i = 0, len = array.length; i < len; i += 1) {
                         if (array[i] === item) {
@@ -2917,10 +2481,8 @@ window.DCX = (function () {
                         }
                     }
                 }
-
                 return -1;
             },
-
             /**
              * Invokes callback for each element of an array.
              * @param {Array} array The array (or any indexable object) to walk through
@@ -2930,17 +2492,14 @@ window.DCX = (function () {
             forEach: function (array, callback, context) {
                 var i,
                     len;
-
                 // Sanity checks
                 if (!array || !array.length || !callback || !callback.call) {
                     return;
                 }
-
                 for (i = 0, len = array.length; i < len; i += 1) {
                     callback.call(context, array[i], i, array);
                 }
             },
-
             /**
              * Returns true if callback returns true at least once. Callback is
              * called for each array element unless it reaches end of array or
@@ -2953,7 +2512,6 @@ window.DCX = (function () {
                 var i,
                     len,
                     val = false;
-
                 for (i = 0, len = array.length; i < len; i += 1) {
                     val = callback(array[i], i, array);
                     if (val) {
@@ -2962,7 +2520,6 @@ window.DCX = (function () {
                 }
                 return val;
             },
-
             /**
              * Converts an arguments object into an array. This is used to augment
              * the arguments passed to the DCX methods used by the Module Context.
@@ -2973,21 +2530,17 @@ window.DCX = (function () {
                 var i = 0,
                     len = items.length,
                     result = [];
-
                 while (i < len) {
                     result.push(items[i]);
                     i += 1;
                 }
-
                 return result;
             },
-
             mixin: function (dst) {
                 var prop,
                     src,
                     srcId,
                     len;
-
                 for (srcId = 1, len = arguments.length; srcId < len; srcId += 1) {
                     src = arguments[srcId];
                     for (prop in src) {
@@ -2998,10 +2551,8 @@ window.DCX = (function () {
                 }
                 return dst;
             },
-
             extend: function (deep, target, src) {
                 var prop = "";
-
                 for (prop in src) {
                     if (Object.prototype.hasOwnProperty.call(src, prop)) {
                         if (deep && Object.prototype.toString.call(src[prop]) === "[object Object]") {
@@ -3016,7 +2567,6 @@ window.DCX = (function () {
                 }
                 return target;
             },
-
             /**
              * Makes copy of an object.
              * @function
@@ -3027,11 +2577,9 @@ window.DCX = (function () {
             clone: function (obj) {
                 var copy,
                     attr;
-
                 if (null === obj || "object" !== typeof obj) {
                     return obj;
                 }
-
                 if (obj instanceof Object) {
                     copy = (Object.prototype.toString.call(obj) === "[object Array]") ? [] : {};
                     for (attr in obj) {
@@ -3042,7 +2590,6 @@ window.DCX = (function () {
                     return copy;
                 }
             },
-
             /**
              * Parses a version string of format e.g. "5.1.0" and returns an array
              * with individual version components [5, 1, 0]
@@ -3054,20 +2601,16 @@ window.DCX = (function () {
                 var i,
                     len,
                     retval = [];
-
                 // Sanity check
                 if (!version || !version.length) {
                     return retval;
                 }
-
                 retval = version.split(".");
                 for (i = 0, len = retval.length; i < len; i += 1) {
                     retval[i] = /^[0-9]+$/.test(retval[i]) ? parseInt(retval[i], 10) : retval[i];
                 }
-
                 return retval;
             },
-
             /**
              *
              */
@@ -3077,7 +2620,6 @@ window.DCX = (function () {
                     prop,
                     swap,
                     len;
-
                 if (a === b) {
                     return true;
                 }
@@ -3122,7 +2664,6 @@ window.DCX = (function () {
                 }
                 return false;
             },
-
             /**
              *
              */
@@ -3143,7 +2684,6 @@ window.DCX = (function () {
                 }
                 return fn;
             }()),
-
             /**
              * Method access the object element based on a string. By default it searches starting from window object.
              * @function
@@ -3158,7 +2698,6 @@ window.DCX = (function () {
                     arr,
                     i,
                     len;
-
                 if (typeof path !== "string" || (typeof obj !== "object" && obj !== null)) {
                     return;
                 }
@@ -3177,7 +2716,6 @@ window.DCX = (function () {
                 }
                 return obj;
             },
-
             /**
              * Checks if a given character is numeric.
              * @param  {String}  character The character to test.
@@ -3185,16 +2723,13 @@ window.DCX = (function () {
              */
             isNumeric: function (character) {
                 var retVal = false;
-
                 // Sanity check
                 if (utils.isUndefOrNull(character) || !(/\S/.test(character))) {
                     return retVal;
                 }
-
                 retVal = !isNaN(character * 2);
                 return retVal;
             },
-
             /**
              * Checks if a given character is uppercase.
              * @param  {String}  character The character to test.
@@ -3205,7 +2740,6 @@ window.DCX = (function () {
                 return character === character.toUpperCase() &&
                         character !== character.toLowerCase();
             },
-
             /**
              * Checks if a given character is lowercase.
              * @param  {String}  character The character to test.
@@ -3216,7 +2750,6 @@ window.DCX = (function () {
                 return character === character.toLowerCase() &&
                         character !== character.toUpperCase();
             },
-
             /**
              * Builds an object of key => value pairs of HTTP headers from a string.
              * @param {String} headers The string of HTTP headers separated by newlines
@@ -3229,14 +2762,12 @@ window.DCX = (function () {
                     i,
                     len,
                     header = null;
-
                 // Sanity check
                 if (!headers || !headers.length) {
                     headers = [];
                 } else {
                     headers = headers.split('\n');
                 }
-
                 for (i = 0, len = headers.length; i < len; i += 1) {
                     header = headers[i].split(': ');
                     if (header.length === 2) {
@@ -3245,7 +2776,6 @@ window.DCX = (function () {
                 }
                 return headersObj;
             },
-
             /**
              *
              */
@@ -3270,7 +2800,6 @@ window.DCX = (function () {
                     len = 0,
                     alias = null,
                     key = "";
-
                 if (properties !== null) {
                     // For input elements, another level of indirection is required
                     if (Object.prototype.toString.call(properties) === "[object Object]") {
@@ -3291,7 +2820,6 @@ window.DCX = (function () {
                         }
                     }
                 }
-
                 // Special processing for select lists
                 if (tagName === "select" && target.options && !isNaN(target.selectedIndex)) {
                     state.index = target.selectedIndex;
@@ -3308,10 +2836,8 @@ window.DCX = (function () {
                         state.text = selectedOption.text || selectedOption.innerText;
                     }
                 }
-
                 return state;
             },
-
             getDocument: function (node) {
                 var doc = node;
                 if (node && node.nodeType !== 9) {
@@ -3323,7 +2849,6 @@ window.DCX = (function () {
                 }
                 return doc;
             },
-
             getWindow: function (node) {
                 try {
                     if (node.self !== node) {
@@ -3336,7 +2861,6 @@ window.DCX = (function () {
                 }
                 return node;
             },
-
             /**
              * Given a window.location or document.location object, extract and return the
              * origin and pathname.
@@ -3346,18 +2870,14 @@ window.DCX = (function () {
             getOriginAndPath: function (location) {
                 var retObj = {},
                     temp;
-
                 location = location || window.location;
-
                 if (location.origin) {
                     retObj.origin = location.origin;
                 } else {
                     retObj.origin = (location.protocol || "") + "//" + (location.host || "");
                 }
-
                 // Account for some applications using the ";" as the query separator
                 retObj.path = (location.pathname || "").split(";", 1)[0];
-
                 // This is needed for Native hybrid replay to get file path of webview assets used.
                 if (retObj.origin.indexOf("file://") > -1) {
                     temp = retObj.path.match(/(.*)(\/.*app.*)/);
@@ -3365,10 +2885,8 @@ window.DCX = (function () {
                         retObj.path = temp[2];
                     }
                 }
-
                 return retObj;
             },
-
             /**
              * Parse QueryString name/value pairs and record as usable JSON
              * Automatically handle empty values
@@ -3398,7 +2916,6 @@ window.DCX = (function () {
                     return "";
                 }
             },
-
             /**
              * Given a HTML frame element, returns the window object of the frame. Tries the contentWindow property
              * first. If contentWindow is not accessible, tries the contentDocument.parentWindow property instead.
@@ -3407,21 +2924,17 @@ window.DCX = (function () {
              */
             getIFrameWindow: function (iFrameElement) {
                 var contentWindow = null;
-
                 if (!iFrameElement) {
                     return contentWindow;
                 }
-
                 try {
                     contentWindow = iFrameElement.contentWindow ||
                         (iFrameElement.contentDocument ? iFrameElement.contentDocument.parentWindow : null);
                 } catch (e) {
                     // Do nothing.
                 }
-
                 return contentWindow;
             },
-
             /**
              * Returns the tagName of the element in lowercase.
              * @param {Element} node DOM element
@@ -3429,12 +2942,10 @@ window.DCX = (function () {
              */
             getTagName: function (node) {
                 var tagName = "";
-
                 // Sanity check
                 if (utils.isUndefOrNull(node)) {
                     return tagName;
                 }
-
                 if (node === document || node.nodeType === 9) {
                     tagName = "document";
                 } else if (node === window || node === window.window) {
@@ -3452,7 +2963,6 @@ window.DCX = (function () {
                 }
                 return tagName;
             },
-
             /**
              * Returns the normalized type of the element.
              * @param {Element} node DOM element
@@ -3462,23 +2972,18 @@ window.DCX = (function () {
                 var elementType,
                     key,
                     dcType = "";
-
                 // Sanity check
                 if (utils.isUndefOrNull(node) || !node.type) {
                     return dcType;
                 }
-
                 elementType = node.type.toLowerCase();
                 key = elementType + ":";
                 if (node.subType) {
                     key += node.subType.toLowerCase();
                 }
-
                 dcType = dcTypes[key] || elementType;
-
                 return dcType;
             },
-
             /**
              * Returns true if given node is element from a frame
              * @param {Element} node DOM element
@@ -3486,13 +2991,11 @@ window.DCX = (function () {
              */
             isIFrameDescendant: function (node) {
                 var nodeWindow = utils.getWindow(node);
-
                 /*jshint eqeqeq:false, eqnull: false */
                 /* The != operator below is on purpose due to legacy IE issues, where:
                    window === top returns false, but window == top returns true */
                 return (nodeWindow ? (nodeWindow != DCX._getLocalTop()) : false);
             },
-
             /**
              * Takes the orientation in degrees and returns the orientation mode as a
              * text string. 0, 180 and 360 correspond to portrait mode while 90, -90
@@ -3506,11 +3009,9 @@ window.DCX = (function () {
              */
             getOrientationMode: function (orientation) {
                 var mode = "INVALID";
-
                 if (typeof orientation !== "number") {
                     return mode;
                 }
-
                 switch (orientation) {
                 case 0:
                 case 180:
@@ -3526,16 +3027,13 @@ window.DCX = (function () {
                     mode = "UNKNOWN";
                     break;
                 }
-
                 return mode;
             },
-
             clog: (function (window) {
                 return function () {
                     // Do nothing!
                 };
             }(window)),
-
             /**
              * Trims any whitespace and returns the trimmed string.
              * @function
@@ -3550,7 +3048,6 @@ window.DCX = (function () {
                 }
                 return str.toString().replace(/^\s+|\s+$/g, "");
             },
-
             /**
              * Trims any whitespace at the beginning of the string and returns the
              * trimmed string.
@@ -3566,7 +3063,6 @@ window.DCX = (function () {
                 }
                 return str.toString().replace(/^\s+/, "");
             },
-
             /**
              * Trims any whitespace at the end of the string and returns the
              * trimmed string.
@@ -3582,7 +3078,6 @@ window.DCX = (function () {
                 }
                 return str.toString().replace(/\s+$/, "");
             },
-
             /**
              * Sets the specified cookie.
              * @function
@@ -3601,16 +3096,13 @@ window.DCX = (function () {
                     maxAgeStr = "",
                     pathStr,
                     secureStr = secure ? ";secure" : "";
-
                 // Sanity check
                 if (!cookieName) {
                     return;
                 }
-
                 // Cookie name and value cannot contain unescaped whitespace, comma, semi-colon etc.
                 cookieName = encodeURIComponent(cookieName);
                 cookieValue = encodeURIComponent(cookieValue);
-
                 domainArray = (domain || location.hostname).split('.');
                 pathStr = ";path=" + (path || "/");
                 if (typeof maxAge === "number") {
@@ -3623,7 +3115,6 @@ window.DCX = (function () {
                         maxAgeStr = ";max-age=" + maxAge;
                     }
                 }
-
                 // Try to set the cookie with two domain components. e.g. "hcl.com".
                 // If not successful try with three domain components, e.g. "hcl.co.uk" and so on.
                 for (len = domainArray.length, i = (len === 1 ? 1 : 2); i <= len; i += 1) {
@@ -3638,7 +3129,6 @@ window.DCX = (function () {
                     }
                 }
             },
-
             /**
              * Finds and returns the named cookie's value.
              * @function
@@ -3655,25 +3145,20 @@ window.DCX = (function () {
                     cookies,
                     cookieValue = null,
                     cookieNameLen;
-
                 try {
                     cookieString = cookieString || document.cookie;
-
                     // Sanity check.
                     if (!cookieName || !cookieName.toString) {
                         return null;
                     }
-
                     // Append an '=' to the cookie name
                     cookieName += "=";
                     cookieNameLen = cookieName.length;
-
                     // Get the individual cookies into an array and look for a match
                     cookies = cookieString.split(';');
                     for (i = 0, len = cookies.length; i < len; i += 1) {
                         cookie = cookies[i];
                         cookie = utils.ltrim(cookie);
-
                         // Check if cookieName matches the current cookie prefix.
                         if (cookie.indexOf(cookieName) === 0) {
                             // Match found! Get the value (i.e. RHS of "=" sign)
@@ -3684,10 +3169,8 @@ window.DCX = (function () {
                 } catch (e) {
                     cookieValue = null;
                 }
-
                 return cookieValue;
             },
-
             /**
              * Finds and returns the query parameter's value.
              * @function
@@ -3704,23 +3187,19 @@ window.DCX = (function () {
                     queryStringLen,
                     paramValue = null,
                     valueStartIndex;
-
                 try {
                     queryString = queryString || window.location.search;
                     queryStringLen = queryString.length;
-
                     // Sanity check.
                     if (!paramName || !paramName.toString || !queryStringLen) {
                         return null;
                     }
-
                     // Default delimiter is &
                     queryDelim = queryDelim || "&";
                     // Normalize for easy searching by replacing initial '?' with the delimiter
                     queryString = queryDelim + queryString.substring(1);
                     // Modify the parameter name to prefix the delimiter and append an '='
                     paramName = queryDelim + paramName + "=";
-
                     i = queryString.indexOf(paramName);
                     if (i !== -1) {
                         valueStartIndex = i + paramName.length;
@@ -3734,10 +3213,8 @@ window.DCX = (function () {
                 } catch (e) {
                     // Do nothing!
                 }
-
                 return paramValue;
             },
-
             /**
              * Quick wrapper for addEventL:istener/attachEvent. Mainly to be used for core, before UIC is fully
              * initialized
@@ -3754,7 +3231,6 @@ window.DCX = (function () {
                     element.attachEvent("on" + eventName, listener);
                 };
             }()),
-
             /**
              * Returns the index of the rule that is matched by the target object.
              * @function
@@ -3775,26 +3251,21 @@ window.DCX = (function () {
                     len,
                     rule,
                     scope = document;
-
                 // Sanity check
                 if (!rules || !target) {
                     return matchIndex;
                 }
-
                 if (!this.browserService || !this.browserBaseService) {
                     this.browserService = DCX.getService("browser");
                     this.browserBaseService = DCX.getService("browserBase");
                 }
-
                 if (target.idType === -2) {
                     // Get the document scope of xpath ids since the elements could be inside a frame/iframe
                     domElement = this.browserBaseService.getNodeFromID(target.id, target.idType);
                     scope = this.getDocument(domElement);
                 }
-
                 for (i = 0, len = rules.length; i < len && matchIndex === -1; i += 1) {
                     rule = rules[i];
-
                     // Check if rule is a selector string.
                     if (typeof rule === "string") {
                         qr = this.browserService.queryAll(rule, scope);
@@ -3809,7 +3280,6 @@ window.DCX = (function () {
                         }
                     } else if (rule && rule.id && rule.idType && target.idType && target.idType.toString() === rule.idType.toString()) {
                         // Note: idType provided by wizard is a string so convert both to strings before comparing.
-
                         // An id in the rules list could be a direct match, in which case it will be a string OR
                         // it could be a regular expression in which case it would be an object like this:
                         // {regex: ".+private$", flags: "i"}
@@ -3835,7 +3305,6 @@ window.DCX = (function () {
                 }
                 return matchIndex;
             },
-
             /**
              * Basic WeakMap implementation - a map which can be indexed with objects.
              * In comparison to the original API 'delete' method has been replaced with 'remove'
@@ -3881,16 +3350,11 @@ window.DCX = (function () {
                 };
             }())
         };
-
-
     if (typeof DCX === "undefined" || !DCX) {
         window.DCX = {};
     }
-
     DCX.utils = utils;
-
 }());
-
 /*
  *  **************************************************************************
  *  Licensed Materials - Property of HCL
@@ -3899,18 +3363,14 @@ window.DCX = (function () {
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  */
-
 /**
  * @fileOverview Defines a simple event target interface that can be inherited
  *      from by other parts of the system.
  * @exports DCX.EventTarget
  */
 /*global DCX*/
-
 (function () {
-
     "use strict";
-
     /**
      * Abstract type that implements basic event handling capabilities.
      * Other types may inherit from this in order to provide custom
@@ -3918,7 +3378,6 @@ window.DCX = (function () {
      * @constructor
      */
     DCX.EventTarget = function () {
-
         /**
          * Holds all registered event handlers. Each property represents
          * a specific event, each property value is an array containing
@@ -3926,17 +3385,13 @@ window.DCX = (function () {
          * @type Object
          */
         this._handlers = {};
-
     };
-
     DCX.EventTarget.prototype = {
-
         /**
          * Restores the constructor to the correct value.
          * @private
          */
         constructor: DCX.EventTarget,
-
         /**
          * Publishes an event with the given name, which causes all
          * event handlers for that event to be called.
@@ -3945,7 +3400,6 @@ window.DCX = (function () {
          * @returns {void}
          */
         publish: function (name, data) {
-
             var i = 0,
                 len = 0,
                 handlers = this._handlers[name],
@@ -3953,15 +3407,12 @@ window.DCX = (function () {
                     type: name,
                     data: data
                 };
-
             if (typeof handlers !== "undefined") {
                 for (len = handlers.length; i < len; i += 1) {
                     handlers[i](event);
                 }
             }
-
         },
-
         /**
          * Registers an event handler for the given event.
          * @param {String} name The name of the event to subscribe to.
@@ -3969,15 +3420,11 @@ window.DCX = (function () {
          * @returns {void}
          */
         subscribe: function (name, handler) {
-
             if (!this._handlers.hasOwnProperty(name)) {
                 this._handlers[name] = [];
             }
-
-
             this._handlers[name].push(handler);
         },
-
         /**
          * Unregisters an event handler for the given event.
          * @param {String} name The name of the event to unsubscribe from.
@@ -3985,11 +3432,9 @@ window.DCX = (function () {
          * @returns {void}
          */
         unsubscribe: function (name, handler) {
-
             var i = 0,
                 len = 0,
                 handlers = this._handlers[name];
-
             if (handlers) {
                 for (len = handlers.length; i < len; i += 1) {
                     if (handlers[i] === handler) {
@@ -3999,9 +3444,7 @@ window.DCX = (function () {
                 }
             }
         }
-
     };
-
 }());
 /*
  *  **************************************************************************
@@ -4011,15 +3454,12 @@ window.DCX = (function () {
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  */
-
 /**
  * @fileOverview Defines ModuleContext, which is used by all modules.
  * @exports DCX.ModuleContext
  */
-
 /*global DCX*/
 /*jshint loopfunc:true*/
-
 /**
  * A layer that abstracts core functionality for each modules. Modules interact
  * with a ModuleContext object to ensure that they're not doing anything
@@ -4030,9 +3470,7 @@ window.DCX = (function () {
  *        testing.
  */
 DCX.ModuleContext = (function () {
-
     "use strict";
-
     /**
      * Methods to be exposed from the Core to ModuleContext. ModuleContext
      * simply passes through these methods to the Core. By listing the
@@ -4054,7 +3492,6 @@ DCX.ModuleContext = (function () {
      * @type String[]
      */
     var methodsToExpose = [
-
         /**
          * Broadcasts a message to the entire system.
          * @name broadcast
@@ -4065,7 +3502,6 @@ DCX.ModuleContext = (function () {
          * @returns {void}
          */
         "broadcast",
-
         /**
          * Returns the configuration object for the module.
          * @name getConfig
@@ -4074,7 +3510,6 @@ DCX.ModuleContext = (function () {
          * @returns {Object} The configuration object for the module.
          */
         "getConfig:getModuleConfig",
-
         /**
          * Tells the system that the module wants to know when a particular
          * message occurs.
@@ -4085,8 +3520,6 @@ DCX.ModuleContext = (function () {
          * @returns {void}
          */
         "listen",
-
-
         /**
          * Posts an event to the module's queue.
          * @name post
@@ -4097,7 +3530,6 @@ DCX.ModuleContext = (function () {
          * @returns {void}
          */
         "post",
-
         /**
          * Calculates the xpath of the given DOM Node.
          * @name getXPathFromNode
@@ -4107,7 +3539,6 @@ DCX.ModuleContext = (function () {
          * @returns {String} The calculated xpath.
          */
         "getXPathFromNode",
-
         /**
          * Log a DOM Capture message to the default queue.
          * @name performDOMCapture
@@ -4121,7 +3552,6 @@ DCX.ModuleContext = (function () {
          * @see logDOMCapture
          */
         "performDOMCapture",
-
         /**
          * Log a Form Completion message to the default queue.
          * @name performFormCompletion
@@ -4136,7 +3566,6 @@ DCX.ModuleContext = (function () {
          * @see logFormCompletion
          */
         "performFormCompletion",
-
         /**
          * @name isInitialized
          * @memberOf DCX.ModuleContext#
@@ -4144,7 +3573,6 @@ DCX.ModuleContext = (function () {
          * @returns {Boolean} Returns true if library is successfully initialized, false otherwise.
          */
         "isInitialized",
-
         /**
          * @name getStartTime
          * @memberOf DCX.ModuleContext#
@@ -4152,7 +3580,6 @@ DCX.ModuleContext = (function () {
          * @returns {integer} Returns the recorded timestamp in milliseconds corresponding to when the DCX object was created.
          */
         "getStartTime",
-
         /**
          * @name normalizeUrl
          * @memberOf DCX.ModuleContext#
@@ -4161,7 +3588,6 @@ DCX.ModuleContext = (function () {
          */
         "normalizeUrl"
     ];
-
     /**
      * Creates a new ModuleContext object. This function ends up at DCX.ModuleContext.
      * @private
@@ -4170,7 +3596,6 @@ DCX.ModuleContext = (function () {
      *        testing.
      */
     return function (moduleName, core) {
-
         // If you want to add methods that aren't directly mapped from DCX, do it here
         var context = {},
             i = 0,
@@ -4178,10 +3603,8 @@ DCX.ModuleContext = (function () {
             parts = null,
             coreMethod = null,
             contextMethod = null;
-
         // Copy over all methods onto the context object
         for (i = 0; i < len; i += 1) {
-
             // Check to see if the method names are the same or not
             parts = methodsToExpose[i].split(":");
             if (parts.length > 1) {
@@ -4191,28 +3614,19 @@ DCX.ModuleContext = (function () {
                 contextMethod = parts[0];
                 coreMethod = parts[0];
             }
-
             context[contextMethod] = (function (coreMethod) {
-
                 return function () {
-
                     // Gather arguments and put moduleName as the first one
                     var args = core.utils.convertToArray(arguments);
                     args.unshift(moduleName);
-
-
                     // Pass through to the Core
                     return core[coreMethod].apply(core, args);
                 };
-
             }(coreMethod));
         }
-
         context.utils = core.utils;
-
         return context;
     };
-
 }());
 /*
  *  **************************************************************************
@@ -4222,23 +3636,19 @@ DCX.ModuleContext = (function () {
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  */
-
 /**
  * @fileOverview The ConfigService is responsible for managing global configuration settings.
  * This may include receiving dynamic configuration updates from the server at regular intervals.
  * The ConfigService fires a configupdated event when it receives updated configuration information.
  * @exports configService
  */
-
 /*global DCX:true */
-
 /**
  * @name configService
  * @namespace
  */
 DCX.addService("config", function (core) {
     "use strict";
-
     /**
      * Merges a new configuration object/diff into the existing configuration by doing a deep copy.
      * @name configService-mergeConfig
@@ -4251,9 +3661,6 @@ DCX.addService("config", function (core) {
         core.utils.extend(true, oldConf, newConf);
         configService.publish("configupdated", configService.getConfig());
     }
-
-
-
     /**
      * Holds the config for core and all services and modules.
      * @private
@@ -4347,9 +3754,7 @@ DCX.addService("config", function (core) {
                 };
             }
         });
-
     return configService;
-
 });
 /*
  *  **************************************************************************
@@ -4359,21 +3764,17 @@ DCX.addService("config", function (core) {
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  */
-
 /**
  * @fileOverview The QueueService manages all queues in the system.
  * @exports queueService
  */
-
 /*global DCX:true */
-
 /**
  * @name queueService
  * @namespace
  */
 DCX.addService("queue", function (core) {
     "use strict";
-
     /**
      * queueMananger
      * @private
@@ -4410,7 +3811,6 @@ DCX.addService("queue", function (core) {
         isInitialized = false,
         queueManager = (function () {
             var queues = {};
-
             /**
              * Checks if the specified queue exists.
              * @function
@@ -4421,7 +3821,6 @@ DCX.addService("queue", function (core) {
             function queueExists(queueId) {
                 return typeof queues[queueId] !== "undefined";
             }
-
             /**
              * Adds a queue to the system.
              * @function
@@ -4457,7 +3856,6 @@ DCX.addService("queue", function (core) {
                 }
                 return queues[queueId];
             }
-
             /**
              * Removes a queue from the system.
              * @function
@@ -4469,7 +3867,6 @@ DCX.addService("queue", function (core) {
                     delete queues[queueId];
                 }
             }
-
             /**
              * Returns the queue object associated with the given queueId.
              * @function
@@ -4483,7 +3880,6 @@ DCX.addService("queue", function (core) {
                 }
                 return null;
             }
-
             /**
              * Clears all items in the queue specified by the queue id.
              * @function
@@ -4496,7 +3892,6 @@ DCX.addService("queue", function (core) {
                     queue.data = [];
                 }
             }
-
             /**
              * Returns the queue data and clears the queue.
              * @function
@@ -4512,7 +3907,6 @@ DCX.addService("queue", function (core) {
                 }
                 return data;
             }
-
             /**
              * Adds an item to a specific queue. Updates the queue size with the serialized value of the data.
              * @function
@@ -4526,7 +3920,6 @@ DCX.addService("queue", function (core) {
                     dataStr = null,
                     bridgeAndroid = window.dcBridge,
                     bridgeiOS = window.iOSJSONShuttle;
-
                 // Sanity check
                 try {
                     dataStr = sS.serialize(data);
@@ -4536,7 +3929,6 @@ DCX.addService("queue", function (core) {
                         error: dataStr
                     };
                 }
-
                 // Send to Native Android Bridge
                 if ((typeof bridgeAndroid !== "undefined") &&
                         (typeof bridgeAndroid.addMessage === "function")) {
@@ -4554,21 +3946,18 @@ DCX.addService("queue", function (core) {
                          * can optionally modify it.
                          */
                         queue.data = core.redirectQueue(queue.data);
-
                         // Only measure and update the queue size if a non-zero sizeThreshold is set
                         if (queue.sizeThreshold) {
                             // Update the size of the queue with the length of the serialized data.
                             dataStr = sS.serialize(queue.data);
                             queue.size = dataStr.length;
                         }
-
                         // Return the number of entries in the queue (length)
                         return queue.data.length;
                     }
                 }
                 return 0;
             }
-
             /**
              * @scope queueManager
              */
@@ -4585,10 +3974,7 @@ DCX.addService("queue", function (core) {
                 flush: flushQueue,
                 push: pushToQueue
             };
-
         }());
-
-
     /**
      * Handles the xhr response of the server call.
      * @function
@@ -4596,7 +3982,6 @@ DCX.addService("queue", function (core) {
      * @name queueService-handleXhrCallback
      */
     function handleXhrCallback(result) {
-
         if (result && result.id) {
             // Diagnostic logging
             utils.extend(true, xhrLog[result.id - 1], {
@@ -4607,7 +3992,6 @@ DCX.addService("queue", function (core) {
             });
         }
     }
-
     /**
     * Get the path relative to the host.
     * @addon
@@ -4615,7 +3999,6 @@ DCX.addService("queue", function (core) {
     function getUrlPath() {
         return window.location.pathname;
     }
-
     /**
      * Adds a HTTP header (name,value) pair to the specified queue.
      * @function
@@ -4635,12 +4018,10 @@ DCX.addService("queue", function (core) {
                 value: headerValue
             },
             qHeadersList = null;
-
         // Sanity check
         if (typeof headerName !== "string" || typeof headerValue !== "string") {
             return;
         }
-
         if (!queue.headers) {
             // TODO: Add prototype functions to help add/copy/remove headers
             queue.headers = {
@@ -4648,11 +4029,9 @@ DCX.addService("queue", function (core) {
                 always: []
             };
         }
-
         qHeadersList = !!recurring ? queue.headers.always : queue.headers.once;
         qHeadersList.push(header);
     }
-
     /**
      * Copies HTTP headers {name,value} from the specified queue to an
      * object.
@@ -4670,31 +4049,24 @@ DCX.addService("queue", function (core) {
             queue = queueManager.get(queueId),
             qHeaders = queue.headers,
             headersList = null;
-
         headerObj = headerObj || {};
-
         function copy(l, o) {
             var i = 0,
                 len = 0,
                 header = null;
-
             for (i = 0, len = l.length; i < len; i += 1) {
                 header = l[i];
                 o[header.name] = header.value;
             }
         }
-
         if (qHeaders) {
             headersList = [qHeaders.always, qHeaders.once];
-
             for (i = 0, len = headersList.length; i < len; i += 1) {
                 copy(headersList[i], headerObj);
             }
         }
-
         return headerObj;
     }
-
     /**
      * Clear HTTP headers {name,value} from the specified queue. Only headers
      * that are to be sent once are cleared.
@@ -4706,11 +4078,9 @@ DCX.addService("queue", function (core) {
     function clearHeaders(queueId) {
         var queue = null,
             qHeaders = null;
-
         if (!queueManager.exists(queueId)) {
             throw new Error("Queue: " + queueId + " does not exist!");
         }
-
         queue = queueManager.get(queueId);
         qHeaders = queue ? queue.headers : null;
         if (qHeaders) {
@@ -4718,7 +4088,6 @@ DCX.addService("queue", function (core) {
             qHeaders.once = [];
         }
     }
-
     /**
      * Invoke the core function to get any HTTP request headers from
      * external scripts and add these headers to the default queue.
@@ -4731,7 +4100,6 @@ DCX.addService("queue", function (core) {
             len,
             header,
             headers = core.provideRequestHeaders();
-
         if (headers && headers.length) {
             for (i = 0, len = headers.length; i < len; i += 1) {
                 header = headers[i];
@@ -4740,7 +4108,6 @@ DCX.addService("queue", function (core) {
         }
         return i;
     }
-
     /**
      * Takes the messages array and extracts the unique message types
      * which are returned as a comma separated list.
@@ -4754,17 +4121,14 @@ DCX.addService("queue", function (core) {
             len,
             types = [],
             typesString = "";
-
         // Sanity check
         if (!data || !data.length) {
             return typesString;
         }
-
         // Scan the messages and note the detected type values
         for (i = 0, len = data.length; i < len; i += 1) {
             types[data[i].type] = true;
         }
-
         // Translate the detected type values to a CSV string
         for (i = 0, len = types.length; i < len; i += 1) {
             if (types[i]) {
@@ -4774,10 +4138,8 @@ DCX.addService("queue", function (core) {
                 typesString += i;
             }
         }
-
         return typesString;
     }
-
     /**
      * Clears a specific queue and sends its serialized content to the server.
      * @function
@@ -4785,14 +4147,14 @@ DCX.addService("queue", function (core) {
      * @name queueService-flushQueue
      * @param  {String} queueId The id of the queue to be flushed.
      */
-    async function flushQueue(queueId, sync) {
+    function flushQueue(queueId, sync) {
         var queue = queueManager.get(queueId),
             data = queue.url ? queueManager.flush(queueId) : null,
             count = data ? data.length : 0,
             httpHeaders = {
                 "Content-Type": "application/json",
                 "X-PageId": core.getPageId(),
-                "X-Discover": "device (UIC) Lib/12.1.9",
+                "X-Discover": "device (UIC) Lib/12.1.6",
                 "X-DiscoverType": "GUI",
                 "X-Discover-Page-Url": getUrlPath(),
                 "X-Discover-SyncXHR": (!!sync).toString()
@@ -4806,90 +4168,43 @@ DCX.addService("queue", function (core) {
             timeDiff,
             unloading = core.getState() === "unloading",
             xdomainFrameWindow = null,
-            dcxWorker = CONFIG.dcxWorker || null;
-
+            dcxWorker = CONFIG.dcxWorker;
         if (!count || !queue) {
             return;
         }
-
         // Safety check to ensure the data to be sent is not stale beyond the inactivity timeout
         timeDiff = currOffset - data[count - 1].offset;
         if (timeDiff > (inactivityTimeout + 60000)) {
             return;
         }
         queue.lastOffset = data[count - 1].offset;
-
         // Summarize all the message types in the data
         httpHeaders["X-Discover-MessageTypes"] = getMessageTypes(data);
-
         // Wrap the messages with the header
         data = mS.wrapMessages(data);
-
         // Diagnostic logging if enabled
         if (CONFIG.xhrLogging) {
             // Set the XHR message id to the same as the serialNumber of this message
             messageId = data.serialNumber;
-
             xhrLog[messageId - 1] = {
                 serialNumber: messageId,
                 xhrReqStart: currOffset
             };
-
             // Send the xhr log as part of the message
             data.log = {
                 xhr: xhrLog
             };
         }
-
         getExternalRequestHeaders();
         copyHeaders(queueId, httpHeaders);
-
-        // Method to check is worker  script is loaded or not.
-        async function loadWorker() {
-            return new Promise((resolve, reject) => {
-                dcxWorker.onerror = function(error) {
-                    reject(error);
-                };
-    
-                dcxWorker.onmessageerror = function(error) {
-                    reject(error);
-                };
-
-                dcxWorker.onmessage = function(event) {
-                    var result;
-                    result = event.data;
-                    // XHR Logging update
-                    handleXhrCallback(result);
-                };
-            });
-        }
-
-        // Check if Web Worker is not null and available.
-        if (dcxWorker &&  !DCX.getWorkerStatus()) {
-            await loadWorker()
-            .then(() => {
-                // Worker successfully loaded
-               console.log("Worker successfully loaded");
-               workerLoaded = true;
-               DCX.setWorkerStatus(true);
-            })
-            .catch(() => {
-                // Error loading the worker
-                console.log('Failed to load worker file.');
-                let jMsg = {
-                    state: false,
-                    error : 'Failed to load worker file.',
-                };
-                DCX.logCustomEvent('workerStatus', jMsg, 6);
-                // set dcxWorker to null.
-                CONFIG.dcxWorker =null;
-                dcxWorker = null;
-                DCX.setWorkerStatus(false);
-            });
-        }
-
         // Check if Web Worker is available and it's not a sync request or unloading
         if (dcxWorker && !(sync || unloading)) {
+            dcxWorker.onmessage = function(event) {
+                var result;
+                result = event.data;
+                // XHR Logging update
+                handleXhrCallback(result);
+            };
             dcxWorker.postMessage({
                 id: messageId,
                 url: queue.url,
@@ -4898,88 +4213,75 @@ DCX.addService("queue", function (core) {
                 isUnloading: unloading
             });
         } else {
-
-            // Serialize the data
-            if (serializer) {
-                data = sS.serialize(data, serializer);
-            }
-
-            // Encode if specified
-            if (contentEncoder) {
-                retObj = eS.encode(data, contentEncoder);
-                if (retObj) {
-                    if (retObj.data && !retObj.error) {
-                        data = retObj.data;
-                        httpHeaders["Content-Encoding"] = retObj.encoding;
-                    } else {
-                        data = retObj.error;
-                    }
-                }
-            }
-
-            if (queue.crossDomainEnabled) {
-                xdomainFrameWindow = utils.getIFrameWindow(queue.crossDomainIFrame);
-                if (!xdomainFrameWindow) {
-                    return;
-                }
-                requestData = {
-                    request: {
-                        id: messageId,
-                        url: queue.url,
-                        async: !sync,
-                        headers: httpHeaders,
-                        data: data
-                    }
-                };
-
-                if (!utils.isIE && typeof window.postMessage === "function") {
-                    xdomainFrameWindow.postMessage(requestData, queue.crossDomainIFrame.src);
+        // Serialize the data
+        if (serializer) {
+            data = sS.serialize(data, serializer);
+        }
+        // Encode if specified
+        if (contentEncoder) {
+            retObj = eS.encode(data, contentEncoder);
+            if (retObj) {
+                if (retObj.data && !retObj.error) {
+                    data = retObj.data;
+                    httpHeaders["Content-Encoding"] = retObj.encoding;
                 } else {
-                    try {
-                        xdomainFrameWindow.sendMessage(requestData);
-                    } catch (e) {
-                        return;
-                    }
+                    data = retObj.error;
                 }
-            } else {
-                aS.sendRequest({
+            }
+        }
+        if (queue.crossDomainEnabled) {
+            xdomainFrameWindow = utils.getIFrameWindow(queue.crossDomainIFrame);
+            if (!xdomainFrameWindow) {
+                return;
+            }
+            requestData = {
+                request: {
                     id: messageId,
-                    oncomplete: handleXhrCallback,
                     url: queue.url,
                     async: !sync,
-                    isUnloading: unloading,
                     headers: httpHeaders,
                     data: data
-                });
+                }
+            };
+            if (!utils.isIE && typeof window.postMessage === "function") {
+                xdomainFrameWindow.postMessage(requestData, queue.crossDomainIFrame.src);
+            } else {
+                try {
+                    xdomainFrameWindow.sendMessage(requestData);
+                } catch (e) {
+                    return;
+                }
             }
+        } else {
+            aS.sendRequest({
+                id: messageId,
+                oncomplete: handleXhrCallback,
+                url: queue.url,
+                async: !sync,
+                isUnloading: unloading,
+                headers: httpHeaders,
+                data: data
+            });
+        }
         }
         clearHeaders(queueId);
     }
-
     /**
      * Iterates over all queues and sends their contents to the servers.
      * @function
      * @private
      * @name queueServive-flushAll
      */
-     function flushAll(sync) {
+    function flushAll(sync) {
         var conf = null,
             queues = CONFIG.queues,
             i = 0;
-        try {
-            if(queues && queues.length && queues.length > 0) {
-                for (i = 0; i < queues.length; i += 1) {
-                    conf = queues[i];
-                    flushQueue(conf.qid, sync);
-                };
-                return true
-            }
-        } catch (error) {
-            return false;
+        for (i = 0; i < queues.length; i += 1) {
+            conf = queues[i];
+            flushQueue(conf.qid, sync);
         }
+        return true;
     }
-
-
     /**
      * Adds a message event to the specified queue.
      * If the queue threshold is reached the queue gets flushed.
@@ -4996,28 +4298,18 @@ DCX.addService("queue", function (core) {
             size,
             timeDiff,
             currWebEvent;
-
         // Safety check to ensure the data to be added is not stale beyond the inactivity timeout
         len = queue.data.length;
         if (len) {
             timeDiff = msg.offset - queue.data[len - 1].offset;
             if (timeDiff > inactivityTimeout) {
                 queueManager.flush(queueId);
-
-                var jMsg = {
-                    destroyedReason: "UIC destroyed while  Safety check to ensure the data to be added is not stale beyond the inactivity timeout.",
-                    destroyedBy: 'queueManager'
-                };
-                DCX.setState("addToQueue", jMsg);
-                
                 core.destroy();
                 return;
             }
         }
-
         len = queueManager.push(queueId, msg);
         size = queue.size;
-
         if ((len >= queue.eventThreshold || size >= queue.sizeThreshold) &&
                 autoFlushing && core.getState() !== "unloading") {
                     currWebEvent = core.getCurrentWebEvent();
@@ -5042,16 +4334,13 @@ DCX.addService("queue", function (core) {
                     }*/
           
         }
-
     function isMsgLimitReached(e) {
         var counter,
             retVal = false;
-
         // Sanity check
         if (!e || !e.type) {
             return true;
         }
-
         counter = msgCounter[e.type];
         if (counter) {
             counter.count += 1;
@@ -5069,10 +4358,8 @@ DCX.addService("queue", function (core) {
                 }
             }
         }
-
         return retVal;
     }
-
     /**
      * Returns the queue id for the queue which is responsible for the given module.
      * @function
@@ -5087,7 +4374,6 @@ DCX.addService("queue", function (core) {
             module = "",
             i = 0,
             j = 0;
-
         for (i = 0; i < queues.length; i += 1) {
             conf = queues[i];
             if (conf && conf.modules) {
@@ -5101,8 +4387,6 @@ DCX.addService("queue", function (core) {
         }
         return defaultQueue.qid;
     }
-
-
     function setFlushTimer(qid, interval) {
         queueTimers[qid] = window.setTimeout(function tick() {
             //if (autoFlushing) {
@@ -5111,10 +4395,8 @@ DCX.addService("queue", function (core) {
             queueTimers[qid] = window.setTimeout(tick, interval);
         }, interval);
     }
-
     function clearFlushTimer(qid) {
         var cleared = false;
-
         if (qid && queueTimers[qid]) {
             window.clearTimeout(queueTimers[qid]);
             delete queueTimers[qid];
@@ -5122,26 +4404,20 @@ DCX.addService("queue", function (core) {
         }
         return cleared;
     }
-
     function clearAllFlushTimers() {
         var key = 0;
-
         for (key in queueTimers) {
             if (queueTimers.hasOwnProperty(key)) {
                 clearFlushTimer(key);
             }
         }
-
         queueTimers = {};
     }
-
     function resetFlushTimer(qid) {
         var queue;
-
         if (!qid) {
             return;
         }
-
         if (clearFlushTimer(qid)) {
             queue = queueManager.get(qid);
             if (queue.timerInterval) {
@@ -5149,7 +4425,6 @@ DCX.addService("queue", function (core) {
             }
         }
     }
-
     /**
      * Handles the configupdated event from the configService and reinitialize all queues.
      * @function
@@ -5160,9 +4435,6 @@ DCX.addService("queue", function (core) {
     function handleConfigUpdated(newConf) {
         // TODO: merge config
     }
-
-
-
     /**
      * Sets up all the needed queues and event handlers and start the queueTick.
      * @function
@@ -5173,7 +4445,6 @@ DCX.addService("queue", function (core) {
         CONFIG = config;
         coreConfig = core.getCoreConfig();
         inactivityTimeout = utils.getValue(coreConfig, "inactivityTimeout", 600000);
-
         utils.forEach(CONFIG.queues, function (conf, i) {
             var crossDomainIFrame = null;
             if (conf.qid === "DEFAULT") {
@@ -5185,7 +4456,6 @@ DCX.addService("queue", function (core) {
                     core.fail("Cross domain iframe not found");
                 }
             }
-
             queueManager.add(conf.qid, {
                 url: conf.endpoint,
                 eventThreshold: conf.maxEvents,
@@ -5196,31 +4466,24 @@ DCX.addService("queue", function (core) {
                 crossDomainEnabled: conf.crossDomainEnabled || false,
                 crossDomainIFrame: crossDomainIFrame
             });
-
             if (typeof conf.timerInterval !== "undefined" && conf.timerInterval > 0) {
                 setFlushTimer(conf.qid, conf.timerInterval);
             }
         });
-
         cS.subscribe("configupdated", handleConfigUpdated);
-
         isInitialized = true;
     }
-
     function destroy() {
         if (autoFlushing) {
             flushAll(!CONFIG.asyncReqOnUnload);
         }
         cS.unsubscribe("configupdated", handleConfigUpdated);
-
         clearAllFlushTimers();
         queueManager.reset();
-
         CONFIG = null;
         defaultQueue = null;
         isInitialized = false;
     }
-
     /**
      * @scope queueService
      */
@@ -5231,7 +4494,6 @@ DCX.addService("queue", function (core) {
             } else {
             }
         },
-
         /**
          * Get's called when the core shut's down.
          * Clean up everything.
@@ -5239,11 +4501,8 @@ DCX.addService("queue", function (core) {
         destroy: function () {
             destroy();
         },
-
         // TODO: Need to expose for selenium functional tests
         _getQueue: function (qid) { return queueManager.get(qid).data; },
-
-
         /**
          * Enables/disables automatic flushing of queues so that the application
          * could decide on their own when to flush by calling flushAll.
@@ -5257,7 +4516,6 @@ DCX.addService("queue", function (core) {
                 autoFlushing = false;
             }
         },
-
         /**
          * Forces a particular queue to be flushed, sending its information to the server.
          * @param  {String} queueId The ID of the queue to be flushed.
@@ -5269,14 +4527,12 @@ DCX.addService("queue", function (core) {
             }
             flushQueue(queueId);
         },
-
         /**
          * Forces all queues to be flushed, sending all queue information to the server.
          */
         flushAll: function (sync) {
             return flushAll(!!sync);
         },
-
         /**
          * Send event information to the module's default queue.
          * This doesn't necessarily force the event data to be sent to the server,
@@ -5289,9 +4545,7 @@ DCX.addService("queue", function (core) {
             if (!core.isInitialized()) {
                 return;
             }
-
             queueId = queueId || getQueueId(moduleName);
-
             if (!queueManager.exists(queueId)) {
                 return;
             }
@@ -5299,7 +4553,6 @@ DCX.addService("queue", function (core) {
                 addToQueue(queueId, queueEvent);
             }
         },
-
         /**
          * Resets the flush timer of the specified queue.
          * @param {String} queueId The ID of the queue
@@ -5311,11 +4564,8 @@ DCX.addService("queue", function (core) {
             }
             resetFlushTimer(queueId);
         }
-
     };
-
 });
-
 /*
  *  **************************************************************************
  *  Licensed Materials - Property of HCL
@@ -5324,22 +4574,18 @@ DCX.addService("queue", function (core) {
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  */
-
 /**
  * @fileOverview The browserService implements some low-level methods for
  * modifying / accessing the DOM.
  * @exports browserService
  */
-
 /*global DCX, XPathResult, document, ActiveXObject */
-
 /**
  * @name browserService
  * @namespace
  */
 DCX.addService("browserBase", function (core) {
     "use strict";
-
     var customEventList,
         utils = core.utils,
         nonClickableTags = {
@@ -5355,7 +4601,6 @@ DCX.addService("browserBase", function (core) {
         customid,
         getXPathListFromNode,
         isInitialized = false;
-
     function updateConfig() {
         configService = core.getService("config");
         serializerService = core.getService("serializer");
@@ -5364,7 +4609,6 @@ DCX.addService("browserBase", function (core) {
         blacklist = config.hasOwnProperty("blacklist") ? config.blacklist : [];
         customid = config.hasOwnProperty("customid") ? config.customid : [];
     }
-
     function initBrowserBase() {
         updateConfig();
         if (configService) {
@@ -5373,7 +4617,6 @@ DCX.addService("browserBase", function (core) {
         }
         isInitialized = true;
     }
-
     function destroy() {
         if (configService) {
             // Need to check for configService in unit testing scenario
@@ -5381,16 +4624,13 @@ DCX.addService("browserBase", function (core) {
         }
         isInitialized = false;
     }
-
     function checkId(node) {
         var i,
             len,
             re;
-
         if (!node || !node.id || typeof node.id !== "string") {
             return false;
         }
-
         for (i = 0, len = blacklist.length; i < len; i += 1) {
             if (typeof blacklist[i] === "string") {
                 if (node.id === blacklist[i]) {
@@ -5410,7 +4650,6 @@ DCX.addService("browserBase", function (core) {
         }
         return true;
     }
-
     function getEventType(event, target) {
         var returnObj = {
                 type: null,
@@ -5418,12 +4657,10 @@ DCX.addService("browserBase", function (core) {
                 subType: null
             },
             type;
-
         // Sanity check
         if (!event) {
             return returnObj;
         }
-
         // Normalize event type for jQuery events focusin, focusout
         type = event.type;
         switch (type) {
@@ -5437,10 +4674,8 @@ DCX.addService("browserBase", function (core) {
             break;
         }
         returnObj.type = type;
-
         return returnObj;
     }
-
     /**
      * Examines the type and subType of the target.
      * @function
@@ -5453,18 +4688,14 @@ DCX.addService("browserBase", function (core) {
                 type: null,
                 subType: null
             };
-
         // Sanity check
         if (!element) {
             return returnObj;
         }
-
         returnObj.type = utils.getTagName(element);
         returnObj.subType = element.type || null;
-
         return returnObj;
     }
-
     /**
      * Returns an element by it's id and idType where id could be either an HTML id,
      *     attribute ID or XPath selector.
@@ -5484,12 +4715,10 @@ DCX.addService("browserBase", function (core) {
             doc,
             node = null,
             parts;
-
         // Sanity check
         if (!selector || !type) {
             return node;
         }
-
         doc = scope || window.document;
         type = type.toString();
         if (type === idTypes.HTML_ID) {
@@ -5508,18 +4737,15 @@ DCX.addService("browserBase", function (core) {
         }
         return node;
     }
-
     /**
      * Generates an XPath for a given node
      * @function
      */
     getXPathListFromNode = (function () {
-
         var specialChildNodes = {
                 "nobr": true,
                 "p": true
             };
-
         /**
          * Returns Xpath array for a node
          * @private
@@ -5542,11 +4768,9 @@ DCX.addService("browserBase", function (core) {
                 tagName = "",
                 setHost = false,
                 shadowRoot;
-
             while (loop) {
                 // Need to continue the loop incase of elements in frame/iframe and shadow trees.
                 loop = false;
-
                 tagName = utils.getTagName(node);
                 if (tagName && !setHost) {
                     // Fix to handle tags that are not normally visual elements
@@ -5556,13 +4780,11 @@ DCX.addService("browserBase", function (core) {
                         continue;
                     }
                 }
-
                 // Get xpath for node or iframe
                 for (idValid = checkId(node);
                         node && [1,9].indexOf(node.nodeType) > -1 && node !== document && (wantFullPath || !idValid);
                         idValid = checkId(node)) {
                     parentNode = node.parentNode;
-
                     // If the node has no parent, check if it is a frame element
                     if (!parentNode) {
                         parentWindow = utils.getWindow(node);
@@ -5572,7 +4794,6 @@ DCX.addService("browserBase", function (core) {
                         }
                         parentNode = (parentWindow !== localTop) ? parentWindow.frameElement : documentElement;
                     }
-
                     tmpChild = parentNode.firstChild;
                     // Sanity check: Parent has no children?
                     if (!tmpChild) {
@@ -5580,7 +4801,6 @@ DCX.addService("browserBase", function (core) {
                         node = null;
                         break;
                     }
-
                     // Calculate the index of the node amongst its siblings
                     for (j = 0; tmpChild; tmpChild = tmpChild.nextSibling) {
                         if (tmpChild.nodeType === 1 && utils.getTagName(tmpChild) === tagName) {
@@ -5596,17 +4816,14 @@ DCX.addService("browserBase", function (core) {
                             j += 1;
                         }
                     }
-
                     if (parentNode.nodeType === 11) {
                         node = parentNode.host;
                         setHost = true;
                     } else {
                         node = parentNode;
                     }
-
                     tagName = utils.getTagName(node);
                 }
-
                 if (idValid && !wantFullPath) {
                     xpathComponent = [node.id];
                     if (setHost) {
@@ -5630,45 +4847,35 @@ DCX.addService("browserBase", function (core) {
                     catch (e) {}
                 }
             }
-
             return xpath.reverse();
         };
     }());
-
     /**
      *
      */
     function xpathListToString(list) {
         var str = "null";
-
         // Sanity check
         if (!list || !list.length) {
             return str;
         }
-
         str = serializerService.serialize(list, "json");
-
         return str;
     }
-
     /**
      * actual getXPathFromNode function
      */
     function getXPathFromNode(node, wantFullPath, wantObject) {
         var retVal,
             xpath;
-
         xpath = getXPathListFromNode(node, !!wantFullPath);
-
         if (wantObject) {
             retVal = xpath;
         } else {
             retVal = xpathListToString(xpath);
         }
-
         return retVal;
     }
-
     /**
      * Returns the scroll position (left, top) of the document
      * Reference: https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollX
@@ -5682,18 +4889,14 @@ DCX.addService("browserBase", function (core) {
                 top: -1
             },
             docElement;
-
         doc = doc || document;
         // Get the scrollLeft, scrollTop from documentElement or body.parentNode or body in that order.
         docElement = doc.documentElement || doc.body.parentNode || doc.body;
-
         // If window.pageXOffset exists, use it. Otherwise fallback to getting the scrollLeft position.
         scrollPos.left = Math.round((typeof window.pageXOffset === "number") ? window.pageXOffset : docElement.scrollLeft);
         scrollPos.top = Math.round((typeof window.pageYOffset === "number") ? window.pageYOffset : docElement.scrollTop);
-
         return scrollPos;
     }
-
     /**
      * Returns true if an event is a jQuery event wrpper object.
      * @private
@@ -5705,8 +4908,6 @@ DCX.addService("browserBase", function (core) {
             typeof event.isDefaultPrevented !== "undefined"  &&
             !event.isSimulated;
     }
-
-
     /**
      * Looks for event details. Usually it returns an event itself, but for touch events
      * function returns an element from one of the touch arrays.
@@ -5731,8 +4932,6 @@ DCX.addService("browserBase", function (core) {
         }
         return event;
     }
-
-
     /**
      * Normalizes the event object for InternetExplorer older than 9.
      * @return {HttpEvent} normalized event object
@@ -5744,12 +4943,10 @@ DCX.addService("browserBase", function (core) {
             found = false,
             foundElement = null,
             i = 0;
-
         // skip jQuery event wrapper
         if (isJQueryEvent(e)) {
             e = e.originalEvent;
         }
-
         // IE case
         if (typeof event === 'undefined' || typeof e.target === 'undefined') {
             e.target = e.srcElement || window.window;
@@ -5767,13 +4964,11 @@ DCX.addService("browserBase", function (core) {
                 this.cancelBubble = true;
             };
         }
-
         // Chrome case getting blur for inner elements sending click
         if (window.chrome && e.path !== undefined && e.type === "click") {
             if (e.path.length === undefined) {
                 return e;
             }
-
             for (i = 0; i < e.path.length; i++) {
                 if (utils.getTagName(e.path[i]) === "button") {
                     found = true;
@@ -5792,10 +4987,8 @@ DCX.addService("browserBase", function (core) {
                 };
             }
         }
-
         return e;
     }
-
     /**
      * Normalizes target element. In case of touch event the target is considered to be an
      * element on which the last touch action took place.
@@ -5807,12 +5000,10 @@ DCX.addService("browserBase", function (core) {
         var i, len,
             eventPath,
             target = null;
-
         // Sanity check
         if (!event || !event.type) {
             return null;
         }
-
         // Special handling for touchXXX events
         if (event.type.indexOf("touch") === 0) {
             target = getEventDetails(event).target;
@@ -5838,7 +5029,6 @@ DCX.addService("browserBase", function (core) {
             // W3C
             target = event.target;
         }
-
         while (target && nonClickableTags[utils.getTagName(target)]) {
             if (target.parentElement) {
                 target = target.parentElement;
@@ -5846,11 +5036,8 @@ DCX.addService("browserBase", function (core) {
                 break;
             }
         }
-
         return target;
     }
-
-
     /**
      * Returns event position independently to the event type.
      * In case of touch event the position of last action will be returned.
@@ -5863,9 +5050,7 @@ DCX.addService("browserBase", function (core) {
             posY = 0,
             doc = document.documentElement,
             body = document.body;
-
         event = getEventDetails(event);
-
         if (event) {
             if (event.pageX || event.pageY) {
                 posX = event.pageX;
@@ -5877,13 +5062,11 @@ DCX.addService("browserBase", function (core) {
                                        (doc ? doc.clientTop : (body ? body.clientTop : 0));
             }
         }
-
         return {
             x: posX,
             y: posY
         };
     }
-
     /**
      * Find one or more elements using a XPath selector.
      * @function
@@ -5903,20 +5086,16 @@ DCX.addService("browserBase", function (core) {
             k,
             len,
             jlen;
-
         // Sanity check
         if (!query) {
             return null;
         }
-
         xpath = serializerService.parse(query);
         scope = scope || document;
         elem = scope;
-
         if (!xpath) {
             return null;
         }
-
         for (i = 0, len = xpath.length; i < len && elem; i += 1) {
             pathElem = xpath[i];
             pathElemIsHost = pathElem.length > 1 && pathElem[pathElem.length - 1] === "h";
@@ -5944,11 +5123,9 @@ DCX.addService("browserBase", function (core) {
                     return null;
                 }
             }
-
             if (!elem) {
                 return null;
             }
-
             if (pathElemIsHost) {
                 if (i < len - 1) {
                     if (!elem.shadowRoot) {
@@ -5959,7 +5136,6 @@ DCX.addService("browserBase", function (core) {
                     scope = elem;
                 }
             }
-
             // If elem is a frame or iframe, then point to it's document element
             tagName = utils.getTagName(elem);
             if (tagName === "frame" || tagName === "iframe") {
@@ -5968,11 +5144,8 @@ DCX.addService("browserBase", function (core) {
                 scope = elem;
             }
         }
-
         return (elem === scope || !elem) ? null : elem;
     };
-
-
     /**
      * The Point interface represents a point on the page to
      *     x- and y-coordinates.
@@ -5986,8 +5159,6 @@ DCX.addService("browserBase", function (core) {
         this.x = Math.round(x || 0);
         this.y = Math.round(y || 0);
     }
-
-
     /**
      * The Size  interface represents the width and height of an element
      *     on the page.
@@ -6001,8 +5172,6 @@ DCX.addService("browserBase", function (core) {
         this.width = Math.round(width || 0);
         this.height = Math.round(height || 0);
     }
-
-
     /**
      * The ElementData interface represents a normalized browser event object.
      * @constructor
@@ -6015,12 +5184,10 @@ DCX.addService("browserBase", function (core) {
         var id,
             elementType,
             pos;
-
         target = normalizeTarget(event);
         id = this.examineID(target);
         elementType = getElementType(target);
         pos = this.examinePosition(event, target);
-
         this.element = target;
         this.id = id.id;
         this.idType = id.idType;
@@ -6032,7 +5199,6 @@ DCX.addService("browserBase", function (core) {
         this.xPath = id.xPath;
         this.name = id.name;
     }
-
     /**#@+
      * @constant
      * @enum {Number}
@@ -6042,7 +5208,6 @@ DCX.addService("browserBase", function (core) {
     ElementData.XPATH_ID = -2;
     ElementData.ATTRIBUTE_ID = -3;
     /**#@-*/
-
     /**
      * Examines how to specify the target element
      *     (either by css selectors or xpath)
@@ -6066,15 +5231,12 @@ DCX.addService("browserBase", function (core) {
             i = customid.length,
             attrib,
             documentElement = document.documentElement;
-
         // Sanity check
         if (!target) {
             return retObj;
         }
-
         retObj.xPath = getXPathFromNode(target);
         retObj.name = target.name;
-
         try {
             // Check if node belongs to a Shadow DOM tree or Frame/Iframe since such nodes always get Xpath IDs
             if (documentElement.contains(target) && (!utils.getWindow(target) || !utils.isIFrameDescendant(target))) {
@@ -6093,18 +5255,14 @@ DCX.addService("browserBase", function (core) {
                 }
             }
         } catch (e) { }
-
         if (!retObj.id) {
             retObj.id = retObj.xPath;
             if (retObj.id !== "null") {
                 retObj.idType = ElementData.XPATH_ID;
             }
         }
-
         return retObj;
     };
-
-
     /**
      * Examines the current state of the HTML element if it's an input/ui element.
      * @function
@@ -6116,8 +5274,6 @@ DCX.addService("browserBase", function (core) {
     ElementData.prototype.examineState = function (target) {
         return utils.getTargetState(target);
     };
-
-
     /**
      * Gets the current zoom value of the browser with 1 being equivalent to 100%.
      * @function
@@ -6129,7 +5285,6 @@ DCX.addService("browserBase", function (core) {
             rect,
             physicalW,
             logicalW;
-
         if (document.body.getBoundingClientRect) {
             // rect is only in physical pixel size in IE before version 8
             // CS-8780: getBoundingClientRect() can throw an exception in certain instances. Observed
@@ -6141,13 +5296,11 @@ DCX.addService("browserBase", function (core) {
             }
             physicalW = rect.right - rect.left;
             logicalW = document.body.offsetWidth;
-
             // the zoom level is always an integer percent value
             factor = Math.round((physicalW / logicalW) * 100) / 100;
         }
         return factor;
     }
-
     /**
      * Gets BoundingClientRect value from a HTML element.
      * @function
@@ -6160,7 +5313,6 @@ DCX.addService("browserBase", function (core) {
             rectangle,
             zoom,
             scrollPos;
-
         if (!element || !element.getBoundingClientRect) {
             return { x: 0, y: 0, width: 0, height: 0 };
         }
@@ -6183,7 +5335,6 @@ DCX.addService("browserBase", function (core) {
             // IE ONLY: the bounding rectangle include the top and left borders of the client area
             rectangle.x -= document.documentElement.clientLeft;
             rectangle.y -= document.documentElement.clientTop;
-
             zoom = getZoomValue();
             if (zoom !== 1) {  // IE 7 at non-default zoom level
                 rectangle.x = Math.round(rectangle.x / zoom);
@@ -6194,7 +5345,6 @@ DCX.addService("browserBase", function (core) {
         }
         return rectangle;
     }
-
     /**
      * Examines the position of the event relative to the HTML element which
      * received the event on the page. The top left corner of the element is 0,0
@@ -6207,13 +5357,10 @@ DCX.addService("browserBase", function (core) {
     ElementData.prototype.examinePosition = function (event, target) {
         var posOnDoc = getEventPosition(event),
             elPos = getBoundingClientRectNormalized(target);
-
         elPos.x = (posOnDoc.x || posOnDoc.y) ? Math.round(Math.abs(posOnDoc.x - elPos.x)) : elPos.width / 2;
         elPos.y = (posOnDoc.x || posOnDoc.y) ? Math.round(Math.abs(posOnDoc.y - elPos.y)) : elPos.height / 2;
-
         return elPos;
     };
-
     /**
      * Returns the normalized orientation in degrees. Normalized values are measured
      * from the default portrait position which has an orientation of 0. From this
@@ -6229,7 +5376,6 @@ DCX.addService("browserBase", function (core) {
      */
     function getNormalizedOrientation() {
         var orientation = (typeof window.orientation === "number") ? window.orientation : 0;
-
         /*
          * Special handling for Android based on screen width/height since
          * certain Android devices do not adhere to the standards.
@@ -6242,10 +5388,8 @@ DCX.addService("browserBase", function (core) {
                 orientation = 0;
             }
         }
-
         return orientation;
     }
-
     /**
      * Scans through the core configuration and creates the list of
      * custom event state properties.
@@ -6262,15 +5406,12 @@ DCX.addService("browserBase", function (core) {
             event,
             modules,
             moduleName;
-
         if (list) {
             return list;
         }
-
         coreConfig = core.getCoreConfig() || {};
         modules = coreConfig.modules;
         list = {};
-
         for (moduleName in modules) {
             if (modules.hasOwnProperty(moduleName) && modules[moduleName].events) {
                 for (i = 0, len = modules[moduleName].events.length; i < len; i += 1) {
@@ -6281,10 +5422,8 @@ DCX.addService("browserBase", function (core) {
                 }
             }
         }
-
         return list;
     }
-
     /**
      * Checks if any custom state is configured for the specified
      * event and return it's value.
@@ -6296,18 +5435,14 @@ DCX.addService("browserBase", function (core) {
      */
     function getCustomState(event) {
         var state;
-
         // Initialize the global custom event state
         customEventList = initCustomEventList(customEventList);
-
         if (customEventList[event.type]) {
             // Get the state information as per the object specified in the event configuration
             state = utils.getValue(event, customEventList[event.type], null);
         }
-
         return state;
     }
-
     /**
      * The WebEvent  interface represents a normalized browser event object.
      *     When an event occurs, the BrowserService wraps the native event
@@ -6321,17 +5456,14 @@ DCX.addService("browserBase", function (core) {
         var pos,
             eventType,
             state;
-
         this.data = event.data || null;
         this.delegateTarget = event.delegateTarget || null;
-
         //add the gesture event data to the webevent if it exists.
         if (event.gesture || (event.originalEvent && event.originalEvent.gesture)) {
             this.gesture = event.gesture || event.originalEvent.gesture;
             //Set the idType for the gesture target. Normal processing will set the idType of this.target which is not necessarily the same as the gesture target.
             this.gesture.idType = (new ElementData(this.gesture, this.gesture.target)).idType;
         }
-
         event = normalizeEvent(event);
         pos = getEventPosition(event);
         this.custom = false;    // @TODO: how to determine if it's a custom event?
@@ -6339,23 +5471,19 @@ DCX.addService("browserBase", function (core) {
         this.position = new Point(pos.x, pos.y);
         this.target = new ElementData(event, event.target);
         this.orientation = getNormalizedOrientation();
-
         // For custom events the state is determined by the "state" property specified
         // in the event configuration
         state = getCustomState(event);
         if (state) {
             this.target.state = state;
         }
-
         // Do not rely on browser provided event.timeStamp since FF sets
         // incorrect values. Refer to Mozilla Bug 238041
         this.timestamp = (new Date()).getTime();
-
         eventType = getEventType(event, this.target);
         this.type = eventType.type;
         this.subType = eventType.subType;
     }
-
     /**
      * 
      */
@@ -6365,7 +5493,6 @@ DCX.addService("browserBase", function (core) {
         } else {
         }
     }
-
     /**
      * Constructor
      */
@@ -6375,12 +5502,10 @@ DCX.addService("browserBase", function (core) {
             topElem,
             xpath = "",
             xpathList = [];
-
         // Sanity check
         if (!(this instanceof Xpath)) {
             return null;
         }
-
         // Sanity check
         if (typeof node !== "object" || !node.nodeType) {
             this.fullXpath = "";
@@ -6389,15 +5514,12 @@ DCX.addService("browserBase", function (core) {
             this.xpathList = [];
             return;
         }
-
         // Text nodes are promoted to their parent element
         if (node.nodeType === 3) {
             node = node.parentElement;
         }
-
         // Calculate xpath list from DOM node
         xpathList = getXPathListFromNode(node, false);
-
         // Check if the topmost xpath element is an HTML ID. If so, we need to compute the full xpath.
         topElem = xpathList[0];
         if (xpathList.length && (topElem.length === 1 || (topElem.length === 2 && topElem[1] === "h"))) {
@@ -6405,29 +5527,23 @@ DCX.addService("browserBase", function (core) {
         } else {
             fullXpathList = utils.clone(xpathList);
         }
-
         this.xpath = xpathListToString(xpathList);
         this.xpathList = xpathList;
-
         this.fullXpath = xpathListToString(fullXpathList);
         this.fullXpathList = fullXpathList;
-
         /**
          *
          */
         this.applyPrefix = function (prefix) {
             var part,
                 lastPrefixPart;
-
             // Sanity check
             if (!(prefix instanceof Xpath) || !prefix.fullXpathList.length) {
                 return;
             }
-
             // Process the full xpath first.
             lastPrefixPart = prefix.fullXpathList[prefix.fullXpathList.length - 1];
             part = this.fullXpathList.shift();
-
             // Check if they share a common element tag
             if (utils.isEqual(part[0], lastPrefixPart[0])) {
                 // Concatenate
@@ -6437,10 +5553,8 @@ DCX.addService("browserBase", function (core) {
                 this.fullXpathList.unshift(part);
                 return;
             }
-
             // Recreate the xpath string
             this.fullXpath = xpathListToString(this.fullXpathList);
-
             // Next, deal with the regular xpath.
             part = this.xpathList.shift();
             if (part.length === 1) {
@@ -6451,7 +5565,6 @@ DCX.addService("browserBase", function (core) {
             this.xpathList = prefix.xpathList.concat(this.xpathList);
             this.xpath = xpathListToString(this.xpathList);
         };
-
         /**
          *
          */
@@ -6462,23 +5575,18 @@ DCX.addService("browserBase", function (core) {
             }
             return (this.fullXpathList.length - xpathB.fullXpathList.length);
         };
-
         this.isSame = function (xpathB) {
             var isEqual = false;
-
             // Sanity check
             if (!(xpathB instanceof Xpath)) {
                 return isEqual;
             }
-
             if (this.compare(xpathB) === 0) {
                 // Check if the fullXPath matches
                 isEqual = (this.fullXpath === xpathB.fullXpath);
             }
-
             return isEqual;
         };
-
         /**
          * Checks to see if the node defined by this xpath is a child of the given parent xpath.
          * @function
@@ -6490,22 +5598,18 @@ DCX.addService("browserBase", function (core) {
         this.containedIn = function (parentXpath, ignoreShadows) {
             var i, j, len,
                 tmpNode;
-
             // Sanity check
             if (!(parentXpath instanceof Xpath)) {
                 return false;
             }
-
             if (parentXpath.fullXpathList.length > this.fullXpathList.length) {
                 return false;
             }
-
             for (i = 0, len = parentXpath.fullXpathList.length; i < len; i += 1) {
                 if (!utils.isEqual(parentXpath.fullXpathList[i], this.fullXpathList[i])) {
                     return false;
                 }
             }
-
             if (!ignoreShadows) {
                 // Check if the remainder of the node is within a Shadow DOM in which case
                 // it is not directly contained in the DOM of the parent.
@@ -6516,21 +5620,17 @@ DCX.addService("browserBase", function (core) {
                     }
                 }
             }
-
             return true;
         };
     }
-
     /**
      *
      */
     Xpath.prototype = (function () {
         // Private variables and functions
-
         // XPath Prototype object
         return {};
     }());
-
     return {
         init: function () {
             if (!isInitialized) {
@@ -6546,14 +5646,12 @@ DCX.addService("browserBase", function (core) {
         Xpath: Xpath,
         processDOMEvent: processDOMEvent,
         getNormalizedOrientation: getNormalizedOrientation,
-
         getXPathFromNode: function (moduleName, node, wantFullPath, wantObject) {
             return getXPathFromNode(node, wantFullPath, wantObject);
         },
         getNodeFromID: getNodeFromID,
         queryDom: queryDom
     };
-
 });
 /*
  *  **************************************************************************
@@ -6563,23 +5661,19 @@ DCX.addService("browserBase", function (core) {
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  */
-
 /**
  * @fileOverview The browserService implements some low-level methods for
  * modifying / accessing the DOM.
  * @exports browserService
  */
-
 /*global DCX, XPathResult, document */
 /*global console: false */
-
 /**
  * @name browserService
  * @namespace
  */
 DCX.addService("browser", function (core) {
     "use strict";
-
     var utils = core.utils,
         configService = core.getService("config"),
         browserBaseService = core.getService('browserBase'),
@@ -6593,7 +5687,6 @@ DCX.addService("browser", function (core) {
         errorCodes = {
             NO_QUERY_SELECTOR: "NOQUERYSELECTOR"
         },
-
         /**
          * Returns a new function which will be used in the subscribe method and which calls the
          * handler function with the normalized WebEvent.
@@ -6624,7 +5717,6 @@ DCX.addService("browser", function (core) {
                 }
             };
         },
-
         queryDom = {
             /**
              * Helper function to transform a nodelist into an array.
@@ -6675,7 +5767,6 @@ DCX.addService("browser", function (core) {
                     bodyEl = document.getElementsByTagName("body")[0],
                     jQuery = serviceConfig.jQueryObject ? utils.access(serviceConfig.jQueryObject) : window.jQuery,
                     sizzle = serviceConfig.sizzleObject ? utils.access(serviceConfig.sizzleObject) : window.Sizzle;
-
                 if (typeof document.querySelectorAll === "undefined") {
                     // redefine self.css to use self.Sizzle as selector engine.
                     self.css = function (query, scope) {
@@ -6716,21 +5807,17 @@ DCX.addService("browser", function (core) {
         // store handler functions which got passed to subscribe/unsubscribe.
         handlerMappings = (function () {
             var data = new utils.WeakMap();
-
             return {
                 add: function (originalHandler) {
                     var handlers = data.get(originalHandler) || [wrapWebEvent(originalHandler), 0];
-
                     handlers[1] += 1;
                     data.set(originalHandler, handlers);
                     return handlers[0];
                 },
-
                 find: function (originalHandler) {
                     var handlers = data.get(originalHandler);
                     return handlers ? handlers[0] : null;
                 },
-
                 remove: function (originalHandler) {
                     var handlers = data.get(originalHandler);
                     if (handlers) {
@@ -6742,30 +5829,25 @@ DCX.addService("browser", function (core) {
                 }
             };
         }());
-
     /**
      * Check if required browser APIs are available.
      */
     function verifyPrerequisites() {
         var jQuery = serviceConfig.jQueryObject ? utils.access(serviceConfig.jQueryObject) : window.jQuery,
             sizzle = serviceConfig.sizzleObject ? utils.access(serviceConfig.sizzleObject) : window.Sizzle;
-
         if (!document.querySelectorAll && !jQuery && !sizzle) {
             // Neither native querySelectorAll nor jQuery nor Sizzle is available. Abort!
             core.fail("querySelectorAll does not exist!", errorCodes.NO_QUERY_SELECTOR);
         }
     }
-
     /**
      * Initialization function
      * @function
      */
     function initBrowserServiceW3C() {
         queryDom.xpath = browserBaseService.queryDom.xpath;
-
         // Check if dependencies exist.
         verifyPrerequisites();
-
         if (typeof document.addEventListener === 'function') {
             addEventListener = function (target, eventName, handler) {
                 target.addEventListener(eventName, handler, useCapture);
@@ -6783,31 +5865,24 @@ DCX.addService("browser", function (core) {
         } else {
             throw new Error("Unsupported browser");
         }
-
         isInitialized = true;
     }
-
-
     /**
      * @scope browserService
      */
     return {
-
         init: function () {
             if (!isInitialized) {
                 initBrowserServiceW3C();
             } else {
             }
         },
-
         destroy: function () {
             isInitialized = false;
         },
-
         getServiceName: function () {
             return "W3C";
         },
-
         /**
          * Find a single element in the DOM mathing a particular query.
          * @param  {String} query Either a CSS or XPath query.
@@ -6824,7 +5899,6 @@ DCX.addService("browser", function (core) {
 				return [];
 			}
         },
-
         /**
          * Find all elements in the DOM mathing a particular query.
          * @param  {String} query Either a CSS or XPath query.
@@ -6842,7 +5916,6 @@ DCX.addService("browser", function (core) {
 				return [];
 			}
         },
-
         /**
          * Subscribes an event handler to be called when a particular event occurs.
          * @param  {String} eventName The name of the event to listen for.
@@ -6854,7 +5927,6 @@ DCX.addService("browser", function (core) {
             var wrappedHandler = handlerMappings.add(handler);
             addEventListener(target, eventName, wrappedHandler);
         },
-
         /**
          * Unsubscribes an event handler from a particular event.
          * @param  {String} eventName The name of the event for which the handler was subscribed.
@@ -6881,22 +5953,18 @@ DCX.addService("browser", function (core) {
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  */
-
 /*global DCX:true, window:true, ActiveXObject, Uint8Array */
-
 /**
  * @name ajaxService
  * @namespace
  */
 DCX.addService("ajax", function (core) {
     "use strict";
-
     var utils = core.utils,
         getXHRObject,
         useBeacon = false,
         useFetch = false,
         isInitialized = false;
-
     /**
      * Builds an array of HTTP headers from the given object.
      * @private
@@ -6908,7 +5976,6 @@ DCX.addService("ajax", function (core) {
     function convertHeadersToArray(headersObj) {
         var header = "",
             headers = [];
-
         for (header in headersObj) {
             if (headersObj.hasOwnProperty(header)) {
                 headers.push([header, headersObj[header]]);
@@ -6916,7 +5983,6 @@ DCX.addService("ajax", function (core) {
         }
         return headers;
     }
-
     /**
      * Builds a query string from the given object
      * @private
@@ -6928,7 +5994,6 @@ DCX.addService("ajax", function (core) {
     function convertHeadersToQuery(headersObj) {
         var header = "",
             headers = "?";
-
         for (header in headersObj) {
             if (headersObj.hasOwnProperty(header)) {
                 headers += encodeURIComponent(header) +
@@ -6937,11 +6002,9 @@ DCX.addService("ajax", function (core) {
                            "&";
             }
         }
-
         // Return the query string after removing the last character (which would be the extra '&' from the loop)
         return headers.slice(0, -1);
     }
-
     /**
      * @private
      * @function
@@ -6952,15 +6015,12 @@ DCX.addService("ajax", function (core) {
         var data,
             retVal = false,
             query = convertHeadersToQuery(message.headers);
-
         if (typeof message.data === "string") {
             data = message.data;
         } else {
             data = message.data ? new Uint8Array(message.data) : "";
         }
-
         retVal = navigator.sendBeacon(message.url + query, data);
-
         return retVal;
     }
     
@@ -6974,9 +6034,7 @@ DCX.addService("ajax", function (core) {
         var headers = message.headers || {},
             msgId = message.id || 0,
             oncomplete = message.oncomplete || function () {};
-
         headers["X-Requested-With"] = "fetch";
-
         window.fetch(message.url, {
             method: message.type,
             headers: headers,
@@ -6992,7 +6050,6 @@ DCX.addService("ajax", function (core) {
                 statusText: response.statusText,
                 id: msgId
             };
-
             if (result.success) {
                 response.json().then(function (responseData) {
                     result.data = responseData;
@@ -7018,7 +6075,6 @@ DCX.addService("ajax", function (core) {
             makeAjaxCall(message);
         });
     }
-
     /**
      * This function returns a function which can be passed to the XHR object
      * as a callback handler. It will call the callback with the correct
@@ -7033,12 +6089,10 @@ DCX.addService("ajax", function (core) {
      *         handler to the XHR object.
      */
     function wrapAjaxResponse(origCallback) {
-
         // Sanity check
         if (typeof origCallback !== "function") {
             return;
         }
-
         /**
          * Calls the ajax callback function and provides the ajaxResponse in the correct format.
          * This Function gets called by the XHR callback method.
@@ -7052,23 +6106,19 @@ DCX.addService("ajax", function (core) {
             var xhr,
                 status,
                 success = false;
-
             // Sanity check
             if (!event) {
                 return;
             }
-
             xhr = event.target;
             if (!xhr) {
                 // Synthetic call to the callback function
                 return origCallback(event);
             }
-
             status = xhr.status;
             if (status >= 200 && status < 300) {
                 success = true;
             }
-
             // Invoke original callback method with normalized response object
             origCallback({
                 headers: utils.extractResponseHeaders(xhr.getAllResponseHeaders()),
@@ -7080,7 +6130,6 @@ DCX.addService("ajax", function (core) {
             });
         };
     }
-
     /**
      * @private
      * @function
@@ -7096,7 +6145,6 @@ DCX.addService("ajax", function (core) {
             callbackFn = null,
             i,
             length;
-
         if (message.headers) {
             headers = headers.concat(convertHeadersToArray(message.headers));
         }
@@ -7104,19 +6152,16 @@ DCX.addService("ajax", function (core) {
             headers.push(["Content-Type", message.contentType]);
         }
         xhr.open(message.type.toUpperCase(), message.url, async);
-
         for (i = 0, length = headers.length; i < length; i += 1) {
             header = headers[i];
             if (header[0] && header[1]) {
                 xhr.setRequestHeader(header[0], header[1]);
             }
         }
-
         if (message.error) {
             message.error = wrapAjaxResponse(message.error);
             xhr.addEventListener("error", message.error);
         }
-
         xhr.onreadystatechange = callbackFn = function () {
             if (xhr.readyState === 4) {
                 xhr.onreadystatechange = callbackFn = function () {};
@@ -7134,16 +6179,13 @@ DCX.addService("ajax", function (core) {
                 xhr = null;
             }
         };
-
         xhr.send(message.data || null);
         callbackFn();
-
         if (message.timeout) {
             timeout = window.setTimeout(function () {
                 if (!xhr) {
                     return;
                 }
-
                 xhr.onreadystatechange = function () {};
                 if (xhr.readyState !== 4) {
                     xhr.abort();
@@ -7165,15 +6207,12 @@ DCX.addService("ajax", function (core) {
                     statusText: "timeout",
                     success: false
                 });
-
                 xhr = null;
             }, message.timeout);
         }
     }
-
     function initAjaxService() {
         var queueServiceConfig = core.getServiceConfig("queue");
-
         if (typeof window.XMLHttpRequest !== 'undefined') {
             getXHRObject = function () {
                 return new XMLHttpRequest();
@@ -7183,33 +6222,27 @@ DCX.addService("ajax", function (core) {
                 return new ActiveXObject("Microsoft.XMLHTTP");
             };
         }
-
         // queueServiceConfig can be null for discoverui.frame.js
         if (queueServiceConfig) {
             // Enable Beacon use if configured
             useBeacon = utils.getValue(queueServiceConfig, "useBeacon", true) && (typeof navigator.sendBeacon === "function");
-
             // Enable Fetch use if supported
             useFetch = utils.getValue(queueServiceConfig, "useFetch", true) && (typeof window.fetch === "function");
         }
-
         isInitialized = true;
     }
-
     return {
         init: function () {
             if (!isInitialized) {
                 initAjaxService();
             }
         },
-
         /**
          * Destroys service state
          */
         destroy: function () {
             isInitialized = false;
         },
-
         /**
          * Makes a HTTP network request to the server.
          * @param {Object} message A request object containing all the information
@@ -7230,9 +6263,7 @@ DCX.addService("ajax", function (core) {
         sendRequest: function (message) {
             var makeXHRRequest = true,
                 retVal;
-
             message.type = message.type || "POST";
-
             // If enabled, use Beacon API instead of XHR on page unload or when sending synchronous request
             if ((message.isUnloading || !message.async) && useBeacon) {
                 makeXHRRequest = false;
@@ -7242,7 +6273,6 @@ DCX.addService("ajax", function (core) {
                     makeXHRRequest = true;
                 }
             } 
-
             if (makeXHRRequest) {
                 if (message.isUnloading && useFetch) {
                     // Use fetch instead of async XHR
@@ -7262,23 +6292,19 @@ DCX.addService("ajax", function (core) {
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  */
-
 /**
  * @fileOverview The DOM Capture Service provides the ability to capture a snapshot of
  * the DOM as a HTML snippet.
  * @exports domCaptureService
  */
-
 /*global DCX:true, window: true, Node:true, performance:true */
 /*global console: false */
-
 /**
  * @name domCaptureService
  * @namespace
  */
 DCX.addService("domCapture", function (core) {
     "use strict";
-
     var configService = core.getService("config"),
         browserBaseService = core.getService("browserBase"),
         browserService = core.getService("browser"),
@@ -7301,16 +6327,9 @@ DCX.addService("domCapture", function (core) {
             characterData: true,
             subtree: true
         },
-        defaultCustomObserverConfig = {
-            attributes: true,
-            attributeOldValue: true,
-            subtree: true
-        },
         diffEnabled = (typeof window.MutationObserver !== "undefined"),
         diffObserver,
         diffObserverConfig = defaultDiffObserverConfig,
-        customObserver,
-        customObserverConfig = defaultCustomObserverConfig,
         observedWindowList = [],
         observedShadowHostList = [],
         shadowEventList = [],
@@ -7327,7 +6346,6 @@ DCX.addService("domCapture", function (core) {
         updateConfig = function () {},
         publishEvent = core._publishEvent,
         utils = core.utils;
-
     /**
      * Clear the global lists which are tracking mutated nodes and attributes.
      * @private
@@ -7339,7 +6357,6 @@ DCX.addService("domCapture", function (core) {
         mutationCount = 0;
         forceFullDOM = false;
     }
-
     /**
      * Consolidate mutated nodes by eliminating any children nodes whose parents
      * are already in the mutated list.
@@ -7350,16 +6367,13 @@ DCX.addService("domCapture", function (core) {
     function consolidateTargets(mutatedTargets) {
         var i, j,
             parentTarget;
-
         if (!mutatedTargets || !mutatedTargets.length) {
             return;
         }
-
         // Sort the targets list
         mutatedTargets = mutatedTargets.sort(function (xpathA, xpathB) {
             return xpathA.compare(xpathB);
         });
-
         // Eliminate any children contained within the parent node
         for (i = 0; i < mutatedTargets.length; i += 1) {
             parentTarget = mutatedTargets[i];
@@ -7374,7 +6388,6 @@ DCX.addService("domCapture", function (core) {
             }
         }
     }
-
     /**
      * Given a list of attribute records, removes "oldValue" from each entry in the list.
      * @private
@@ -7385,19 +6398,15 @@ DCX.addService("domCapture", function (core) {
     function removeOldAttrValues(attrList) {
         var i,
             len;
-
         // Sanity check
         if (!attrList) {
             return attrList;
         }
-
         for (i = 0, len = attrList.length; i < len; i += 1) {
             delete attrList[i].oldValue;
         }
-
         return attrList;
     }
-
     /**
      * Given a list of attribute records and an attribute name, returns the index of the entry if
      * it finds a match in the list.
@@ -7411,22 +6420,18 @@ DCX.addService("domCapture", function (core) {
         var i,
             len,
             found = -1;
-
         // Sanity check
         if (!attrList || !attrName) {
             return found;
         }
-
         for (i = 0, len = attrList.length; i < len; i += 1) {
             if (attrList[i].name === attrName) {
                 found = i;
                 break;
             }
         }
-
         return found;
     }
-
     /**
      * Merge a mutated attribute by checking if there is an existing entry for the attribute
      * in the current list. If there is no existing entry for the attribute then one is created.
@@ -7441,7 +6446,6 @@ DCX.addService("domCapture", function (core) {
             len,
             attr,
             found;
-
         // Check if new attribute name already exists
         for (i = 0, len = currAttrList.length, found = false; i < len; i += 1) {
             attr = currAttrList[i];
@@ -7458,15 +6462,12 @@ DCX.addService("domCapture", function (core) {
                 break;
             }
         }
-
         if (!found) {
             // Add to the current attributes
             currAttrList.push(newAttr);
         }
-
         return currAttrList;
     }
-
     /**
      * Add the mutation record to the list of mutated nodes. If the node
      * is already in the mutated list then merge the mutation.
@@ -7482,11 +6483,9 @@ DCX.addService("domCapture", function (core) {
             target,
             isParent,
             retVal = 0;
-
         // For removals, we only track the number of removed nodes
         xpath.removedNodes = mutationRecord.removedNodes.length;
         xpath.addedNodes = utils.convertToArray(mutationRecord.addedNodes);
-
         // Check if xpath already exists in the mutatedTargets
         for (i = 0, len = mutatedTargets.length; i < len; i += 1) {
             target = mutatedTargets[i];
@@ -7502,10 +6501,8 @@ DCX.addService("domCapture", function (core) {
                         }
                     }
                 }
-
                 target.removedNodes += xpath.removedNodes;
                 target.addedNodes.concat(xpath.addedNodes);
-
                 // Remove the target xpath entry if there are no mutations to keep track of.
                 if (!target.removedNodes && !target.addedNodes.length) {
                     isParent = false;
@@ -7515,27 +6512,22 @@ DCX.addService("domCapture", function (core) {
                             break;
                         }
                     }
-
                     if (!isParent) {
                         mutatedTargets.splice(i, 1);
                         retVal = -1;
                     }
                 }
-
                 found = true;
                 break;
             }
         }
-
         if (!found) {
             // Add a new entry to the mutatedTargets list
             mutatedTargets.push(xpath);
             retVal = 1;
         }
-
         return retVal;
     }
-
     /**
      * Checks if the node is a child of existing nodes that have been added.
      * @private
@@ -7550,7 +6542,6 @@ DCX.addService("domCapture", function (core) {
             found = false,
             mutatedNodes,
             target;
-
         for (i = 0, len = mutatedTargets.length; !found && i < len; i += 1) {
             target = mutatedTargets[i];
             if (xpath.containedIn(target)) {
@@ -7567,44 +6558,8 @@ DCX.addService("domCapture", function (core) {
                 }
             }
         }
-
         return found;
     }
-
-    // Checks if password type is changed from password to text
-    function isPasswordAtrributeChanged(mutationRecord) {
-        // Attribute name
-        var attributeName = mutationRecord.attributeName;
-        // Returns true if attribute name is "type", oldvalue of type = "password" and new values is "text"
-        return attributeName === "type" 
-            && mutationRecord.oldValue === 'password' && mutationRecord.target[attributeName] === 'text'
-    }
-
-    // Sets attribute dcxPasswordVisibility to input where type is changed from password to text (Show / hide password)
-    function setPasswordVisibilityAttribute(mutationRecord) {
-        // Get config
-        var configService = core.getService("config"),
-        // Get dom capture service configuration
-        dcService = configService.getServiceConfig("domCapture");
-
-        // If disablePasswordVisibility is true
-        if (dcService && dcService.options.disablePasswordVisibility) {
-            // Set attribute dcxPasswordVisibility to true
-            mutationRecord.target.setAttribute('dcxPasswordVisibility', true);
-        }
-    }
-
-    // Detect change of atrribute
-    function onPasswordAttributeChange(mutationRecord) {
-        // is type attribute changed from password to text
-        var isChanged = isPasswordAtrributeChanged(mutationRecord);
-        // If changed
-        if (isChanged) {
-            // Set dcxPasswordVisibility
-            setPasswordVisibilityAttribute(mutationRecord);
-        }
-    }
-
     /**
      * Adds the attribute mutation to the list of mutated attribute targets.
      * @private
@@ -7620,17 +6575,7 @@ DCX.addService("domCapture", function (core) {
             found,
             target = null,
             retVal = 0;
-
         attributeName = mutationRecord.attributeName;
-
-        // If password type is changed from password to text
-        if (isPasswordAtrributeChanged(mutationRecord)) {
-            // If disablePasswordVisibility configuration is enabled, set dcxPasswordVisibility attribute.
-            setPasswordVisibilityAttribute(mutationRecord);
-            // Return val
-            return retVal;
-        }
-
         // If the attribute is "checked" or "selected" then ignore if element is privacy masked
         if (attributeName === "checked" || attributeName === "selected") {
             target = browserBaseService.ElementData.prototype.examineID(mutationRecord.target);
@@ -7639,7 +6584,6 @@ DCX.addService("domCapture", function (core) {
             }
             target = null;
         }
-
         // If the attribute is "value" check if privacy masking needs to be applied
         if (attributeName === "value") {
             target = browserBaseService.ElementData.prototype.examineID(mutationRecord.target);
@@ -7650,7 +6594,6 @@ DCX.addService("domCapture", function (core) {
                 target = null;
             }
         }
-
         xpath.attributes = [
             {
                 name: attributeName,
@@ -7659,12 +6602,10 @@ DCX.addService("domCapture", function (core) {
                 value: target ? target.currState.value : mutationRecord.target.getAttribute(attributeName)
             }
         ];
-
         currAttributes = xpath.attributes[0];
         if (currAttributes.oldValue === currAttributes.value) {
             return retVal;
         }
-
         // Check if xpath already exists in the mutatedAttrTargets
         for (i = 0, len = mutatedAttrTargets.length, found = false; i < len; i += 1) {
             target = mutatedAttrTargets[i];
@@ -7686,7 +6627,6 @@ DCX.addService("domCapture", function (core) {
                 break;
             }
         }
-
         if (!found && !isNodePartOfMutatedTargets(xpath, mutationRecord.target)) {
             // Add a new entry to the mutatedAttrTargets list
             mutatedAttrTargets.push(xpath);
@@ -7694,7 +6634,6 @@ DCX.addService("domCapture", function (core) {
         }
         return retVal;
     }
-
     /**
      * Process DOM mutation records.
      * @param {object} records
@@ -7705,17 +6644,14 @@ DCX.addService("domCapture", function (core) {
             fullXpathList,
             record,
             xpath;
-
         if (!records || !records.length) {
             return;
         }
-
         // No need to process records for a full DOM snapshot.
         if (forceFullDOM) {
             mutationCount += records.length;
             return;
         }
-
         // Process each record as per it's type
         for (i = 0, len = records.length; i < len && mutationCount < mutationThreshold; i += 1) {
             record = records[i];
@@ -7740,7 +6676,6 @@ DCX.addService("domCapture", function (core) {
                 }
             }
         }
-
         // Check if mutationCount exceeds safety threshold
         if (mutationCount >= mutationThreshold) {
             forceFullDOM = true;
@@ -7748,51 +6683,6 @@ DCX.addService("domCapture", function (core) {
             mutationCount += len - i;
         }
     }
-
-    // Initialize custom observer
-    function initCustomDomObserver() {
-        var observer;
-        var i,
-            len,
-            fullXpathList,
-            record,
-            xpath;
-        
-        observer = new window.MutationObserver(function (records) {
-            if (records) {
-                // If no records, returm
-                if (!records || !records.length) {
-                    return;
-                }
-                // Process each record as per it's type
-                for (i = 0, len = records.length; i < len && mutationCount < mutationThreshold; i += 1) {
-                    record = records[i];
-                    // calculate xpath of the target element
-                    xpath = new browserBaseService.Xpath(record.target);
-                    if (xpath) {
-                        // Full xpath
-                        fullXpathList = xpath.fullXpathList;
-                        // If has html
-                        if (fullXpathList.length && fullXpathList[0][0] === "html") {
-                            switch (record.type) {
-                                // record.type = attribute
-                                case "attributes":
-                                    // Check if input type is changed from password to text
-                                    onPasswordAttributeChange(record);
-                                    break;
-                                default:
-                                    // utils.clog("Unknown mutation type: " + record.type);
-                                    break;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-
-        return observer;
-    }
-
     /**
      * Initialize the DOM Mutation Observer.
      * @private
@@ -7800,17 +6690,14 @@ DCX.addService("domCapture", function (core) {
      */
     function initDOMDiffObserver() {
         var observer;
-
         observer = new window.MutationObserver(function (records) {
             if (records) {
                 processMutationRecords(records);
                 utils.clog("Processed [" + records.length + "] mutation records.");
             }
         });
-
         return observer;
     }
-
     /**
      * Initialization of the service. Subscribe with config service for
      * the configupdated message.
@@ -7824,16 +6711,12 @@ DCX.addService("domCapture", function (core) {
             event,
             eventList,
             coreConfig = configService.getCoreConfig();
-
         configService.subscribe("configupdated", updateConfig);
         messageService = core.getService("message");
-
         dcServiceConfig = config;
         dcServiceConfig.options = utils.mixin({}, dcDefaultOptions, dcServiceConfig.options);
-
         diffEnabled = diffEnabled && utils.getValue(dcServiceConfig, "diffEnabled", true);
         mutationThreshold = utils.getValue(dcServiceConfig.options, "maxMutations", 100);
-
         if (diffEnabled) {
             // Initialize DOM Diff observer
             diffObserverConfig = utils.getValue(dcServiceConfig, "diffObserverConfig", defaultDiffObserverConfig);
@@ -7841,17 +6724,6 @@ DCX.addService("domCapture", function (core) {
             // Add the main window to be observed.
             observedWindowList.push(window);
         }
-
-        // custom observer initiazed fro show hide password privacy masking.
-        // If diffenabled is disabled (which will be rare case), and if disablePasswordVisibility is set to true,
-        // initiaze custom dom observer
-        if (!diffEnabled && dcServiceConfig.options.disablePasswordVisibility) {
-            // Initialize DOM Custom observer
-            customObserverConfig = utils.getValue(dcServiceConfig, "customObserverConfig", defaultCustomObserverConfig);
-            customObserver = initCustomDomObserver();
-            observedWindowList.push(window);
-        }
-
         // Populate the shadowEventList
         for (module in coreConfig.modules) {
             if (coreConfig.modules.hasOwnProperty(module)) {
@@ -7866,10 +6738,8 @@ DCX.addService("domCapture", function (core) {
                 }
             }
         }
-
         isInitialized = true;
     }
-
     /**
      * Destroy the service. Unsubscribe from the configupdated message.
      * @private
@@ -7880,12 +6750,8 @@ DCX.addService("domCapture", function (core) {
         if (diffObserver) {
             diffObserver.disconnect();
         }
-        if (customObserver) {
-            customObserver.disconnect();
-        }
         isInitialized = false;
     }
-
     /**
      * Returns a unique identifier string.
      * @private
@@ -7894,12 +6760,9 @@ DCX.addService("domCapture", function (core) {
      */
     function getUniqueID() {
         var id;
-
         id = "tlt-" + utils.getSerialNumber();
-
         return id;
     }
-
     /**
      * Get all child nodes matching the tag name from the node
      * @private
@@ -7916,17 +6779,14 @@ DCX.addService("domCapture", function (core) {
             nodeList,
             tag,
             tagList = [];
-
         // Sanity check
         if (!node || !node.getElementsByTagName || !tagName) {
             return tagList;
         }
-
         if (attribute && attribute.length === 2) {
             attrName = attribute[0];
             attrValue = attribute[1];
         }
-
         nodeList = node.getElementsByTagName(tagName);
         if (nodeList && nodeList.length) {
             for (i = nodeList.length - 1; i >= 0; i -= 1) {
@@ -7940,10 +6800,8 @@ DCX.addService("domCapture", function (core) {
                 }
             }
         }
-
         return tagList;
     }
-
     /**
      * Remove child nodes matching the tag name from the node.
      * @private
@@ -7959,17 +6817,14 @@ DCX.addService("domCapture", function (core) {
             attrValue,
             nodeList,
             tag;
-
         // Sanity check
         if (!node || !node.getElementsByTagName || !tagName) {
             return;
         }
-
         if (attribute && attribute.length === 2) {
             attrName = attribute[0];
             attrValue = attribute[1];
         }
-
         nodeList = node.getElementsByTagName(tagName);
         if (nodeList && nodeList.length) {
             for (i = nodeList.length - 1; i >= 0; i -= 1) {
@@ -7983,10 +6838,8 @@ DCX.addService("domCapture", function (core) {
                 }
             }
         }
-
         return node;
     }
-
     /**
      * Remove base64 nodes which has size larger than the limit
      * @private
@@ -8000,7 +6853,6 @@ DCX.addService("domCapture", function (core) {
             tag,
             tagList = getTagList(node, "img"),
             pattern64 = new RegExp("^data:image\/(.*?);base64");
-
         for (i = 0; i < tagList.length; i++) {
             tag = tagList[i];
             if (pattern64.test(tag.src) && (tag.src.length > sizeLimit)) {
@@ -8008,10 +6860,8 @@ DCX.addService("domCapture", function (core) {
                 tag.setAttribute("removedByDCX", true);
             }
         }
-
         return node;
     }
-
     /**
      * Remove child nodes matching the nodeType from the node.
      * @private
@@ -8024,7 +6874,6 @@ DCX.addService("domCapture", function (core) {
     function removeNodes(node, nodeType) {
         var i,
             child;
-
         for (i = 0; node.hasChildNodes() && i < node.childNodes.length; i += 1) {
             child = node.childNodes[i];
             if (child.nodeType === nodeType) {
@@ -8036,10 +6885,8 @@ DCX.addService("domCapture", function (core) {
                 removeNodes(child, nodeType);
             }
         }
-
         return node;
     }
-
     /**
      * Remove child nodes matching the tagName from the node.
      * @private
@@ -8068,7 +6915,6 @@ DCX.addService("domCapture", function (core) {
             }
         return node;
     }
-
     /**
      * Returns the DOCTYPE of the document as a formatted string.
      * @private
@@ -8079,12 +6925,10 @@ DCX.addService("domCapture", function (core) {
     function getDoctypeAsString(node) {
         var doctype,
             doctypeStr = null;
-
         // Sanity check
         if (!node || !node.doctype) {
             return null;
         }
-
         doctype = node.doctype;
         if (doctype) {
             doctypeStr = "<!DOCTYPE " + doctype.name +
@@ -8093,10 +6937,8 @@ DCX.addService("domCapture", function (core) {
                          (doctype.systemId ? ' "' + doctype.systemId + '"' : "") +
                          ">";
         }
-
         return doctypeStr;
     }
-
     /**
      * Fix child input nodes and set attributes such as value & checked.
      * @private
@@ -8111,12 +6953,10 @@ DCX.addService("domCapture", function (core) {
             sourceInputList,
             targetInputList,
             len;
-
         // Sanity check
         if (!target) {
             return;
         }
-
         sourceInputList = source.getElementsByTagName("input");
         targetInputList = target.getElementsByTagName("input");
         if (targetInputList) {
@@ -8144,7 +6984,6 @@ DCX.addService("domCapture", function (core) {
             }
         }
     }
-
     /**
      * Set the value attribute of the child textarea nodes.
      * @private
@@ -8159,15 +6998,12 @@ DCX.addService("domCapture", function (core) {
             sourceTextareaList,
             targetTextareaElement,
             targetTextareaList;
-
         // Sanity check
         if (!source || !source.getElementsByTagName || !target || !target.getElementsByTagName) {
             return;
         }
-
         sourceTextareaList = source.getElementsByTagName("textarea");
         targetTextareaList = target.getElementsByTagName("textarea");
-
         if (sourceTextareaList && targetTextareaList) {
             for (i = 0, len = sourceTextareaList.length; i < len; i += 1) {
                 sourceTextareaElement = sourceTextareaList[i];
@@ -8177,7 +7013,6 @@ DCX.addService("domCapture", function (core) {
             }
         }
     }
-
     /**
      * Fix the child select lists by setting the selected attribute on the option elements of
      * the lists in the target node.
@@ -8194,17 +7029,13 @@ DCX.addService("domCapture", function (core) {
             i,
             j,
             len;
-
         // Sanity check
         if (!source || !source.getElementsByTagName || !target || !target.getElementsByTagName) {
             return;
         }
-
         sourceList = source.getElementsByTagName("select");
         targetList = target.getElementsByTagName("select");
-
         // TODO: ASSERT source and target nodes have same order of select elements
-
         if (sourceList) {
             for (i = 0, len = sourceList.length; i < len; i += 1) {
                 sourceElem = sourceList[i];
@@ -8219,7 +7050,6 @@ DCX.addService("domCapture", function (core) {
             }
         }
     }
-
     /**
      * Return the outer HTML of the document or element.
      * @private
@@ -8231,7 +7061,6 @@ DCX.addService("domCapture", function (core) {
     function getHTMLText(node) {
         var nodeType,
             htmlText = null;
-
         if (node) {
             nodeType = node.nodeType || -1;
             switch (nodeType) {
@@ -8254,7 +7083,6 @@ DCX.addService("domCapture", function (core) {
         }
         return htmlText;
     }
-
     /**
      * Checks if the DOM node is allowed for capture. Only document and element
      * node types are allowed for capture.
@@ -8266,7 +7094,6 @@ DCX.addService("domCapture", function (core) {
     function isNodeValidForCapture(node) {
         var nodeType,
             valid = false;
-
         // Only DOCUMENT (9) & ELEMENT (1) nodes are valid for capturing
         if (node && typeof node === "object") {
             nodeType = node.nodeType || -1;
@@ -8282,7 +7109,6 @@ DCX.addService("domCapture", function (core) {
         }
         return valid;
     }
-
     /**
      * Capture the frames from the source and add the unique token to the frame element
      * in the target.
@@ -8310,17 +7136,14 @@ DCX.addService("domCapture", function (core) {
             sourceIframeList,
             targetIframeList,
             urlInfo;
-
         for (j = 0; j < frameTags.length; j += 1) {
             frameTag = frameTags[j];
             // Get the frames in the original DOM
             sourceIframeList = source.getElementsByTagName(frameTag);
-
             // Get the cloned frames - the content is not copied here - these will be
             // used to add an attribute to specify which item in the frames collection
             // contains the content for this frame
             targetIframeList = target.getElementsByTagName(frameTag);
-
             if (sourceIframeList) {
                 for (i = 0, len = sourceIframeList.length; i < len; i += 1) {
                     try {
@@ -8328,33 +7151,26 @@ DCX.addService("domCapture", function (core) {
                         iframeWindow = utils.getIFrameWindow(sourceIframe);
                         if (iframeWindow && iframeWindow.document && iframeWindow.location.href !== "about:blank") {
                             iframeDoc = iframeWindow.document;
-
                             iframeCapture = getDOMCapture(iframeDoc, iframeDoc, "", options);
                             iframeID = getUniqueID();
-
                             // Set the tltid for this frame in the target DOM
                             targetIframeList[i].setAttribute("tltid", iframeID);
                             iframeCapture.tltid = iframeID;
-
                             // Add the host and url path
                             urlInfo = utils.getOriginAndPath(iframeDoc.location);
                             iframeCapture.host = urlInfo.origin;
                             iframeCapture.url = urlInfo.path;
-
                             // Add the charset
                             iframeCapture.charset = iframeDoc.characterSet || iframeDoc.charset;
-
                             // Set the src attribute on the frame tag if one doesn't already exist (to aid replay)
                             iframeSrc = targetIframeList[i].getAttribute("src");
                             if (!iframeSrc) {
                                 iframeSrc = iframeWindow.location.href;
                                 targetIframeList[i].setAttribute("src", iframeSrc);
                             }
-
                             // Merge this frame's captured DOM into the return object
                             returnObject.frames = returnObject.frames.concat(iframeCapture.frames);
                             delete iframeCapture.frames;
-
                             returnObject.frames.push(iframeCapture);
                         }
                     } catch (e) {
@@ -8365,7 +7181,6 @@ DCX.addService("domCapture", function (core) {
         }
         return returnObject;
     }
-
     /**
      * Attach event listeners identified in the shadowEventList to the shadowRoot.
      * @private
@@ -8375,7 +7190,6 @@ DCX.addService("domCapture", function (core) {
     function attachEventListeners(root) {
         var i, len,
             event;
-
         root.DCXListeners = root.DCXListeners || {};
         for (i = 0, len = shadowEventList.length; i < len; i += 1) {
             event = shadowEventList[i];
@@ -8385,7 +7199,6 @@ DCX.addService("domCapture", function (core) {
             }
         }
     }
-
     /**
      * Capture Shadow DOM trees from the source and add the unique token to the host element
      * in the target.
@@ -8406,18 +7219,15 @@ DCX.addService("domCapture", function (core) {
             returnObject = {
                 shadows: []
             };
-
         // Sanity check
         if (!source || (!thisSource && !source.children)) {
             return returnObject;
         }
-
         if (thisSource) {
             elements = [ source ];
         } else {
             elements = source.children;
         }
-
         for (i = 0, len = elements.length; i < len; i += 1) {
             element = elements[i];
             if (element.shadowRoot) {
@@ -8428,7 +7238,6 @@ DCX.addService("domCapture", function (core) {
                     xpath: hostXpath.xpath
                 });
                 returnObject.shadows = returnObject.shadows.concat(captures.shadows);
-
                 // Attach event listeners
                 attachEventListeners(element.shadowRoot);
                 // Observe Diffs
@@ -8442,26 +7251,12 @@ DCX.addService("domCapture", function (core) {
                         }
                     } catch (e) { }
                 }
-
-                // If diffenabled set to false and disablePasswordVisibility is set to true
-                if (!diffEnabled && options.disablePasswordVisibility) {
-                    try {
-                        // Observe changes
-                        customObserver.observe(element.shadowRoot, customObserverConfig);
-                        element.shadowRoot.DCXListeners.mutation = true;
-                        // Add element to list of observed Shadow hosts.
-                        if (utils.indexOf(observedShadowHostList, element) === -1) {
-                            observedShadowHostList.push(element);
-                        }
-                    } catch (e) { }
-                }
             }
             captures = getShadowDOM(element, null, options);
             returnObject.shadows = returnObject.shadows.concat(captures.shadows);
         }
         return returnObject;
     }
-
     /**
      * Calculate the total length of the HTML in the captured object.
      * @private
@@ -8476,11 +7271,9 @@ DCX.addService("domCapture", function (core) {
             attrRecord,
             diffRecord,
             totalLength = 0;
-
         if (!captureObj) {
             return totalLength;
         }
-
         if (captureObj.root) {
             totalLength += captureObj.root.length;
             if (captureObj.frames) {
@@ -8507,10 +7300,8 @@ DCX.addService("domCapture", function (core) {
                 }
             }
         }
-
         return totalLength;
     }
-
     /**
      * Consolidates the DOM node mutation records and attribute mutation records. Removes
      * any attribute mutation records that are contained within any mutated target.
@@ -8521,7 +7312,6 @@ DCX.addService("domCapture", function (core) {
         var i, j,
             len,
             parentTarget;
-
         for (i = 0, len = mutatedTargets.length; i < len && mutatedAttrTargets.length; i += 1) {
             parentTarget = mutatedTargets[i];
             // Search and eliminate any possible children contained within the parent
@@ -8536,19 +7326,15 @@ DCX.addService("domCapture", function (core) {
             }
         }
     }
-
     function enumerateUntrackedShadows(node) {
         var i, len,
             element,
             elements,
             shadowList = [];
-
         if (!node || !node.children) {
             return shadowList;
         }
-
         elements = node.children;
-
         for (i = 0, len = elements.length; i < len; i += 1) {
             element = elements[i];
             if (element.shadowRoot) {
@@ -8561,22 +7347,18 @@ DCX.addService("domCapture", function (core) {
         }
         return shadowList;
     }
-
     function getUntrackedShadows(doc, options) {
         var i, len,
             shadows,
             retObj,
             untrackedShadowList;
-
         // Sanity check
         if (!doc || !options) {
             return;
         }
-
         if (!options.captureShadowDOM) {
             return;
         }
-
         untrackedShadowList = enumerateUntrackedShadows(doc, options);
         for (i = 0, len = untrackedShadowList.length, shadows = []; i < len; i += 1) {
             retObj = getShadowDOM(untrackedShadowList[i][0], null, options, true);
@@ -8584,8 +7366,6 @@ DCX.addService("domCapture", function (core) {
         }
         return shadows;
     }
-
-
     /**
      * Capture the full DOM starting at the root element as per the provided configuration options.
      * @private
@@ -8600,25 +7380,18 @@ DCX.addService("domCapture", function (core) {
             shadowRoots,
             startTime,
             endTime;
-
-
         captureObj = getDOMCapture(doc, doc, null, options);
         if (!captureObj) {
             captureObj = {};
         }
-
-
         // Set the document charset
         captureObj.charset = doc.characterSet || doc.charset;
-
         // Add the host and url path
         urlInfo = utils.getOriginAndPath(doc.location);
         captureObj.host = urlInfo.origin;
         captureObj.url = urlInfo.path;
-
         return captureObj;
     }
-
     /**
      * Returns the DOM Diff object based on the consolidated mutation records. The Diff object
      * consists of the serialized HTML of added/removed nodes along with any attribute changes
@@ -8645,26 +7418,21 @@ DCX.addService("domCapture", function (core) {
             targetXpath,
             attributes,
             pattern64 = new RegExp("^data:image\/(.*?);base64");
-
         // Consolidate the DOM Node mutations
         consolidateTargets(mutatedTargets);
         // Consolidate the DOM Node mutations with the attribute mutations
         consolidateMutationsWithAttributeChanges();
-
         // Do not capture full Shadow DOM as part of the diff, any untracked Shadow roots will be captured subsequently
         captureShadowDOM = options.captureShadowDOM;
         options.captureShadowDOM = false;
-
         // Add the DOM Node mutations
         for (i = 0, len = mutatedTargets.length; i < len; i += 1) {
             targetXpath = mutatedTargets[i];
             target = browserBaseService.getNodeFromID(targetXpath.xpath, -2);
-
             if (!target) {
                 // Target element no longer exists in the DOM, skip it.
                 continue;
             }
-
             // If the target xpath is pointing to a shadow host
             if (targetXpath.isShadowHost) {
                 target = target.shadowRoot;
@@ -8673,7 +7441,6 @@ DCX.addService("domCapture", function (core) {
                     continue;
                 }
             }
-
             if (target === window.document.body || target === window.document.documentElement) {
                 // If diff includes the document body, then send the full DOM instead.
                 options.captureShadowDOM = captureShadowDOM;
@@ -8690,7 +7457,6 @@ DCX.addService("domCapture", function (core) {
             diff.xpath = targetXpath.xpath;
             returnObj.diffs.push(diff);
         }
-
         // Helper function to add attribute diffs.
         function addAttributeDiffs(attribute, index) {
             // Sanity check
@@ -8699,13 +7465,11 @@ DCX.addService("domCapture", function (core) {
             }
             returnObj.attributeDiffs[diff.xpath][attribute.name] = { value: attribute.value };
         }
-
         // Helper function to remove base64 src string
         function removeBase64SrcValue(attrList) {
             var j,
                 attr,
                 attrListLen;
-
             for (j = 0, attrListLen = attrList.length; j < attrListLen; j += 1) {
                 attr = attrList[j];
                 if (attr.name === "src" && pattern64.test(attr.value) && attr.value.length > options.removeBase64) {
@@ -8717,10 +7481,8 @@ DCX.addService("domCapture", function (core) {
                     break;
                 }
             }
-
             return attrList;
         }
-
         // Add the attribute mutations
         for (i = 0, len = mutatedAttrTargets.length; i < len; i += 1) {
             targetXpath = mutatedAttrTargets[i];
@@ -8731,35 +7493,29 @@ DCX.addService("domCapture", function (core) {
                 targetXpath.xpath = oldXpath.xpath;
             }
             attributes = removeOldAttrValues(targetXpath.attributes);
-
             if (options.hasOwnProperty("removeBase64")) {
                 target = browserBaseService.getNodeFromID(targetXpath.xpath, -2);
                 if (target && target.tagName.toLowerCase() === "img" && attributes) {
                     attributes = removeBase64SrcValue(attributes);
                 }
             }
-
             diff = {
                 xpath: targetXpath.xpath,
                 attributes: attributes
             };
             returnObj.diffs.push(diff);
-
             // Add to the attributeDiffs object
             returnObj.attributeDiffs[diff.xpath] = {};
             utils.forEach(diff.attributes, addAttributeDiffs);
         }
-
         // Add newly created Shadow DOM roots not being tracked
         options.captureShadowDOM = captureShadowDOM;
         untrackedShadows = getUntrackedShadows(window.document, options);
         if (untrackedShadows && untrackedShadows.length) {
             returnObj.shadows = untrackedShadows;
         }
-
         return returnObj;
     }
-
     /**
      * Clone the provided document or element node.
      * @private
@@ -8769,24 +7525,20 @@ DCX.addService("domCapture", function (core) {
      */
     dupNode = function (node) {
         var dup = null;
-
         if (isNodeValidForCapture(node)) {
             // removing elements which need not to be captured.
             var doNotCaptureElementsList = core.getCoreConfig().doNotCaptureElements || {};
             for (var i = doNotCaptureElementsList.length - 1; i >= 0; i -= 1) {
             removeElementsByTagNames(node, doNotCaptureElementsList[i]);
             }
-
             dup = node.cloneNode(true);
             if (!dup && node.documentElement) {
                 // Fix for Android and Safari bug which returns null when cloneNode is called on the document element.
                 dup = node.documentElement.cloneNode(true);
             }
         }
-
         return dup;
     };
-
     /**
      * Capture the DOM starting at the root element as per the provided configuration options.
      * This function makes a copy of the root element and then applies various modifications to
@@ -8810,12 +7562,10 @@ DCX.addService("domCapture", function (core) {
             captureObj = {},
             serializedDOM,
             urlInfo;
-
         // Sanity check
         if (!doc || !root) {
             return captureObj;
         }
-
         // Make a copy of the root because we will be modifying it.
         rootCopy = dupNode(root, doc);
         if (!rootCopy && root.host) {
@@ -8825,86 +7575,46 @@ DCX.addService("domCapture", function (core) {
             // Could not copy the root node
             return captureObj;
         }
-
         if (cloned) {
             // Remove script tags
             if (!!options.removeScripts) {
                 removeTags(rootCopy, "script");
                 removeTags(rootCopy, "noscript");
             }
-
             // Remove link imports
             if (!options.keepImports) {
                 removeTags(rootCopy, "link", ["rel", "import"]);
             }
-
             // Remove comment nodes
             if (!!options.removeComments) {
                 removeNodes(rootCopy, 8);
             }
-
             // Remove inline style
             if (!options.captureStyle) {
                 removeTags(rootCopy, "style");
             }
-
-            // Add computed browser styles // Core Mod for JSS
-            if (typeof rootCopy === 'object' && (typeof rootCopy.createElement === 'function') && options.captureJSS) {
-                var length = document.styleSheets.length;
-                var CSS="";
-                for (var i = 0; i < length; i++) {
-                    try {
-                        var subLength = document.styleSheets[i].cssRules.length;
-                        for (var j = 0; j < subLength; j++) {
-                            CSS = CSS+" "+document.styleSheets[i].cssRules[j].cssText;
-                        };
-                    } catch (error) {}
-                };
-                var style = rootCopy.createElement("style");
-				
-				if(options.customStyle) {
-                    CSS = CSS + options.customStyle;
-                }
-				
-                style.setAttribute("added_by", "HCL DISCOVER JSS Style Capture");
-                style.innerHTML = CSS;
-                rootCopy.getElementsByTagName('head')[0].appendChild(style);
-                
-                // Capture original CSS size using  length prop in origCSSsize
-                if (typeof DCX !== "undefined" && length) {
-                    captureObj["origCSSsize"] = CSS.length;
-                };
-            };
-
             // Remove base64 images, set "removeBase64: 0" to discard ALL base64 images
             if (options.hasOwnProperty("removeBase64")) {
                 removeBase64Src(rootCopy, options.removeBase64);
             }
-
             // Set "selected" attribute on select list elements
             fixSelectLists(root, rootCopy);
-
             // Set attributes on input elements.
             fixInputs(root, rootCopy);
-
             // Set attributes on textarea elements.
             fixTextareas(root, rootCopy);
-
             // Apply privacy
             rootCopy = messageService.applyPrivacyToNode(rootCopy, rootXpath, doc);
-
             // Optionally capture any frames
             if (!!options.captureFrames) {
                 // Get the iframes
                 frameCaptureObj = getFrames(root, rootCopy, options);
             }
         }
-
         // Capture any shadow DOM trees
         if (!!options.captureShadowDOM) {
             shadowDOMObj = getShadowDOM(root, rootCopy, options);
         }
-
         // Add all the captured data to the capture object
         if (frameCaptureObj) {
             captureObj = utils.mixin(captureObj, frameCaptureObj);
@@ -8912,15 +7622,11 @@ DCX.addService("domCapture", function (core) {
         if (shadowDOMObj) {
             captureObj = utils.mixin(captureObj, shadowDOMObj);
         }
-
         serializedDOM = (getDoctypeAsString(root) || "") + getHTMLText(rootCopy || root);
-
         // Apply privacy patterns to the serialized DOM
         captureObj.root = messageService.applyPrivacyPatterns(serializedDOM);
-
         return captureObj;
     };
-
     /**
      * Callback function which receives notification from config service when
      * the configuration is updated.
@@ -8932,7 +7638,6 @@ DCX.addService("domCapture", function (core) {
         // TODO: reinit only if config changed.
         initDOMCaptureService(configService.getServiceConfig("domCapture") || {});
     };
-
     /**
      * @scope domCaptureService
      */
@@ -8949,7 +7654,6 @@ DCX.addService("domCapture", function (core) {
             } else {
             }
         },
-
         /**
          * Callback function invoked by the core to destroy the DOM Capture service.
          * @private
@@ -8958,7 +7662,6 @@ DCX.addService("domCapture", function (core) {
         destroy: function () {
             destroyDOMCaptureService();
         },
-
         /**
          * Adds the specified window object to the list of windows to be observed.
          * @param  {DOMWindow} win The window object to be added.
@@ -8966,21 +7669,17 @@ DCX.addService("domCapture", function (core) {
         observeWindow: function (win) {
             var i,
                 len;
-
             if (!win) {
                 return;
             }
-
             if (!utils.getValue(dcServiceConfig, "options.captureFrames", false) && !(win === window)) {
                 // Do not observe any frame/iframe windows if the option is not enabled
                 return;
             }
-
             if (utils.indexOf(observedWindowList, win) === -1) {
                 observedWindowList.push(win);
             }
         },
-
         /**
          * API function exposed by the DOM Capture service. Accepts the root element and
          * DOM capture options object.
@@ -8994,37 +7693,25 @@ DCX.addService("domCapture", function (core) {
                 captureObj = null,
                 observedWindow,
                 totalLength = 0;
-
             // Sanity check - DOM Capture is not supported on IE 8 and below
             if (!isInitialized || utils.isLegacyIE) {
                 return captureObj;
             }
-
             // Merge user configured options with built-in configuration options
             options = utils.mixin({}, dcServiceConfig.options, options);
-
             root = root || window.document;
-
             if (!fullDOMSent || !diffEnabled || forceFullDOM || options.forceFullDOM) {
                 if (diffObserver) {
                     // Stop observing
                     diffObserver.disconnect();
                 }
-
-                if (customObserver) {
-                    // Stop observing
-                    customObserver.disconnect();
-                }
                 // Capture full DOM
                 captureObj = getFullDOM(root, options);
-
                 // Set flags indicating this is a fullDOM and if it was forced.
                 captureObj.fullDOM = true;
                 captureObj.forced = !!(forceFullDOM || options.forceFullDOM);
-
                 // Remember a full DOM has been sent for later.
                 fullDOMSent = true;
-
                 if (diffObserver) {
                     // Start observing for diffs from the recently captured full DOM
                     for (i = 0, len = observedWindowList.length; i < len; i += 1) {
@@ -9039,37 +7726,17 @@ DCX.addService("domCapture", function (core) {
                         }
                     }
                 }
-
-                // If custom observer
-                if (customObserver) {
-                    // Start observing
-                    for (i = 0, len = observedWindowList.length; i < len; i += 1) {
-                        observedWindow = observedWindowList[i];
-                        try {
-                            // Observe
-                            customObserver.observe(observedWindow.document, customObserverConfig);
-                        } catch (e) {
-                            // The observed window is no longer valid.
-                            observedWindowList.splice(i, 1);
-                            len = observedWindowList.length;
-                            i -= 1;
-                        }
-                    }
-                }
             } else {
                 captureObj = getDOMDiff(options);
                 // Set fullDOM to false or true depending on if diffs are present
                 captureObj.fullDOM = (captureObj.diffs || captureObj.shadows) ? false : true;
             }
-
             if (diffEnabled) {
                 // Add the number of mutations that were processed.
                 captureObj.mutationCount = mutationCount;
             }
-
             // Clean the slate of any mutation records.
             clearMutationRecords();
-
             // Check if the capture meets the length threshold (if any)
             if (options.maxLength) {
                 totalLength = getCapturedLength(captureObj);
@@ -9080,20 +7747,16 @@ DCX.addService("domCapture", function (core) {
                     };
                 }
             }
-
             // Record original DOM size before manipulation/compression
             if (captureObj.fullDOM) {
                 captureObj.origDOMSize = totalLength;
             } else {
                 captureObj.origDiffSize = totalLength;
             }
-
             return captureObj;
         }
     };
-
 });
-
 /*
  *  **************************************************************************
  *  Licensed Materials - Property of HCL
@@ -9102,27 +7765,22 @@ DCX.addService("domCapture", function (core) {
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  */
-
 /**
  * @fileOverview The EncoderService provides the ability to extend the library with various data encodings.
  * @exports encoderService
  */
-
 /*global DCX:true, window: true */
 /*global console: false */
-
 /**
  * @name encoderService
  * @namespace
  */
 DCX.addService("encoder", function (core) {
     "use strict";
-
     var encoderServiceConfig = {},
         configService = null,
         handleConfigUpdated = null,
         isInitialized = false;
-
     /**
      * Returns the encoder object for the specified encoder type.
      * @private
@@ -9132,7 +7790,6 @@ DCX.addService("encoder", function (core) {
      */
     function getEncoder(type) {
         var encoder = null;
-
         // Sanity check
         if (!type) {
             return encoder;
@@ -9141,10 +7798,8 @@ DCX.addService("encoder", function (core) {
         if (encoder && typeof encoder.encode === "string") {
             encoder.encode = core.utils.access(encoder.encode);
         }
-
         return encoder;
     }
-
     /**
      * Initializes the encoder service.
      * @private
@@ -9153,11 +7808,9 @@ DCX.addService("encoder", function (core) {
      */
     function initEncoderService(config) {
         encoderServiceConfig = config;
-
         configService.subscribe("configupdated", handleConfigUpdated);
         isInitialized = true;
     }
-
     /**
      * Destroys the encoder service.
      * @private
@@ -9165,10 +7818,8 @@ DCX.addService("encoder", function (core) {
      */
     function destroy() {
         configService.unsubscribe("configupdated", handleConfigUpdated);
-
         isInitialized = false;
     }
-
     /**
      * Callback handler for the configupdated event. Refreshes the service configuration to the latest.
      * @private
@@ -9179,12 +7830,10 @@ DCX.addService("encoder", function (core) {
         // TODO: reinit only if config changed.
         initEncoderService(configService.getServiceConfig("encoder") || {});
     };
-
     /**
      * @scope serializerService
      */
     return {
-
         init: function () {
             configService = core.getService("config");
             if (!isInitialized) {
@@ -9192,11 +7841,9 @@ DCX.addService("encoder", function (core) {
             } else {
             }
         },
-
         destroy: function () {
             destroy();
         },
-
         /**
          * Encodes data using specified encoder.
          * @param  {String} data The data to encode.
@@ -9211,26 +7858,22 @@ DCX.addService("encoder", function (core) {
                     encoding: null,
                     error: null
                 };
-
             // Sanity check
             if ((typeof data !== "string" && !data) || !type) {
                 returnObj.error = "Invalid " + (!data ? "data" : "type") + " parameter.";
                 return returnObj;
             }
-
             // Get the specified encoder
             encoder = getEncoder(type);
             if (!encoder) {
                 returnObj.error = "Specified encoder (" + type + ") not found.";
                 return returnObj;
             }
-
             // Sanity check
             if (typeof encoder.encode !== "function") {
                 returnObj.error = "Configured encoder (" + type + ") encode method is not a function.";
                 return returnObj;
             }
-
             try {
                 // Invoke the encode method of the encoder and return the result.
                 result = encoder.encode(data);
@@ -9238,19 +7881,15 @@ DCX.addService("encoder", function (core) {
                 returnObj.error = "Encoding failed: " + (e.name ? e.name + " - " : "") + e.message;
                 return returnObj;
             }
-
             if (!result || core.utils.getValue(result, "buffer", null) === null) {
                 returnObj.error = "Encoder (" + type + ") returned an invalid result.";
                 return returnObj;
             }
-
             returnObj.data = result.buffer;
             returnObj.encoding = encoder.defaultEncoding;
-
             return returnObj;
         }
     };
-
 });
 /*
  *  **************************************************************************
@@ -9260,21 +7899,17 @@ DCX.addService("encoder", function (core) {
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  */
-
 /**
  * @fileOverview The MessageService creates messages in the correct format to be transmitted to the server.
  * @exports messageService
  */
-
 /*global DCX:true */
-
 /**
  * @name messageService
  * @namespace
  */
 DCX.addService("message", function (core) {
     "use strict";
-
     var utils = core.utils,
         prevScreenviewOffsetTime = 0,
         screenviewOffsetTime = 0,
@@ -9296,7 +7931,6 @@ DCX.addService("message", function (core) {
             numeric: "9",
             symbol: "@"
         },
-
         devicePixelRatio = parseFloat((window.devicePixelRatio || 1).toFixed(2)),
         screen = window.screen || {},
         screenWidth = screen.width || 0,
@@ -9310,8 +7944,6 @@ DCX.addService("message", function (core) {
         startHeight = window.innerHeight || document.documentElement.clientHeight,
         isInitialized = false,
         shadowMessageCache = {};
-
-
     /**
      * Base structure for a message object.
      * @constructor
@@ -9322,10 +7954,8 @@ DCX.addService("message", function (core) {
     function Message(event) {
         var key = '',
             timestamp = event.timestamp || (new Date()).getTime();
-
         this.timestamp = timestamp; // Pass timestamp through for eventing
         delete event.timestamp;
-
         /**
          * The message type.
          * @type {Number}
@@ -9337,15 +7967,6 @@ DCX.addService("message", function (core) {
          * @type {Number}
          */
         this.offset        = timestamp - sessionStart.getTime();
-
-        /**
-         * The current ScreenView path.
-         * @type {string}
-         */
-        if(!event.screenview) {
-            this.screenViewPath = window.location.pathname;
-        }
-        
         this.screenviewOffset = 0;
         if (event.type === 2) {
             prevScreenviewOffsetTime = screenviewOffsetTime;
@@ -9360,24 +7981,20 @@ DCX.addService("message", function (core) {
              */
             this.screenviewOffset = timestamp - screenviewOffsetTime;
         }
-
         // If message type is 0 it is a dummy request to obtain current offsets.
         if (!this.type) {
             return;
         }
-
         /**
          * The count of the overall messages until now.
          * @type {Number}
          */
         this.count         = (messageCount += 1);
-
         /**
          * To indicate that user action came from the web.
          * @type {Boolean}
          */
         this.fromWeb       = true;
-
         // iterate over the properties in the queueEvent and add all the objects to the message.
         for (key in event) {
             if (event.hasOwnProperty(key)) {
@@ -9385,7 +8002,6 @@ DCX.addService("message", function (core) {
             }
         }
     }
-
     /**
      * Empty filter. Returns an empty string which would be used as value.
      * @param  {String} value The value of the input/control.
@@ -9394,7 +8010,6 @@ DCX.addService("message", function (core) {
     privacyMasks.PVC_MASK_EMPTY = function (value) {
         return "";
     };
-
     /**
      * Basic filter. Returns a predefined string for every value.
      * @param  {String} value The value of the input/control.
@@ -9402,14 +8017,12 @@ DCX.addService("message", function (core) {
      */
     privacyMasks.PVC_MASK_BASIC = function (value) {
         var retMask = "XXXXX";
-
         // Sanity check
         if (typeof value !== "string") {
             return "";
         }
         return (value.length ? retMask : "");
     };
-
     /**
      * Type filter. Returns predefined values for uppercase/lowercase
      *                         and numeric values.
@@ -9422,14 +8035,11 @@ DCX.addService("message", function (core) {
             i = 0,
             len = 0,
             retMask = "";
-
         // Sanity check
         if (typeof value !== "string") {
             return retMask;
         }
-
         characters = value.split("");
-
         for (i = 0, len = characters.length; i < len; i += 1) {
             if (utils.isNumeric(characters[i])) {
                 retMask += maskingCharacters.numeric;
@@ -9443,7 +8053,6 @@ DCX.addService("message", function (core) {
         }
         return retMask;
     };
-
     privacyMasks.PVC_MASK_EMPTY.maskType = 1; // reported value is empty string.
     privacyMasks.PVC_MASK_BASIC.maskType = 2; // reported value is fixed string "XXXXX".
     privacyMasks.PVC_MASK_TYPE.maskType = 3;  // reported value is a mask according to character type
@@ -9451,7 +8060,6 @@ DCX.addService("message", function (core) {
     privacyMasks.PVC_MASK_CUSTOM = {
         maskType: 4 // reported value is return value of custom function provided by config.
     };
-
     /**
      * Checks which mask should be used to replace the value and applies
      * it to the string. If an invalid mask is specified,
@@ -9461,12 +8069,10 @@ DCX.addService("message", function (core) {
      */
     function maskStr(mask, str) {
         var filter = privacyMasks.PVC_MASK_BASIC;
-
         // Sanity check
         if (typeof str !== "string") {
             return str;
         }
-
         if (!mask) {
             // Default
             filter = privacyMasks.PVC_MASK_BASIC;
@@ -9489,7 +8095,6 @@ DCX.addService("message", function (core) {
         }
         return filter(str);
     }
-
     /**
      * Checks which mask should be used to replace the value and applies
      * it on the message object. By default, if an invalid mask is specified,
@@ -9499,12 +8104,10 @@ DCX.addService("message", function (core) {
      */
     function applyMask(mask, state) {
         var prop;
-
         // Sanity check
         if (!mask || !state) {
             return;
         }
-
         for (prop in state) {
             if (state.hasOwnProperty(prop)) {
                 if (prop === "value") {
@@ -9517,7 +8120,6 @@ DCX.addService("message", function (core) {
             }
         }
     }
-
     /**
      * Checks whether one of the privacy targets matches the target
      * of the current message.
@@ -9530,7 +8132,6 @@ DCX.addService("message", function (core) {
     function matchesTarget(targets, target) {
         return (utils.matchTarget(targets, target) !== -1);
     }
-
     /**
      * Performs privacy pattern matching and replacement on the provided string.
      * @param {String} str Input string to which privacy pattern matching and
@@ -9543,22 +8144,17 @@ DCX.addService("message", function (core) {
             begin,
             duration,
             rule;
-
         // Sanity check
         if (!str) {
             return "";
         }
-
-
         for (i = 0, len = privacyPatterns.length; i < len; i += 1) {
             rule = privacyPatterns[i];
             rule.cRegex.lastIndex = 0;
             str = str.replace(rule.cRegex, rule.replacement);
         }
-
         return str;
     }
-
     /**
      * Runs through all privacy rules and checks if any rule matches the
      * target object. If yes, applies privacy mask to the target currState
@@ -9577,15 +8173,12 @@ DCX.addService("message", function (core) {
             maskApplied = false,
             prevState,
             currState;
-
         // Sanity check
         if (!target || (!target.currState && !target.prevState)) {
             return target;
         }
-
         prevState = target.prevState;
         currState = target.currState;
-
         for (i = 0, len = privacy.length; i < len; i += 1) {
             mask = privacy[i];
             exclude = utils.getValue(mask, "exclude", false);
@@ -9596,7 +8189,6 @@ DCX.addService("message", function (core) {
                 break;
             }
         }
-
         if (!maskApplied) {
             // Apply privacy patterns
             if (prevState && prevState.value) {
@@ -9606,10 +8198,8 @@ DCX.addService("message", function (core) {
                 currState.value = applyPrivacyPatterns(currState.value);
             }
         }
-
         return target;
     }
-
     /**
      * Runs through all the privacy rules and checks if any rule matches
      * the target of the message object.
@@ -9624,11 +8214,9 @@ DCX.addService("message", function (core) {
         if (!message || !message.target) {
             return message;
         }
-
         privacyFilter(message.target);
         return message;
     }
-
     /**
      * Replaces actual value attribute with a masked value as per the specified masking rule.
      * For select list elements it also sets the selectedIndex property to -1
@@ -9641,22 +8229,18 @@ DCX.addService("message", function (core) {
             len,
             maskedValue,
             option;
-
         // Sanity check
         if (!mask || !element) {
             return;
         }
-
         if (element.value) {
             maskedValue = maskStr(mask, element.value);
             element.setAttribute("value", maskedValue);
             element.value = maskedValue;
         }
-
         if (element.checked) {
             element.removeAttribute("checked");
         }
-
         // Special handling for select element
         if (utils.getTagName(element) === "select") {
             element.selectedIndex = -1;
@@ -9670,7 +8254,6 @@ DCX.addService("message", function (core) {
             element.textContent = element.value;
         }
     }
-
     /**
      * This function accepts a list of privacy rules containing regex and xpath targets.
      * It tests each of these rules with all the input, textarea and select elements in
@@ -9695,18 +8278,15 @@ DCX.addService("message", function (core) {
             rule,
             target,
             qr;
-
         // Check if there are any privacy rules to be applied based on regex or xpath targets
         if (!regexAndXpathRules.length && !excludedElements.length && !excludeMask) {
             return [];
         }
-
         // Identify all eligible input, select and textarea elements from the DOM subtree
         qr = browserService.queryAll("input, select, textarea", root);
         if (!qr || !qr.length) {
             return [];
         }
-
         // Remove excluded elements (if any)
         for (i = 0, len = excludedElements.length; i < len; i += 1) {
             j = qr.indexOf(excludedElements[i]);
@@ -9714,14 +8294,12 @@ DCX.addService("message", function (core) {
                 qr.splice(j, 1);
             }
         }
-
         // Only calculate element xpaths if there are regex or xpath rules
         if (regexAndXpathRules.length) {
             // Calculate the id & idType of each element
             for (i = 0, len = qr.length, elements = []; i < len; i += 1) {
                 if (qr[i].value) {
                     elementInfo = browserBaseService.ElementData.prototype.examineID(qr[i]);
-
                     // Xpath needs additional processing
                     if (elementInfo.idType === -2) {
                         // Element xpath needs to be prefixed with the rootXpath
@@ -9729,7 +8307,6 @@ DCX.addService("message", function (core) {
                         elementXpath.applyPrefix(rootXpath);
                         elementInfo.id = elementXpath.xpath;
                     }
-
                     elements.push({
                         id: elementInfo.id,
                         idType: elementInfo.idType,
@@ -9738,7 +8315,6 @@ DCX.addService("message", function (core) {
                 }
             }
         }
-
         // Test each element against the regex and xpath rules
         for (i = 0, len = regexAndXpathRules.length; i < len; i += 1) {
             rule = privacy[regexAndXpathRules[i].ruleIndex];
@@ -9775,7 +8351,6 @@ DCX.addService("message", function (core) {
                 }
             }
         }
-
         if (excludeMask) {
             // Apply privacy mask to any remaining non-excluded elements
             for (i = 0, len = qr.length; i < len; i += 1) {
@@ -9783,7 +8358,6 @@ DCX.addService("message", function (core) {
             }
         }
     }
-
     /**
      * Applies the privacy configuration to all the matching elements
      * of the specified DOM object.
@@ -9806,12 +8380,10 @@ DCX.addService("message", function (core) {
             target,
             targets,
             targetsLen;
-
         // Sanity check
         if (!root || !doc) {
             return null;
         }
-
         // Go through each privacy rule
         for (i = 0, len = privacy.length; i < len; i += 1) {
             mask = privacy[i];
@@ -9868,12 +8440,9 @@ DCX.addService("message", function (core) {
                 }
             }
         }
-
         applyRegexAndXpathPrivacyRules(regexAndXpathRules, root, rootXpath, doc, excludedElements, excludeMask);
-
         return root;
     }
-
     /**
      * Returns true if the target matches a privacy rule.
      * @param {Object} target The target object.
@@ -9884,11 +8453,9 @@ DCX.addService("message", function (core) {
             len,
             mask,
             retVal = false;
-
         if (!target) {
             return retVal;
         }
-
         for (i = 0, len = privacy.length; i < len; i += 1) {
             mask = privacy[i];
             if (matchesTarget(mask.targets, target)) {
@@ -9898,7 +8465,6 @@ DCX.addService("message", function (core) {
         }
         return retVal;
     }
-
     /**
      * Gets called when the configserver fires configupdated event.
      */
@@ -9910,12 +8476,10 @@ DCX.addService("message", function (core) {
             target,
             targets,
             targetsLen;
-
         configService = core.getService("config");
         config = configService.getServiceConfig("message") || {};
         privacy = config.privacy || [];
         privacyPatterns = config.privacyPatterns || [];
-
         // Fix idType to integers and setup regex targets (if any)
         for (i = 0, rulesLen = privacy.length; i < rulesLen; i += 1) {
             rule = privacy[i];
@@ -9934,7 +8498,6 @@ DCX.addService("message", function (core) {
                 }
             }
         }
-
         // Validate privacy patterns and cache the regex.
         for (len = privacyPatterns.length, i = len - 1; i >= 0; i -= 1) {
             rule = privacyPatterns[i];
@@ -9945,23 +8508,17 @@ DCX.addService("message", function (core) {
             }
         }
     }
-
     function initMessageService() {
         if (configService.subscribe) {
             configService.subscribe("configupdated", updateConfig);
         }
-
         updateConfig();
-
         isInitialized = true;
     }
-
     function destroy() {
         configService.unsubscribe("configupdated", updateConfig);
-
         isInitialized = false;
     }
-
     /**
      * This function will will optimize the dom capture message by
      * replacing content with cached dcids if content matching is found.
@@ -9977,21 +8534,17 @@ DCX.addService("message", function (core) {
             key,
             shadowNode,
             cachedNode;
-
         if (shadows.length === 0 || !isFullDom) {
             return;
         }
-
         for (key in shadowMessageCache) {
             if (shadowMessageCache.hasOwnProperty(key)) {
                 shadowMessageCache[key].age += 1;
             }
         }
-
         for (i = 0, len = shadows.length; i < len; i += 1) {
             shadowNode = shadows[i];
             cachedNode = shadowMessageCache[shadowNode.xpath];
-
             if (cachedNode && cachedNode.root === shadowNode.root) {
                 cachedNode.hitCount += 1;
                 cachedNode.age -= 1;
@@ -10007,7 +8560,6 @@ DCX.addService("message", function (core) {
                 };
             }
         }
-
         //clear obsolete xpath
         for (key in shadowMessageCache) {
             if (shadowMessageCache.hasOwnProperty(key)) {
@@ -10018,34 +8570,24 @@ DCX.addService("message", function (core) {
             }
         }
     }
-
-
     /**
      * @scope messageService
      */
     return {
-
         init: function () {
             if (!isInitialized) {
                 initMessageService();
             } else {
             }
         },
-
         destroy: function () {
             destroy();
         },
-
         applyPrivacyToNode: applyPrivacyToNode,
-
         applyPrivacyToMessage: applyPrivacyToMessage,
-
         applyPrivacyToTarget: privacyFilter,
-
         applyPrivacyPatterns: applyPrivacyPatterns,
-
         isPrivacyMatched: isPrivacyMatched,
-
         /**
          * Accepts a simple queue event  and wraps it into a complete message that the server can understand.
          * @param  {Object} event The simple event information
@@ -10055,14 +8597,11 @@ DCX.addService("message", function (core) {
             if (typeof event.type === "undefined") {
                 throw new TypeError("Invalid queueEvent given!");
             }
-
             if (event.type === 12) {
                 optimizeDOMCaptureMessage(event.domCapture);
             }
-
             return applyPrivacyToMessage(new Message(event));
         },
-
         /**
          * Mock function to create a JSON structure around messages before sending to server.
          * @param  {Array} messages An array of messages
@@ -10071,9 +8610,7 @@ DCX.addService("message", function (core) {
          *  @todo rewrite functionality
          */
         wrapMessages: function (messages) {
-
             var coreConfig = DCX.getCoreConfig();
-
             var tabID = 0;
             if (window && window.sessionStorage && window.localStorage) {
                 if (!window.sessionStorage.DCXTab) {
@@ -10081,7 +8618,6 @@ DCX.addService("message", function (core) {
                 }
                 tabID = window.sessionStorage.DCXTab;
             }
-
             var messagePackage = {
                 messageVersion: "10.0.0.0",
                 serialNumber: (count += 1),
@@ -10092,7 +8628,7 @@ DCX.addService("message", function (core) {
                     messages: messages,
                     clientEnvironment: {
                         webEnvironment: {
-                            libVersion: "12.1.9",
+                            libVersion: "12.1.6",
                             internalVersion: coreConfig.version,
                             domain: windowHostname,
                             page: windowHref,
@@ -10112,15 +8648,11 @@ DCX.addService("message", function (core) {
                 }]
             },
                 webEnvScreen = messagePackage.sessions[0].clientEnvironment.webEnvironment.screen;
-
             webEnvScreen.orientationMode = utils.getOrientationMode(webEnvScreen.orientation);
-
             return messagePackage;
         }
     };
-
 });
-
 /*
  *  **************************************************************************
  *  Licensed Materials - Property of HCL
@@ -10129,23 +8661,19 @@ DCX.addService("message", function (core) {
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  */
-
 /**
  * @fileOverview The SerializerService provides the ability to serialize
  * data into one or more string formats.
  * @exports serializerService
  */
-
 /*global DCX:true, window: true */
 /*global console: false */
-
 /**
  * @name serializerService
  * @namespace
  */
 DCX.addService("serializer", function (core) {
     "use strict";
-
     /**
      * JSON serializer. If possible it uses JSON.stringify method, but
      * for older browsers it provides minimalistic implementaction of
@@ -10194,8 +8722,6 @@ DCX.addService("serializer", function (core) {
         str += String.fromCharCode(str.charCodeAt(0) + 2);
         return str;
     }
-
-
     /**
      * Serializer / Parser implementations
      * @type {Object}
@@ -10211,7 +8737,6 @@ DCX.addService("serializer", function (core) {
                         parse: window.JSON.parse
                     };
                 }
-
                 return {
                     serialize: serializeToJSON,
                     parse: function (data) {
@@ -10224,12 +8749,10 @@ DCX.addService("serializer", function (core) {
         },
         updateConfig = null,
         isInitialized = false;
-
     function addObjectIfExist(paths, rootObj, propertyName) {
         var i,
             len,
             obj;
-
         paths = paths || [];
         for (i = 0, len = paths.length; i < len; i += 1) {
             obj = paths[i];
@@ -10263,7 +8786,6 @@ DCX.addService("serializer", function (core) {
 		}
 		return isParserAndSerializerInvalid;
 	}
-
     function initSerializerService(config) {
         var format;
         for (format in config) {
@@ -10272,13 +8794,11 @@ DCX.addService("serializer", function (core) {
                 addObjectIfExist(config[format].parsers, parse, format);
             }
         }
-
         // use default JSON parser/serializer if possible
         if (!(config.json && config.json.hasOwnProperty("defaultToBuiltin")) || config.json.defaultToBuiltin === true) {
             serialize.json = serialize.json || defaultSerializers.json.serialize;
             parse.json = parse.json || defaultSerializers.json.parse;
         }
-
         //sanity check
         if (typeof serialize.json !== "function" || typeof parse.json !== "function") {
             core.fail("JSON parser and/or serializer not provided in the UIC config. Can't continue.");
@@ -10286,50 +8806,39 @@ DCX.addService("serializer", function (core) {
 		if (checkParserAndSerializer()) {
 			core.fail("JSON stringification and parsing are not working as expected");
 		}
-
         if (configService) {
             configService.subscribe("configupdated", updateConfig);
         }
-
         isInitialized = true;
     }
-
-
     function destroy() {
         serialize = {};
         parse = {};
-
         if (configService) {
             configService.unsubscribe("configupdated", updateConfig);
         }
-
         isInitialized = false;
     }
-
     updateConfig = function () {
         configService = core.getService("config");
         // TODO: reinit only if config changed. Verify initSerializerService is idempotent
         initSerializerService(configService.getServiceConfig("serializer"));
     };
-
     /**
      * @scope serializerService
      */
     return {
         init: function () {
             var ssConfig;
-
             if (!isInitialized) {
                 ssConfig = configService ? configService.getServiceConfig("serializer") : {};
                 initSerializerService(ssConfig);
             } else {
             }
         },
-
         destroy: function () {
             destroy();
         },
-
         /**
          * Parses a string into a JavaScript object.
          * @param  {String} data The string to parse.
@@ -10340,7 +8849,6 @@ DCX.addService("serializer", function (core) {
             type = type || "json";
             return parse[type](data);
         },
-
         /**
          * Serializes object data into a string using the format specified.
          * @param  {Object} data The data to serialize.
@@ -10349,15 +8857,11 @@ DCX.addService("serializer", function (core) {
          */
         serialize: function (data, type) {
             var serializedData;
-
             type = type || "json";
-
             serializedData = serialize[type](data);
-
             return serializedData;
         }
     };
-
 });
 /*
  *  **************************************************************************
@@ -10367,17 +8871,13 @@ DCX.addService("serializer", function (core) {
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  */
-
 /**
  * @fileOverview The DCCookie module implements the functionality related to reading, setting and transmitting cookies and tokens.
  * @exports DCCookie
  */
-
 /*global DCX:true */
-
 DCX.addModule("DCCookie", function (context) {
     "use strict";
-
     var moduleConfig = {},
         sessionIDStorageDCX = 0,
         wcxCookieName = "WCXSID",
@@ -10388,7 +8888,6 @@ DCX.addModule("DCCookie", function (context) {
         visitorCookieValue = null,
         dcAppKey,
         utils = context.utils;
-
     /**
      * Return a random 32 digit string.
      * @function
@@ -10398,10 +8897,8 @@ DCX.addModule("DCCookie", function (context) {
     function generateDCXSID() {
         var dataSet = "123456789",
             dcxsid = utils.getRandomString(1, dataSet) + utils.getRandomString(31, dataSet + "0");
-
         return dcxsid;
     }
-
     /**
      * Create a DCXSID cookie using a randomly generated 32 character length string.
      * This is a session cookie i.e. no expires or max-age.
@@ -10413,13 +8910,10 @@ DCX.addModule("DCCookie", function (context) {
         var cookieValue = generateDCXSID(),
             secure = !!moduleConfig.secureDCXSID,
             undefined;
-
         // Set the session cookie
         utils.setCookie(dcxCookieName, cookieValue, undefined, undefined, undefined, secure);
-
         return utils.getCookieValue(dcxCookieName);
     }
-
     /**
      * Get DA visitor cookie (CoreID6) and store it in visitorCookieValue.
      * @function
@@ -10429,7 +8923,6 @@ DCX.addModule("DCCookie", function (context) {
         if (visitorCookieValue || !window.cmRetrieveUserID) {
             return;
         }
-
         try {
             window.cmRetrieveUserID(function (id) {
                 visitorCookieValue = id;
@@ -10438,7 +8931,6 @@ DCX.addModule("DCCookie", function (context) {
             visitorCookieValue = null;
         }
     }
-
     /**
      * Parse and return the session id value from localStorage.
      * @function
@@ -10451,12 +8943,10 @@ DCX.addModule("DCCookie", function (context) {
             items,
             itemVal,
             sidValue;
-
         // Sanity check
         if (!localStorage || !sidKey) {
             return;
         }
-
         itemVal = localStorage.getItem(sidKey);
         if (itemVal) {
             items = itemVal.split("|");
@@ -10467,10 +8957,8 @@ DCX.addModule("DCCookie", function (context) {
                 sidValue = items[1];
             }
         }
-
         return sidValue;
     }
-
     /**
      * Set the session id value in localStorage along with the expiration time.
      * @function
@@ -10481,19 +8969,15 @@ DCX.addModule("DCCookie", function (context) {
      */
     function setSIDInStorage(sidKey, sidValue) {
         var expires;
-
         // Sanity check
         if (!localStorage || !sidKey) {
             return;
         }
-
         sidValue = sidValue || generateDCXSID();
         expires = Date.now() + sessionIDStorageDCX;
         localStorage.setItem(sidKey, expires + "|" + sidValue);
-
         return getSIDFromStorage(sidKey);
     }
-
     /**
      * Parse and return the visiter id value from localStorage.
      * @function
@@ -10503,14 +8987,11 @@ DCX.addModule("DCCookie", function (context) {
      */
      function getVIDFromStorage(vidKey) {
         var vidValue;
-
         // Sanity check
         var localStorage = window.localStorage;
-
         if (!localStorage || !vidKey) {
             return;
         }
-
         vidValue = localStorage.getItem(vidKey);
         if (vidValue === null)
         {
@@ -10519,7 +9000,6 @@ DCX.addModule("DCCookie", function (context) {
         }
         return vidValue;
     }
-
     /**
      * Process the module configuration and setup the corresponding cookies and tokens.
      * Setup the callback to add the respective headers when the library POSTs.
@@ -10531,7 +9011,6 @@ DCX.addModule("DCCookie", function (context) {
         var reqHeaders = [],
             sessionIDUsesCookie = utils.getValue(config, "sessionIDUsesCookie", true),
             sessionIDUsesStorage = utils.getValue(config, "sessionIDUsesStorage", false);
-
         // Check if the dcAppKey is specified
         if (config.dcAppKey) {
             dcAppKey = config.dcAppKey;
@@ -10542,11 +9021,9 @@ DCX.addModule("DCCookie", function (context) {
                 }
             );
         }
-
         if (config.visitorCookieName) {
             visitorCookieName = config.visitorCookieName;
         }
-
         /**
          * WCX session cookie processing
          */
@@ -10562,14 +9039,12 @@ DCX.addModule("DCCookie", function (context) {
                 }
             );
         }
-
         /**
          * DCXSID processing
          */
         if (config.sessionizationCookieName) {
             dcxCookieName = config.sessionizationCookieName;
         }
-
         // Storing the session value in Storage is preferred over cookie when both are enabled.
         // Hence, check localStorage for session id before checking cookie.
         if (sessionIDUsesStorage) {
@@ -10579,7 +9054,6 @@ DCX.addModule("DCCookie", function (context) {
         if (!dcxCookieValue && sessionIDUsesCookie) {
             dcxCookieValue = utils.getCookieValue(dcxCookieName);
         }
-
         // A new session id needs to be created. Check for WCXSID before creating a new DCXSID.
         if (!dcxCookieValue) {
             if (wcxCookieValue) {
@@ -10594,7 +9068,6 @@ DCX.addModule("DCCookie", function (context) {
                 }
             }
         }
-
         // Session id could not be created in either Storage or Cookie!
         if (!dcxCookieValue) {
             dcxCookieValue = "Check7UIC7Cookie7Configuration77";
@@ -10611,7 +9084,6 @@ DCX.addModule("DCCookie", function (context) {
                 value: getVIDFromStorage("X-DCXVID")
             }
         );
-
         if (reqHeaders.length) {
             // Register the callback function to pass the X-Discover headers
             DCX.registerBridgeCallbacks([
@@ -10625,7 +9097,6 @@ DCX.addModule("DCCookie", function (context) {
             ]);
         }
     }
-
     /**
      * Check if the cookie name is whitelisted
      * @function
@@ -10638,12 +9109,10 @@ DCX.addModule("DCCookie", function (context) {
             result = false,
             rule,
             whitelist = moduleConfig.appCookieWhitelist;
-
         // Sanity check
         if (!whitelist || !whitelist.length) {
             return result;
         }
-
         for (i = 0, len = whitelist.length; i < len && !result; i += 1) {
             rule = whitelist[i];
             if (rule.regex) {
@@ -10658,10 +9127,8 @@ DCX.addModule("DCCookie", function (context) {
                 result = (rule === cookieName);
             }
         }
-
         return result;
     }
-
     /**
      * Read the document level cookies, filter them as per the configured whitelist,
      * and record them in a type 14 message.
@@ -10676,11 +9143,9 @@ DCX.addModule("DCCookie", function (context) {
             cookieList = [],
             cookieName = "",
             cookieValue = "";
-
         if (!cookies) {
             return;
         }
-
         cookieList = cookies.split("; ");
         for (i = 0, len = cookieList.length; i < len; i += 1) {
             cookie = cookieList[i];
@@ -10703,35 +9168,29 @@ DCX.addModule("DCCookie", function (context) {
                 }
             }
         }
-
         // Add in the visitor cookie if not already present
         if (visitorCookieValue && !appCookies[visitorCookieName]) {
             appCookies[visitorCookieName] = visitorCookieValue;
         }
-
         context.post({
             type: 14,
             cookies: appCookies
         });
     }
-
     // Return the module's interface object. This contains callback functions which
     // will be invoked by the UIC core.
     return {
         init: function () {
             moduleConfig = context.getConfig() || {};
             processConfig(moduleConfig);
-
             getVisitorCookie();
         },
-
         destroy: function () {
             if (moduleConfig.sessionIDUsesStorage) {
                 // Reset the expiry of the storage session id
                 setSIDInStorage(dcxCookieName, dcxCookieValue);
             }
         },
-
         onevent: function (webEvent) {
             switch (webEvent.type) {
             case "screenview_load":
@@ -10745,7 +9204,6 @@ DCX.addModule("DCCookie", function (context) {
             }
         }
     };
-
 });
 /*
  *  **************************************************************************
@@ -10755,15 +9213,12 @@ DCX.addModule("DCCookie", function (context) {
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  */
-
 /**
  * @fileOverview The Performance module implements the logic for monitoring and
  * reporting performance data such as the W3C Navigation Timing.
  * @exports performance
  */
-
 /*global DCX:true */
-
 // Sanity check
 if (DCX && typeof DCX.addModule === "function") {
     /**
@@ -10772,7 +9227,6 @@ if (DCX && typeof DCX.addModule === "function") {
      */
     DCX.addModule("performance", function (context) {
         "use strict";
-
         var moduleState = {
                 loadReceived: false,
                 unloadReceived: false,
@@ -10781,8 +9235,6 @@ if (DCX && typeof DCX.addModule === "function") {
             calculatedRenderTime = 0,
             config,
             utils = context.utils;
-
-
         /**
          * Returns true if the property is filtered out. The property is considered
          * to be filtered out if it exists in the filter object with a value of true.
@@ -10799,15 +9251,12 @@ if (DCX && typeof DCX.addModule === "function") {
             if (typeof prop !== "string") {
                 return false;
             }
-
             // If there is no filter object then the property is not filtered out.
             if (!filter || typeof filter !== "object") {
                 return false;
             }
-
             return (filter[prop] === true);
         }
-
         /**
          * Returns the normalized timing object. Normalized values are offsets measured
          * from the "navigationStart" timestamp which serves as the epoch. Also applies
@@ -10826,17 +9275,14 @@ if (DCX && typeof DCX.addModule === "function") {
                 normalizedTiming = {},
                 prop = "",
                 value = 0;
-
             // Sanity checks
             if (!timing || typeof timing !== "object" || !timing.navigationStart) {
                 return {};
             }
-
             epoch = timing.navigationStart;
             for (prop in timing) {
                 // IE_COMPAT, FF_COMPAT: timing.hasOwnProperty(prop) returns false for
                 // performance timing members in IE 9 and Firefox 14.0.1.
-
                 // IE_COMPAT: timing.hasOwnProperty does not exist in IE8 and lower for
                 // host objects. Legacy IE does not support hasOwnProperty on hosted objects.
                 if (Object.prototype.hasOwnProperty.call(timing, prop) || typeof timing[prop] === "number") {
@@ -10850,10 +9296,8 @@ if (DCX && typeof DCX.addModule === "function") {
                     }
                 }
             }
-
             return normalizedTiming;
         }
-
         /**
          * Calculates the render time from the given timing object.
          * @private
@@ -10867,7 +9311,6 @@ if (DCX && typeof DCX.addModule === "function") {
             var renderTime = 0,
                 startTime,
                 endTime;
-
             if (timing) {
                 // Use the lesser of domLoading or responseEnd as the start of render, see data in CS-8915
                 startTime = (timing.responseEnd > 0 && timing.responseEnd < timing.domLoading) ? timing.responseEnd : timing.domLoading;
@@ -10876,10 +9319,8 @@ if (DCX && typeof DCX.addModule === "function") {
                     renderTime = endTime - startTime;
                 }
             }
-
             return renderTime;
         }
-
         /**
          * Calculates the render time by measuring the difference between when the
          * library core was loaded and when the page load event occurs.
@@ -10895,7 +9336,6 @@ if (DCX && typeof DCX.addModule === "function") {
                 calculatedRenderTime = event.timestamp - startTime;
             }
         }
-
         /**
          * Posts the performance event.
          * @private
@@ -10912,16 +9352,13 @@ if (DCX && typeof DCX.addModule === "function") {
                 navigation,
                 performance,
                 timing;
-
             // Sanity checks
             if (!window || moduleState.perfEventSent) {
                 return;
             }
-
             performance = window.performance || {};
             timing = performance.timing;
             navigation = performance.navigation;
-
             if (timing) {
                 // Cannot calculate if the Load event has not occurred yet.
                 if (!timing.loadEventStart) {
@@ -10938,13 +9375,11 @@ if (DCX && typeof DCX.addModule === "function") {
                 // Nothing to report.
                 return;
             }
-
             // Do not include renderTime if it is over the threshold.
             if (config.renderTimeThreshold && queueEvent.performance.timing.renderTime > config.renderTimeThreshold) {
                 queueEvent.performance.timing.invalidRenderTime = queueEvent.performance.timing.renderTime;
                 delete queueEvent.performance.timing.renderTime;
             }
-
             if (navigation) {
                 switch (navigation.type) {
                 case 0:
@@ -10965,33 +9400,27 @@ if (DCX && typeof DCX.addModule === "function") {
                     redirectCount: navigation.redirectCount
                 };
             }
-
             // Invoke the context API to post this event
             context.post(queueEvent);
             moduleState.perfEventSent = true;
         }
-
         // Module interface.
         /**
          * @scope performance
          */
         return {
-
-
             /**
              * Initialize the performance module.
              */
             init: function () {
                 config = context.getConfig();
             },
-
             /**
              * Terminate the performance module.
              */
             destroy: function () {
                 config = null;
             },
-
             /**
              * Handle events subscribed by the performance module.
              * @param  {Object} event The normalized data extracted from a browser event object.
@@ -11001,7 +9430,6 @@ if (DCX && typeof DCX.addModule === "function") {
                 if (typeof event !== "object" || !event.type) {
                     return;
                 }
-
                 switch (event.type) {
                 case "load":
                     moduleState.loadReceived = true;
@@ -11028,169 +9456,15 @@ if (DCX && typeof DCX.addModule === "function") {
                     break;
                 }
             },
-
             /**
              * Handle system messages subscribed by the performance module.
              * @param  {Object} msg An object containing the message information.
              */
             onmessage: function (msg) {
-
             }
         };
     });  // End of DCX.addModule
-    } else {}
-
-/*
- *  **************************************************************************
- *  Licensed Materials - Property of HCL
- *  (c) Copyright HCL Technologies Ltd.  2020. All Rights Reserved.
- *  US Government Users Restricted Rights - Use, duplication or disclosure
- *  restricted by GSA ADP Schedule Contract with HCL Technologies.
- *  **************************************************************************
- */
-
-/*-------------------------------------------------------------------------------
-UTM Logger v1.0
-* Checks for utm variables in the QueryString and saves in Local Storage
-* Stores up to XX number of campaigns & up to XX number of days
-* Logs data to Discover when a new session starts -OR- on new campaign
--------------------------------------------------------------------------------*/
-
-if (DCX && typeof DCX.addModule === "function") {
-    DCX.addModule("utmLogger", function (context) {
-        "use strict";
-    
-        var moduleConfig = {},
-        moduleLoaded = false,
-        utmEnabled,
-        utils = context.utils,
-        maxDays,
-        maxCampaigns,
-        DCXVID,
-        utmCount;
-    
-        function setLSWithExpiry(key, value, ttl) {
-            const now = new Date();
-            const item = {
-                value: value,
-                expiry: now.getTime() + ttl * (24 * 60 * 60 * 1000), // Milliseconds
-            }
-            localStorage.setItem(key, JSON.stringify(item));
-        }
-    
-        function getLSWithExpiry(key) {
-            const itemStr = localStorage.getItem(key);
-            if (itemStr) {
-                const item = JSON.parse(itemStr);
-                const now = new Date();
-                if (now.getTime() < item.expiry) {
-                    return item.value;
-                }
-                localStorage.removeItem(key);
-            }
-            return null;
-        }
-    
-        function getQueryStringValue(name, url) {
-            name = name.replace(/[\[\]]/g, '\\$&');
-            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
-    
-        function generateVID() {
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
-                function(c) {
-                    var vid = Math.random() * 16 | 0, v = c == 'x' ? vid : (vid & 0x3 | 0x8);
-                    return vid.toString(16);
-                }
-            );
-        }
-    
-        //---------------------------------------------------------------------------------------------------
-    
-        function LogUTMData() {
-            if (!DCXVID) {
-                // ---------------------------------------- Generate Visistor ID on first touch
-                localStorage.setItem("DCXVID", DCXVID = generateVID());
-                if (typeof DCX !== "undefined") {
-                    DCX.logCustomEvent("DCXVID", DCXVID);
-                }
-            }
-    
-            if (getQueryStringValue("utm_campaign", window.location.href)) {
-                // ---------------------------------------- Convert utm QueryString values to JSON
-                var campaignJSON = {};
-                campaignJSON["utm_campaign"] = getQueryStringValue("utm_campaign", window.location.href);
-                campaignJSON["utm_content"] = getQueryStringValue("utm_content", window.location.href) || "";
-                campaignJSON["utm_medium"] = getQueryStringValue("utm_medium", window.location.href) || "";
-                campaignJSON["utm_source"] = getQueryStringValue("utm_source", window.location.href) || "";
-                campaignJSON["utm_term"] = getQueryStringValue("utm_term", window.location.href) || "";
-                campaignJSON["DCXVID"] = localStorage.getItem("DCXVID") || "";
-            }
-    
-            if (campaignJSON) {
-                // ---------------------------------------- Incrememt number of utm items saved
-                utmCount = Number(utmCount) + 1;
-                localStorage.setItem("utmCount", utmCount);
-                // ---------------------------------------- Save utm data into LocalStorage
-                setLSWithExpiry("utm" + utmCount, campaignJSON, maxDays);
-            }
-    
-            if (Number(utmCount) > 0 || campaignJSON) {
-                // ---------------------------------------- Log utm data when new session -OR- new campaign
-                for (var i = 1; i <= utmCount; i++) {
-                    var campaignJSON = {};
-                    campaignJSON = getLSWithExpiry("utm" + i);
-                    if (campaignJSON) {
-                        if (typeof DCX !== "undefined") {
-                            DCX.logCustomEvent("utmData", campaignJSON, 21);
-                        }
-                    }
-                    sessionStorage.setItem("utmLogger", true);
-                }
-            }
-        }
-    
-        function processConfig(config) {
-            utmEnabled = utils.getValue(config, "utmEnabled", false);
-            maxDays = utils.getValue(config, "maxDays", 90),
-            maxCampaigns = utils.getValue(config, "maxCampaigns", 50),
-            DCXVID = localStorage.getItem("DCXVID"),
-            utmCount = localStorage.getItem("utmCount") || 0;
-        }
-    
-        return {
-            init: function () {
-                moduleConfig = context.getConfig();
-                processConfig(moduleConfig);
-            },
-    
-            destroy: function () {
-                moduleLoaded = false;
-            },
-    
-            onevent: function (webEvent) {
-                switch (webEvent.type) {
-                case "load":
-                    if (utmEnabled) {
-                        LogUTMData();
-                    }
-                    moduleLoaded = true;
-                    break;
-                case "unload":
-                    moduleLoaded = false;
-                    break;
-                default:
-                    break;
-                }
-            },
-    
-            version: "1.0.0"
-        };
-    });
+} else {
 }
 /*
  *  **************************************************************************
@@ -11200,809 +9474,15 @@ if (DCX && typeof DCX.addModule === "function") {
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  */
-
-if (DCX && typeof DCX.addModule === "function") {
-    DCX.addModule("ajaxListener", function (context) {
-        "use strict";
-    
-        var moduleConfig = {},
-            moduleLoaded = false,
-            nativeXHROpen,
-            nativeFetch,
-            xhrEnabled,
-            fetchEnabled,
-            utils = context.utils;
-    
-        /**
-         * Test if the given url matches an entry in the URL blocklist.
-         * @param {String} url The value to be matched
-         * @returns {Boolean} true if the url matches an entry in the URL blocklist. false otherwise.
-         */
-        function isUrlBlocked(url) {
-            var i, len,
-                blockRule,
-                matchFound = false,
-                urlBlocklist = moduleConfig.urlBlocklist;
-    
-            // Sanity check
-            if (!url || !urlBlocklist) {
-                return matchFound;
-            }
-    
-            for (i = 0, len = urlBlocklist.length; !matchFound && i < len; i += 1) {
-                blockRule = urlBlocklist[i];
-                matchFound = blockRule.cRegex.test(url);
-            }
-    
-            return matchFound;
-        }
-    
-        /**
-         * Search the list of filters and return the 1st filter that completely
-         * matches the XHR object. Filter properties include url, method and status.
-         * @param {String} url The request url
-         * @param {String} method The request method, e.g. post, get, etc
-         * @param {String} status The response status
-         * @returns {Object} An empty object if no filters have been configured. Else
-         * returns the matching filter object or null if no object matches.
-         */
-        function getMatchingFilter(url, method, status) {
-            var i, len,
-                filter = {},
-                filters = moduleConfig.filters,
-                matchFound;
-    
-            // If no filter is configured return an empty object
-            if (!filters || !filters.length) {
-                return filter;
-            }
-    
-            // Find matching filter.
-            for (i = 0, len = filters.length, matchFound = false; !matchFound && i < len; i += 1) {
-                filter = filters[i];
-                matchFound = true;
-                
-                if (filter.url) {
-                    matchFound = filter.url.cRegex.test(url);
-                }
-                if (matchFound && filter.method) {
-                    matchFound = filter.method.cRegex.test(method);
-                }
-                if (matchFound && filter.status) {
-                    matchFound = filter.status.cRegex.test(status);
-                }
-            }
-    
-            if (!matchFound) {
-                filter = null;
-            }
-            return filter;
-        }
-    
-        /**
-         * Builds an object of key => value pairs of HTTP headers from a string.
-         * @param {String} headers The string of HTTP headers separated by newlines
-         *      (i.e.: "Content-Type: text/html\nLast-Modified: ..")
-         * @return {Object} Returns an object where every key is a header
-         *     and every value it's corresponding value.
-         */
-        function extractResponseHeaders(headers) {
-            var headersObj = {},
-                i,
-                len,
-                header,
-                name,
-                value;
-    
-            headers = headers.split(/[\r\n]+/);
-            for (i = 0, len = headers.length; i < len; i += 1) {
-                header = headers[i].split(": ");
-                name = header[0];
-                value = utils.rtrim(header[1]);
-                if (name && name.length) {
-                    headersObj[name] = value;
-                }
-            }
-            return headersObj;
-        }
-    
-        function replaceValueWithReplacements(data, fieldName, replacement) {
-            if (typeof data === 'object' && data !== null) {
-              // If the input is an object, recursively iterate through its properties
-              for (var key in data) {
-                if (key === fieldName || (fieldName instanceof RegExp && fieldName.test(key))) {
-                    data[key] = replacement;
-                } else if (typeof data[key] === 'object') {
-                    replaceValueWithReplacements(data[key], fieldName, replacement);
-                }
-              }
-            } else if (typeof data === 'string') {
-              // If the input is a string, replace the key's value with asterisks
-              const regex = new RegExp(fieldName, 'gi');
-              data = data.replace(regex, replacement).trim();
-            }
-    
-            return data;
-        }
-    
-        /**
-         * Hide an sensitive information from request object.
-         * @param {String} reqResObject The XMLHttpRequest object to be recorded.
-         * @param {Array} sensitiveFields The Array of sensitive Fields that should be hide from request Object.
-         * @return {Object} Returns an request object where sensitive Fields modified for it's corresponding value.
-         */
-        function hideSensitiveInfo(reqResObject, sensitiveFields) {
-            if(typeof reqResObject !== 'object') return reqResObject;
-    
-            var orgReqResObject = JSON.stringify(reqResObject);
-            try {
-                sensitiveFields.forEach(function (config) {
-                    reqResObject = replaceValueWithReplacements(reqResObject, config.field, config.replacement);
-                });
-                return reqResObject;
-            } catch (error) {
-               console.error('wrong Sensitive Info passed',error);
-               return JSON.parse(orgReqResObject);
-            }
-        }
-    
-        function setPrivacyPattern(reqResObject, privacyPatterns) {
-            if(typeof reqResObject === 'object') {
-                var orgReqResObject = JSON.stringify(reqResObject);
-                try {
-                    reqResObject = orgReqResObject;
-                    privacyPatterns.forEach(function (config) {
-                        var pattern = config.pattern,
-                        regex = new RegExp(pattern.regex, pattern.flags);
-                        if(regex.test(reqResObject)) {
-                            reqResObject = reqResObject.replace(regex, config.replacement);
-                        }
-                    })
-                    return JSON.parse(reqResObject);
-                } catch (error) {
-                    console.error('wrong Privacy Pattern passed',error);
-                    return JSON.parse(orgReqResObject);
-                }
-    
-            } else {
-                privacyPatterns.forEach(function (config) {
-                    var pattern = config.pattern,
-                    regex = new RegExp(pattern.regex, pattern.flags);
-                    if(regex.test(reqResObject)) {
-                        reqResObject = reqResObject.replace(regex, config.replacement);
-                    }
-                })
-                return reqResObject;
-            }
-        }
-    
-        /**
-         * Posts the XHR object to the queue. The URL, method, status and time
-         * fields are mandatory. The request/response headers and body are
-         * added as per the options specified.
-         * @param {XMLHttpRequest} xhr The XMLHttpRequest object to be recorded.
-         * @param {Object} logOptions An object specifying if the request and
-         *                 response headers and data should be recorded.
-         */
-        function logXHR(xhr, logOptions) {
-            var msg = {
-                    type: 3, // Type 3: Connection - API calls including request/response data
-                    connectionEvent: {
-                        name: "ajaxListener",
-                        data: {
-                            interfaceType: "XHR"
-                        }
-                    }
-                },
-                dummyLink,
-                xhrMsg = msg.connectionEvent.data,
-                respText;
-    
-            // Sanity check
-            if (!xhr) {
-                return;
-            }
-    
-            dummyLink = document.createElement("a");
-            dummyLink.href = xhr.tListener.url;
-    
-            xhrMsg.originalURL = dummyLink.host + (dummyLink.pathname[0] === "/" ? "" : "/") + dummyLink.pathname;
-            xhrMsg.requestURL = context.normalizeUrl ? context.normalizeUrl(xhrMsg.originalURL, 3) : xhrMsg.originalURL;
-            xhrMsg.description = "Full Ajax Monitor " + xhrMsg.requestURL;
-            xhrMsg.method = xhr.tListener.method;
-            xhrMsg.status = xhr.status;
-            xhrMsg.statusText = xhr.statusText || "";
-            xhrMsg.async = xhr.tListener.async;
-            xhrMsg.ajaxResponseTime = xhr.tListener.end - xhr.tListener.start;
-            xhrMsg.locationHref = context.normalizeUrl(document.location.href, 3);
-    
-            // Check if the query string exists before converting        
-            if (logOptions.queryString && window.location.search) {
-                xhrMsg.queryString = utils.getQueryString(window.location.search);
-            }
-    
-            if (logOptions.requestHeaders) {
-                xhrMsg.requestHeaders = xhr.tListener.reqHeaders;
-            }
-    
-            if (logOptions.requestData && typeof xhr.tListener.reqData === "string" && !xhr.tListener.isSystemXHR) {
-    
-                try {
-                    xhrMsg.request = JSON.parse(xhr.tListener.reqData);
-                } catch (e1) {
-                    xhrMsg.request = xhr.tListener.reqData;
-                }
-    
-                if(logOptions.privacyPatterns.length > 0 && Object.keys(xhrMsg.request).length) {
-                    try {
-                        xhrMsg.request = setPrivacyPattern(xhrMsg.request, logOptions.privacyPatterns);
-                    } catch (e) {}
-                }
-    
-                if(logOptions.sensitiveFields.length > 0 && Object.keys(xhrMsg.request).length) {
-                    try {
-                        xhrMsg.request = hideSensitiveInfo(xhrMsg.request, logOptions.sensitiveFields);
-                    } catch (e) {}
-                }
-            }
-    
-            if (logOptions.responseHeaders) {
-                xhrMsg.responseHeaders = extractResponseHeaders(xhr.getAllResponseHeaders());
-            }
-    
-            if (logOptions.responseData) {
-                if (typeof xhr.responseType === "undefined") {
-                    respText = xhr.responseText;
-                } else if (xhr.responseType === "" || xhr.responseType === "text") {
-                    respText = xhr.response;
-                } else if (xhr.responseType === "json") {
-                    xhrMsg.response = xhr.response;
-                } else {
-                    xhrMsg.response = typeof xhr.response;
-                }
-    
-                if (respText) {
-                    try {
-                        xhrMsg.response = JSON.parse(respText);
-                    } catch (e2) {
-                        xhrMsg.response = respText;
-                    }
-    
-                    if(logOptions.privacyPatterns.length > 0 && Object.keys(xhrMsg.response).length) {
-                        try {
-                            xhrMsg.response = setPrivacyPattern(xhrMsg.response, logOptions.privacyPatterns);
-                        } catch (e) {}
-                    }
-        
-                    if(logOptions.sensitiveFields.length > 0 && Object.keys(xhrMsg.response).length) {
-                        try {
-                            xhrMsg.response = hideSensitiveInfo(xhrMsg.response, logOptions.sensitiveFields);
-                        } catch (e) {}
-                    }
-                }
-    
-                if (xhr.responseType) {
-                    xhrMsg.responseType = xhr.responseType;
-                }
-            }
-            context.post(msg);
-        }
-    
-        function getEntries(object) {
-            var pair,
-                obj = {},
-                objEntries = object.entries(),
-                objEntry = objEntries.next();
-    
-            while (!objEntry.done) {
-                pair = objEntry.value;
-                obj[pair[0]] = pair[1];
-                objEntry = objEntries.next();
-            }
-    
-            return obj;
-        }
-    
-        /**
-         * Extract key => value pairs from fecth request/response headers.
-         * @param {Object} headers fecth request/response headers
-         * @return {Object} Returns an object where every key is a header
-         *     and every value it's corresponding value.
-         */
-        function extractFetchHeaders(headers) {
-            return getEntries(headers);
-        }
-    
-        /**
-         * Extract body of request based on types
-         * supported types are string, json object, FormData object.
-         * the rest types are returned as it is.
-         * @param {Object} body fetch request body
-         * @return {Object} Return a string, or an object
-         */
-        function extractFetchRequestBody(body) {
-            var retVal = body;
-    
-            // Sanity check
-            if (!body) {
-                return retVal;
-            }
-    
-            if (typeof body === "object" && body.toString().indexOf("FormData") !== -1) {
-                // Parse Form data
-                retVal = getEntries(body);
-            } else if (typeof body === "string") {
-                try {
-                    // Parse as JSON
-                    retVal = JSON.parse(body);
-                } catch (e) {
-                    retVal = body;
-                }
-            }
-    
-            return retVal;
-        }
-    
-        /**
-         * Posts the fetch request/response information to the queue. The URL, method, status and time
-         * fields are mandatory. The request/response headers and body are
-         * added as per the options specified.
-         * @param {Object} fetchReq The fetch request object to be recorded.
-         * @param {Object} fetchResp The fetch response object to be recorded.
-         * @param {Object} logOptions An object specifying if the request and
-         *                 response headers and data should be recorded.
-         */
-        function logFetch(fetchReq, fetchResp, logOptions) {
-            var msg = {
-                    type: 3, // Type 3: Connection - API calls including request/response data
-                    connectionEvent: {
-                        name: "ajaxListener",
-                        data: {
-                            interfaceType: "fetch"
-                        }
-                    }
-                },
-                dummyLink,
-                xhrMsg = msg.connectionEvent.data,
-                respContentType;
-    
-            dummyLink = document.createElement("a");
-            dummyLink.href = fetchReq.url;
-    
-            xhrMsg.originalURL = dummyLink.host + (dummyLink.pathname[0] === "/" ? "" : "/") + dummyLink.pathname;
-            xhrMsg.requestURL = context.normalizeUrl ? context.normalizeUrl(xhrMsg.originalURL, 3) : xhrMsg.originalURL;
-            xhrMsg.description = "Full Ajax Monitor " + xhrMsg.requestURL;
-            xhrMsg.method = fetchReq.initData.method;
-            xhrMsg.status = fetchResp.status;
-            xhrMsg.statusText = fetchResp.statusText || "";
-            xhrMsg.async = true;
-            xhrMsg.ajaxResponseTime = fetchReq.end - fetchReq.start;
-            xhrMsg.responseType = fetchResp.type;
-            xhrMsg.locationHref = context.normalizeUrl(document.location.href, 3);
-    
-            // Check if the query string exists before converting        
-            if (logOptions.queryString && window.location.search) {
-                xhrMsg.queryString = utils.getQueryString(window.location.search);
-            }
-    
-            if (logOptions.requestHeaders) {
-                //check if header data is encapsulated as "Headers" object which cannot be directly accessed
-                if (fetchReq.initData.headers && fetchReq.initData.headers.toString().indexOf("Headers") !== -1) {
-                    xhrMsg.requestHeaders = extractFetchHeaders(fetchReq.initData.headers);
-                } else {
-                    xhrMsg.requestHeaders = fetchReq.initData.headers || "";
-                }
-            }
-    
-            if (logOptions.requestData && typeof fetchReq.body !== "undefined" && !fetchReq.isSystemXHR) {
-                xhrMsg.request = extractFetchRequestBody(fetchReq.body);
-    
-                if(logOptions.privacyPatterns.length > 0 && Object.keys(xhrMsg.request).length) {
-                    try {
-                        xhrMsg.request = setPrivacyPattern(xhrMsg.request, logOptions.privacyPatterns);
-                    } catch (e) {}
-                }
-    
-                if(logOptions.sensitiveFields.length > 0 && Object.keys(xhrMsg.request).length) {
-                    try {
-                        xhrMsg.request = hideSensitiveInfo(xhrMsg.request, logOptions.sensitiveFields);
-                    } catch (e) {}
-                }
-            }
-    
-            if (logOptions.responseHeaders) {
-                xhrMsg.responseHeaders = extractFetchHeaders(fetchResp.headers);
-            }
-    
-            if (logOptions.responseData) {
-                respContentType = fetchResp.headers.get("content-type");
-    
-                if (respContentType && respContentType.indexOf("application/json") !== -1) {
-                    fetchResp.clone().json().then(function (responseData) {
-                        xhrMsg.response = responseData;
-                        
-                        if(logOptions.privacyPatterns.length > 0 && Object.keys(xhrMsg.response).length) {
-                            try {
-                                xhrMsg.response = setPrivacyPattern(xhrMsg.response, logOptions.privacyPatterns);
-                            } catch (e) {}
-                        }
-            
-                        if(logOptions.sensitiveFields.length > 0 && Object.keys(xhrMsg.response).length) {
-                            try {
-                                xhrMsg.response = hideSensitiveInfo(xhrMsg.response, logOptions.sensitiveFields);
-                            } catch (e) {}
-                        }
-                        context.post(msg);
-                    });
-                    return;
-                }
-    
-                if (respContentType && (respContentType.indexOf("text") !== -1 || respContentType.indexOf("xml") !== -1)) {
-                    fetchResp.clone().text().then(function (responseData) {
-                        xhrMsg.response = responseData;
-    
-                        if(logOptions.privacyPatterns.length > 0 && Object.keys(xhrMsg.response).length) {
-                            try {
-                                xhrMsg.response = setPrivacyPattern(xhrMsg.response, logOptions.privacyPatterns);
-                            } catch (e) {}
-                        }
-            
-                        if(logOptions.sensitiveFields.length > 0 && Object.keys(xhrMsg.response).length) {
-                            try {
-                                xhrMsg.response = hideSensitiveInfo(xhrMsg.response, logOptions.sensitiveFields);
-                            } catch (e) {}
-                        }
-                        context.post(msg);
-                    });
-                    return;
-                }
-    
-                xhrMsg.response = "Not logging unsupported response content: " + respContentType;
-    
-            }
-            context.post(msg);
-        }
-    
-    
-        /**
-         * Process the XHR object to check if it matches with a filter
-         * and if so then log it.
-         * @param xhr {XMLHttpRequest} The XMLHttpRequest object to be processed.
-         */
-        function processXHR(xhr) {
-            var filter,
-                url = xhr.tListener.url,
-                method = xhr.tListener.method,
-                status = xhr.status.toString(),
-                logOptions = {
-                    requestHeaders: false,
-                    requestData: false,
-                    responseHeaders: false,
-                    responseData: false
-                };
-    
-            filter = getMatchingFilter(url, method, status);
-            if (filter) {
-                if (filter.log) {
-                    logOptions = filter.log;
-                }
-                logXHR(xhr, logOptions);
-            }
-        }
-    
-        /**
-         * Process the fetch request & response to check if it matches with a filter
-         * and if so then log it.
-         * @param fetchReq {Request} The request object of fetch
-         * @param fetchResp {Response} The response object of fetch
-         */
-        function processFetch(fetchReq, fetchResp) {
-            var filter,
-                url = fetchReq.url,
-                method = fetchReq.initData.method,
-                status = fetchResp.status.toString(),
-                logOptions = {
-                    requestHeaders: false,
-                    requestData: false,
-                    responseHeaders: false,
-                    responseData: false
-                };
-    
-            if (isUrlBlocked(url)) {
-                return;
-            }
-    
-            filter = getMatchingFilter(url, method, status);
-            if (filter) {
-                if (filter.log) {
-                    logOptions = filter.log;
-                }
-                logFetch(fetchReq, fetchResp, logOptions);
-            }
-        }
-    
-        /**
-         * XHR readystatechange event handler. Checks if the readyState is "complete"
-         * and processes the XHR for logging.
-         * @param event {DOMEvent} Event object corresponding to the XHR readystatechange event.
-         */
-        function readyStateChangeHandler(event) {
-            var xhr,
-                readyState;
-    
-            // Sanity check
-            if (!event || !event.target) {
-                return;
-            }
-    
-            xhr = event.target;
-            readyState = xhr.readyState;
-    
-            if (readyState === 4) {
-                xhr.removeEventListener("readystatechange", readyStateChangeHandler);
-                xhr.tListener.end = Date.now();
-                processXHR(xhr);
-            }
-        }
-    
-        /**
-         * Creates a proxy function for the XMLHttpRequest.setRequestHeader method.
-         * The proxy function records the header being set and invokes the original
-         * method.
-         * @param {XMLHttpRequest} xhr The XMLHttpRequest object.
-         */
-        function hookSetRequestHeader(xhr) {
-            var savedSetRequestHeader = xhr.setRequestHeader;
-    
-            xhr.setRequestHeader = function (header, value) {
-                var _xhr = this,
-                    tListener = _xhr.tListener;
-    
-                if (header && header.length) {
-                    tListener.reqHeaders[header] = value;
-                }
-                return savedSetRequestHeader.apply(_xhr, arguments);
-            };
-        }
-    
-        /**
-         * Creates a proxy function for the XMLHttpRequest.send method.
-         * The proxy function records the request data being sent and
-         * invokes the original method.
-         * @param {XMLHttpRequest} xhr The XMLHttpRequest object.
-         */
-        function hookSend(xhr) {
-            var savedSend = xhr.send;
-    
-            xhr.send = function (data) {
-                var _xhr = this,
-                    tListener = _xhr.tListener;
-    
-                if (data) {
-                    // TODO: Add additional checks to ensure data is serializable.
-                    tListener.reqData = data;
-                }
-                tListener.start = Date.now();
-                return savedSend.apply(_xhr, arguments);
-            };
-        }
-    
-        /**
-         * Check if the url matches tealeaf end point collector.
-         * @param {String} url
-         */
-        function isSystemXHR(url) {
-            var i, queueServiceConfig, queues;
-    
-            queueServiceConfig = DCX.getServiceConfig("queue");
-            queues = queueServiceConfig.queues || [];
-    
-            for (i = 0; i < queues.length; i += 1) {
-                if (queues[i].endpoint && url.indexOf(queues[i].endpoint) !== -1) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    
-        /**
-         * Proxy function for XMLHttpRequest.prototype.open
-         * Attaches the readystatechange handler and hook functions
-         * for the XMLHttpRequest.setRequestHeader and
-         * XMLHttpRequest.send methods.
-         * @param {String} method
-         * @param {String} url
-         */
-        function xhrOpenHook(method, url, async) {
-            var xhr = this;
-    
-            if (moduleLoaded && !isUrlBlocked(url)) {
-                xhr.addEventListener("readystatechange", readyStateChangeHandler);
-    
-                xhr.tListener = {
-                    method: method,
-                    url: url,
-                    async: (typeof async === "undefined") ? true : !!async,
-                    reqHeaders: {},
-                    isSystemXHR: isSystemXHR(url)
-                };
-                // Optionally listen to setRequestHeader()
-                hookSetRequestHeader(xhr);
-    
-                // Optionally listen to send()
-                hookSend(xhr);
-            }
-            return nativeXHROpen.apply(xhr, arguments);
-        }
-    
-        /**
-         * Save the original XMLHttpRequest.prototype.open method and replace
-         * it with a proxy function.
-         */
-        function addXHRHook() {
-            if (XMLHttpRequest) {
-                nativeXHROpen = XMLHttpRequest.prototype.open;
-                XMLHttpRequest.prototype.open = xhrOpenHook;
-            }
-        }
-    
-        /**
-         * Override native fetch api
-         */
-        function addFetchHook() {
-            nativeFetch = window.fetch;
-    
-            window.fetch = function (url, options) {
-                var fetchReq = {},
-                    promise;
-    
-                if (typeof url === "object") {
-                    //fetch is evoked with a Request object
-                    fetchReq.initData = url;
-                    fetchReq.url = url.url;
-    
-                    //body in Request object cannot be directly accessed.
-                    fetchReq.initData.clone().text().then(function (data) {
-                        if (data.length > 0) {
-                            fetchReq.body = data;
-                        }
-                    });
-                } else {
-                    //fetch is evoked with two parameters, url and initObject
-                    fetchReq.initData = options || {};
-                    fetchReq.url = url;
-                    if (options && options.body) {
-                        fetchReq.body = options.body;
-                    }
-                }
-                fetchReq.isSystemXHR = isSystemXHR(fetchReq.url);
-                fetchReq.start = Date.now();
-    
-                promise = nativeFetch.apply(this, arguments);
-    
-                return promise.then(function (response) {
-                    fetchReq.end = Date.now();
-                    processFetch(fetchReq, response);
-                    return response;
-                });
-            };
-        }
-    
-        /**
-         * Cache the regex specified in the module configuration.
-         * @param {Object} obj The property with the regex to be cached.
-         */
-        function cacheRegex(obj) {
-            if (obj && obj.regex) {
-                obj.cRegex = new RegExp(obj.regex, obj.flags);
-            }
-        }
-    
-        /**
-         * Process the module configuration and setup the corresponding cookies and tokens.
-         * Setup the callback to add the respective headers when the library POSTs.
-         * @function
-         * @private
-         * @param {object} config The module configuration.
-         */
-        function processConfig(config) {
-            var i, len,
-                filter,
-                filters = [],
-                skipSafetyCheck = utils.getValue(config, "skipSafetyCheck", false);
-    
-            if (config && config.filters) {
-                filters = config.filters;
-            }
-    
-            for (i = 0, len = filters.length; i < len; i += 1) {
-                filter = filters[i];
-                utils.forEach([filter.url, filter.method, filter.status], cacheRegex);
-            }
-    
-            if (config && config.urlBlocklist) {
-                utils.forEach(config.urlBlocklist, cacheRegex);
-            }
-    
-            xhrEnabled = utils.getValue(config, "xhrEnabled", true) && window.XMLHttpRequest;
-    
-            /**
-             * AjaxListener module intercepts native XMLHttpRequest object implemented by browsers
-             * Apps that use polyfills or other scripts which override the native browser implementation,
-             * the module is disabled as a safety precaution.
-             */
-            if (xhrEnabled && !skipSafetyCheck &&
-                    (XMLHttpRequest.toString().indexOf("[native code]") === -1 ||
-                    XMLHttpRequest.toString().indexOf("XMLHttpRequest") === -1)) {
-                xhrEnabled = false;
-            }
-    
-            fetchEnabled = utils.getValue(config, "fetchEnabled", true) && window.fetch;
-    
-            if (fetchEnabled && !skipSafetyCheck &&
-                    window.fetch.toString().indexOf("[native code]") === -1) {
-                fetchEnabled = false;
-            }
-        }
-    
-        // Return the module's interface object. This contains callback functions which
-        // will be invoked by the UIC core.
-        return {
-            init: function () {
-                moduleConfig = context.getConfig();
-                processConfig(moduleConfig);
-            },
-    
-            destroy: function () {
-                moduleLoaded = false;
-            },
-    
-            onevent: function (webEvent) {
-                switch (webEvent.type) {
-                case "load":
-                    if (xhrEnabled) {
-                        addXHRHook();
-                    }
-    
-                    if (fetchEnabled) {
-                        addFetchHook();
-                    }
-                    moduleLoaded = true;
-                    break;
-                case "unload":
-                    moduleLoaded = false;
-                    break;
-                default:
-                    break;
-                }
-            },
-    
-            version: "1.0.1"
-        };
-    });
-}
-
-/*
- *  **************************************************************************
- *  Licensed Materials - Property of HCL
- *  (c) Copyright HCL Technologies Ltd.  2020. All Rights Reserved.
- *  US Government Users Restricted Rights - Use, duplication or disclosure
- *  restricted by GSA ADP Schedule Contract with HCL Technologies.
- *  **************************************************************************
- */
-
 /**
  * @fileOverview The Replay module implements the logic for monitoring and
  * reporting user interaction data used for replay and usability.
  * @exports replay
  */
-
 /*global DCX:true */
-
 // Sanity check
 DCX.addModule("replay", function (context) {
     "use strict";
-
     var utils = context.utils,
         currOrientation = 0,
         savedTouch = {
@@ -12028,8 +9508,6 @@ DCX.addModule("replay", function (context) {
         scrollViewStart = null,
         scrollViewEnd = null,
         nextScrollViewStart = null,
-        loggedExceptions = {},
-        loggedConsole = {},
         viewPortXStart = 0,
         viewPortYStart = 0,
         lastFocusEvent = { inFocus: false },
@@ -12045,7 +9523,6 @@ DCX.addModule("replay", function (context) {
             cellMinWidth: 20,
             cellMinHeight : 20
         };
-
     /**
      * Resets the visitedCount of all controls recorded in pastEvents.
      * @private
@@ -12058,7 +9535,6 @@ DCX.addModule("replay", function (context) {
             }
         }
     }
-
     /**
      * Returns true if the click event changes the target state or is otherwise
      * relevant for the target.
@@ -12070,11 +9546,9 @@ DCX.addModule("replay", function (context) {
         var clickable = false,
             clickableInputTypes = "|button|image|submit|reset|",
             subType = null;
-
         if (typeof target !== "object" || !target.type) {
             return clickable;
         }
-
         switch (target.type.toLowerCase()) {
         case "input":
             // Clicks are relevant for button type inputs only.
@@ -12094,10 +9568,8 @@ DCX.addModule("replay", function (context) {
             clickable = true;
             break;
         }
-
         return clickable;
     }
-
     function parentElements(node) {
         var parents = [];
         node = node.parentNode;
@@ -12107,11 +9579,9 @@ DCX.addModule("replay", function (context) {
         }
         return parents;
     }
-
     function getParentLink(parents) {
         return utils.some(parents, function (node) {
             var tagName = utils.getTagName(node);
-
             // Either links or buttons could have content
             if (tagName === "a" || tagName === "button") {
                 return node;
@@ -12119,7 +9589,6 @@ DCX.addModule("replay", function (context) {
             return null;
         });
     }
-
     /**
      * Get the normalized dcEvent from the underlying DOM event and target.
      * @private
@@ -12129,17 +9598,14 @@ DCX.addModule("replay", function (context) {
     function getDCEvent(webEvent) {
         var dcEvent = webEvent.type,
             target = webEvent.target;
-
         if (typeof dcEvent === "string") {
             dcEvent = dcEvent.toLowerCase();
         } else {
             dcEvent = "unknown";
         }
-
         if (dcEvent === "blur") {
             dcEvent = "focusout";
         }
-
         if (dcEvent === "change") {
             if (target.type === "INPUT") {
                 switch (target.subType) {
@@ -12160,10 +9626,8 @@ DCX.addModule("replay", function (context) {
                 dcEvent = "valueChange";
             }
         }
-
         return dcEvent;
     }
-
     /**
      * Invoke the core API to take the DOM capture. If a delay is specified, then
      * schedule a DOM capture.
@@ -12180,11 +9644,9 @@ DCX.addModule("replay", function (context) {
             return dcid;
         }
         config = config || {};
-
         // Set the eventOn property (true for the 1st DOM Capture)
         config.eventOn = firstDOMCaptureEventFlag;
         firstDOMCaptureEventFlag = false;
-
         if (delay) {
             dcid = "dcid-" + utils.getSerialNumber() + "." + (new Date()).getTime() + "s";
             window.setTimeout(function () {
@@ -12197,7 +9659,6 @@ DCX.addModule("replay", function (context) {
         }
         return dcid;
     }
-
     /**
      * Check the DOM capture rules to see if DOM capture should be triggered for this combination
      * of event, target, screenview as applicable.
@@ -12221,7 +9682,6 @@ DCX.addModule("replay", function (context) {
             screenview,
             screenviews,
             screenviewsLen;
-
         // Sanity check
         if (!eventType || (!target && !screenviewName)) {
             return dcid;
@@ -12229,14 +9689,12 @@ DCX.addModule("replay", function (context) {
         if (!target && !(eventType === "load" || eventType === "unload")) {
             return dcid;
         }
-
         replayConfig = context.getConfig() || {};
         dcEnabled = utils.getValue(replayConfig, "domCapture.enabled", false);
         if (!dcEnabled || utils.isLegacyIE) {
             // DOM Capture is not supported for IE8 and below
             return dcid;
         }
-
         dcTriggerList = utils.getValue(replayConfig, "domCapture.triggers") || [];
         for (i = 0, len = dcTriggerList.length; !capture && i < len; i += 1) {
             dcTrigger = dcTriggerList[i];
@@ -12277,19 +9735,15 @@ DCX.addModule("replay", function (context) {
                 }
             }
         }
-
         if (capture) {
             // Immediate or delayed?
             delay = dcTrigger.delay || (dcTrigger.event === "load" ? 7 : 0);
             // Force full DOM snapshot?
             captureConfig.forceFullDOM = !!dcTrigger.fullDOMCapture;
-
             dcid = scheduleDOMCapture(window.document, captureConfig, delay);
         }
-
         return dcid;
     }
-
     /**
      * Used to create a control object from a webEvent.
      * @private
@@ -12315,17 +9769,11 @@ DCX.addModule("replay", function (context) {
             parents       = parentElements(utils.getValue(target, "element")),
             parentLinkNode = null,
             relXY         = utils.getValue(target, "position.relXY"),
-            eventSubtype  = utils.getValue(options, "webEvent.subType", null),
-            getOrgID = function(target) {
-                if(target && target.element && target.element.id) return target.element.id;
-                return "";
-            };
-
+            eventSubtype  = utils.getValue(options, "webEvent.subType", null);
         control = {
             timestamp: utils.getValue(options, "webEvent.timestamp", 0),
             type: 4,
             target: {
-                origID: getOrgID(target),
                 id: target.id || "",
                 idType: target.idType,
                 name: target.name,
@@ -12342,36 +9790,24 @@ DCX.addModule("replay", function (context) {
                 type: utils.getValue(options, "webEvent.type", "UNKNOWN")
             }
         };
-
-        // if origID is nul or empty, we remove origID from Object.
-        if(control.target.origID === undefined || control.target.origID === "") {
-            delete control.target.origID;
-        }
-
         if (targetSubtype) {
             control.target.subType = targetSubtype;
         }
-
         if (relXY) {
             control.target.position.relXY = relXY;
         }
-
         if (typeof options.dwell === "number" && options.dwell > 0) {
             control.target.dwell = options.dwell;
         }
-
         if (typeof options.visitedCount === "number") {
             control.target.visitedCount = options.visitedCount;
         }
-
         if (typeof options.prevState !== "undefined") {
             control.prevState = options.prevState;
         }
-
         if (eventSubtype) {
             control.event.subType = eventSubtype;
         }
-
         // Add usability to config settings
         parentLinkNode = getParentLink(parents);
         control.target.isParentLink = !!parentLinkNode;
@@ -12391,22 +9827,17 @@ DCX.addModule("replay", function (context) {
                 control.target.currState.innerText = utils.trim(control.target.currState.innerText || parentLinkNode.innerText || parentLinkNode.textContent);
             }
         }
-
         if (utils.isUndefOrNull(control.target.currState)) {
             delete control.target.currState;
         }
         if (utils.isUndefOrNull(control.target.name)) {
             delete control.target.name;
         }
-
         return control;
     }
-
     function postUIEvent(queueEvent) {
         context.post(queueEvent);
     }
-
-
     /**
      * Posts all events from given array to the message service. The input
      * array is cleared on exit from the function.
@@ -12428,7 +9859,6 @@ DCX.addModule("replay", function (context) {
                 mouseover: true
             },
             results = [];
-
         for (i = 0; i < len; i += 1) {
             e1 = queue[i];
             if (!e1) {
@@ -12467,75 +9897,18 @@ DCX.addModule("replay", function (context) {
                 results.push(queue[i]);
             }
         }
-
         for (e1 = results.shift(); e1; e1 = results.shift()) {
             context.post(e1);
         }
         queue.splice(0, queue.length);
     }
-
-    /**
-     * Logged messages are stored in loggedConsole
-     * Keeps count of repeated messages
-     * Also stores type of console
-     * @param {String} message - Passed to console.log, info warn or error
-     * @param {*} method - Log, warn, info or error
-     * @returns void
-     */
-    function handleConsole(message, method) {
-        if (typeof message !== "string") {
-            return;
-        }
-        // If logged message already present
-        if (loggedConsole[message]) {
-            // Increment repeat count
-            loggedConsole[message].console.repeats = loggedConsole[message].console.repeats + 1;
-        } else {
-            // const e = new Error();
-            // const regex = /\((.*):(\d+):(\d+)\)$/
-            // const match = regex.exec(e.stack.split("\n")[2]);
-            
-            // Else add information related to message
-            loggedConsole[message] = {
-                console: {
-                    description: message, // message
-                    repeats: 1,
-                    type: method, // type of method - Log, warn, info & error
-                    // Removing file name line & column as wrong details are getting stored
-                    // filepath: match && match[1] || null,
-                    // line: match && match[2] || null,
-                    // column: match && match[3] || null
-                }
-            };
-        }
-    }
-
-	function handleError(webEvent) {
-        var errorMessage = null,
-            i,
-            msg = utils.getValue(webEvent, "nativeEvent.message"),
-            url = utils.getValue(webEvent, "nativeEvent.filename", ""),
-            line = utils.getValue(webEvent, "nativeEvent.lineno", -1),
-            errorObject = utils.getValue(webEvent, "nativeEvent.error");
-
-        if (typeof msg !== "string") {
-            return;
-        }
-
-        // Normalize the URL
-        if (url) {
-            url = context.normalizeUrl(url, 6);
-        }
-
-        if (errorObject && errorObject.stack) {
-            i = errorObject.stack.toString();
-        } else {
-            i = (msg + " " + url + " " + line).toString();
-        }
-
-        if (loggedExceptions[i]) {
-            loggedExceptions[i].exception.repeats = loggedExceptions[i].exception.repeats + 1;
-        } else {
+    if (typeof window.onerror !== "function") {
+        window.onerror = function (msg, url, line) {
+            var errorMessage = null;
+            if (typeof msg !== "string") {
+                return;
+            }
+            line = line || -1;
             errorMessage = {
                 type: 6,
                 exception: {
@@ -12544,23 +9917,11 @@ DCX.addModule("replay", function (context) {
                     line: line
                 }
             };
-
-							
+            errorCount += 1;
             context.post(errorMessage);
-
-            loggedExceptions[i] = {
-                exception: {
-                    description: msg,
-                    url: url,
-                    line: line,
-                    repeats: 1
-                }
-            };
-        }
-        
-        errorCount += 1;
+        };
+        onerrorHandled = true;
     }
-
     /**
      * Create and add value that will be posted to queue.
      * @private
@@ -12575,7 +9936,6 @@ DCX.addModule("replay", function (context) {
             currState: utils.getValue(webEvent, "target.state")
         }));
     }
-
     /**
      * Handles blur events. It is invoked when browser blur events fires or from the
      * handleFocus method (only when browser 'blur' event didn't take place).
@@ -12595,17 +9955,14 @@ DCX.addModule("replay", function (context) {
             lastQueueEvent,
             targetState,
             i = 0;
-
         // Sanity check
         if (!id) {
             return;
         }
-
         if (tmpQueue.length === 0) {
             // Empty tmpQueue means there are no pending messages to handle
             return;
         }
-
         webEvent = webEvent || (pastEvents[id] ? pastEvents[id].webEvent : {});
         if (webEvent.type === "blur" || webEvent.type === "change") {
             targetState = utils.getValue(webEvent, "target.state", null);
@@ -12614,18 +9971,14 @@ DCX.addModule("replay", function (context) {
         } else {
             targetState = {};
         }
-
         lastQueueEvent = tmpQueue[tmpQueue.length - 1];
-
         if (pastEvents[id]) {
             lastQueueEvent.focusInOffset = pastEvents[id].focusInOffset;
             lastQueueEvent.target.visitedCount = pastEvents[id].visitedCount;
-
             if (pastEvents[id].focus) {
                 pastEvents[id].dwell =  Number(new Date()) - pastEvents[id].focus;
                 lastQueueEvent.target.dwell = pastEvents[id].dwell;
             }
-
             if (!pastEvents[id].processedChange && pastEvents[id].prevState) {
                 // Should this blur be converted to a change event?
                 if (!utils.isEqual(pastEvents[id].prevState, targetState)) {
@@ -12641,7 +9994,6 @@ DCX.addModule("replay", function (context) {
             // Blur without any record of a prior event on this control.
             pastEvents[id] = {};
         }
-
         // if the click (without generating change event) fires on an
         // input element for which it's not relevant - report event as a blur and update the currState
         if (lastQueueEvent.event.type === "click") {
@@ -12652,12 +10004,10 @@ DCX.addModule("replay", function (context) {
         } else if (lastQueueEvent.event.type === "focus") {
             convertToBlur = true;
         }
-
         if (convertToBlur) {
             lastQueueEvent.event.type = "blur";
             lastQueueEvent.event.dcEvent = "focusout";
         }
-
         if (!lastQueueEvent.dcid) {
             // Check if DOM Capture needs to be triggered for this message.
             dcid = addDOMCapture(lastQueueEvent.event.type, webEvent.target);
@@ -12665,13 +10015,10 @@ DCX.addModule("replay", function (context) {
                 lastQueueEvent.dcid = dcid;
             }
         }
-
         // Reset the inFocus state of the lastFocusEvent
         lastFocusEvent.inFocus = false;
-
         postEventQueue(tmpQueue);
     }
-
     /**
      * Handles the focus events. It is fired either when the real focus event take place
      * or right after the click event on an element (only when browser focus event was not fired)
@@ -12685,18 +10032,15 @@ DCX.addModule("replay", function (context) {
             // Target is already in focus
             return;
         }
-
         if (lastFocusEvent.inFocus) {
             // Synthetic blur on the previously in-focus element
             handleBlur(lastFocusEvent.target.id, lastFocusEvent);
         }
-
         lastFocusEvent = webEvent;
         lastFocusEvent.inFocus = true;
         if (!pastEvents[id]) {
             pastEvents[id] = {};
         }
-
         pastEvents[id].focus = lastFocusEvent.dwellStart = Number(new Date());
         pastEvents[id].focusInOffset = viewTimeStart ? lastFocusEvent.dwellStart - Number(viewTimeStart) : -1;
         if (webEvent.type === "focus" || webEvent.type === "click") {
@@ -12706,10 +10050,8 @@ DCX.addModule("replay", function (context) {
         pastEvents[id].webEvent = webEvent;
         pastEvents[id].processedChange = false;
         pastEvents[id].processedClick = false;
-
         addToTmpQueue(webEvent, id);
     }
-
     /**
      * Checks the tmpQueue for any prior/pending interaction that needs to be posted.
      * @private
@@ -12722,14 +10064,11 @@ DCX.addModule("replay", function (context) {
             prevID,
             tmpQueueLength = tmpQueue.length,
             tmpQueueEvent = tmpQueueLength ? tmpQueue[tmpQueueLength - 1] : null;
-
         // Return immediately if there is nothing pending in the tmpQueue
         if (!tmpQueueEvent) {
             return pendingInteractionPosted;
         }
-
         prevID = tmpQueueEvent.target.id;
-
         // Check if there is a focus, click or change on a different element than one in the tmpQueue
         // Select lists are an exception because the option element can be selected
         if (prevID !== id && tmpQueueEvent.target.dcxype !== "selectList") {
@@ -12742,7 +10081,6 @@ DCX.addModule("replay", function (context) {
         }
         return pendingInteractionPosted;
     }
-
     /**
      * Handles change events. Its called when the browser 'change' event fires.
      * @private
@@ -12752,10 +10090,8 @@ DCX.addModule("replay", function (context) {
      */
     function handleChange(id, webEvent) {
         var tmpQueueEvent;
-
         // Ensure focus is processed for the target element
         handleFocus(id, webEvent);
-
         tmpQueueEvent = tmpQueue[tmpQueue.length - 1];
         tmpQueueEvent.event.type = "change";
         tmpQueueEvent.event.dcEvent = getDCEvent(webEvent);
@@ -12763,11 +10099,9 @@ DCX.addModule("replay", function (context) {
         if (pastEvents[id].prevState) {
             tmpQueueEvent.target.prevState = pastEvents[id].prevState;
         }
-
         pastEvents[id].webEvent = webEvent;
         pastEvents[id].processedChange = true;
     }
-
     /**
      * Sets the relative X & Y values to a webEvent.
      * Same as the usability module - break node into a grid based on cell size limitations, and the size of the element itself
@@ -12785,18 +10119,14 @@ DCX.addModule("replay", function (context) {
             nodeHeight = utils.getValue(webEvent, "target.size.height", node.offsetHeight),
             offsetX = utils.getValue(webEvent, "target.position.x", 0),
             offsetY = utils.getValue(webEvent, "target.position.y", 0);
-
         cellWidth = nodeWidth ? Math.max(nodeWidth / gridValues.cellMaxX, gridValues.cellMinWidth) : gridValues.cellMinWidth;
         cellHeight = nodeHeight ? Math.max(nodeHeight / gridValues.cellMaxY, gridValues.cellMinHeight) : gridValues.cellMinHeight;
         cellX = Math.floor(offsetX / cellWidth);
         cellY = Math.floor(offsetY / cellHeight);
-
         if (!isFinite(cellX)) { cellX = 0; }
         if (!isFinite(cellY)) { cellY = 0; }
-
         return cellX + "," + cellY;
     }
-
     /**
      * Handles click events. Additionally it recognizes situations when browser didn't
      * fire the focus event and in such case it invokes 'handleFocus' method.
@@ -12808,36 +10138,28 @@ DCX.addModule("replay", function (context) {
     function handleClick(id, webEvent) {
         var relXY,
             tmpQueueEvent;
-
         if (webEvent.target.type === "select" && lastClickEvent && lastClickEvent.target.id === id) {
             lastClickEvent = null;
             return;
         }
-
         // Ensure focus is registered for the element being clicked
         handleFocus(id, webEvent);
-
         // Get the relative XY of the click
         relXY = getRelativeXY(webEvent);
         webEvent.target.position.relXY = relXY;
-
         // Update the existing queue entry with relXY info. from the click event
         tmpQueueEvent = tmpQueue[tmpQueue.length - 1];
         tmpQueueEvent.event.type = "click";
         tmpQueueEvent.event.dcEvent = getDCEvent(webEvent);
         tmpQueueEvent.target.position.relXY = relXY;
-
         pastEvents[id].webEvent = webEvent;
         pastEvents[id].processedClick = true;
-
         // For clickable targets, process and post the click right away
         if (isTargetClickable(webEvent.target)) {
             handleBlur(id, webEvent);
         }
-
         lastClickEvent = webEvent;
     }
-
     /**
      * Handles the "orientationchange" event and posts the appropriate message
      * to the replay module's queue.
@@ -12865,31 +10187,24 @@ DCX.addModule("replay", function (context) {
                     }
                 }
             };
-
         postUIEvent(orientationChangeEvent);
         currOrientation = newOrientation;
     }
-
     /* TODO: Refactor this to use a well-defined touchState object */
     function isDuplicateTouch(touchState) {
         var result = false;
-
         if (!touchState) {
             return result;
         }
-
         result = (savedTouch.scale === touchState.scale &&
                 Math.abs((new Date()).getTime() - savedTouch.timestamp) < 500);
-
         return result;
     }
-
     function saveTouchState(touchState) {
         savedTouch.scale = touchState.scale;
         savedTouch.rotation = touchState.rotation;
         savedTouch.timestamp = (new Date()).getTime();
     }
-
     /**
      * Takes the scale factor and returns the pinch mode as a text string.
      * Values less than 1 correspond to a pinch close gesture. Values greater
@@ -12903,7 +10218,6 @@ DCX.addModule("replay", function (context) {
     function getPinchType() {
         var s,
             pinchType;
-
         s = deviceScale - previousDeviceScale;
         if (isNaN(s)) {
             pinchType = "INVALID";
@@ -12914,11 +10228,8 @@ DCX.addModule("replay", function (context) {
         } else {
             pinchType = "NONE";
         }
-
         return pinchType;
     }
-
-
     /**
      * Used to create the client state message from a webEvent.
      * @private
@@ -12928,8 +10239,8 @@ DCX.addModule("replay", function (context) {
      * @return {object} Client state message object.
      */
     function getClientStateMessage(webEvent) {
-        var documentElement = document.documentElement || {},
-            documentBody = document.body || {},
+        var documentElement = document.documentElement,
+            documentBody = document.body,
             screen = window.screen,
             screenWidth = screen.width,
             screenHeight = screen.height,
@@ -12951,9 +10262,7 @@ DCX.addModule("replay", function (context) {
             },
             clientState = msg.clientState,
             scaleWidth;
-
         pastClientState = pastClientState || msg;
-
         // Workaround for browser/webviews that give incorrect values for innerWidth & innerHeight during unload
         if (clientState.event === "unload" &&
                 clientState.viewPortHeight === clientState.pageHeight &&
@@ -12964,36 +10273,29 @@ DCX.addModule("replay", function (context) {
                 clientState.viewPortWidth = pastClientState.clientState.viewPortWidth;
             }
         }
-
         if ((clientState.viewPortY + clientState.viewPortHeight) > clientState.pageHeight) {
             // Scroll beyond the bottom of the page results in viewPortY overshooting the rendered pageHeight. Cap it at the pageHeight.
             clientState.viewPortY = clientState.pageHeight - clientState.viewPortHeight;
         }
-
         // Normalize the viewPortY values to account for any scrolls beyond the page boundaries
         if (clientState.viewPortY < 0) {
             // Scroll beyond the top of the page results in negative viewPortY. Cap it at 0.
             clientState.viewPortY = 0;
         }
-
         // Calculate the scale based on the ratio between the screen width and viewport width
         scaleWidth = !clientState.viewPortWidth ? 1 : (normalizedScreenWidth / clientState.viewPortWidth);
         clientState.deviceScale = scaleWidth.toFixed(3);
-
         // Set the viewTime for this client state
         clientState.viewTime = 0;
         if (scrollViewStart && scrollViewEnd) {
             clientState.viewTime = scrollViewEnd.getTime() - scrollViewStart.getTime();
         }
-
         if (webEvent.type === "scroll") {
             clientState.viewPortXStart = pastClientState.clientState.viewPortX;
             clientState.viewPortYStart = pastClientState.clientState.viewPortY;
         }
-
         return msg;
     }
-
     /**
      * Post the current client state and also record it as pastClientState.
      * Reset the scrollViewStart/End values.
@@ -13003,7 +10305,6 @@ DCX.addModule("replay", function (context) {
      */
     function sendClientState() {
         var cs;
-
         if (curClientState) {
             cs = curClientState.clientState;
             // Sanity checks: These are needed since we have observed some unexplained instances
@@ -13019,7 +10320,6 @@ DCX.addModule("replay", function (context) {
         }
         sendClientState.timeoutId = 0;
     }
-
     /**
      * Used to create client state from a webEvent.
      * @private
@@ -13030,14 +10330,11 @@ DCX.addModule("replay", function (context) {
      */
     function handleClientState(webEvent) {
         var attentionMsg = null;
-
         // Opera Mini has a faulty implementation and produces incorrect data. Do not send incorrect data.
         if (utils.isOperaMini) {
             return;
         }
-
         curClientState = getClientStateMessage(webEvent);
-
         // TODO: Change these if-else to a switch statement
         if (webEvent.type === "scroll" || webEvent.type === "resize") {
             // Set the interval timeout so we can collect related scroll / resize events in one batch
@@ -13058,7 +10355,6 @@ DCX.addModule("replay", function (context) {
                 sendClientState();
             }
         }
-
         if (webEvent.type === "load" || webEvent.type === "unload") {
             // The "Attention" event is deprecated
             if (webEvent.type === "unload" && pageLoadTime) {
@@ -13067,19 +10363,15 @@ DCX.addModule("replay", function (context) {
                 attentionMsg.clientState.event = "attention";
                 attentionMsg.clientState.viewTime = (new Date()).getTime() - pageLoadTime;
             }
-
             sendClientState();
-
             if (attentionMsg) {
                 // send the attentionMsg
                 curClientState = attentionMsg;
                 sendClientState();
             }
         }
-
         return curClientState;
     }
-
     /**
      * Handles the "touchstart" event, which is only used to get the deviceScale before a pinch
      * @private
@@ -13090,12 +10382,10 @@ DCX.addModule("replay", function (context) {
      */
     function handleTouchStart(webEvent) {
         var fingerCount = utils.getValue(webEvent, "nativeEvent.touches.length", 0);
-
         if (fingerCount === 2) {
             handleClientState(webEvent);
         }
     }
-
     /**
      * Handles the "touchend" event and posts the appropriate message to the
      * replay module's queue.
@@ -13122,16 +10412,13 @@ DCX.addModule("replay", function (context) {
                     idType: utils.getValue(webEvent, "target.idType")
                 }
             };
-
         // count the number of fingers placed on the screen
         fingerCount = utils.getValue(webEvent, "nativeEvent.changedTouches.length", 0) + utils.getValue(webEvent, "nativeEvent.touches.length", 0);
         if (fingerCount !== 2) {
             return;
         }
-
         // 1st handle the client state change. This will update the device scale information.
         handleClientState(webEvent);
-
         // Only post when there are two fingers reported by the touchend event object
         // create the current touchstate
         touchState = {
@@ -13139,17 +10426,13 @@ DCX.addModule("replay", function (context) {
             scale: deviceScale ? deviceScale.toFixed(2) : 1
         };
         touchState.pinch = getPinchType();
-
         // create the prev touch state
         prevTouchState.scale = previousDeviceScale ? previousDeviceScale.toFixed(2) : 1;
-
         // Set the curr and prev states
         touchEndEvent.target.prevState = prevTouchState;
         touchEndEvent.target.currState = touchState;
-
         postUIEvent(touchEndEvent);
     }
-
     /**
      * Compares two WebEvent's to determine if they are duplicates. Examines
      * the event type, target id and the timestamp to make this determination.
@@ -13171,12 +10454,10 @@ DCX.addModule("replay", function (context) {
             timeDiff = 0,
             currTimeStamp = 0,
             prevTimeStamp = 0;
-
         // Sanity check
         if (!curr || !prev || typeof curr !== "object" || typeof prev !== "object") {
             return false;
         }
-
         // Compare WebEvent properties
         for (i = 0, len = propsToCompare.length; duplicate && i < len; i += 1) {
             prop = propsToCompare[i];
@@ -13185,7 +10466,6 @@ DCX.addModule("replay", function (context) {
                 break;
             }
         }
-
         if (duplicate) {
             currTimeStamp = utils.getValue(curr, "timestamp");
             prevTimeStamp = utils.getValue(prev, "timestamp");
@@ -13198,12 +10478,8 @@ DCX.addModule("replay", function (context) {
                 }
             }
         }
-
         return duplicate;
     }
-
-
-
     /**
      * Default handler for event types that are not being processed by the module.
      * @private
@@ -13224,55 +10500,13 @@ DCX.addModule("replay", function (context) {
                 }
             },
             dcid;
-
         // Add DOM Capture message if configured
         dcid = addDOMCapture(webEvent.type, webEvent.target);
         if (dcid) {
             msg.dcid = dcid;
         }
-
         postUIEvent(msg);
     }
-
-    /**
-     * 
-     * Intercepts cvery console function
-     * Log, warn, info and error
-     */
-    function interceptConsole() {
-        // variable for console
-        var console = window.console
-        // Return if no console
-        if (!console) return;
-        // Method - 'log', 'warn', 'info', 'error'
-        function intercept(method){
-            // Save original console
-            var original = console[method];
-            // Override console function
-            console[method] = function() {
-                // Store all the arguments
-                var args =  Array.prototype.slice.apply(arguments);
-                var argStringCollection = [];
-                args.forEach(function(arg) {
-                    // Stringify each arg
-                    argStringCollection.push(JSON.stringify(arg));
-                });
-                // Join each arg by ' '
-                var message = argStringCollection.join(' ');
-                // Call handle console function
-                handleConsole(message, method);
-                // Original call kept intact
-                original.apply(console, arguments);
-            }
-        }
-        // Methods supported - Log, warn, info and error
-        var methods = ['log', 'warn', 'info', 'error'];
-        // Loop over each method
-        for (var i = 0; i < methods.length; i++)
-            // Intercept call on each method 
-            intercept(methods[i])
-    }
-
     /**
      * Add geolocation message if the event is a load event and the
      * geolocation feature is enabled.
@@ -13284,21 +10518,17 @@ DCX.addModule("replay", function (context) {
     function addGeolocationMsg(eventName) {
         var geolocationConfig = utils.getValue(replayConfig, "geolocation"),
             triggers;
-
         if (!geolocationConfig || !geolocationConfig.enabled) {
             return;
         }
-
         triggers = geolocationConfig.triggers || [];
         if (!triggers.length) {
             return;
         }
-
         if (triggers[0].event === eventName) {
             DCX.logGeolocation();
         }
     }
-
     return {
         init: function () {
             tmpQueue = [];
@@ -13306,14 +10536,14 @@ DCX.addModule("replay", function (context) {
         destroy: function () {
             handleBlur(lastEventId);
             tmpQueue = [];
-
             // Clear out any pending clientState timeout
             if (sendClientState.timeoutId) {
                 window.clearTimeout(sendClientState.timeoutId);
                 sendClientState.timeoutId = 0;
             }
-
             if (onerrorHandled) {
+                // Detach the onerror handler
+                window.onerror = null;
                 onerrorHandled = false;
             }
         },
@@ -13321,35 +10551,21 @@ DCX.addModule("replay", function (context) {
             var id = null,
                 returnObj = null,
                 orientation,
-				loggedException,
-                exception,
-                consoleTrack,
-                consoleMessage,
-                coreConfig = DCX.getCoreConfig(),
-                errorMessage = null,
                 screenOrientation;
-
             // Sanity checks
             if (typeof webEvent !== "object" || !webEvent.type) {
                 return;
             }
-
             if (isDuplicateEvent(webEvent, prevWebEvent)) {
                 prevWebEvent = webEvent;
                 return;
             }
-
             prevWebEvent = webEvent;
-
-
             id = utils.getValue(webEvent, "target.id");
-
             if (!pastEvents[id]) {
                 pastEvents[id] = {};
             }
-
             checkQueue(id, webEvent);
-
             switch (webEvent.type) {
             case "hashchange":
                 // These are handled in core-detectScreenviewChange()
@@ -13380,17 +10596,10 @@ DCX.addModule("replay", function (context) {
                 DCX.logScreenviewLoad("rootWithFrames");
                 break;
             case "load":
-                // If console capture enabled
-                if (coreConfig && coreConfig.captureConsole) {
-                    // Intercept console functions
-                    interceptConsole();
-                }
                 // initialize the orientation
                 currOrientation = webEvent.orientation;
-
                 // initialize the start time for the scrolled view
                 scrollViewStart = new Date();
-
                 /*
                 * Special handling for Android based on screen width/height since
                 * certain Android devices do not adhere to the standards.
@@ -13409,36 +10618,28 @@ DCX.addModule("replay", function (context) {
                         }
                     }
                 }
-
                 // send initial clientstate after a slight delay as some browsers need time to provide correct viewport values
                 setTimeout(function () {
                     if (context.isInitialized()) {
                         handleClientState(webEvent);
                     }
                 }, 100);
-
                 // Check and add geolocation
                 addGeolocationMsg(webEvent.type);
-
                 // XXX - Use the context instead?
                 DCX.logScreenviewLoad("root");
-
                 break;
             case "screenview_load":
                 // starts screenview time used for calculating the offset
                 viewTimeStart = new Date();
-
                 // Reset visited counts
                 resetVisitedCounts();
-
                 // Check and add DOM Capture
                 returnObj = addDOMCapture("load", null, webEvent.name);
-
                 break;
             case "screenview_unload":
                 // Check and add DOM Capture
                 returnObj = addDOMCapture("unload", null, webEvent.name);
-
                 break;
             case "resize":
             case "scroll":
@@ -13446,67 +10647,25 @@ DCX.addModule("replay", function (context) {
                     scrollViewEnd = new Date();
                 }
                 nextScrollViewStart = new Date();
-
                 handleClientState(webEvent);
-
                 break;
             case "unload":
-				// check the logged Exception and attech them to cuttent context
-                for (loggedException in loggedExceptions) {
-                    if (loggedExceptions.hasOwnProperty(loggedException)) {
-                        exception = loggedExceptions[loggedException].exception;
-                        if (exception.repeats > 1) {
-                            errorMessage = {
-                                type: 6,
-                                exception: exception
-                            };
-                            context.post(errorMessage);
-                        }
-                    }
-                }
-                
-                // If console capture enabled
-                if (coreConfig && coreConfig.captureConsole) {
-                    for (var consoleTrack in loggedConsole) {
-                        // Loop through logged console
-                        if (loggedConsole.hasOwnProperty(consoleTrack)) {
-                            // Console object
-                            consoleMessage = loggedConsole[consoleTrack].console;
-                            // if (consoleMessage.repeats > 1) {
-                                // Message post
-                                context.post({
-                                    type: 6,
-                                    console: consoleMessage
-                                });
-                            // }
-                        }
-                    }
-                }
-                
                 // Flush any saved control - added check for empty
                 if (tmpQueue != null) {
                     postEventQueue(tmpQueue);
                 }
-
                 // set the final timestamp of this scrolled view.
                 scrollViewEnd = new Date();
-
                 // send final clientstate
                 handleClientState(webEvent);
-
                 // XXX - Use the context instead?
                 DCX.logScreenviewUnload("root");
-
                 break;
-			case "error":
-                handleError(webEvent);
-                break;			 
             default:
                 // Call the default handler for all other DOM events
                 defaultEventHandler(webEvent);
                 break;
             }
-
             lastEventId = id;
             return returnObj;
         },
@@ -13514,7 +10673,6 @@ DCX.addModule("replay", function (context) {
         }
     };
 });
-
 /*
  *  **************************************************************************
  *  Licensed Materials - Property of HCL
@@ -13523,16 +10681,13 @@ DCX.addModule("replay", function (context) {
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  */
-
 /**
  * @fileOverview The Usability module implements the logic for collecting
  * data for Usability. The current uses are for the Hover Event and
  * Hover To Click event.
  * @exports usability
  */
-
 /*global DCX:true */
-
 // Sanity check
 if (DCX && typeof DCX.addModule === "function") {
     /**
@@ -13541,7 +10696,6 @@ if (DCX && typeof DCX.addModule === "function") {
      */
     DCX.addModule("usability", function (context) {
         "use strict";
-
         var utils = context.utils,
             eventMap = {},
             configDefaults = {
@@ -13554,22 +10708,16 @@ if (DCX && typeof DCX.addModule === "function") {
                 gridCellMinHeight : 20
             },
             MAX_ITERATIONS = 50;
-
         function getConfigValue(key) {
             var usabilityConfig = context.getConfig() || {},
                 value = usabilityConfig[key];
             return typeof value === "number" ? value : configDefaults[key];
         }
-
         function postUIEvent(hoverEvent, options) {
             var target = utils.getValue(hoverEvent, "webEvent.target", {}),
                 tagName = utils.getValue(target, "element.tagName") || "",
                 type = tagName.toLowerCase() === "input" ? utils.getValue(target, "element.type") : "",
                 dcType = utils.getDcType(target),
-                getOrgID = function(target) {
-                    if(target && target.element && target.element.id) return target.element.id
-                    return ""
-                },
                 uiEvent = {
                     type: 9,
                     event: {
@@ -13577,7 +10725,6 @@ if (DCX && typeof DCX.addModule === "function") {
                         hoverToClick: utils.getValue(options, "hoverToClick")
                     },
                     target: {
-                        origID: getOrgID(target),
                         id: target.id || "",
                         idType: target.idType || "",
                         name: target.name || "",
@@ -13591,42 +10738,30 @@ if (DCX && typeof DCX.addModule === "function") {
                         }
                     }
                 };
-
-            // if origID is nul or empty, we remove origID from Object.
-            if((typeof uiEvent.target.origID) === undefined || uiEvent.target.origID === "") {
-                delete uiEvent.target.origID;
-            }
-
             // if id is null or empty, what are we firing on? it can't be replayed anyway
             if ((typeof uiEvent.target.id) === undefined || uiEvent.target.id === "") {
                 return;
             }
-
             context.post(uiEvent);
         }
-
         function getNativeNode(node) {
             if (node && !node.nodeType && node.element) { node = node.element; }
             return node;
         }
-
         function stopNode(node) {
             node = getNativeNode(node);
             return !node || node === document.body || node === document.html || node === document;
         }
-
         function getParent(node) {
             node = getNativeNode(node);
             if (!node) { return null; }
             return node.parentNode;
         }
-
         function getOffsetParent(node) {
             node = getNativeNode(node);
             if (!node) { return null; }
             return node.offsetParent || node.parentElement || getParent(node);
         }
-
         /*
          * for when mouseout is called - if you have moved over a child element, mouseout is fired for the parent element
          * @private
@@ -13638,56 +10773,45 @@ if (DCX && typeof DCX.addModule === "function") {
             var idx = 0;
             if (!node || node === root) { return false; }
             node = getParent(node);
-
             while (!stopNode(node) && idx++ < MAX_ITERATIONS) {
                 if (node === root) { return true; }
                 node = getParent(node);
             }
-
             if (idx >= MAX_ITERATIONS) {
                 utils.clog("Usability isChildOf() hit iterations limit");
             }
-
             return false;
         }
-
         function getNativeEvent(e) {
             if (e.nativeEvent) { e = e.nativeEvent; }
             return e;
         }
-
         function getNativeTarget(e) {
             return getNativeEvent(e).target;
         }
-
         function getNodeType(node) {
             node = getNativeNode(node);
             if (!node) { return -1; }
             return node.nodeType || -1;
         }
-
         function getNodeTagName(node) {
             node = getNativeNode(node);
             if (!node) { return ""; }
             return node.tagName ? node.tagName.toUpperCase() : "";
         }
-
         function stopEventPropagation(e) {
             if (!e) { return; }
             if (e.nativeEvent) { e = e.nativeEvent; }
-
             if (e.stopPropagation) {
                 e.stopPropagation();
             } else if (e.cancelBubble) {
                 e.cancelBubble();
             }
         }
-
         function ignoreNode(node) {
             var tagName = getNodeTagName(node);
             return getNodeType(node) !== 1 || tagName === "TR" || tagName === "TBODY" || tagName === "THEAD";
         }
-
         /**
          * Generates an XPath for a given node, stub method until the real one is available
          * @function
@@ -13698,7 +10822,6 @@ if (DCX && typeof DCX.addModule === "function") {
             node = getNativeNode(node);
             return context.getXPathFromNode(node);
         }
-
         /*
          * replacement for lang.hitch(), setTimeout loses all scope
          * @private
@@ -13710,7 +10833,6 @@ if (DCX && typeof DCX.addModule === "function") {
             var hEvent = eventMap[key];
             if (hEvent && hEvent[methodName]) { return hEvent[methodName](); }
         }
-
         function HoverEvent(dm, gx, gy, webEvent) {
             this.xPath = dm !== null ? getXPathFromNode(dm) : "";
             this.domNode = dm;
@@ -13723,7 +10845,6 @@ if (DCX && typeof DCX.addModule === "function") {
             this.disposed = false;
             this.childKeys = {};
             this.webEvent = webEvent;
-
             /*
              * @public
              * @function
@@ -13733,7 +10854,6 @@ if (DCX && typeof DCX.addModule === "function") {
             this.getKey = function () {
                 return this.xPath + ":" + this.gridX + "," + this.gridY;
             };
-
             /*
              * update hoverTime, set timer to update again
              * @public
@@ -13743,17 +10863,13 @@ if (DCX && typeof DCX.addModule === "function") {
             this.update = function () {
                 var curTime = new Date().getTime(),
                     key = this.getKey();
-
                 if (this.hoverUpdateTime !== 0) {
                     this.hoverDuration += curTime - this.hoverUpdateTime;
                 }
-
                 this.hoverUpdateTime = curTime;
-
                 clearTimeout(this.updateTimer);
                 this.updateTimer = setTimeout(function () { callHoverEventMethod(key, "update"); }, getConfigValue("updateInterval"));
             };
-
             /*
              * leaveClone is true if you want to get rid of an event but leave a new one in it's place.
              * usually this will happen due to a click, where the hover ends, but you want a new hover to
@@ -13766,14 +10882,12 @@ if (DCX && typeof DCX.addModule === "function") {
                 clearTimeout(this.updateTimer);
                 delete eventMap[this.getKey()];
                 this.disposed = true;
-
                 if (leaveClone) {
                     var cloneEvt = this.clone();
                     eventMap[cloneEvt.getKey()] = cloneEvt;
                     cloneEvt.update();
                 }
             };
-
             /*
              * clear update timer, add to hover events queue if threshold is reached, dispose in any case
              * @public
@@ -13784,7 +10898,6 @@ if (DCX && typeof DCX.addModule === "function") {
             this.process = function (wasClicked) {
                 clearTimeout(this.updateTimer);
                 if (this.disposed) { return false; }
-
                 var addedToQueue = false,
                     hEvent = this,
                     key = null,
@@ -13794,22 +10907,18 @@ if (DCX && typeof DCX.addModule === "function") {
                     // add to ui event queue here
                     addedToQueue = true;
                     postUIEvent(this, { hoverToClick : !!wasClicked });
-
                     while (typeof hEvent !== "undefined" && idx++ < MAX_ITERATIONS) {
                         hEvent.dispose(wasClicked);
                         hEvent = eventMap[hEvent.parentKey];
                     }
-
                     if (idx >= MAX_ITERATIONS) {
                         utils.clog("Usability process() hit iterations limit");
                     }
                 } else {
                     this.dispose(wasClicked);
                 }
-
                 return addedToQueue;
             };
-
             /*
              * return a fresh copy of this event
              * @public
@@ -13820,15 +10929,12 @@ if (DCX && typeof DCX.addModule === "function") {
             this.clone = function () {
                 var cloneEvent = new HoverEvent(this.domNode, this.gridX, this.gridY);
                 cloneEvent.parentKey = this.parentKey;
-
                 return cloneEvent;
             };
         }
-
         function createHoverEvent(node, x, y, webEvt) {
             return new HoverEvent(node, x, y, webEvt);
         }
-
         /*
          * get element offset according to the top left of the document
          * @private
@@ -13848,33 +10954,25 @@ if (DCX && typeof DCX.addModule === "function") {
                 offsetDiffY = 0,
                 curNode = getOffsetParent(node),
                 idx = 0;
-
             while (curNode && idx++ < MAX_ITERATIONS) {
                 if (stopNode(curNode)) { break; }
-
                 offsetDiffX = curNode.offsetLeft - (curNode.scrollLeft || 0);
                 offsetDiffY = curNode.offsetTop - (curNode.scrollTop || 0);
-
                 if (offsetDiffX !== lastOffsetX || offsetDiffY !== lastOffsetY) {
                     offsetX += offsetDiffX;
                     offsetY += offsetDiffY;
-
                     lastOffsetX = offsetDiffX;
                     lastOffsetY = offsetDiffY;
                 }
-
                 curNode = getOffsetParent(curNode);
             }
-
             if (idx >= MAX_ITERATIONS) {
                 utils.clog("Usability calculateNodeOffset() hit iterations limit");
             }
-
             if (isNaN(offsetX)) { offsetX = 0; }
             if (isNaN(offsetY)) { offsetY = 0; }
             return { x: offsetX, y: offsetY };
         }
-
         /*
          * calculate position relative to top left corner of element
          * @private
@@ -13887,12 +10985,10 @@ if (DCX && typeof DCX.addModule === "function") {
             var nodeOffset = calculateNodeOffset(node),
                 offsetX = cursorX - nodeOffset.x,
                 offsetY = cursorY - nodeOffset.y;
-
             if (!isFinite(offsetX)) { offsetX = 0; }
             if (!isFinite(offsetY)) { offsetY = 0; }
             return { x: offsetX, y: offsetY };
         }
-
         /*
          * format relXY coords into two decimal 0<x<1 values
          * @private
@@ -13903,10 +10999,8 @@ if (DCX && typeof DCX.addModule === "function") {
         function formatRelXY(x, y) {
             x = Math.floor(Math.min(Math.max(x, 0), 1) * 100) / 100;
             y = Math.floor(Math.min(Math.max(y, 0), 1) * 100) / 100;
-
             return x +  "," + y;
         }
-
         /*
          * determine grid cell dimensions based on the constants
          * @private
@@ -13921,20 +11015,16 @@ if (DCX && typeof DCX.addModule === "function") {
                 oHeight = boundingRect ? boundingRect.height : node.offsetHeight,
                 cellWidth = oWidth && oWidth > 0 ? Math.max(oWidth / getConfigValue("gridCellMaxX"), getConfigValue("gridCellMinWidth")) : getConfigValue("gridCellMinWidth"),
                 cellHeight = oHeight && oHeight > 0 ? Math.max(oHeight / getConfigValue("gridCellMaxY"), getConfigValue("gridCellMinHeight")) : getConfigValue("gridCellMinHeight"),
-
                 cellX = Math.floor(offsetX / cellWidth),
                 cellY = Math.floor(offsetY / cellHeight),
                 xVal = oWidth > 0 ? offsetX / oWidth : 0,
                 yVal = oHeight > 0 ? offsetY / oHeight : 0,
                 relXYVal = "";
-
             if (!isFinite(cellX)) { cellX = 0; }
             if (!isFinite(cellY)) { cellY = 0; }
             relXYVal = formatRelXY(xVal, yVal);
-
             return { x: cellX, y: cellY, relXY: relXYVal };
         }
-
         /*
          * called when a hover event fires - processes all unrelated hover events from the queue.
          * events are related if they are the calling event, or any parent events
@@ -13950,22 +11040,17 @@ if (DCX && typeof DCX.addModule === "function") {
                 childKey = null,
                 addedToQueue = false,
                 idx = 0;
-
             allowedKeyMap[curKey] = true;
-
             while (typeof hEvent !== "undefined" && idx++ < MAX_ITERATIONS) {
                 allowedKeyMap[hEvent.parentKey] = true;
                 if (hEvent.parentKey === "" || hEvent.parentKey === hEvent.getKey()) {
                     break;
                 }
-
                 if (idx >= MAX_ITERATIONS) {
                     utils.clog("Usability cleanupHoverEvents() hit iterations limit");
                 }
-
                 hEvent = eventMap[hEvent.parentKey];
             }
-
             for (key in eventMap) {
                 if (eventMap.hasOwnProperty(key) && !allowedKeyMap[key]) {
                     hEvent = eventMap[key];
@@ -13979,7 +11064,6 @@ if (DCX && typeof DCX.addModule === "function") {
                 }
             }
         }
-
         /*
          * similar to cleanupHoverEvents, this will process all events within a domNode (fired on mouseout)
          * @private
@@ -13990,7 +11074,6 @@ if (DCX && typeof DCX.addModule === "function") {
             var hEvent = null,
                 key = null,
                 addedToQueue = false;
-
             for (key in eventMap) {
                 if (eventMap.hasOwnProperty(key)) {
                     hEvent = eventMap[key];
@@ -14004,7 +11087,6 @@ if (DCX && typeof DCX.addModule === "function") {
                 }
             }
         }
-
         /*
          * 1) determine element and grid position for event
          * 2) find existing matching event if possible
@@ -14022,24 +11104,19 @@ if (DCX && typeof DCX.addModule === "function") {
             if (!node) { node = e.target; }
             if (stopNode(node)) { return null; }
             if (utils.isiOS || utils.isAndroid) { return null; }
-
             var rPos, gPos, hEvent, key, parentKey, parentEvent, offsetParent;
-
             if (!ignoreNode(node)) {
                 rPos = calculateRelativeCursorPos(node, e.position.x, e.position.y);
                 gPos = calculateGridCell(node, rPos.x, rPos.y);
                 hEvent = new HoverEvent(node, gPos.x, gPos.y, e);
                 hEvent.relXY = gPos.relXY;
                 key = hEvent.getKey();
-
                 if (eventMap[key]) {
                     hEvent = eventMap[key];
                 } else {
                     eventMap[key] = hEvent;
                 }
-
                 hEvent.update();
-
                 // link parent, but in the case that it refers to itself (sometimes with frames) make sure the parentKey
                 // is not the same as the current key
                 if (!isParent) {
@@ -14054,16 +11131,13 @@ if (DCX && typeof DCX.addModule === "function") {
                             }
                         }
                     }
-
                     cleanupHoverEvents(hEvent);
                 }
             } else {
                 hEvent = hoverHandler(e, getOffsetParent(node), isParent);
             }
-
             return hEvent;
         }
-
         /*
          * process all events related to the event target, as hovering stops when leaving the element
          * @private
@@ -14075,10 +11149,8 @@ if (DCX && typeof DCX.addModule === "function") {
             if (isChildOf(e.target, e.relatedTarget)) {
                 return;
             }
-
             processEventsByDomNode(e.target);
         }
-
         /*
          * on click, resolve current hover events, and reset hover count
          * @private
@@ -14089,7 +11161,6 @@ if (DCX && typeof DCX.addModule === "function") {
             var hEvent = null,
                 key = null,
                 addedToQueue = false;
-
             for (key in eventMap) {
                 if (eventMap.hasOwnProperty(key)) {
                     hEvent = eventMap[key];
@@ -14103,11 +11174,9 @@ if (DCX && typeof DCX.addModule === "function") {
                 }
             }
         }
-
         function submitHandler(e) {
             context.performFormCompletion(true);
         }
-
         /*
          * switches on window event type and routes it appropriately
          * @private
@@ -14116,12 +11185,10 @@ if (DCX && typeof DCX.addModule === "function") {
          */
         function handleEvent(e) {
             var targetId = utils.getValue(e, "target.id");
-
             // Sanity check
             if (!targetId) {
                 return;
             }
-
             switch (e.type) {
             case "mousemove":
                 hoverHandler(e);
@@ -14139,20 +11206,16 @@ if (DCX && typeof DCX.addModule === "function") {
                 break;
             }
         }
-
         // Module interface.
         /**
          * @scope performance
          */
         return {
-
-
             /**
              * Initialize the usability module.
              */
             init: function () {
             },
-
             /**
              * Terminate the usability module.
              */
@@ -14165,7 +11228,6 @@ if (DCX && typeof DCX.addModule === "function") {
                     }
                 }
             },
-
             /**
              * Handle events subscribed by the usability module.
              * @param  {Object} event The normalized data extracted from a browser event object.
@@ -14175,636 +11237,21 @@ if (DCX && typeof DCX.addModule === "function") {
                 if (typeof event !== "object" || !event.type) {
                     return;
                 }
-
                 handleEvent(event);
             },
-
             /**
              * Handle system messages subscribed by the usability module.
              * @param  {Object} msg An object containing the message information.
              */
             onmessage: function (msg) {
-
             },
-
             createHoverEvent: createHoverEvent,
             cleanupHoverEvents: cleanupHoverEvents,
             eventMap: eventMap
         };
     });  // End of DCX.addModule
-} else {}
-
-//-----------------------------------------------
-// Slow Resource Logger for Static Content v1.1.3
-//-----------------------------------------------
- DCX.addModule("slowResource", function (context) {
-	"use strict";
-
-	var moduleConfig = DCX.getModuleConfig("slowResource"),
-		moduleLoaded = false,
-		utils = context.utils;
-
-	var perfDur = moduleConfig.responseTime,
-		logJS = moduleConfig.monitorJS || true,
-		logCSS = moduleConfig.monitorCSS || true,
-		logImages = moduleConfig.monitorImages || true,
-		logXHR = moduleConfig.monitorXHR || false,
-		blocklist = moduleConfig.blocklist || [];
-
-	var url = window.location.href;
-
-	try {
-        var eventList = ['click','popstate', 'pushState','onload'];
-        for (var index = 0; index < eventList.length; ++index) {
-            window.addEventListener(eventList[index], function () {
-				if (url !== location.href) {
-					getPerfObject();
-				};
-				url = location.href;
-			});
-        };
-	} catch(e) {};
-
-	function getPerfObject() {
-		moduleLoaded = true;
-		if (typeof window.location.host !== "undefined") {
-			calculate_load_times();
-		}
-	};
-
-	function blocklistURL(blURL) {
-		for (var index = 0; index < blocklist.length; ++index) {
-			epFilter = blocklist[index];
-			if (blURL.indexOf(epFilter) > -1) {
-			   return true;
-			}
-		}
-		return false;
-	};
-
-	function calculate_load_times() {
-		if (performance !== undefined) {
-			var resources = performance.getEntriesByType("resource");
-			for (var i = 0; i < resources.length; i++) {
-				if ((resources[i].initiatorType.indexOf('script') > -1 && logJS) ||
-					(resources[i].initiatorType.indexOf('css') > -1 && logCSS) ||
-					(resources[i].initiatorType.indexOf('img') > -1 && logImages) ||
-					(resources[i].initiatorType.indexOf('xmlhttprequest') > -1 && logXHR)) {
-					var URL = resources[i].name;
-					if (!blocklistURL(URL)) {						var totalTime = (resources[i].responseEnd).toFixed(2);
-						var responseTime = (resources[i].responseEnd - resources[i].startTime).toFixed(2);
-						var size = (resources[i].transferSize / 1024).toFixed(2);
-						if (URL.indexOf('?') > -1) {
-							URL = URL.substr(0, URL.indexOf('?'))
-						}
-						if (responseTime > perfDur) {
-							 var duration = "Slow Resource - " + resources[i].initiatorType + " (" + (responseTime / 1000).toFixed(2) + " secs)";
-							 var pMsg = {
-									 "description": duration,
-									 "urlNormalized": URL,
-									 "urlFull": resources[i].name,
-									 "initiator": resources[i].initiatorType,
-									 "response_time": responseTime,
-									 "total_time": totalTime,
-									 "size(kBytes)": size
-							 };
-							 var jMsg = {"description": "Slow Resource Data","action": "retrieved","value": pMsg};
-							 if (typeof DCX !== "undefined") {
-								DCX.logCustomEvent("Slow Resource Data", jMsg, 17);
-							 }
-						}
-					}
-				}
-			}
-		}
-	}
-
-	return {
-		init: function () {
-			moduleConfig = context.getConfig();
-		},
-		destroy: function () {},
-		onevent: function (webEvent) {
-			switch (webEvent.type) {
-			case "unload":
-				getPerfObject();
-				break;
-			case "screenview_unload":
-				getPerfObject();
-				break;
-			default:
-				break;
-			}
-			if (typeof webEvent !== "object" || !webEvent.type) {
-				return;
-			} // Sanity check
-			if (webEvent) {
-				if (navigator.vendor.indexOf("Apple") >-1 ){
-					setTimeout(function() {
-						if (document.readyState === "complete"){
-							getPerfObject();
-						};
-					}, 300);
-				} else {
-					getPerfObject();
-				}
-			}
-		},
-		version: "1.1.3"
-	};
- });
-
-//----------------------------------
-// Universal Data Layer Logging v6.0
-//----------------------------------
-DCX.addModule("universalLogger", function(context) {
-	"use strict";
-
-    var moduleConfig = DCX.getModuleConfig("universalLogger"),
-        moduleLoaded = false,
-        utils = context.utils;
-
-	var dlTarget,
-		dlObj = {},
-		blocklistKeys = moduleConfig.blocklistKeys || [],
-		blocklistValues = moduleConfig.blocklistValues || [],
-		maxSize = moduleConfig.maxSize || 20000,
-		maxKeys = moduleConfig.maxKeys || 500,
-		mapping = moduleConfig.mapping || {},
-		mappingResult = {},
-		breakout = moduleConfig.breakout || {},
-		dlPost = "",
-		dlItem = "", 
-		dlSize = 0, 
-		dlKeys = 0,
-		dlStatus = {},
-		maxArrayItems = moduleConfig.maxArrayItems || 100;
-
-	const flattenObj = function(data) {
-		var result = {};
-		for (var i in data) {
-			if (dlKeys < maxKeys && JSON.stringify(result).length < maxSize) {
-				if (data.hasOwnProperty(i)) {
-					if (blocklistKeys.includes(i)) {
-						// If key name is found in blocklist, do not log & do not increment maxKeys or maxSize
-						dlStatus["blockedData"] = true;						
-					} else if (blocklistValues.includes(data[i])) {
-						// If data value is found in blocklist, do not log & do not increment maxKeys or maxSize
-						dlStatus["blockedData"] = true;
-					} else {
-						try {
-							//----------------------------------------------------
-							// Test for embedded objects & arrays and flatten them
-							if (typeof(data[i]) === 'object') {
-								const temp = flattenObj(data[i]);
-								for (var j in temp) {
-									if (temp.hasOwnProperty(j)) {
-										result[i + '.' + j] = temp[j];
-										if (mapping[i]) {
-											//----------------------------------
-											// Log DCX mappings for OOB eventing
-											if (!mappingResult[mapping[i]]) {
-												mappingResult[mapping[i]] = temp[j];
-											} else {
-												mappingResult[mapping[i]] = mappingResult[mapping[i]] + "|" + temp[j];
-											}
-										}
-									}
-								}
-
-								if (breakout.includes(i) && Array.isArray(data[i]) && Object.keys(data[i]).length < maxArrayItems) {
-									//-------------------------------------
-									// Breakout data into individual events
-									var breakoutList = data[i];
-									for (var j in breakoutList) {
-                                        for(var obj in breakoutList[j]) {
-											//-------------------------------------
-											//  remove properties from object if Block list key or value matches.
-                                            if(blocklistValues.includes(breakoutList[j][obj]) || blocklistKeys.includes(obj)){
-                                                delete breakoutList[j][obj]
-                                            }
-                                        }
-										DCX.logCustomEvent(i + "-array", breakoutList[j], 19); // Log all the items available in Breakout List.
-									}
-								}
-							//---------------------------------------------
-							// Log name value pairs that are not a function
-							} else if (typeof(data[i]) !== 'function') {
-								result[i] = data[i];
-								dlKeys = dlKeys + 1;
-								if (mapping[i]) {
-									//----------------------------------
-									// Log DCX mappings for OOB eventing
-									if (!mappingResult[mapping[i]]) {
-										mappingResult[mapping[i]] = data[i];
-									} else {
-										mappingResult[mapping[i]] = mappingResult[mapping[i]] + "|" + data[i];
-									}
-								}
-							}
-						} catch(e) {
-							dlStatus["badDataDetected"] = true; // Status logging for bad data
-						}
-					}
-				}
-			}
-		}
-		if (dlKeys >= maxKeys) { 
-			dlStatus["maxKeysExceeded"] = dlKeys; // Status logging for breaching maxKeys
-		}
-		if (JSON.stringify(result).length >= maxSize) {
-			dlStatus["maxSizeExceeded"] = JSON.stringify(dlObj).length; // Status logging for breaching maxSize
-		}
-		return result;
-	}
-	
-	function logDataLayer() {
-		//-----------------------------------------------------------------------------------------
-		// Try to get page dlObject once logDataLayer() method  get called and page is fully loaded.
-		try {
-			switch (typeof moduleConfig.dlObject) {
-			case "object":
-				dlTarget = moduleConfig.dlObject;
-			case "function":
-				dlTarget = moduleConfig.dlObject();
-			default:
-				dlTarget = window[moduleConfig.dlObject];
-			}
-		} catch(e) {}
-
-		if (typeof dlTarget !== "undefined") {
-			moduleLoaded = true;
-			try {
-				//----------------------------------
-				// Attempt to flatten the data layer
-				dlObj = flattenObj(dlTarget);
-			} catch(e) {
-				//---------------------------
-				// Data layer logging failure
-				dlObj = {};
-				dlStatus["success"] = false;
-				var jMsg = {"description":"dataLayer Logging","action":"failed","dataLayer":dlObj,"status":dlStatus};
-				DCX.logCustomEvent("dataLayer", jMsg, 19);
-			}
-			if (typeof DCX !== "undefined" && dlKeys > 0) {
-				//---------------------------
-				// Data layer logging success
-				dlStatus["success"] = true;
-				var jMsg = {"description":"dataLayer Logging","action":"retrieved","dataLayer":dlObj,"status":dlStatus};
-				if (Object.keys(mappingResult).length > 0) {
-					jMsg["mapping"] = mappingResult;
-				}
-				DCX.logCustomEvent("dataLayer", jMsg, 19);
-				
-				if (moduleConfig.pushListener) {
-					//-----------------------------
-					// Setup optional push listener
-					try {
-                        var pushListener = function (arr, callback) {
-                          // Record the previous array.push function so it is not lost when we override
-                          var oldPush = arr.push;
-            
-                          arr.push = function (e) {
-                            callback(e);
-            
-                            mappingResult = {};
-                            dlSize = 0;
-                            dlKeys = 0;
-                            dlStatus = {};
-                            dlObj = flattenObj(e);
-            
-                            if (typeof DCX !== "undefined" && dlKeys > 0) {
-                              //---------------------------
-                              // Data layer logging success
-                              dlStatus["success"] = true;
-                              var jMsg = {"description":"dataLayer Logging","action":"retrieved","dataLayer":dlObj,"status":dlStatus};
-                              if (Object.keys(mappingResult).length > 0) {
-                                jMsg["mapping"] = mappingResult;
-                              }
-                              DCX.logCustomEvent("dataLayer", jMsg, 19);
-                            }
-            
-                            // Make sure to fire the previous push function recorded earlier so we don't break other 3rd party integrations (GA, etc)
-                            return oldPush.apply(this, arguments);
-                          };
-                        };
-                        pushListener(dlTarget, function(dlTarget) {});
-                      } catch (e) {}
-				}
-			}
-		}
-	}
-
-	return {
-		init: function () {
-            moduleConfig = context.getConfig();
-		},
-		destroy: function() {
-			moduleLoaded = false;
-		},
-		onevent: function(webEvent) {
-			switch (webEvent.type) {
-				case "load":
-					setTimeout (function(){logDataLayer();}, DCX.getModuleConfig("universalLogger").delay);
-					break;					
-				case "screenview_load":
-					setTimeout (function(){logDataLayer();}, DCX.getModuleConfig("universalLogger").delay);
-					break;					
-				case "unload":
-					moduleLoaded = false;
-					break;
-				default:
-					break;
-			}
-		},
-		version: "6.0"
-	};
-});
-
-//-----------------------------------------------------
-// DOM Mutation Observer for Dynamic DOM Updates v4.1.8
-//-----------------------------------------------------
-DCX.addModule("DOMObserver", function (context) {
-	"use strict";
-	
-    var moduleConfig = DCX.getModuleConfig("DOMObserver"),
-        moduleLoaded = false,
-        utils = context.utils,
-		targets = moduleConfig.targets;
-		
-	function observeDOM() {
-		var config = {
-			attributes: true, 
-			attributesOldValue: true, 
-			attributeFilter: ["id", "class"], 
-			subtree: true, 
-			childList: true, 
-			characterData: false,
-			characterDataOldValue: false
-		};
-		
-        var DOMMutationObserver = function (target) {
-            var element = document.querySelector(target.selector);
-            if (element) {
-                var observer = new MutationObserver(function(mutations) {
-                    var eventCount = 0;
-                    mutations.forEach(function(mutation) {
-                        var takeSnapshot = "", target = undefined, customFunction = undefined;
-                        
-                        if (mutation.type === "attributes" || mutation.type === "childList") {
-                            mutation.addedNodes.forEach(function(node) {
-                                target = undefined;
-                                target = targets.find(function(t) {
-                                        if (t.selector.indexOf(mutation.target.className) > -1 && mutation.className != "") { return(t) }
-                                });
-                                if (!target) {
-                                    target = targets.find(function (t) { 
-                                        if (t.selector.indexOf(mutation.target.id) > -1 && mutation.target.id != "") { return(t) }
-                                    });
-                                }
-                                if (!target) {
-                                    target = targets.find(function (t) { 
-                                        if (t.selector.toLowerCase().indexOf(mutation.target.nodeName.toLowerCase()) > -1) { return(t) }
-                                    });
-                                }
-                                if (!target) {
-                                    target = targets.find(function (t) { 
-                                        if (t.selector.toLowerCase() === "body") { return(t) }
-                                    });
-                                }
-                                
-                                if (target && target.maxEvents > eventCount) {
-                                    if (typeof(node.id) === "string" && target && (target.added === 1 || target.added === 2)) {
-                                        if (node.id === target.childNode) {
-                                            takeSnapshot = target.eventName;
-                                        }
-                                    }
-                                    if (typeof(node.className) === "string" && target && takeSnapshot === "" && (target.added === 1 || target.added === 2)) {
-                                        if (node.className === target.childNode) {
-                                            takeSnapshot = target.eventName;
-                                        }
-                                    }
-                                    if (typeof(node.outerHTML) === "string" && target && takeSnapshot === "" && (target.added === 1 || target.added === 2)) {
-                                        if (node.outerHTML.indexOf(target.childNode) > -1) {
-                                            takeSnapshot = target.eventName;
-                                        }
-                                    }
-                                    if (typeof(node.nodeValue) === "string" && target &&  takeSnapshot === "" && (target.added === 1 || target.added === 2)) {
-                                        if (node.nodeValue.indexOf(target.childNode) > -1) {
-                                            takeSnapshot = target.eventName;
-                                        }
-                                    }
-                                }
-                            });
-                
-                            mutation.removedNodes.forEach(function(node) {
-                                target = undefined;
-                                target = targets.find(function(t) {
-                                        if (t.selector.indexOf(mutation.target.className) > -1 && mutation.className != "") { return(t) }
-                                });
-                                if (!target) {
-                                    target = targets.find(function (t) { 
-                                        if (t.selector.indexOf(mutation.target.id) > -1 && mutation.target.id != "") { return(t) }
-                                    });
-                                }
-                                if (!target) {
-                                    target = targets.find(function (t) { 
-                                        if (t.selector.toLowerCase().indexOf(mutation.target.nodeName.toLowerCase()) > -1) { return(t) }
-                                    });
-                                }
-                                if (!target) {
-                                    target = targets.find(function (t) { 
-                                        if (t.selector.toLowerCase() === "body") { return(t) }
-                                    });
-                                }
-                                
-                                if (target && target.maxEvents > eventCount) {
-                                    if (typeof(node.id) === "string" && target && (target.added === 0 || target.added === 2)) {
-                                        if (node.id === target.childNode) {
-                                            takeSnapshot = target.eventName;
-                                        }
-                                    }
-                                    if (typeof(node.className) === "string" && target && takeSnapshot === "" && (target.added === 0 || target.added === 2)) {
-                                        if (node.className === target.childNode) {
-                                            takeSnapshot = target.eventName;
-                                        }
-                                    }
-                                    if (typeof(node.outerHTML) === "string" && target && takeSnapshot === "" && (target.added === 0 || target.added === 2)) {
-                                        if (node.outerHTML.indexOf(target.childNode) > -1) {
-                                            takeSnapshot = target.eventName;
-                                        }
-                                    }
-                                    if (typeof(node.nodeValue) === "string" && target && takeSnapshot === "" && (target.added === 0 || target.added === 2)) {
-                                        if (node.nodeValue.indexOf(target.childNode) > -1) {
-                                            takeSnapshot = target.eventName;
-                                        }
-                                    }
-                                }
-                            });
-
-                            if (typeof DCX !== "undefined" && takeSnapshot !== "") {
-                                if (typeof target.customFunction === "string") {
-                                    customFunction = utils.access(target.customFunction);
-                                } else {
-                                    customFunction = target.customFunction;
-                                }
-                                if (typeof customFunction === "function") { 
-                                    customFunction(); // Execute custom JavaScript function
-                                }
-                                var evt = new CustomEvent(target.eventName);
-                                document.dispatchEvent(evt); // Dispatch custom event - must be configured in Replay (and optionally DOM Capture)
-                                eventCount = eventCount + 1;
-                            }
-                        }
-                    });
-                });
-                observer.observe(element, config);
-            }
-        }
-
-
-        var DOMIntersectionObserve = function (target) {
-            var intervalCnt = 0,
-            observer,
-            interSectSetTimeout,
-            // IntersectionObserver configuration options
-            options = {
-                root: null, // Use the viewport as the root
-                rootMargin: '0px',
-                threshold: 0.2, // When 20% of the image is visible, trigger the callback
-            };
-            
-            var sendLazyEvent = function(eventName) { 
-                interSectSetTimeout = setTimeout(function () {
-                    debugger
-                    console.log('intersection event',target.selector)
-                    var evt = new CustomEvent(eventName);
-                    document.dispatchEvent(evt);
-                }, 1000);
-            };
-        
-            var checkForElement = function() {
-              var elements = [];
-                elements = Array.from(document.querySelectorAll(target.selector));
-              if (elements.length > 0) {
-                if (!observer) {
-                    console.log('intersection found',target.selector)
-                  var loadedCount = 0;
-                  var threshold = elements.length < 8 ? elements.length : 8;
-                  observer = new IntersectionObserver(function (entries, observer) {
-                    entries.forEach(function(entry) {
-                        // check's if new element added to DOM or List.
-                        var newElements =  Array.from(document.querySelectorAll(target.selector)),
-                        hasNewItemAdded = elements.length !== newElements.length && elements.length < newElements.length;
-                        
-                        if(hasNewItemAdded) {
-                                var tempItems = Array.prototype.slice.call(newElements),
-                                newItems = tempItems.slice(elements.length);
-
-                                newItems.forEach(function(newItem) {
-                                    observer.observe(newItem);
-                                    elements.push(newItem);
-                                });
-                                //elements.push(...newItems);
-                                clearTimeout(interSectSetTimeout)
-                                threshold = elements.length < 8 ? elements.length : 8;
-                        }
-                      
-                        // check is element is Intersecting and loaded Count should be less then or = to element lenght. 
-                        if (entry.isIntersecting && loadedCount <= elements.length) {
-                            loadedCount++;
-                            var currentImg = entry.target;
-
-                            // Just to send first Lazy Event event.
-                            if(loadedCount === 1) {
-                                if (window.DCX) {
-                                    clearTimeout(interSectSetTimeout)
-                                    sendLazyEvent(target.eventName)
-                                }
-                            }
-
-                            // check is loadedCount mod threshold "threshold is to reduse number of request"
-                            if (loadedCount % threshold === 0) {
-                                if (window.DCX) {
-                                    clearTimeout(interSectSetTimeout);
-                                    sendLazyEvent(target.eventName);
-                                }
-                            }
-
-                            // Unobserve the image once it's loaded
-                            observer.unobserve(currentImg);
-                        }
-                    });
-                  }, options);
-                }
-          
-                elements.forEach(function(element) {
-                  observer.observe(element);
-                })
-          
-                // If any lazy-loaded elements were loaded before the intersection observer was created,
-                // re-observe them to ensure they get tracked correctly
-                window.addEventListener('load', function () {
-                  elements.forEach(function(element) {
-                    if (observer && observer.root && observer.root.contains(element)) {
-                      observer.observe(element);
-                    }
-                  });
-                });
-          
-                clearInterval(interval);
-              } else if (intervalCnt >= 4) {
-                clearInterval(interval);
-              } else {
-                intervalCnt++;
-              }
-            };
-          
-            var interval = setInterval(checkForElement, target.interval);
-        };
-          
-          
-
-		
-		for (var i=0; i<targets.length; i++) {
-			try {
-                if(!targets[i].lazyLoad) {
-                    DOMMutationObserver(targets[i]);
-                } else {
-                    DOMIntersectionObserve(targets[i]);
-                }
-				moduleLoaded = true;
-			} catch (e) {};
-		}
-	}
- 
-	return {
-		init: function () {
-            moduleConfig = context.getConfig();
-		},
-		destroy: function() {
-			moduleLoaded = false;
-		},
-		onevent: function(webEvent) {
-			switch (webEvent.type) {
-				case "load":
-					if (window.MutationObserver) {
-						setTimeout (function(){observeDOM();}, 300);
-					}
-					break;					
-				case "screenview_load":
-					break;					
-				case "unload":
-					moduleLoaded = false;
-					break;
-				default:
-					break;
-			}
-		},
-		version: "4.1.8"
-	};
-});
-
+} else {
+}
 /*
  *  **************************************************************************
  *  Licensed Materials - Property of HCL
@@ -14813,7 +11260,33 @@ DCX.addModule("DOMObserver", function (context) {
  *  restricted by GSA ADP Schedule Contract with HCL Technologies.
  *  **************************************************************************
  */
-
+/*
+ *  **************************************************************************
+ *  Additional modules:
+ *      discoAjax
+ *  **************************************************************************
+ */
+//----------------------------
+// Ajax Listener (XHR & Fetch)
+//----------------------------
+DCX.addModule("discoAjax",function(c){var l={},h=false,j,p,z,k,t=c.utils;function f(C,H,B){var E,A,F={},G=l.filters,D;if(!G||!G.length){return F}for(E=0,A=G.length,D=false;!D&&E<A;E+=1){F=G[E];D=true;if(F.url){D=F.url.cRegex.test(C)}if(D&&F.method){D=F.method.cRegex.test(H)}if(D&&F.status){D=F.status.cRegex.test(B)}}if(!D){F=null}return F}function o(E){var G={},C,A,F,B,D;E=E.split(/[\r\n]+/);for(C=0,A=E.length;C<A;C+=1){F=E[C].split(": ");B=F[0];D=t.rtrim(F[1]);if(B&&B.length){G[B]=D}}return G}function m(H,D){var G={type:5,customEvent:{name:"discoAjax",data:{interfaceType:"XHR"}}},C,B=G.customEvent.data,A;if(!H){return}C=document.createElement("a");C.href=H.tListener.url;B.originalURL=C.host+(C.pathname[0]==="/"?"":"/")+C.pathname;B.requestURL=c.normalizeUrl?c.normalizeUrl(B.originalURL):B.originalURL;B.description="XHR Monitor "+B.requestURL;B.method=H.tListener.method;B.status=H.status;B.statusText=H.statusText||"";B.async=H.tListener.async;B.ajaxResponseTime=H.tListener.end-H.tListener.start;if(D.requestHeaders){B.requestHeaders=H.tListener.reqHeaders}if(D.requestData&&typeof H.tListener.reqData==="string"&&!H.tListener.isSystemXHR){try{B.request=JSON.parse(H.tListener.reqData)}catch(F){B.request=H.tListener.reqData}}if(D.responseHeaders){B.responseHeaders=o(H.getAllResponseHeaders())}if(D.responseData){if(typeof H.responseType==="undefined"){A=H.responseText}else{if(H.responseType===""||H.responseType==="text"){A=H.response}else{if(H.responseType==="json"){B.response=H.response}else{B.response=typeof H.response}}}if(A){try{B.response=JSON.parse(A)}catch(E){B.response=A}}if(H.responseType){B.responseType=H.responseType}}c.post(G)}function q(C){var E,D={},B=C.entries(),A=B.next();while(!A.done){E=A.value;D[E[0]]=E[1];A=B.next()}return D}function g(A){return q(A)}function b(A){if(typeof A==="object"&&A.toString().indexOf("FormData")!==-1){return q(A)}return A}function r(A,E,F){var G={type:5,customEvent:{name:"discoAjax",data:{interfaceType:"fetch"}}},D,C=G.customEvent.data,B,H;D=document.createElement("a");D.href=A.url;C.originalURL=D.host+(D.pathname[0]==="/"?"":"/")+D.pathname;C.requestURL=c.normalizeUrl?c.normalizeUrl(C.originalURL):C.originalURL;C.description="Fetch Monitor "+C.requestURL;C.method=A.initData.method;C.status=E.status;C.statusText=E.statusText||"";C.async=true;C.ajaxResponseTime=A.end-A.start;C.responseType=E.type;if(F.requestHeaders){if(A.initData.headers&&A.initData.headers.toString().indexOf("Headers")!==-1){C.requestHeaders=g(A.initData.headers)}else{C.requestHeaders=A.initData.headers||""}}if(F.requestData&&typeof A.body!=="undefined"&&!A.isSystemXHR){C.request=b(A.body)}if(F.responseHeaders){C.responseHeaders=g(E.headers)}if(F.responseData){H=E.headers.get("content-type");if(H&&H.indexOf("application/json")!==-1){E.clone().json().then(function(I){C.response=I;c.post(G)});return}if(H&&(H.indexOf("text")!==-1||H.indexOf("xml")!==-1)){E.clone().text().then(function(I){C.response=I;c.post(G)});return}C.response="Not logging unsupported response content: "+H}c.post(G)}function n(E){var C,B=E.tListener.url,F=E.tListener.method,A=E.status.toString(),D={requestHeaders:false,requestData:false,responseHeaders:false,responseData:false};C=f(B,F,A);if(C){if(C.log){D=C.log}m(E,D)}}function a(A,E){var D,C=A.url,G=A.initData.method,B=E.status.toString(),F={requestHeaders:false,requestData:false,responseHeaders:false,responseData:false};D=f(C,G,B);if(D){if(D.log){F=D.log}r(A,E,F)}}function w(B){var C,A;if(!B||!B.target){return}C=B.target;A=C.readyState;if(A===4){C.removeEventListener("readystatechange",w);C.tListener.end=Date.now();n(C)}}function s(B){var A=B.setRequestHeader;B.setRequestHeader=function(F,D){var E=this,C=E.tListener;if(F&&F.length){C.reqHeaders[F]=D}return A.apply(E,arguments)}}function y(A){var B=A.send;A.send=function(D){var E=this,C=E.tListener;if(D){C.reqData=D}C.start=Date.now();return B.apply(E,arguments)}}function u(B){var C,A,D;A=DCX.getServiceConfig("queue");D=A.queues||[];for(C=0;C<D.length;C+=1){if(D[C].endpoint&&B.indexOf(D[C].endpoint)!==-1){return true}}return false}function v(D,A,B){var C=this;if(h){C.addEventListener("readystatechange",w);C.tListener={method:D,url:A,async:(typeof B==="undefined")?true:!!B,reqHeaders:{},isSystemXHR:u(A)};s(C);y(C)}return j.apply(C,arguments)}function x(){if(XMLHttpRequest){j=XMLHttpRequest.prototype.open;XMLHttpRequest.prototype.open=v}}function i(){p=window.fetch;window.fetch=function(C,B){var A={},D;if(typeof C==="object"){A.initData=C;A.url=C.url;A.initData.clone().text().then(function(E){if(E.length>0){A.body=E}})}else{A.initData=B||{};A.url=C;if(B&&B.body){A.body=B.body}}A.isSystemXHR=u(A.url);A.start=Date.now();D=p.apply(this,arguments);return D.then(function(E){A.end=Date.now();a(A,E);return E})}}function d(A){if(A&&A.regex){A.cRegex=new RegExp(A.regex,A.flags)}}function e(B){var C,A,D,E=[];if(B&&B.filters){E=B.filters}for(C=0,A=E.length;C<A;C+=1){D=E[C];t.forEach([D.url,D.method,D.status],d)}z=t.getValue(B,"xhrEnabled",true);if(XMLHttpRequest&&(XMLHttpRequest.toString().indexOf("[native code]")===-1||XMLHttpRequest.toString().indexOf("XMLHttpRequest")===-1)){z=false}k=t.getValue(B,"fetchEnabled",true)&&(typeof window.fetch==="function");if(k&&window.fetch.toString().indexOf("[native code]")===-1){k=false}}return{init:function(){l=c.getConfig();e(l)},destroy:function(){h=false},onevent:function(A){switch(A.type){case"load":if(z){x()}if(k){i()}h=true;break;case"unload":h=false;break;default:break}},version:"1.0"}});
+/* 
+ * Customer Specific config from Solteq
+ */
+var browserUAControl = true;	
+// Switch ajax functionality depending on browser
+if (navigator.userAgent.indexOf('Trident') > -1) {
+    browserUAControl = false;
+} 
+else if (navigator.userAgent.indexOf('MSIE') > -1) {
+    browserUAControl = false;
+}
+else if (navigator.userAgent.indexOf('Safari/533.') > -1) {
+    browserUAControl = false;
+}
+else if (navigator.userAgent.indexOf('Safari/534.') > -1) {
+    browserUAControl = false;
+}
 // Default configuration
 (function () {
     "use strict";
@@ -14827,11 +11300,9 @@ DCX.addModule("DOMObserver", function (context) {
          * sufficient to listen to the change event at the document level.
          */
         changeTarget;
-
     if (DCX.getFlavor() === "w3c" && DCX.utils.isLegacyIE) {
         changeTarget = "input, select, textarea, button";
     }
-
     config = 
     // *** DCX UIC CONFIGURATION BEGINS HERE ***
     {
@@ -14839,42 +11310,14 @@ DCX.addModule("DOMObserver", function (context) {
             // List of CSS selectors corresponding to elements for which no user interaction is to be reported.
             // WARNING: Since this list has to be evaluated for each event, specifying inefficient selectors can cause performance issues.
             blockedElements: [],
-
-            // Internal version for reporting & tracking purposes.  Can be a single string or JSON object.
-			version: {
-				author: "HCL Discover",
-				date: "01-13-2022 GA4 DL + CaptureJSS"
-			},
-
             // List of CSS selectors corresponding to elements which needs to be skipped from capturing.
             // WARNING: Since this list has to be evaluated for each event, specifying inefficient selectors can cause performance issues.
             //  e.g. ["img[id^=testImage]"] - this will skip capturing img elements where id starts with testImage.
             doNotCaptureElements: [],
-
-            // Inactivity timeout should be set at least a few minutes lower than session timeout on the application
-            inactivityTimeout: 25 * 60 * 1000, // 25 Minutes
-
+            ieExcludedLinks: ["a[href*=\"javascript:void\"]","input[onclick*='javascript:']"],
+            inactivityTimeout: 1000 * 60 * 60 * 10, /* 10 hours */
             // WARNING: For advanced users only. Modifying the modules section may lead to unexpected behavior and or performance issues.
             modules: {
-                replay: {
-                    events: [
-						{ name: "DCXLazyLoad", target: window }, // Added for future MutationObserver module
-                        { name: "change", target: changeTarget, recurseFrames: true, attachToShadows: true },
-                        { name: "click", recurseFrames: true },
-                        { name: "hashchange", target: window },
-                        { name: "focus", target: changeTarget, recurseFrames: true },
-                        { name: "blur", target: changeTarget, recurseFrames: true },
-                        { name: "load", target: window},
-                        { name: "unload", target: window},
-                        { name: "resize", target: window},
-                        { name: "scroll", target: window},
-                        { name: "orientationchange", target: window},
-                        { name: "touchend" },
-                        { name: "touchstart" },
-						{ name: "DCXLazyLoad" },
-                        { name: "error", target: window},
-                    ]
-                },
                 usability: {
                     events: [
                         { name: "click", recurseFrames: true },
@@ -14889,44 +11332,33 @@ DCX.addModule("DOMObserver", function (context) {
                         { name: "unload", target: window }
                     ]
                 },
-                ajaxListener: {
-                    enabled: false,
+                replay: {
                     events: [
+                        { name: "change", target: changeTarget, recurseFrames: true, attachToShadows: true },
+                        { name: "click", recurseFrames: true },
+                        { name: "hashchange", target: window },
+                        { name: "focus", target: changeTarget, recurseFrames: true },
+                        { name: "blur", target: changeTarget, recurseFrames: true },
                         { name: "load", target: window},
-                        { name: "unload", target: window}
+                        { name: "unload", target: window},
+                        { name: "resize", target: window},
+                        { name: "scroll", target: window},
+                        { name: "orientationchange", target: window},
+                        { name: "touchend" },
+                        { name: "touchstart" }
                     ]
                 },
-                utmLogger: {
-                    enabled: false,
-                    events: [
-                        { name: "load", target: window}
-                    ]
-                },
-                slowResource: {
-					enabled: false,
-					events: [
-						{ name: "screenview_load", target: window },
-						{ name: "load", target: window }
-					]
-				},
-				universalLogger: {
-					enabled: false,
-					events: [
-						{ name: "screenview_load", target: window },
-						{ name: "load", target: window}
-					]
-				},
-				DOMObserver: {
+				discoAjax: {
 					enabled: true,
 					events: [
-						{ name: "load", target: window}
-					]	
-				},                
+						{ name: "load", target: window },
+						{ name: "unload", target: window }
+					]
+				},
                 DCCookie: {
-                    enabled: false
+                    enabled: true
                 }
             },
-
             normalization: {
                 /**
                   * User defined URL normalization function which accepts an URL or path and returns
@@ -14940,64 +11372,64 @@ DCX.addModule("DOMObserver", function (context) {
                     return urlOrPath;
                 }
             },
-
             // Set the sessionDataEnabled flag to true only if it's OK to expose Discover session data to 3rd party scripts.
             sessionDataEnabled: false,
 			sessionKeepAlive: false,
             sessionData: {
                 // Set this flag if the session value needs to be hashed to derive the Discover session ID
                 sessionValueNeedsHashing: true,
-
                 // Specify sessionQueryName only if the session id is derived from a query parameter.
                 sessionQueryName: "sessionID",
                 sessionQueryDelim: ";",
-
                 // sessionQueryName, if specified, takes precedence over sessionCookieName.
                 sessionCookieName: "jsessionid"
             },
             version: {
                 author: "HCL Discover",
-                date: "2022-11-01"
+                date: "2022-05-03"
             },
             // Automatically detect screenview changes by tracking URL path and hash change.
             screenviewAutoDetect: true,
             // list of ignored frames pointed by css selector (top level only)
             framesBlacklist: [
                 "#iframe1"
-            ],
-            // advanced console logging
-            // Can capture user logged messages from console
-            captureConsole: false // set to false by default
+            ]
         },
         services: {
             queue: {
-                asyncReqOnUnload: true, // Must be set to true due to changes in browser technology
-                useBeacon: false, // DNCA must be version 12.1.5 or higher
-                useFetch: true, // Set to true to help prevent data loss
-                xhrLogging: false, // Useful for debgging
-                // dcxWorker: window.fetch && window.Worker ? new Worker("dcxWorker.js") : null,
-                queues: [{
+                // WARNING: Enabling asynchronous request on unload may result in incomplete or missing data
+                asyncReqOnUnload: true,
+                useBeacon: false,
+                useFetch: true,
+                xhrLogging: false,
+                queues: [
+                    {
                         qid: "DEFAULT",
-                        endpoint: "https://sky.discoverstore.hclcx.com/DiscoverUIPost.php",
-                        // endpoint: "https://10.115.147.229:8050/DiscoverUIPost.php",
-                       // endpoint: "https://net.discoverstore.hclcx.com/DiscoverUIPost.php", // local Env
-                        maxEvents: 20,
+                        endpoint: "https://dvendba1.deepvision.cloud.solteq.com/DiscoverUIPost.php",
+                        maxEvents: 4,
                         timerInterval: 30000,
-                        maxSize: 400000,
+                        maxSize: 5000000,
                         checkEndpoint: false,
-                        encoder: "gzip",
-                        endpointCheckTimeout: 3000
-                }]
+                        endpointCheckTimeout: 1500,
+                        encoder: "gzip" // is this required?
+                    }
+                ]
             },
             message: {
-                privacy: [{
+                privacy: [
+                    {
                         targets: [
                             // CSS Selector: All password input fields
-                            "input[type=password]",
-                            "input[dcxPasswordVisibility=true]"
+                            "input[type=password]", 
+                            {"id" : { "regex" : "password.*" }, "idType" : "-1"},
+                            {"id" : { "regex" : ".*password" }, "idType" : "-1"},
+                            {"id" : { "regex" : ".*iban" }, "idType" : "-1"},
+                            {"id" : { "regex" : ".*ssn" }, "idType" : "-1"},
+                            {"id" : { "regex" : ".*socialSecurityNumber" }, "idType" : "-1" }
                         ],
-                        "maskType": 2
-                }],
+                        "maskType": 3
+                    }
+                ],
                 privacyPatterns: [
                     /**
                      * Use privacy patterns to match and replace specific patterns in the HTML.
@@ -15035,368 +11467,138 @@ DCX.addModule("DOMObserver", function (context) {
                 }
             },
             domCapture: {
-                diffEnabled: true,
+                diffEnabled: browserUAControl,
                 // DOM Capture options
                 options: {
-                    disablePasswordVisibility: false, // If Password visibility on show/hide password needs to be disabled
-                    maxMutations: 300,       // If this threshold is met or exceeded, a full DOM is captured instead of a diff.
-                    maxLength: 10000000,      // If this threshold is exceeded, the snapshot will not be sent
-                    captureFrames: false,  // Should child frames/iframes be captured
-                    captureShadowDOM: true,
-                    captureStyle: true, // Capture inline-style tags (Helpful in reducing capture size, requires Replay Rules)
-                    keepImports: true, // Capture link, rel, import tags
-                    removeComments: true, // Should comments be removed from the captured snapshot
-                    removeScripts: false,      // Should script tags be removed from the captured snapshot
-                    removeBase64: 50000, // Remove embeded base64 images > size in bytes (0 = remove all base64 images)
-                    captureJSS: true,  // Capture CSS Styles for React/JSS sites
-                    //customStyle: "#className {display: none;}" //user can pass custom style on page to override some style.
+                    maxMutations: 25,      // If this threshold is met or exceeded, a full DOM is captured instead of a diff.
+                    maxLength: 25000000,    // If this threshold is exceeded, the snapshot will not be sent
+                    captureFrames: false,   // Should child frames/iframes be captured
+                    removeScripts: true,    // Should script tags be removed from the captured snapshot
+                    captureStyle: true,    // Capture inline-style tags (Helpful in reducing capture size, requires Replay Rules)
+                    removeBase64: 0         // Remove embeded base64 images > size in bytes (0 = remove all base64 images)
                 }
             },
             browser: {
                 sizzleObject: "window.Sizzle",
-                jQueryObject: "window.jQuery",
-                /*blacklist: [{
-                regex: ".*",
-                flags: "ig"
-            }],*/
-                customid: ["data-dcxid", "name"]
+                jQueryObject: "window.jQuery"
             }
         },
         modules: {
             usability: {
-                hoverThreshold: 2000 // ms
+                hoverThreshold: 2000
             },
             performance: {
                 calculateRenderTime: true,
                 renderTimeThreshold: 600000,
                 filter: {
-                    navigationStart: false,
-                    unloadEventStart: false,
-                    unloadEventEnd: false,
-                    redirectStart: false,
-                    redirectEnd: false,
-                    fetchStart: false,
-                    domainLookupStart: false,
-                    domainLookupEnd: false,
-                    connectStart: false,
-                    connectEnd: false,
-                    secureConnectionStart: false,
+                    navigationStart: true,
+                    unloadEventStart: true,
+                    unloadEventEnd: true,
+                    redirectStart: true,
+                    redirectEnd: true,
+                    fetchStart: true,
+                    domainLookupStart: true,
+                    domainLookupEnd: true,
+                    connectStart: true,
+                    connectEnd: true,
+                    secureConnectionStart: true,
                     requestStart: false,
                     responseStart: false,
                     responseEnd: false,
-                    domLoading: false,
-                    domInteractive: false,
-                    domContentLoadedEventStart: false,
-                    domContentLoadedEventEnd: false,
+                    domLoading: true,
+                    domInteractive: true,
+                    domContentLoadedEventStart: true,
+                    domContentLoadedEventEnd: true,
                     domComplete: false,
                     loadEventStart: false,
                     loadEventEnd: false
                 }
             },
-            ajaxListener: {
-                skipSafetyCheck: true,
-                xhrEnabled: true,
-                fetchEnabled: true,
-                urlBlocklist: [
-                    { regex: "brilliantcollector\\.com" },
-                    { regex: "tealeaftarget", flags: "i" },
-                    { regex: "DiscoverUIPost.php",  flags: "i"}
-                ],
-                filters: [
-                    //  filtering rule for logging XHR request data when HTTP status is 4xx and default data
-                    {
-                        method: { regex: "GET", flags: "i" },
-                        url: { regex: "loginidentity", flags: "i" },
-                        status: { regex: "^2\\d\\d$" },
-                        log: {
-                            requestHeaders: true,
-                            requestData: true,
-                            responseHeaders: true,
-                            responseData: true,
-                            queryString: true,
-                            sensitiveFields: [
-                            ],
-                            privacyPatterns: [],
-                        }
-                    }
-                ]
-            },
-            utmLogger: {
-                utmEnabled: true,
-                maxDays: 90,
-                maxCampaigns: 50
-            },
             replay: {
                 // Geolocation configuration
                 geolocation: {
                     enabled: false,
-                    triggers: [{
-                        event: "load"
-                    }]
+                    triggers: [
+                        {
+                            event: "load"
+                        }
+                    ]
                 },
                 // DOM Capture configuration
                 domCapture: {
-                    /**
-                     * NOTE: Enabling DOM Capture has significant implications on data transmission and infrastructure.
-                     * Hence this feature should be enabled judiciously. If enabled, it requires further configuration
-                     * to only perform the DOM Capture based on specific events and elements. Please refer to the
-                     * documentation for more details.
-                     */
                     enabled: true,
-                    /**
-                     * The rules for triggering DOM Snapshots are similar to the Privacy configuration.
-                     * It accepts a mandatory "event" followed by one or more optional targets
-                     * as well as an optional delay after which to take the DOM snapshot.
-                     * 
-                     * The default configuration below will capture a full DOM snapshot for each and every click,
-                     * change action as well as for all screenview load and unloads. Refer to the documentation
-                     * for details on fine tuning this configuration to specific elements and screenviews.
-                     */
-                    triggers: [{
-                            event: "load",
-                            fullDOMCapture: true,
-                            delay: 300 // ms
-                        },
-                        {
-                            event: "click",
-                            targets: [
-                                "input[type=radio]",
-                                "input[type=checkbox]"
-                            ],
-                            delay: 100 // ms -- Assists with Replay Fidelity on dynamic radio buttons & checkboxes
-                        },
+                    triggers: [
                         {
                             event: "click"
                         },
                         {
                             event: "change"
                         },
-						{
-							event: "DCXLazyLoad", // Capture dynamic error modals in cart
-							delay: 1000 // ms
-						}
+                        {
+                            event: "load",
+                            delay: 3500
+                        }
                     ]
                 }
             },
-            slowResource: {
-				responseTime: 2000, // Time in ms to log slow static content - Recommended 3000+
-				monitorJS: true,
-				monitorCSS: true,
-				monitorImages: true,
-				monitorXHR: true,
-				blocklist: []
-			},
-            universalLogger: {
-				dlObject: "PageDataLayer", // Data Layer object to record (Place in quotes)
-				blocklistKeys: [], // List of keys to skip logging
-				blocklistValues: [ "gtm.js", "gtm.dom", "gtm.load" ], // List of values to skip logging
-				pushListener: true, // Monitor the data layer for push events after initial capture
-				mapping: {},
-				breakout: [
-					"viewPromotionItems",
-					"viewItemListItems",
-					"addToCartItems",
-					"viewCartItems",
-					"beginCheckoutItems",
-					"addShippingInfoItems",
-					"addPaymentInfoItems",
-					"purchaseItems",
-					"selectItemItems"
-				], // list of keys to breakout into custom events
-				maxArrayItems: 100, // maximum items to break out of an array
-				maxSize: 20000, // maximum bytes to log
-				maxKeys: 500, // maximum number of items to log
-				delay: 500 // milliseconds to delay first Data Layer inspection
-			},
-            DOMObserver: {
-				targets: [
-					// {
-					// 	selector: "body", // Parent selector
-					// 	childNode: "", // Look for child node to trigger snapshot (blank for ANY)
-					// 	eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-					// 	added: 2, // Look for child node 0=removed, 1=added or 2=added-or-removed from DOM
-					// 	maxEvents: 1, // After triggering X number of times, stop monitoring this event (0=Unlimited)
-					// 	customFunction: false // Optional JavaScript function to be executed when event is triggered
-					// },
-
-                    // config for home
-                    {
-                        selector: ".containerFixedWithWrapper .slick-list", // Parent selector
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
-                        interval: 1000, // Set min interval 1000ms, so dom get ready.
-                    },
-                    {
-                        selector: ".containerFixedWithWrapper .imageWrapper", // Parent selector
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
-                        interval: 1000, // Set min interval 1000ms, so dom get ready.
-                    },
-                    {
-                        selector: ".containerFixedWithWrapper .slideImage", // Parent selector
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
-                        interval: 1000, // Set min interval 1000ms, so dom get ready.
-                    },
-                    {
-                        selector: ".dailyEditsRoot", // Parent selector
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
-                        interval: 1000, // Set min interval 1000ms, so dom get ready.
-                    },
-
-                    // config for product list
-                    {
-                        selector: ".productImage    ", // Parent selector
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
-                        interval: 1000, // Set min interval 1000ms, so dom get ready.
-                    },
-
-                    // config for brand with logo
-                    {
-                        selector: ".brandLogoWithDescription .brandListHeaderTextLogo", // Parent selector
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
-                        interval: 1000, // Set min interval 1000ms, so dom get ready.
-                    },
-
-                    // config for brand page
-                    {
-                        selector: ".brandGroupContainer", // Parent selector
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
-                        interval: 1000, // Set min interval 1000ms, so dom get ready.
-                    },
-                    // config for store and resto
-                    {
-                        selector: ".heroStoreLogoWrapper img", // Parent selector
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
-                        interval: 1000, // Set min interval 1000ms, so dom get ready.
-                    },
-                    {
-                        selector: ".storeServiceWrapper", // Parent selector
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
-                        interval: 1000, // Set min interval 1000ms, so dom get ready.
-                    },
-                    {
-                        selector: ".storeInformationWrapper", // Parent selector
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
-                        interval: 1000, // Set min interval 1000ms, so dom get ready.
-                    },
-                     // config for event page
-                     {
-                        selector: ".eventContainer .events img", // Parent selector
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
-                        interval: 1000, // Set min interval 1000ms, so dom get ready.
-                    },
-                    // config for side menu
-                    {
-                        selector: ".sideMenuOpen", // Parent selector
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
-                        interval: 1000, // Set min interval 1000ms, so dom get ready.
-                    },
-                     // config for cms page
-                     {
-                        selector: ".rctCms img", // Parent selector
-                        eventName: "DCXLazyLoad", // Name of event to log in DCX (must configure in UIC)
-                        lazyLoad: true, // make lazyLoad true if page has lazy loading   
-                        interval: 1000, // Set min interval 1000ms, so dom get ready.
-                    }
+			discoAjax: {
+				filters: [
+					{
+                		url: { regex: "^((?!(DiscoverUIPost)).)*$", flags: "i" },
+						log: {
+							requestHeaders: true,
+							requestData: true, // Filter or apply proper privacy when exposing Request Data
+							responseHeaders: true,
+							responseData: false // Filter or apply proper privacy when exposing Response Data
+						}
+					}
 				]
 			},
             DCCookie: {
-                appCookieWhitelist: [{
-                    regex: ".*" 
-                }],
+                appCookieWhitelist: [
+                    { regex: ".*" }
+                ],
                 dcAppKey: ""
             }
         }
-    };
-    if (window.location.href.indexOf("/SampleObservationURL") > -1) { 
-		config.core.modules.DOMObserver.enabled = true;
-	}
-
-    //----------------------------------------------------------------------------------------------------------
-    //--------------------------------------------------------------------------------- Alternate FireFox Config
-    //----------------------------------------------------------------------------------------------------------
-    if (window.location.href.indexOf("/SamplePrivacyURL") > -1) { 
-		config.services.message.privacyPatterns = [
-			{
-				pattern: { regex: '<span class="ui-selectmenu-text">.*</span>', flags: "g" },
-				replacement: "<span>XXXX</span>"
-			}
-		]
-	}
-    if (navigator.userAgent.indexOf("Firefox") !== -1) { //------------------------- Work arond for FETCH issues
-        config.services.queue.asyncReqOnUnload = false;
-        config.services.queue.useFetch = false;
-        config.services.queue.endpointCheck = true;
-        config.services.queue.endpointCheckTimeout = 2000;
     }
-
     //----------------------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------- Alternate IE Configs
+	//--------------------------------------------------------------------------------- Alternate FireFox Config
+	//----------------------------------------------------------------------------------------------------------
+	if (navigator.userAgent.indexOf("Firefox") !== -1) { //------------------------ Work around for FETCH issues
+		config.services.queue.asyncReqOnUnload = false;
+		config.services.queue.useFetch = false;
+	}
+	//----------------------------------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------------- Alternate IE Configs
+	//----------------------------------------------------------------------------------------------------------
+	if (document.documentMode === 10) { //-------------------------- Alternate config for IE10 (No Diff Support)
+		config.services.queue.useFetch = false;
+		config.services.queue.useBeacon = false;
+		config.services.domCapture.diffEnabled = false;
+		config.core.modules.discoAjax.fetchEnabled = false;
+		config.modules.replay.domCapture.triggers = [
+			{ event: 'click', targets: ['a', 'a *', 'button', 'button *'] },
+			{ event: "change" },
+			{ event: "load", delay: 500 }
+		];
+	}
+	if (document.documentMode === 11) { //-------------------------------------------- Alternate Config for IE11
+		config.services.queue.useFetch = false;
+		config.services.queue.useBeacon = false;
+		config.services.message.privacyPatterns = [];
+	}
     //----------------------------------------------------------------------------------------------------------
-    if (document.documentMode === 10) { //-------------------------- Alternate config for IE10 (No Diff Support)
-        config.services.queue.useFetch = false;
-        config.services.queue.useBeacon = false;
-        config.services.queue.DCXWorker = false;
+    //------------------------------------------------------------------------- Alternate IE Configs from Solteq
+    //----------------------------------------------------------------------------------------------------------
+    var disableSDK = false;
+    if (document.documentMode === 8) { //----------------------------- Disable SDK for IE8 (No DOM/CORS Support)
+        disableSDK = true;
+    }
+    if (document.documentMode === 9) { //----------------------- Alternate config for IE9 (No Diff/GZIP Support)
+        config.modules.replay.domCapture.enabled = false;
         config.services.domCapture.diffEnabled = false;
-        config.modules.replay.domCapture.triggers = [{
-                event: 'click',
-                targets: ['a', 'a *', 'button', 'button *']
-            },
-            {
-                event: "change"
-            },
-            {
-                event: "load",
-                delay: 500
-            }
-        ];
     }
-    if (document.documentMode === 11) { //-------------------------------------------- Alternate Config for IE11
-        config.services.queue.useFetch = false;
-        config.services.queue.useBeacon = false;
-        config.services.queue.DCXWorker = false;
-        config.services.message.privacyPatterns = [];
-    }
-
-	(function () {
-        let oldURL = window.location.href;
-        var URLChange = function () {
-            const newURL = window.location.href;
-            if (oldURL === newURL) {
-                return false;
-            } else {
-                oldURL = newURL;
-                return true;
-            } 
-        };
-
-        window.addEventListener("click", function () {
-            setTimeout(() => {
-                if (URLChange()) {
-                    if(DCX) {
-                        var DOMObserverModule = DCX.getModule('DOMObserver');
-                        if(DOMObserverModule) {
-                            var webEvent = {
-                                type: "load",
-                                name: oldURL,
-                            };
-                            DOMObserverModule.onevent(webEvent)
-                        }
-                    }
-                }
-            });
-        }, { capture: false });
-    }())
-
-    DCX.init(config);
+    if (!disableSDK) { DCX.init(config); }
+    //DCX.init(config);
 }());

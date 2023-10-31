@@ -1,0 +1,189 @@
+<html xmlns="http://www.w3.org/1999/xhtml" data-locator-client-url="chrome-extension://npbfdllefekhdplbkdigpncggmojpefi/client.bundle.js"><head data-locator-hook-status-message="No valid renderers found.">
+    <title>Menu Shadow DOM Demo</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./Menu-Shadow-DOM-Demo_files/smart.ui.default.css">
+    <link rel="stylesheet" type="text/css" href="./Menu-Shadow-DOM-Demo_files/demos.css">
+    <link rel="stylesheet" type="text/css" href="./Menu-Shadow-DOM-Demo_files/styles.css">
+    
+<script id="dataslayerLaunchMonitors">
+// console.log('** dataslayer: injecting Launch monitors **');
+window._satellite = window._satellite || {};
+window._satellite._monitors = window._satellite._monitors || [];
+window._satellite._monitors.push({
+ruleTriggered: function(e) {
+window.parent.postMessage(
+  {
+    type: 'dataslayer_launchruletriggered',
+    url: window == window.parent ? window.location.href : 'iframe',
+    data: JSON.parse(JSON.stringify(e.rule)),
+  },
+  '*'
+);
+},
+ruleCompleted: function(e) {
+// console.log('** dataslayer: Launch rule completed **', e.rule);
+var rule = JSON.parse(JSON.stringify(e.rule));
+var sendRule = function() {
+    if (window.dataslayer) {
+        window.parent.postMessage(
+            {
+                type: 'dataslayer_launchrulecompleted',
+                url: window == window.parent ? window.location.href : 'iframe',
+                data: rule,
+            },
+            '*'
+        );       
+        // console.log('** dataslayer: posted rule '+rule+'**'); 
+    } else {
+        if (document.readyState === 'complete') {
+            // console.log('** dataslayer: giving up on launch **');
+            window._dataslayerQueue = window._dataslayerQueue || [];
+            window._dataslayerQueue.push({
+              type: 'dataslayer_launchrulecompleted',
+              url: window == window.parent ? window.location.href : 'iframe',
+              data: rule,
+            });
+            return;
+        } else {
+            // console.log('** dataslayer: waiting 250ms to repost rule **');
+            window.setTimeout(sendRule, 250);
+        }
+    }
+}
+sendRule();
+if (
+  window._satellite &&
+  window._satellite._container &&
+  window._satellite._container.dataElements &&
+  true
+) {
+  var elementNames = Object.keys(
+    window._satellite._container.dataElements
+  ).sort(function(a, b) {
+    var nameA = a.toUpperCase();
+    var nameB = b.toUpperCase();
+
+    if (nameA < nameB) {
+      return -1;
+    } else if (nameA > nameB) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+
+  let launchElements = {};
+
+  for (const elementName of elementNames) {
+    var newElement = JSON.parse(
+      JSON.stringify(
+        window._satellite._container.dataElements[elementName]
+      )
+    );
+
+    let cleanValue = window._satellite.getVar(elementName);
+    if (typeof cleanValue === 'function') {
+      cleanValue = '(function)';
+    } else if (
+      cleanValue !== null &&
+      typeof cleanValue === 'object' &&
+      typeof cleanValue.then === 'function'
+    ) {
+      cleanValue = '(Promise)';
+    }
+    launchElements[elementName] = cleanValue;
+    // launchElements.push({
+    //   key: elementNames[i],
+    //   value: cleanValue,
+    //   element: newElement,
+    // });
+  }
+  try {
+    window.parent.postMessage(
+      {
+        type: 'dataslayer_launchdataelements',
+        data: 'found',
+        url: window == window.parent ? window.location.href : 'iframe',
+        elements: launchElements
+      },
+      '*'
+    );
+  } catch (e) {
+    console.warn(e);
+  }
+
+}
+},
+ruleConditionFailed: function(e) {
+window.parent.postMessage(
+  {
+    type: 'dataslayer_launchrulefailed',
+    url: window == window.parent ? window.location.href : 'iframe',
+    data: JSON.parse(JSON.stringify(e.rule)),
+  },
+  '*'
+);
+},
+});
+</script></head>
+
+<body class="viewport" data-new-gr-c-s-check-loaded="14.1126.0" data-gr-ext-installed="">
+    <div class="demo-description">Menu UI component is with Shadow DOM enabled. The Menu's markup
+        structure,
+        style, and behavior in this demo are hidden and separate from other code on the page.</div>
+
+    <smart-ui-menu checkboxes="" class="smart-ui-component">
+        <smart-menu-items-group>
+            File
+            <smart-menu-item shortcut="Ctrl+N">New</smart-menu-item>
+            <smart-menu-item shortcut="Ctrl+0">Open</smart-menu-item>
+            <smart-menu-items-group>
+                Open Containing Folder
+                <smart-menu-item>Explorer</smart-menu-item>
+                <smart-menu-item>cmd</smart-menu-item>
+            </smart-menu-items-group>
+            <smart-menu-item shortcut="Ctrl+S" disabled>Save</smart-menu-item>
+            <smart-menu-item shortcut="Ctrl+Alt+S" separator>Save As...</smart-menu-item>
+            <smart-menu-item shortcut="Alt+F4">Exit</smart-menu-item>
+        </smart-menu-items-group>
+        <smart-menu-items-group>
+            Edit
+            <smart-menu-item shortcut="Ctrl+Z">Undo</smart-menu-item>
+            <smart-menu-item shortcut="Ctrl+Y" separator>Redo</smart-menu-item>
+            <smart-menu-item shortcut="Ctrl+X">Cut</smart-menu-item>
+            <smart-menu-item shortcut="Ctrl+C">Copy</smart-menu-item>
+            <smart-menu-item shortcut="Ctrl+V" disabled>Paste</smart-menu-item>
+        </smart-menu-items-group>
+        <smart-menu-items-group checkable check-mode="checkbox">
+            View
+            <smart-menu-item shortcut="Ctrl+W, S" checked>Solution Explorer</smart-menu-item>
+            <smart-menu-item shortcut="Ctrl+\, Ctrl+M" checked>Team Explorer</smart-menu-item>
+            <smart-menu-item shortcut="Ctrl+W, L">Server Explorer</smart-menu-item>
+        </smart-menu-items-group>
+        <!-- <smart-menu-items-group checkable check-mode="radioButton">
+            Encoding
+            <smart-menu-item>Encode in ANSI</smart-menu-item>
+            <smart-menu-item>Encode in UTF-8</smart-menu-item>
+            <smart-menu-item>Encode in UTF-8-BOM</smart-menu-item>
+            <smart-menu-item>Encode in UTCS-2 BE BOM</smart-menu-item>
+            <smart-menu-item>Encode in UTCS-2 LE BOM</smart-menu-item>
+        </smart-menu-items-group> -->
+        <smart-menu-items-group checkable="" check-mode="radioButton" class="smart-element smart-menu-items-group smart-unselectable hover focus smart-menu-items-group-opened smart-menu-items-group-expanded" id="menuItemsGroup3319" role="menuitem" aria-haspopup="true" aria-expanded="true" label="Encoding" aria-label="Encoding" level="1" aria-owns="menuItemsGroup3319Container" hover="" focus=""><div class="smart-menu-item-label-container"><div class="smart-menu-item-label-element"><span>
+          Encoding
+          </span></div><div class="smart-menu-items-group-arrow down smart-arrow-down" role="presentation"></div></div>
+          
+          
+          
+          
+      <div id="menuItemsGroup3319Container" class="smart-menu-drop-down" level="2" role="menu" style=""><div class="smart-menu-item-container" checkable="" check-mode="radioButton" role="presentation"><smart-menu-item class="smart-element smart-menu-item smart-unselectable" id="menuItemb9cb" role="menuitemradio" label="Encode in ANSI" aria-label="Encode in ANSI" level="2"><div class="smart-menu-item-label-container"><div class="smart-menu-item-label-element"><span>Encode in ANSI</span></div></div></smart-menu-item><smart-menu-item class="smart-element smart-menu-item smart-unselectable" id="menuItem1c0e" role="menuitemradio" label="Encode in UTF-8" aria-label="Encode in UTF-8" level="2"><div class="smart-menu-item-label-container"><div class="smart-menu-item-label-element"><span>Encode in UTF-8</span></div></div></smart-menu-item><smart-menu-item class="smart-element smart-menu-item smart-unselectable" id="menuItem2022" role="menuitemradio" label="Encode in UTF-8-BOM" aria-label="Encode in UTF-8-BOM" level="2" checked="" aria-checked="true"><div class="smart-menu-item-label-container"><div class="smart-menu-item-label-element"><span>Encode in UTF-8-BOM Ratan</span></div></div></smart-menu-item><smart-menu-item class="smart-element smart-menu-item smart-unselectable" id="menuItemc379" role="menuitemradio" label="Encode in UTCS-2 BE BOM" aria-label="Encode in UTCS-2 BE BOM" level="2"><div class="smart-menu-item-label-container"><div class="smart-menu-item-label-element"><span>Encode in UTCS-2 BE BOM</span></div></div></smart-menu-item><smart-menu-item class="smart-element smart-menu-item smart-unselectable" id="menuItem3248" role="menuitemradio" label="Encode in UTCS-2 LE BOM" aria-label="Encode in UTCS-2 LE BOM" level="2"><div class="smart-menu-item-label-container"><div class="smart-menu-item-label-element"><span>Encode in UTCS-2 LE BOM</span></div></div></smart-menu-item></div></div></smart-menu-items-group>
+    </smart-ui-menu>
+    
+    <!-- scripts -->
+    <script type="module" src="./Menu-Shadow-DOM-Demo_files/smart.ui.menu.js"></script>
+    <script type="module" src="./Menu-Shadow-DOM-Demo_files/index.js"></script>
+    <script type="module" src="../discover.js_12_1_9.beta_Rinascente.js"></script>
+    <!-- <script type="module" src="./discoverui.js"></script> -->
+    <script type="module" src="./adoptedStyleSheets.js"></script>
+</body>

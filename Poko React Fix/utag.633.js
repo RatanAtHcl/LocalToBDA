@@ -1825,4 +1825,4 @@
     {},
     []
   )("/lib/deflate.js");
-});
+}); // eslint-disable-line
