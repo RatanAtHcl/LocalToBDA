@@ -87,6 +87,11 @@
           DCCookie: {
             enabled: true,
           },
+          // rageClicks: {
+          //   events: [
+          //     { name: "load", target: window }
+          //   ]
+          // },
         },
 
         normalization: {
@@ -300,6 +305,11 @@
           ],
           dcAppKey: "",
         },
+        // rageClicks: {
+        //   clickInterval: 4000, // Ms between first registered click of element and current click to determine if Rage Click
+        //   rageMin: 5, // Minimum number of times an element is clicked on within the clickInterval before being classed as Rage Click
+        //   enabled: true,
+        // },
       },
     };
 
