@@ -1,0 +1,24 @@
+<html><head>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js" ></script>
+    <script type="text/javascript" src="../js/DiscoverSDK.js" ></script>
+</head>
+<body id="body1">
+	<p>Sample top page </p>
+	<iframe id="frame1" src="testiframe.html">
+	</iframe>
+	<!--Click the button below to reproduce the error-->
+	<input type="button" value="Add a DOM Element" id="domelement" onclick="addDomElement()">
+	<script>
+		//Adding a DOM Element to the Body.. This should mess up the iframe. Take note that the iframe dcx-id changes on the diff.
+		function addDomElement() {
+			var element = document.getElementById("body1");
+			var para = document.createElement("p");
+			var node = document.createTextNode("This is new.");
+			para.appendChild(node);
+			element.appendChild(para);
+		}
+
+	</script>
+
+
+</body></html>

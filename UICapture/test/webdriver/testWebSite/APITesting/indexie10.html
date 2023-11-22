@@ -1,0 +1,810 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >   
+	
+<head> 
+	<script type="text/javascript" src="../jquery/jquery-1.8.1.js" ></script>
+    <script type="text/javascript" src="../js/DiscoverSDK.js" ></script>
+	<script src="../js/mocha.js"></script>
+	<script type="text/javascript" src="http://sinonjs.org/releases/sinon-1.10.2.js"></script>
+	 <style type="text/css">
+    table, td, th
+    {
+        border:0px;
+    }
+    table
+    {
+        width:450px;
+    }
+    th, tr
+    {
+        height:25px;
+    }
+
+    input[type=checkbox] {
+        width: 13px;
+        height: 13px;
+        padding: 0px;
+    }
+
+    input[type=radio] {
+        width: 13px;
+        height: 13px;
+        padding: 0px;
+    }
+	
+	input[id=processDOMEvent1] {
+        -webkit-appearance: button;
+        width: 80px;
+        height: 20px;
+    }
+    
+    input[type=text] {
+        -webkit-appearance: none;
+        width: 149px;
+        height: 14px;
+        padding: 0px;
+        -webkit-border-horizontal-spacing: 0;
+        -webkit-border-vertical-spacing: 0;
+        border: 2px inset;
+    }
+
+    input[type=password] {
+        -webkit-appearance: none;
+        width: 149px;
+        height: 14px;
+        padding: 0px;
+        -webkit-border-horizontal-spacing: 0;
+        -webkit-border-vertical-spacing: 0;
+        border: 2px inset;
+    }
+
+    select {
+      -webkit-appearance: none;
+      width: 82px;
+      height: 19px;
+      padding: 0px;
+      font-size: 10px;
+      border: 0px inset;
+
+
+    }
+
+    </style>
+    <title>APT testing</title>
+	
+	<script type="text/javascript">
+
+	$(document).ready(function(){
+	 $( ".disable" ).click(function( event ) {  
+		event.preventDefault();
+		event.stopPropagation();	
+		// Notify Discover
+		if (DCX && DCX.processDOMEvent) {
+		
+			DCX.processDOMEvent(event);
+		}
+		$( "<div>" ).append( "default " + event.type + " prevented" ).appendTo( "#log" );
+		});
+	$("#logExceptionEvent0").click(function(event){
+		 event.stopPropagation();
+		
+		 calllogExceptionEventh();// return false;"
+		});	
+		
+	});
+
+function requestHeaderValues(){
+ //DCX.flushAll();
+ 
+ $.ajax({
+ type: 'GET',
+ url:'/testwebsite_current/HeadersWebSite/default.aspx', //the request url
+ data: {}, //any param that you want to send in the request
+ success: function(data, textStatus, jqXHR){ //'data' is the response
+    debugger;
+	alert(request.getAllResponseHeader());
+	//alert('success');
+	alert(jqXHR.getAllResponseHeader());
+ },
+ error: function (msg) {
+ debugger;
+  //alert(request.getAllResponseHeader());
+    alert("failed");
+ }
+ });
+}
+	
+
+var counter = 0;
+var captureId ;
+var bridge = 'Bridge is working';
+var myCbFunction = function() {
+
+$("#message").val('Bridge is working');
+}
+
+
+
+function log_DOMCapture_With_Only_RemoveScript_Option_True(){
+
+if (DCX && DCX.isInitialized()) {
+
+    captureId = DCX.logDOMCapture(null,{ removeScript: true });
+	$("#uniqueID").val(captureId);
+}
+}
+
+function log_DOMCapture_With_Only_CaptureFrames_Option_True(){
+
+if (DCX && DCX.isInitialized()) {
+
+    captureId = DCX.logDOMCapture(null,{ captureFrames: true });
+	$("#uniqueID").val(captureId);
+}
+}
+
+function log_DOMCapture_With_DOM_element_and_CaptureFrames_Option(){
+if (DCX && DCX.isInitialized()) {
+    captureId = DCX.logDOMCapture(window.document, { captureFrames: true });
+	$("#uniqueID").val(captureId);
+}
+}
+
+function log_DOMCapture_With_DOM_element_and_RemoveScript_Option(){
+if (DCX && DCX.isInitialized()) {
+    captureId = DCX.logDOMCapture(window.document, { removeScript: true });
+	$("#uniqueID").val(captureId);
+}
+}
+
+function log_DOMCapture_With_default_DOM_element_and_CaptureFrames_Option(){
+if (DCX && DCX.isInitialized()) {
+    captureId = DCX.logDOMCapture(window.document, { captureFrames: true });
+	$("#uniqueID").val(captureId);
+}
+}
+
+function log_DOMCapture_With_default_DOM_element_and_RemoveScript_Option(){
+if (DCX && DCX.isInitialized()) {
+    captureId = DCX.logDOMCapture(window.document, { removeScript: true });
+	$("#uniqueID").val(captureId);
+}
+}
+
+function log_DOMCapture_With_No_Parameters(){
+if (DCX && DCX.isInitialized()) {
+    captureId = DCX.logDOMCapture();
+	$("#uniqueID").val(captureId);
+}
+}
+
+
+
+
+function log_ScreenShot(){
+if (DCX && DCX.isInitialized()) {
+    DCX.logScreenCapture();
+}
+
+}
+function register_MessageReDir_Enable_CallBack() { 
+DCX.registerBridgeCallbacks([
+    {
+        enabled: true,
+        cbType: "messageRedirect",
+        cbFunction: myCbFunction
+    }
+]);
+}
+
+function register_MessageReDir_Disable_CallBack() { 
+DCX.registerBridgeCallbacks([
+    {
+        enabled: false,
+        cbType: "messageRedirect",
+        cbFunction: myCbFunction
+    }
+]);
+}
+function register_ScreenShot_Enable_CallBack() { 
+DCX.registerBridgeCallbacks([
+    {
+        enabled: true,
+        cbType: "screenCapture",
+        cbFunction: myCbFunction
+    }
+]);
+}
+
+function register_ScreenShot_Disable_CallBack() { 
+DCX.registerBridgeCallbacks([
+    {
+        enabled: false,
+        cbType: "screenCapture",
+        cbFunction: myCbFunction
+    }
+]);
+}
+
+function register_MessageReDir_ScreenCapture_Enable(){
+DCX.registerBridgeCallbacks([
+    {
+        enabled: true,
+        cbType: "messageRedirect",
+        cbFunction: myCbFunction
+    },
+    {
+        enabled: true,
+        cbType: "screenCapture",
+        cbFunction: myCbFunction
+    }
+]);
+}
+
+function register_MessageReDir_ScreenCapture_Disable(){
+DCX.registerBridgeCallbacks([
+    {
+        enabled: false,
+        cbType: "messageRedirect",
+        cbFunction: myCbFunction
+    },
+    {
+        enabled: false,
+        cbType: "screenCapture",
+        cbFunction: myCbFunction
+    }
+]);
+}
+
+
+function requestHeaders_Enable(headerType){
+$headerType= headerType;
+DCX.registerBridgeCallbacks([
+	{
+		enabled: true,
+		cbType: "addRequestHeaders",
+		cbFunction: requestHeadersCB
+	}
+]);
+TestRequestHeadersWithSinon();
+//requestHeaderValues();
+}
+
+var $headerType;
+
+function requestHeadersCB() {
+
+    switch ($headerType) {
+    case "specialchar":
+        {
+            var headers = [{
+                name: "X-Special-Char",
+                value: "$'***"
+            }];
+            break;
+        }
+    case "empty":
+        {
+            var headers = [{
+                name: "",
+                value: "Empty"
+            }];
+            break;
+        }
+    case "duplicate":
+        {
+            var headers = [{
+                name: "duplicate",
+                value: "value1"
+            }, {
+                name: "duplicate",
+                value: "value2"
+            }];
+            break;
+        }
+		    case "multiple":
+        {
+            var headers = [{
+                name: "x-tealleaf1",
+                value: "value1"
+            }, {
+                name: "x-tealleaf2",
+                value: "value2"
+            }];
+            break;
+        }
+    default:
+        {
+            var headers = [{
+                name: "X-Discover-counter",
+                value: "Discover"
+            }];
+        }
+    }
+
+
+    return headers;
+}
+
+
+
+function requestHeaders_Disable(){
+DCX.registerBridgeCallbacks([
+	{
+		enabled: false,
+		cbType: "addRequestHeaders",
+		cbFunction: requestHeadersCB
+	}
+]);
+TestRequestHeadersWithSinon();
+}
+
+
+function createCookie(name, value, days) {
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    var expires = "; expires=" + date.toGMTString();
+  } else var expires = "";
+  document.cookie = escape(name) + "=" + escape(value) + expires + "; path=/";
+}
+
+function readCookie(name) {
+  var nameEQ = escape(name) + "=";
+  var ca = document.cookie.split(';');
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) == 0) return unescape(c.substring(nameEQ.length, c.length));
+  }
+  return null;
+}
+
+function eraseCookie() {
+  var cookieName = $("#cookieName").val();
+  createCookie(cookieName, "", -1);
+}
+
+function setCookie() {
+  var cookieName = $("#cookieName").val();
+  var cookieValue = $("#cookieValue").val();
+
+  createCookie(cookieName, cookieValue, 365);
+
+}
+
+function getSessionData() {
+
+  var _sessionData = DCX.getSessionData();
+  var sessionId = _sessionData.dcxSCN;
+  var sessionVal = _sessionData.dcxSCV;
+
+  verifySessionData(sessionId, sessionVal)
+
+}
+
+function verifySessionData(key, value) {
+
+  $("#sessionid").html(key);
+  $("#sessionval").html(value);
+
+}
+
+function addtextbox(parentId) {
+
+  counter++;
+  var newTextBoxDiv = $(document.createElement('div')).attr("id", 'TextBoxDiv' + counter);
+
+  newTextBoxDiv.html('<label>Textbox #' + counter + ' : </label>' +
+    '<input type="text" name="textbox' + counter +
+    '" id="textbox' + counter + '" value="" >');
+
+  newTextBoxDiv.appendTo(parentId);
+  return false;
+}
+
+
+function doOnload() {
+  var numbersString = "1,2,3,4,5,6";
+  var data = numbersString.split(',');
+
+  var noOptions = $("<select id=\"selectNoOptions\" name=\"noOptions\" />");
+  noOptions.appendTo("#TestForm");
+
+  var withOptions = $("<select id=\"selectwithOptions\" name=\"selectOptions\" />");
+  for (var val in data) {
+    $("<option />", {
+      value: val,
+      text: data[val]
+    }).appendTo(withOptions);
+  }
+  withOptions.appendTo("#TestForm");
+
+  for (var val in data) {
+    $("<option />", {
+      value: val,
+      text: data[val]
+    }).appendTo("#test");
+  }
+}
+
+function callrebind() {
+
+  DCX.rebind();
+
+}
+
+function callrebindondynamiccontainer1() {
+
+  var parentContainer = document.getElementById("dynamicContainer");
+  DCX.rebind(parentContainer);
+
+}
+
+function callflushAll() {
+
+  DCX.flushAll();
+}   
+
+function setAutoFlush(){
+
+  DCX.setAutoFlush(false);
+}
+
+function calllogExceptionEventh1() {
+
+  DCX.logExceptionEvent("This is to test the DCX.logExceptionEvent()","/APITesting/testRebind.html",101);
+}  
+
+function calllogExceptionEventh2() {
+
+  DCX.logExceptionEvent("This is to test the DCX.logExceptionEvent()");
+} 
+
+function calllogExceptionEventh3() {
+
+   DCX.logExceptionEvent("This is to test the DCX.logExceptionEvent()","/APITesting/testRebind.html");
+} 
+
+function calllogExceptionEventh4() {
+
+   DCX.logExceptionEvent("This is to test the DCX.logExceptionEvent()","",101);
+} 
+
+function calllogScreenviewLoad1(){
+  
+  DCX.logScreenviewLoad("logScreenviewLoadTest","This is to test referrerName for logScreenviewLoad",document.getElementById("logScreenviewLoad"));
+}
+function calllogScreenviewLoad2(){
+  
+  DCX.logScreenviewLoad("logScreenviewLoadTest");
+}
+function calllogScreenviewLoad3(){
+  
+  DCX.logScreenviewLoad("logScreenviewLoadTest","This is to test referrerName for logScreenviewLoad");
+}
+function calllogScreenviewLoad4(){
+  
+  DCX.logScreenviewLoad("logScreenviewLoadTest","",document.getElementById("logScreenviewLoad"));
+}
+
+function calllogScreenviewUnload(){
+  
+  DCX.logScreenviewUnload("logScreenviewUnloadTest");
+}
+
+function calllogCustomEvent(){
+  
+  DCX.logCustomEvent("logCustomEventTest","This is to test the logCustomEvent API");
+}
+
+function calldestroy(){
+  
+  DCX.destroy();
+}
+
+function callinit(){
+  
+  DCX.init();
+}
+
+
+
+function processDOM(){
+DCX.processDOMEvent($(".disable").click);
+//DCX.processDOMEvent(window.onclick);
+}	
+</script>	
+	
+</head>
+<title>UIC API test page</title>  
+<body>
+<h2>Test page for API Testing</h2>
+<div id="log"></div>
+    
+	<div  style="border:2px solid black" >
+	<p>Privacy Masking test:</p>
+    <li>Target Id: "abcd", -1: <br /><input type="text" id="abcd" /></li>
+    <li>Target Id: "foo_private", -1: <br /><input type="text" id="foo_private" /></li>
+    <li>Target Id: "bar_private", -1: <br /><input type="text" id="bar_private" /></li>
+    <li>Target Id: "private", -1: <br /><input type="text" id="private" /></li>
+    <li>Target CSS selector type=password: <br /><input type="password" /></li>
+    <li>Target CSS selector type=password: <br /><input type="password" /></li>
+    <li>Target Id: "[["HTML",0],["BODY",0],["UL",0],["LI",6],["INPUT",0]]", -2: <br /><input type="text" name="private2" /></li>
+    <li>Target Id: "myattr=secret", -3: <br /><input type="text" myattr="secret" name="private3" /></li>
+	<li>$ in Name:<br /><input type="text" id="invalidSeclector1" name="login$password" /></li>
+	<li>$ in ID:<br /><input type="text" id="super#field" name="invalidSeclector2" /></li>
+	<li><input type="button" name="buttonInput" id="bi" value="Continue" />	</li>
+	 
+    </ul>
+	<input type="button" name="testSessionData" id="testSessionData" value="get session data" onclick="getSessionData();return false";/>
+	</br>
+	</br>
+	<h3> This section is to test DCX.getSessionData</h3>
+	
+	<br />
+	<label>Cookie Name </label> <input id="cookieName" value="PHPSESSID">
+	
+	<label>Cookie Value </label> <input id="cookieValue" value="value" />
+	 <br />
+	 <br />
+	 <input type="button" name="setcookie" id="setcookie" value="setCookie" onclick="setCookie();return false;"/>
+	 <input type="button" name="erasecookie" id="erasecookie" value="eraseCookie" onclick="eraseCookie();return false;"/>
+
+	<div> 
+    <label>Session  Id : </label> <label id="sessionid"></label>
+	</div>
+	<div>
+	   <label>Session Val : </label> <label id="sessionval"></label>
+	</div>
+	<input type="button" name="testSessionData" id="testSessionDataAPI" value="get session data" onclick="getSessionData();return false";/>
+	</br>
+	
+	<h3> This button is to test DCX.flushAll API </h3>
+	
+	<input type="button" name="flushAll" id="flushAll" value="DCX.flushAll" onclick="callflushAll();return false;"/></br>
+	
+	<h3> This section is to test DCX.setAutoFlush(AutoFlushFlag flag) API </h3>
+	
+	<input type="button" name="setAutoFlush" id="setAutoFlush" value="DCX.setAutoFlush" onclick="setAutoFlush();return false;"/></br>
+	
+	<h3> This section is to test DCX.logExceptionEvent API </h3>
+	<div id="divlogExceptionEvent">
+	<b>Expected to see the following under type6 JSON msg </b></br>
+	DOM string msg :"This is to test the DCX.logExceptionEvent()"</br>
+	DOM string URL :"/APITesting/testRebind.html"</br>
+	Line # : 101</br>
+	</br>
+	</div>
+	<input type="button" name="logExceptionEventAllParameters" id="logExceptionEvent1" value="DCX.logExceptionEventAllParameters" onclick="calllogExceptionEventh1();return false;"/></br>
+	
+	<div id="divlogExceptionEvent">
+	<b>Expected to see the following under type6 JSON msg </b></br>
+	DOM string msg :"This is to test the DCX.logExceptionEvent()"</br>
+	DOM string URL :"/APITesting/testRebind.html"</br>
+	
+	</br>
+	</div>
+	<input type="button" name="logExceptionEventWithMsgandURL" id="logExceptionEvent2" value="DCX.logExceptionEventWithMsgandURL" onclick="calllogExceptionEventh3();return false;"/></br>
+	
+	<div id="divlogExceptionEvent">
+	<b>Expected to see the following under type6 JSON msg </b></br>
+	DOM string msg :"This is to test the DCX.logExceptionEvent()"</br>
+	Line # : 101</br>
+	</br>
+	</div>
+	<input type="button" name="logExceptionEventWithMsgandLine" id="logExceptionEvent3" value="DCX.logExceptionEventWithMsgandLine" onclick="calllogExceptionEventh4();return false;"/></br>
+	
+	<div id="divlogExceptionEvent">
+	<b>Expected to see the following under type6 JSON msg </b></br>
+	DOM string msg :"This is to test the DCX.logExceptionEvent()"</br>
+
+	</br>
+	</div>
+	<input type="button" name="logExceptionEventWithMsgOnly" id="logExceptionEvent4" value="DCX.logExceptionEventWithMsgOnly" onclick="calllogExceptionEventh2();return false;"/></br>
+	
+	<h3> This section is to test DCX.logScreenviewLoad API </h3>
+	<div id="logScreenviewLoad">
+	<b>Expected to see the following under type2 JSON msg </b></br>
+	DOM string name :"logScreenviewLoad name"</br>
+	DOM string referrerName :"This is to test referrerName for logScreenviewLoad"</br>
+	DOM element : "input"</br>
+	</br>
+	</div>
+	<input type="button" name="logScreenviewLoad" id="logScreenviewLoad1" value="DCX.logScreenviewLoadAllParameters" onclick="calllogScreenviewLoad1();return false;"/></br>
+	
+	<div id="logScreenviewLoad">
+	<b>Expected to see the following under type2 JSON msg </b></br>
+	DOM string name :"logScreenviewLoad name"</br>
+	
+	</br>
+	</div>
+	<input type="button" name="logScreenviewLoad" id="logScreenviewLoad2" value="DCX.logScreenviewLoadNameParameretOnly" onclick="calllogScreenviewLoad2();return false;"/></br>
+	
+	<div id="logScreenviewLoad">
+	<b>Expected to see the following under type2 JSON msg </b></br>
+	DOM string name :"logScreenviewLoad name"</br>
+	DOM string referrerName :"This is to test referrerName for logScreenviewLoad"</br>
+	
+	</br>
+	</div>
+	<input type="button" name="logScreenviewLoad" id="logScreenviewLoad3" value="DCX.logScreenviewLoadWithNameandReferrerName" onclick="calllogScreenviewLoad3();return false;"/></br>
+	
+	<div id="logScreenviewLoad">
+	<b>Expected to see the following under type2 JSON msg </b></br>
+	DOM string name :"logScreenviewLoad name"</br>
+	DOM element : "input"</br>
+	</br>
+	</div>
+	<input type="button" name="logScreenviewLoad" id="logScreenviewLoad4" value="DCX.logScreenviewLoadWithNameandRootElement" onclick="calllogScreenviewLoad4();return false;"/></br>
+	
+	<h3> This section is to test DCX.logScreenviewUnload API </h3>
+	<div id="logScreenViewUnload">
+	<b>Expected to see the following under type2 JSON msg </b></br>
+	DOM string name :"logScreenviewUnload name"</br>
+	
+	</br>
+	</div>
+	<input type="button" name="logScreenViewUnload" id="logScreenviewUnload1" value="DCX.logScreenviewUnload" onclick="calllogScreenviewUnload();return false;"/></br>
+	
+	</br>
+    <h3> This section is to test DCX.logCustomEvent API </h3>
+	<div id="logCustomEvent">
+	<b>Expected to see the following under type5 JSON msg </b></br>
+	DOM string name :"logCustomEvent name"</br>
+	Object : "This is to test the logCustomEvent API"
+	</br>
+	</div>
+	<input type="button" name="logCustomEvent" id="logCustomEvent1" value="DCX.logCustomEvent" onclick="calllogCustomEvent();return false;"/></br>
+	
+	</br>
+	
+	</br>
+	<h3> This section is to test DCX.rebind API</h3>
+	
+	
+	<div id="dynamicContainer" style="border:1px solid black" width="50%" >
+        <h3> This is the div with id #dynamicContainer</h3>
+		
+	</div></br>
+	</br>
+	<input type="button" value="Add Text Box inside #dynamicContainer" id="addDynamicElements" onclick="addtextbox('#dynamicContainer');return false;"></input>
+	 <br />
+    <br />
+	<div>
+	
+	</div>
+	<div id="secondDynamicContainer" style="border:1px solid black" >	
+        
+        <h3> This is the div with id #secondDynamicContainer</h3>
+	</div>
+	</br>
+	</br>
+	<input type="button" value="Add Text Box inside #secondDynamicContainer" id="addDynamicElements2" onclick="addtextbox('#secondDynamicContainer');return false;"></input>
+    
+	<br/>
+	<br />
+	<input type="button" value="Call DCX.rebind" id="rebind1" onclick="callrebind();return false";/> </br>
+	<input type="button" value="Call DCX.rebind on #dynamicContainer" id="rebind2" onclick="callrebindondynamiccontainer1();return false";/> <br />
+	</div>
+	<h3> This is to test DCX.processDOMEvent API</h3>
+	<input type="button" value="Disable Click Event" class="disable" /> <br />
+	<input type="button" value="Call DCX.processDOM" id="processDOMEvent1" onclick="processDOM();return false";/> <br />
+	
+	<h3> This button is to test DCX.destroy API </h3>
+	
+	<input type="button" name="destroy" id="destroy" value="DCX.destroy" onclick="calldestroy();return false;"/></br>
+	
+	<h3> This section is to test DCX.init API </h3>
+	
+	<input type="button" name="init" id="init" value="DCX.init" onclick="callinit();return false;"/></br>
+	</br>
+	</br>
+	<div id="domcapture">
+		<h3> This section is to test DOM Capture </h3>
+		<li> Unique ID for DCX.logDOMCapture API <br /><input type="text" value="" id="uniqueID" /></li>
+		
+		</br>
+		<input type="button" name="DOMCapture1" id="only_removeScriptOptionAsParameter" value="With only removeScript option as parameter" onclick=" log_DOMCapture_With_Only_RemoveScript_Option_True();return false;"/>
+		|<input type="button" name="DOMCapture2" id="only_captureFramestOptionAsParameter" value="With only captureFrames option as parameter" onclick=" log_DOMCapture_With_Only_CaptureFrames_Option_True();return false;"/>
+		|<input type="button" name="DOMCapture3" id="withNoParameter" value="With no parameters" onclick=" log_DOMCapture_With_No_Parameters();return false;"/>
+		|<input type="button" name="DOMCapture4" id="dom_element_removeScriptOptionAsParameter" value="With DOM element and removeScript option as parameter" onclick=" log_DOMCapture_With_DOM_element_and_RemoveScript_Option();return false;"/>
+		|<input type="button" name="DOMCapture5" id="dom_element_captureFramesOptionAsParameter" value="With DOM element and captureFrames option as parameter" onclick=" log_DOMCapture_With_DOM_element_and_CaptureFrames_Option();return false;"/>
+		|<input type="button" name="DOMCapture5" id="root_element_captureFramesOptionAsParameter" value="With root element and captureFrames option as parameter" onclick=" log_DOMCapture_With_default_DOM_element_and_CaptureFrames_Option
+		();return false;"/>
+		</div>
+		|<input type="button" name="DOMCapture4" id="root_element_removeScriptOptionAsParameter" value="With root element and removeScript option as parameter" onclick=" log_DOMCapture_With_default_DOM_element_and_RemoveScript_Option();return false;"/>
+		
+		<h3> This section is to test DCX.registerBridgeCallbacks </h3>
+		<div>
+		<li> Message <br /><input type="text" value=""  id="message" /></li>
+		</div>
+	
+	<input type="button" name="messageredir_enable" id="registerBridgeCallbacks_enable" value="Enable message redirect registerBridgeCallbacks" onclick="register_MessageReDir_Enable_CallBack();return false;"/>
+	|<input type="button" name="messageredir_disable" id="registerBridgeCallbacks_disable" value="Disable message redirect registerBridgeCallbacks" onclick="register_MessageReDir_Disable_CallBack();return false;"/>
+	|<input type="button" name="screeshot_enable" id="registerBridgeCallbacks_screenshot_enable" value="Enable Screenshot registerBridgeCallbacks" onclick="register_ScreenShot_Enable_CallBack();return false;"/>
+	|<input type="button" name="screenshot_disable" id="registerBridgeCallbacks_screenshot_disable" value="Disable Screenshot registerBridgeCallback" onclick="register_ScreenShot_Disable_CallBack();return false;"/>
+	|<input type="button" name="log_screenshot" id="log_screenshot" value="log Screenshot" onclick="log_ScreenShot();return false;"/>
+	|<input type="button" name="messageredir_screenshot_enable" id="registerBridgeCallbacks_messageredir_screenshot_enable" value="Enable MessageReDir ScreenCapture registerBridgeCallback" onclick="register_MessageReDir_ScreenCapture_Enable();return false;"/>
+	|<input type="button" name="messageredir_screenshot_disable" id="registerBridgeCallbacks_messageredir_screenshot_disable" value="Disable MessageReDir ScreenCapture registerBridgeCallback" onclick="register_MessageReDir_ScreenCapture_Disable();return false;"/>
+	</br>
+	</br>
+	
+	<!--<form method="POST" action="http://localhost/testWebSite_current/HeadersWebSite/default.aspx">-->
+		<h3> This section is to test DCX.registerBridgeCallbacks for 
+		addRequestHeaders API used for Worklight integration OR anyother 3rd party </h3>
+		
+	 
+	<input type="button" name="addRequestHeaders_enable" id="registerBridgeCallbacks_addRequestHeaders_enable" value="Enable Add Request Headers registerBridgeCallbacks" onclick="requestHeaders_Enable('');return false;"/>
+	
+	|<input type="button" name="addRequestHeaders_disable" id="registerBridgeCallbacks_addRequestHeaders_disable" value="Disable Add Request Headers registerBridgeCallbacks" onclick="requestHeaders_Disable();return false;"/>
+	
+	| <input type="button" id="registerBridgeCallbacks_addRequestHeaders_enable_specialchar" value="special character" onclick="requestHeaders_Enable('specialchar');return false;"/>
+	
+	| <input type="button" id="registerBridgeCallbacks_addRequestHeaders_enable_empty" value="empty header value" onclick="requestHeaders_Enable('empty');return false;"/>
+	
+	| <input type="button" id="registerBridgeCallbacks_addRequestHeaders_enable_duplicate" value="duplicate headers" onclick="requestHeaders_Enable('duplicate');return false;"/>
+	
+	| <input type="submit" id="registerBridgeCallbacks_addRequestHeaders_enable_multiple" value="multiple headers" onclick="requestHeaders_Enable('multiple');return false;"/>
+	<!--</form>-->
+<div id="requestheaders"> the request headers will replace this content </div>
+<script>
+function getTodos(listId, callback) {
+    jQuery.ajax({
+        url: "/todo/" + listId + "/items",
+        success: function (data) {
+            // Node-style CPS: callback(err, data)
+            callback(null, data);
+        }
+    });
+}
+var xhr, requests;
+
+function TestRequestHeadersWithSinon() {
+requests =[];
+xhr = sinon.useFakeXMLHttpRequest();
+xhr.onCreate = function (xhr) {
+	requests.push(xhr);
+};
+debugger;
+
+
+
+var callback = sinon.spy();
+DCX.flushAll();
+//getTodos(42, callback);
+ var message = "";
+ for (var key in requests[0].requestHeaders) {
+   if (requests[0].requestHeaders.hasOwnProperty(key)) {
+    message = message + "<p>" + key + " -> " + requests[0].requestHeaders[key] + "</p>";
+	 }
+}
+$("#requestheaders").html(message);
+ 
+}
+/*
+ describe("ajax", function(){
+	before(function () {
+    xhr = sinon.useFakeXMLHttpRequest();
+    requests = [];
+    xhr.onCreate = function (req) { requests.push(req); };
+	});
+
+	after(function () {
+    // Like before we must clean up when tampering with globals.
+    xhr.restore();
+	});
+
+	it("makes a GET request for todo items", function () {
+    requestHeaderValues(sinon.spy());
+	//getTodos(42, sinon.spy());
+    alert(request[0].requestHeaders) 
+    assert.equals(requests.length, 1);
+	assert.match(requests[0].url, "/todo/42/items");
+	});
+});*/
+</script>
+</body>
+</html>

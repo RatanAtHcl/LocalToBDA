@@ -1,0 +1,7 @@
+
+*.class
+
+/PsTools
+/bin
+/cobertura
+/lcov
