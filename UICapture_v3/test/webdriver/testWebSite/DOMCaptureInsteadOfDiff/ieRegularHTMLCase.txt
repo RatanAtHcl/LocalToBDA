@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>
+    <title>DOM Diff Test page</title>
+	<meta name="viewport" content="width=device-width">
+    <style>
+        .redbg {
+            background-color: #ffcfcf;
+        }
+        .greenbg {
+            background-color: #7fff7f;
+        }
+        .bluebg {
+            background-color: #cfcfff;
+        }
+    </style>
+    
+</head>
+<body>
+	<li>Link <a href="#google_image_in_link"><img id="google_logo_top" src="https://www.google.com/images/srpr/logo3w.png"></a></li>
+	<br>
+    <input class="domcapture" type="button" value="Trigger DOM Snapshot">
+    <input id="addDivBtn" onclick="addToTargetDiv();" type="button" value="Add to Target Div">
+    <input id="addChildInputsBtn" onclick="setTimeout(addChildInputs, 500);" type="button" value="Add nested inputs">
+    <input id="toggleAttribute" onclick="toggleAttributes();" type="button" value="Toggle Attributes">
+    <input id="addDivToBody" onclick="addDivToBody();return false;" type="button" value="Add div to body">
+    <div class="redbg" id="container_1">
+        Static div 1
+        <table>
+            <tbody><tr>
+                <td>CHECKBOX</td>
+                <td><input name="redBox" class="toggle" id="cb1" style="width: 13px; height: 13px;" type="checkbox" value="red"><label for="cb1">RED</label></td>
+                <td><input name="greenBox" class="toggle" id="cb2" type="checkbox" value="green"><label for="cb2">GREEN</label></td>
+                <td><input name="blueBox" class="toggle" id="cb3" type="checkbox" value="blue"><label for="cb3">BLUE</label></td>
+            </tr>
+            <tr>
+                <td>RADIO</td>
+                <td><input name="radioButton" id="rb1" type="radio" value="red">Red</td>
+                <td><input name="radioButton" id="rb1" type="radio" checked="checked" value="green">Green</td>
+                <td><input name="radioButton" id="rb1" type="radio" value="blue">Blue</td>
+            </tr>
+            <tr>
+                <td>SELECT LIST</td>
+                <td>
+                    <select name="selectList" class="toggle">
+                        <optgroup label="color">
+                            <option selected="selected" label="red">RED</option>
+                            <option label="green">GREEN</option>
+                            <option label="blue">BLUE</option>
+                        </optgroup>
+                        <optgroup label="days">
+                            <option>Mon</option>
+                            <option>Tue</option>
+                            <option>Wed</option>
+                        </optgroup>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>TEXT INPUT</td>
+                <td>Regular Text:<br><input name="textInput" id="ti_pvt" type="text" value="" myattr="ti_pvt"></td>
+                <td>Password:<br><input name="passwordInput" id="pi" type="password" value=""></td>
+                <td id="container_1.target.td">Dynamic:<br></td>
+            </tr>
+        </tbody></table>
+    </div>
+    <div class="bluebg"></div>
+    <div class="greenbg" id="container_2">
+        Static div 2
+        <table>
+            <tbody><tr>
+                <td>CHECKBOX</td>
+                <td><input name="redBox.2" id="cb.2.1" style="width: 13px; height: 13px;" type="checkbox" value="red"><label for="cb.2.1">RED</label></td>
+                <td><input name="greenBox.2" id="cb.2.2" type="checkbox" value="green"><label for="cb.2.2">GREEN</label></td>
+                <td><input name="blueBox.2" id="cb.2.3" type="checkbox" value="blue"><label for="cb.2.3">BLUE</label></td>
+            </tr>
+            <tr>
+                <td>RADIO</td>
+                <td><input name="radioBttn.2" id="rb.2.1" type="radio" value="red">Red</td>
+                <td><input name="radioBttn.2" id="rb.2.2" type="radio" checked="checked" value="green">Green</td>
+                <td><input name="radioBttn.2" id="rb.2.3" type="radio" value="blue">Blue</td>
+            </tr>
+            <tr>
+                <td>SELECT LIST</td>
+                <td>
+                    <select name="selectList.2">
+                        <optgroup label="color">
+                            <option selected="selected" label="red">RED</option>
+                            <option label="green">GREEN</option>
+                            <option label="blue">BLUE</option>
+                        </optgroup>
+                        <optgroup label="days">
+                            <option>Mon</option>
+                            <option>Tue</option>
+                            <option>Wed</option>
+                        </optgroup>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>TEXT INPUT</td>
+                <td>Regular Text:<br><input name="textInput.2" id="ti.2" type="text" value=""></td>
+                <td>Password:<br><input name="passwordInput.2" id="pi.2" type="password" value=""></td>
+                <td id="container_2.target.td">Dynamic:<br></td>
+            </tr>
+        </tbody></table>
+    </div>
+
+</body></html>
+Root:
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>
+		<title>Page with Custom events </title>
+		
+	</head>
+	<body>
+		<form action="demo_form.asp">
+			First name: <input name="fname" id="firstname" type="text" value=""><br>
+			Last name: <input name="lname" id="lastname" type="text" value=""><br>
+			<input id="submitbtn" onclick="onSubmitBtnClick('e');return false" type="button" value="Submit">
+			<br>
+			<input id="submitbtnIE" onclick="onSubmitBtnClickIE();return false" type="button" value="Submit IE">
+		</form>
+		<div id="capturedEvent">
+			
+		</div>
+			
+		
+	
+
+</body></html>
+Root:
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>
+    <title>DOM Diff Test page</title>
+    <style>
+        .redbg {
+            background-color: #ffcfcf;
+        }
+        .greenbg {
+            background-color: #7fff7f;
+        }
+        .bluebg {
+            background-color: #cfcfff;
+        }
+    </style>
+    
+    
+    
+</head>
+<body id="test">
+    <input class="domcapture" type="button" value="Trigger DOM Snapshot">
+    <input id="addDivBtn" onclick="setTimeout(addToTargetDiv, 500);" type="button" value="Add to Target Div">
+    <input id="addChildInputsBtn" onclick="setTimeout(addChildInputs, 500);" type="button" value="Add nested inputs">
+    <input id="toggleAttribute" onclick="toggleAttributes();" type="button" value="Toggle Attributes">
+	<input id="addDivToBody" onclick="addDivToBody();return false;" type="button" value="Add div to body">
+    <div class="redbg" id="container_1">
+        Static div 1
+        <table>
+            <tbody><tr>
+                <td>CHECKBOX</td>
+                <td><input name="redBox" class="toggle" id="cb1" style="width: 13px; height: 13px;" type="checkbox" value="red"><label for="cb1">RED</label></td>
+                <td><input name="greenBox" class="toggle" id="cb2" type="checkbox" value="green"><label for="cb2">GREEN</label></td>
+                <td><input name="blueBox" class="toggle" id="cb3" type="checkbox" value="blue"><label for="cb3">BLUE</label></td>
+            </tr>
+            <tr>
+                <td>RADIO</td>
+                <td><input name="radioButton" id="rb1" type="radio" value="red">Red</td>
+                <td><input name="radioButton" id="rb2" type="radio" checked="checked" value="green">Green</td>
+                <td><input name="radioButton" id="rb3" type="radio" value="blue">Blue</td>
+            </tr>
+            <tr>
+                <td>SELECT LIST</td>
+                <td>
+                    <select name="selectList" class="toggle" id="abcd" value="XXX">
+                        <optgroup label="color">
+                            <option label="red">RED</option>
+                            <option label="green">GREEN</option>
+                            <option label="blue">BLUE</option>
+                        </optgroup>
+                        <optgroup label="days">
+                            <option>Mon</option>
+                            <option>Tue</option>
+                            <option>Wed</option>
+                        </optgroup>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>TEXT INPUT</td>
+                <td>Regular Text:<br><input name="textInput" type="text" value="" myattr="ti_pvt"></td>
+                <td>Password:<br><input name="passwordInput" id="pi" type="password" value=""></td>
+                <td id="container_1.target.td">Dynamic:<br></td>
+            </tr>
+        </tbody></table>
+    </div>
+    <div class="bluebg"></div>
+    <div class="greenbg" id="container_2">
+        Static div 2
+        <table>
+            <tbody><tr>
+                <td>CHECKBOX</td>
+                <td><input name="redBox.2" id="cb.2.1" style="width: 13px; height: 13px;" type="checkbox" value="red"><label for="cb.2.1">RED</label></td>
+                <td><input name="greenBox.2" id="cb.2.2" type="checkbox" value="green"><label for="cb.2.2">GREEN</label></td>
+                <td><input name="blueBox.2" id="cb.2.3" type="checkbox" value="blue"><label for="cb.2.3">BLUE</label></td>
+            </tr>
+            <tr>
+                <td>RADIO</td>
+                <td><input name="radioBttn.2" id="rb.2.1" type="radio" value="red">Red</td>
+                <td><input name="radioBttn.2" id="rb.2.2" type="radio" checked="checked" value="green">Green</td>
+                <td><input name="radioBttn.2" id="rb.2.3" type="radio" value="blue">Blue</td>
+            </tr>
+            <tr>
+                <td>SELECT LIST</td>
+                <td>
+                    <select name="selectList.2" myattr="select">
+                        <optgroup label="color">
+                            <option selected="selected" label="red">RED</option>
+                            <option label="green">GREEN</option>
+                            <option label="blue">BLUE</option>
+                        </optgroup>
+                        <optgroup label="days">
+                            <option>Mon</option>
+                            <option>Tue</option>
+                            <option>Wed</option>
+                        </optgroup>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>TEXT INPUT</td>
+                <td>Regular Text:<br><input name="textInput.2" id="ti.2" type="text" value=""></td>
+                <td>Password:<br><input name="passwordInput.2" id="pi.2" type="password" value=""></td>
+                <td id="container_2.target.td">Dynamic:<br></td>
+            </tr>
+        </tbody></table>
+    </div>
+	
+	Same domain test iframe :-
+	<br>
+	<iframe name="iframe" width="60%" height="350" id="iframe" src="iframe.html" frameborder="1" scrolling="yes" dcxid="dcx-1"> </iframe>
+     <br>
+	 
+	 Custom event test :-
+	<br>
+	<iframe name="CustomEvent" width="60%" height="350" id="CustomEvent" src="CustomEvent.html" frameborder="1" scrolling="yes" dcxid="dcx-2"> </iframe>
+     <br>
+	
+	Nested Duplicate Id's and Xpath
+	<div id="test"><span id="test"> Hover Here</span></div>
+	<hr>
+	
+	<p>To Test Message type 15 </p>
+	
+	<form action="/action_page.php">
+  First name:<br>
+  <input name="firstname" type="text" value="Mickey">
+  <br>
+  Last name:<br>
+  <input name="lastname" type="text" value="Mouse">
+  <br><br>
+  <input type="submit" value="Submit">
+  <input onclick="formCompletionHandler();return false;" type="submit" value="Explicit Call">
+</form> 
+
+<p>If you click the "Submit" button, the form-data will be sent to a page called "/action_page.php".</p>
+
+	
+	
+	
+
+</body></html>
+Root:

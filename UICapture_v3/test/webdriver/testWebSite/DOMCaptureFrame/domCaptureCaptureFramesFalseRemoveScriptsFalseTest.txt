@@ -1,0 +1,154 @@
+Root:
+Root:
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>
+    <title>DOM Diff Test page</title>
+    <style>
+        .redbg {
+            background-color: #ffcfcf;
+        }
+        .greenbg {
+            background-color: #7fff7f;
+        }
+        .bluebg {
+            background-color: #cfcfff;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+	
+	    var PrivacyTest = {mask: function (value) {return "!@#$%*";}};
+	
+        function addChildInputs() {
+            var div,
+                targets = ["container_1.target.td", "container_2.target.td"],
+                ip;
+
+            targets.forEach(function(id) {
+                ip = document.createElement("input");
+                ip.type = "password";
+                ip.name = id + "_ip";
+                div = document.getElementById(id);
+                div.appendChild(ip);
+            });
+        }
+
+        function addToTargetDiv(id) {
+            var div,
+                div2,
+                ip,
+                txtNode;
+
+            div = document.getElementsByClassName("bluebg")[0];
+
+            div2 = document.createElement("div");
+            div.appendChild(div2);
+
+            // Add text inputs
+            for (i = 1; i <= 3; i++) {
+                div = document.createElement("div");
+                div2.appendChild(div);
+                ip = document.createElement("input");
+                ip.type = "text";
+                if (i < 3) {
+                    ip.name = "ip-x-" + i;
+                }
+                if (i === 2) {
+                    ip.id = ip.name + "-pwd";
+                    ip.type = "password";
+                }
+                txtNode = document.createTextNode("Input " + i);
+                div.appendChild(txtNode);
+                div.appendChild(ip);
+            }
+
+            // Add radio input
+            div = document.createElement("div");
+            for (i = 1; i <= 3; i++) {
+                ip = document.createElement("input");
+                ip.type = "radio";
+                ip.name = "ip.radio";
+                ip.className = "toggle";
+                txtNode = document.createTextNode("Radio " + i + ":");
+                div.appendChild(txtNode);
+                div.appendChild(ip);
+            }
+            div2.appendChild(div);
+
+            // Add checkbox input
+            div = document.createElement("div");
+            for (i = 1; i <= 3; i++) {
+                ip = document.createElement("input");
+                ip.type = "checkbox";
+                ip.name = "ip.checkbox." + i;
+                ip.className = "toggle";
+                txtNode = document.createTextNode("Checkbox " + i + ":");
+                div.appendChild(txtNode);
+                div.appendChild(ip);
+            }
+            div2.appendChild(div);
+
+            // Add textarea
+            div = document.createElement("div");
+            ip = document.createElement("textarea");
+            ip.name = "txtarea.pvt";
+            txtNode = document.createTextNode("Textarea:");
+            div.appendChild(txtNode);
+            div.appendChild(ip);
+            div2.appendChild(div);
+ 
+            // Add Select list
+            div = document.createElement("div");
+            ip = document.createElement("select");
+            ip.name = "select.pvt";
+			ip.id = "foo_private";
+            for (i = 1; i <= 3; i++) {
+                opt = document.createElement("option");
+                opt.value = "Option " + i;
+                opt.text = opt.value;
+                ip.add(opt);
+            }
+            txtNode = document.createTextNode("Select List:");
+            div.appendChild(txtNode);
+            div.appendChild(ip);
+            div2.appendChild(div);
+        }
+
+        function removeDiv(id) {
+            var div = document.getElementById(id);
+            
+            if (!div) {
+                console.log("removeDiv: Div <" + id + "> not found.");
+                return;
+            }
+        
+            document.body.removeChild(div);
+            // Update the button label
+            btn = document.getElementById("addDivBtn");
+            btn.value = "Add Div";            
+        }
+        
+        function toggleAttributes() {
+            var i, len,
+                elem,
+                elems = document.getElementsByClassName("toggle");
+
+            for (i = 0, len = elems.length; i < len; i += 1) {
+                elem = elems[i];
+                if (elem.style.visibility === "hidden") {
+                    elem.style.visibility = "";
+                } else {
+                    elem.style.visibility = "hidden";
+                }
+            }
+        }
+    </script>
+    <script type="text/javascript" src="../jquery/jquery-1.8.1.js"></script>
+    <script type="text/javascript" src="../js/DiscoverSDK.js"></script>
+</head>
+    <frameset rows="40%,40%,*">
+        <frame id="frame" name="frame" src="./frameSimple.html" width="60%" height="350px" scrolling="yes" frameborder="1" cd_frame_id_="66a995242f73bba5a67ce8ba23b551c5">
+        <frame id="CustomEvent" name="CustomEvent" src="./CustomEvent.html" width="60%" height="350px" scrolling="yes" frameborder="1"> 
+    </frameset>	
+
+</html>
+Root:

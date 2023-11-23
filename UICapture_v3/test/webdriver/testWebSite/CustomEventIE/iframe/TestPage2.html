@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+    <script type="text/javascript" src="../../jquery/jquery-1.8.1.js" ></script>
+	<script type="text/javascript">
+	
+	    $(function () {
+            //
+            createTextBoxonLoadiframe();
+           
+        });
+
+        function createTextBoxonLoadiframe() {
+            setTimeout(function () {
+                $("#domcaptureiframe").append('<input type="text" id="domonloadiframe" value="created on load event within iframe"> </input> ');
+            }, 700);
+            
+        }
+        function createTextBoxOnClickWithDelayiframe() {
+            //
+            setTimeout(function () {
+                $("#domcaptureiframe").append('<input type="text" id="domonclickiframe" value="created on click event"> </input> ');
+            }, 500);
+            
+        }
+		
+		function createTextBoxOnChangeWithDelayiframes() {
+            //
+            setTimeout(function () {
+                $("#domcaptureiframe").append('<input type="text" id="domonclick" value="created on change event"> </input> ');
+            }, 500);
+            
+        }
+	
+	</script>
+<head>
+    <title> Within a iframe </title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-16" />	
+</head> 
+<body>
+     Within iFrame1: <br /><input type="text" id="Text1" name="Text1"/>
+	 <br />
+	 <input type="button" name="buttonInput" id="btn" value="Continue" />
+	 <br/>
+	 <input type="button" id="DOM_Click_iframe" onclick="createTextBoxOnClickWithDelayiframe(); return false;" value="Click"/>
+	 <br/>
+	 <select name="selectListiframe" onchange="createTextBoxOnChangeWithDelayiframes(); return false">
+            <optgroup label="color">
+                <option label="red">RED</option>
+                <option label="green">GREEN</option>
+                <option label="blue">BLUE</option>
+            </optgroup>
+	</select>
+	 <b>Dynamic textbox display below.</b>
+	 <div id="domcaptureiframe">
+        
+    </div>
+</body>
+</html>

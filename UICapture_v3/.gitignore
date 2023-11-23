@@ -1,0 +1,16 @@
+
+*.class
+*.project
+.DS_Store
+*.ozasmt
+*.bak
+
+/bin
+/build
+/configwizard
+/intermediate
+
+/jqueryDebug
+/jqueryProd
+/w3cDebug
+/w3cProd

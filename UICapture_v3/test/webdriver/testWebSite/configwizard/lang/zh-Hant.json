@@ -1,0 +1,331 @@
+// NLS_CHARSET=UTF-8
+{
+                "site-title": "UIC 配置精靈",
+                "page-headline": "UIC 配置精靈",
+				"uic-version": "UIC 版本 ",
+                "advanced-options": "進階選項",
+                "btn-prev": "上一頁",
+                "btn-next": "下一頁",
+                "btn-finish": "完成",
+                "btn-reset": "重設為預設值",
+                "btn-regextester": "RegEx 測試器",
+
+                "library-type-prod-min": "正式作業建置（已縮製）",
+                "library-type-prod": "正式作業建置（非縮製）",
+                "library-type-dev": "開發建置（非縮製）",
+
+                "core-inactivityTimeout": "閒置逾時（毫秒）",
+                "core-inactivityTimeout-helptext": "「閒置逾時」指定逾時值，在此期間若無使用者活動，UIC 將自行終止。" +
+                                                   "如果未指定閒置逾時值，則會使用內建逾時值 10 分鐘。" +
+                                                   "<br /><em>附註：</em>指定逾時值 0，會停用此功能。這可能導致發生孤立的使用者介面點閱，因此不建議您這麼做。",
+
+                "browserService-header": "瀏覽器服務配置",
+                "browserService-subHeader": "選取特性：",
+                "browserService-jQuery": "jQuery",
+                "browserService-jQuery-helptext": "只有在 Web 應用程式使用 jQuery 1.7 或以上版本時，才支援 jQuery 特性。",
+                "browserService-jQuery-description": "UIC 程式庫的 jQuery 特性使用 jQuery API 進行跨瀏覽器 DOM 存取。",
+                "browserService-w3c": "W3C",
+                "browserService-w3c-helptext": "適用於其他所有人。",
+                "browserService-w3c-description": "UIC 程式庫的 W3C 特性直接使用瀏覽器 DOM API。" +
+                                                  "<br /><em>附註：</em>W3C 特性也需要包括協力廠商 Sizzle JS 程式庫。請參閱進階選項中的 Sizzle URL 區段。",
+
+                "browserService-useCapture": "使用擷取階段進行事件接聽",
+                "browserService-useCapture-helptext": "登錄事件接聽器時，啟用事件擷取階段。如果停用，則會使用事件反昇，而導致遺失某些事件（如果防止它們進行事件反昇的話）。建議啟用此設定。" +
+                                                      "<br /><em>附註：</em>較舊版的 Internet Explorer（IE 8 及更舊版本）不支援事件擷取階段，將自動回復成使用事件反昇。" +
+                                                      "<br />如需有關此設定的其他詳細資料，請參閱 W3C DOM 規格：http://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-flow-capture",
+                "browserService-sizzleObject": "Sizzle 物件",
+                "browserService-sizzleObject-helptext": "Sizzle 物件的路徑。跳過時，預設會使用 window.Sizzle。" +
+                                                        "<br /><br /><em>附註：</em>使用 W3C 服務時，您需要有 Sizzle 才能在較舊版本的 Internet Explorer（IE 8 及更舊版本）中正確操作程式庫。" +
+                                                        " 如果應用程式使用任何版本的 jQuery，因為 jQuery 已包括 Sizzle，所以不需要包括不同的 Sizzle。" +
+                                                        " Sizzle 可從 http://sizzlejs.com/ 取得",
+                "browserService-jQueryObject": "jQuery 物件",
+                "browserService-jQueryObject-helptext": "jQuery 物件的路徑。跳過時，預設會使用 window.jQuery。",
+                "browserService-blacklistedElements": "黑名單的元素",
+                "browserService-blacklistedElements-placeholder": "以「空格逗點空格」形式區隔的 ID 或正規表示式。",
+                "browserService-blacklistedElements-helptext": "將不是唯一及（或）動態產生的任何元素 ID 設為黑名單。與任何黑名單項目相符的元素 ID 將會取代為自訂屬性值或 XPATH。" +
+                                                               "<br /><br />提示：使用 RegEx 測試器，以驗證用來配置黑名單的任何正規表示式。",
+                "browserService-customID": "自訂屬性 ID：",
+                "browserService-customID-placeholder": "屬性名稱。",
+                "browserService-customID-helptext": "可在元素的 HTML ID 無法使用或為黑名單時用來唯一識別元素的一個以上屬性。",
+				"browserService-ieExcludedLinks": "Internet Explorer 已排除鏈結",
+				"browserService-ieExcludedLinks-placeholder": "以逗點區隔的 CSS 選取器。",
+				"browserService-ieExcludedLinks-helptext": "此配置指定為 CSS 選取器陣列。例如，配置將指定為：" +
+															" a[href^='javascript:'] " +
+															"以忽略透過下列鏈結所觸發的 beforeunload：< a href='javascript:void(0);'>Click here< /a>" +
+															"<br/>附註：如果指定無效字元（例如 $）但未適當地使用 \\ 跳出它，將會造成 Chrome 及 Webkit 瀏覽器中的異常狀況。",
+                "queueService-header": "佇列服務配置",
+                "queueService-subHeader": "配置程式庫的內部佇列",
+                "queueService-queueName": "名稱",
+                "queueService-queueName-helptext": "這個版本只支援一個佇列。佇列名稱「必須」是 'DEFAULT'。請不要變更此值。",
+                "queueService-queueEndpoint": "端點（目標頁面）",
+                "queueService-queueEndpoint-helptext": "Web 伺服器上將會張貼所擷取資料的目標頁面 URL。這個版本不支援跨網域 URL。",
+                "queueService-queueSize-events": "大小（訊息數上限）",
+                "queueService-queueSize-events-helptext": "臨界值，在此值之後將會清除佇列。建議值介於 1-50 之間以進行測試，而建議值介於 20-50 之間以進行正式作業部署。",
+                "queueService-queueSize-serialized": "大小（序列化長度上限）",
+                "queueService-queueSize-serialized-helptext": "序列化佇列長度臨界值，在此值之後將會清除佇列。建議值介於 8000-20000 之間以進行正式作業部署。" +
+                                                    "<br/>附註：如果正在使用 gzip 編碼，則應增加此值以反映預先編碼的大小限制。" +
+                                                    "<br/>警告：啟用此設定在某些情況下可能會有效能上的影響，因為它是根據佇列的序列化才能檢查臨界值。",
+                "queueService-queueSize-serialized-label": " （值為 0 時會停用此設定）",
+                "queueService-queueTimer": "計時器間隔（毫秒）",
+                "queueService-queueTimer-label": " 毫秒（值為 0 時會停用計時器）。",
+                "queueService-queueTimer-helptext": "若要啟用陰影瀏覽實務範例，不管訊息數目為何，您都可以設定計時器值以定期清除佇列。在大部分其他案例中，最好保持此設定的已停用狀態。",
+
+                "queueService-crossDomainEnabled": "啟用跨網域 POST 訊息。",
+                "queueService-crossDomainFrameSelector": "跨網域頁框選取器",
+                "queueService-crossDomainFrameSelector-helptext": "跨網域頁框選取器應該指定頁面上已配置為 POST 要求的 iframe 或頁框元素。",
+
+				"queueService-asyncReqOnUnload": "在卸載頁面時啟用非同步 XHR。",
+				"queueService-asyncReqOnUnload-helptext": "勾選此選項，以在卸載頁面期間啟用非同步要求。<br />警告：在卸載頁面時啟用非同步要求可能會導致資料不完整或遺漏。",
+
+                "queueService-checkEndpoint": "檢查端點",
+                "queueService-checkEndpoint-helptext": "傳送非同步要求來檢查是否有 Discover 端點。",
+                "queueService-endpointCheckTimeout": "檢查端點逾時",
+                "queueService-endpointCheckTimeout-helptext": "檢查是否有 Discover 端點的非同步要求逾時。",
+
+                "queueService-queueSerializer": "序列化程式",
+                "queueService-queueSerializer-JSON": "JSON",
+                "queueService-queueSerializer-XML": "XML",
+                "queueService-queueSerializer-helptext": "只支援 JSON 序列化。",
+                "queueService-addQueue": "新增另一個佇列",
+
+                "messageService-header": "訊息服務配置",
+                "messageService-subHeader": "保密遮罩配置",
+                "messageService-targets": "目標",
+                "messageService-id": "ID",
+                "messageService-id-helptext": "應該遮罩之元素的 HTML ID、XPath 或自訂屬性 ID ('attrName=attrValue')。",
+                "messageService-idType": "ID 類型",
+                "messageService-idType--1": "HTML ID",
+                "messageService-idType--2": "xPath",
+                "messageService-idType--3": "自訂屬性 ID",
+                "messageService-idType-helptext": "選取正確 ID 類型。",
+                "messageService-addTarget": "新增另一個目標",
+                "messageService-maskType": "遮罩類型",
+                "messageService-maskType-1": "空的",
+                "messageService-maskType-2": "基本",
+                "messageService-maskType-3": "類型",
+                "messageService-maskType-4": "自訂",
+                "messageService-maskType-helptext": "「遮罩類型」定義應該如何轉換值。" +
+                                                    "<dl>" +
+                                                        "<dt><b>空的：</b></dt>" +
+                                                        "<dd>值會設為空字串。</dd>" +
+                                                        "<dt><b>基本：</b></dt>" +
+                                                        "<dd>值會取代為固定字串：\"XXXXX\"。</dd>" +
+                                                        "<dt><b>類型：</b></dt>" +
+                                                        "<dd>" +
+                                                            "值會取代為遮罩，其中每一個：" +
+                                                            "<ul>" +
+                                                                "<li>小寫字元會取代為：\"x\"、</li>" +
+                                                                "<li>大寫字元會取代為：\"X\"、</li>" +
+                                                                "<li>數字字元會取代為：\"9\"、</li>" +
+                                                                "<li>符號會取代為：\"@\"。</li>" +
+                                                            "</ul>" +
+                                                            "因此，字串：\"HelloWorld123\" 會變成：\"XxxxxXxxxx999\"" +
+                                                        "</dd>" +
+                                                        "<dt><b>自訂：</b></dt>" +
+                                                        "<dd>值會取代為需要在 MaskFunction 文字框中寫入的自訂函數的回覆值。</dd>" +
+                                                    "</dl>",
+                "messageService-maskFunction": "遮罩函數",
+                "messageService-maskFunction-helptext": "接受未遮罩字串並傳回遮罩值的 JavaScript 函數。",
+                "messageService-addConfiguration": "新增保密配置",
+				"messageService-cssSelector": "CSS 選取器",
+				"messageService-cssSelector-helptext": "新增單一 CSS 選取器字串",
+				"services-message-privacy-cssSelector-placeholder": "在這裡新增 CSS 選取器字串",
+				"messageService-removePrivacyConfigurationTarget": "移除目標",
+				"messageService-removePrivacyConfiguration": "移除保密配置",
+
+                "serializer-header": "序列化程式服務配置",
+                "serializer-defaultToBuiltin": "使用內建剖析器/序列化程式（如果尚未使用）",
+                "serializer-defaultToBuiltin-helptext": "UIC 隨附 JSON 剖析器/序列化程式的專屬基本實作。進行的 JSON 剖析器/序列化程式的選項如下：<br />" +
+                                                        "<ol>" +
+                                                          "<li>如果在下面的配置中明確地指定 JSON 剖析器/序列化程式，則 UIC 會使用它。" +
+                                                          "<li>如果在下面的配置中未明確地指定 JSON 剖析器/序列化程式，則 UIC 會確認瀏覽器是否具有 JSON 的原生支援。" +
+                                                          "<li>如果瀏覽器原本不支援 JSON 並選取此勾選框，則 UIC 會使用 JSON 的基本實作。" +
+                                                          "<li>如果以上皆非，則 UIC 會無聲自動地失敗。" +
+                                                        "</ol>",
+                "serializer-parsers": "剖析器",
+                "serializer-parsers-helptext": "此清單包含 UIC 應該使用的剖析器函數（例如，JSON.parse）。第一個最重要。如果 UIC 找不到它，則會嘗試下一個（如果已指定），以此類推。",
+                "serializer-parser": "剖析器",
+                "serializer-addParser": "新增另一個剖析器",
+                "serializer-stringifiers": "序列化程式",
+                "serializer-stringifiers-helptext": "此清單包含 UIC 應該使用的序列化程式函數（例如，JSON.stringify）。第一個最重要。如果 UIC 找不到它，則會嘗試下一個（如果已指定），以此類推。",
+                "serializer-stringifier": "序列化程式",
+                "serializer-addStringifier": "新增另一個序列化程式",
+
+				"encoder-header": "編碼器服務配置",
+				"encoder": "編碼器",
+				"encoder-enable": "啟用",
+                "encoder-enable-helptext": "啟用此服務以容許 UIC 將 gzip 壓縮套用到要求資料。請注意，在起始設定 UIC 之前，「編碼器」服務會依賴頁面上要包括及起始設定的 'pako' 開放程式碼程式庫。如需 'pako'（包括下載項目）的相關資訊，請參閱：https://github.com/nodeca/pako",
+				"encoder-encode": "編碼",
+				"encoder-defaultEncoding": "預設編碼",
+				"encoder-helptext": "配置壓縮編碼器服務。預設會配置 gzip。",
+				"encoder-defaultEncoding-helptext": "UIC 將在 HTTP 要求標頭中指定的編碼類型。預設為 'Content-encoding: gzip'。",
+				"encoder-encode-helptext": "編碼器的路徑。預設為 'window.pako.gzip'。",
+
+                "modules-header": "模組",
+                "modules-subHeader": "選取已啟用的模組",
+                "modules-performance": "效能",
+                "modules-performance-helptext": "W3C 導覽計時內容",
+                "modules-PerformanceSettings": "效能設定",
+                "modules-replay": "重播",
+                "modules-replay-helptext": "使用者互動監視以啟用重播、可用性及步驟型事件。",
+				"modules-usability": "Usability",
+				"modules-usability-helptext": "將 mouseout、mousemove 及 click usability 事件新增至配置。",
+                "modules-moduleBaseURL": "moduleBase URL：",
+                "modules-moduleBaseURL-helptext": "伺服器上可從中動態載入模組的位置。現行版本未使用此選項。",
+                "modules-replay-events": "重播事件",
+                "modules-hover-tracking": "啟用滑鼠橫越追蹤",
+                "modules-mobile-events": "啟用行動式事件",
+                "modules-hashchange": "從 hashchange 啟用螢幕視圖",
+                "modules-scroll-winsize": "啟用捲動及視窗大小追蹤",
+				"modules-navigationStart-helptext": "此屬性必須傳回使用者代理程式完成提示卸載前一個文件之後的立即時間。如果沒有前一個文件，此屬性必須傳回與 fetchStart 相同的值。",
+				"modules-unloadEventStart-helptext": "如果前一個文件與現行文件具有相同的原始 [IETF RFC 6454]，則此屬性必須傳回使用者代理程式啟動前一個文件的卸載事件之前的立即時間。如果沒有前一個文件，或前一個文件與現行文件的原始不同，則此屬性必須傳回零。",
+				"modules-unloadEventEnd-helptext": "如果前一個文件與現行文件具有相同的原始，則此屬性必須傳回使用者代理程式完成前一個文件的卸載事件之後的立即時間。如果沒有前一個文件、前一個文件與現行文件的原始不同，或卸載尚未完成，則此屬性必須傳回零。如果導覽時有 HTTP 重新導向或對等項目，而且並非所有重新導向或對等項目都來自相同的原始，則 unloadEventStart 及 unloadEventEnd 都必須傳回零。",
+				"modules-redirectStart-helptext": "如果導覽時有 HTTP 重新導向或對等項目，而且所有重新導向或對等項目都來自相同的原始，則此屬性必須傳回起始重新導向的提取開始時間。否則，此屬性必須傳回零。",
+				"modules-redirectEnd-helptext": "如果導覽時有 HTTP 重新導向或對等項目，而且所有重新導向及對等項目都來自相同的原始，則此屬性必須傳回收到最後一個重新導向的最後一個回應位元組之後的立即時間。否則，此屬性必須傳回零。",
+				"modules-fetchStart-helptext": "如果使用 HTTP GET 或對等項目提取新的資源，則 fetchStart 必須傳回使用者代理程式開始檢查任何相關應用程式快取之前的立即時間。否則，它必須傳回使用者代理程式開始提取資源的時間。",
+				"modules-domainLookupStart-helptext": "此屬性必須傳回使用者代理程式啟動現行文件的網域名稱查閱之前的立即時間。如果使用持續性連線 [RFC 2616]，或從相關的應用程式快取或本端資源中擷取現行文件，則此屬性必須傳回與 fetchStart 相同的值。",
+				"modules-domainLookupEnd-helptext": "此屬性必須傳回使用者代理程式完成現行文件的網域名稱查閱之後的立即時間。如果使用持續性連線 [RFC 2616]，或從相關的應用程式快取或本端資源中擷取現行文件，則此屬性必須傳回與 fetchStart 相同的值。",
+				"modules-connectStart-helptext": "此屬性必須傳回使用者代理程式開始建立伺服器連線以擷取文件之前的立即時間。如果使用持續性連線 [RFC 2616]，或從相關的應用程式快取或本端資源中擷取現行文件，則此屬性必須傳回 domainLookupEnd 的值。",
+				"modules-connectEnd-helptext": "此屬性必須傳回使用者代理程式完成建立伺服器連線以擷取現行文件之後的立即時間。如果使用持續性連線 [RFC 2616]，或從相關的應用程式快取或本端資源中擷取現行文件，則此屬性必須傳回 domainLookupEnd 的值。如果傳輸連線失敗，而且使用者代理程式重新開啟連線，則 connectStart 及 connectEnd 應該傳回新連線的對應值。connectEnd 必須包括建立傳輸連線的時間間隔，以及其他時間間隔（例如 SSL 信號交換及 SOCKS 鑑別）。",
+				"modules-secureConnectionStart-helptext": "這是選用屬性。沒有此屬性的使用者代理程式必須將它設為未定義。此屬性可用時，如果現行頁面方法是 HTTPS，則此屬性必須傳回使用者代理程式啟動信號交換程序以保護現行連線安全之前的立即時間。如果此屬性可用，但是未使用 HTTPS，則此屬性必須傳回零。",
+				"modules-requestStart-helptext": "此屬性必須傳回使用者代理程式開始從伺服器、相關應用程式快取或本端資源中要求現行文件之前的立即時間。如果傳輸連線在傳送要求之後失敗，而且使用者代理程式重新開啟連線並重新傳送要求，則 requestStart 應該傳回新要求的對應值。",
+				"modules-responseStart-helptext": "此屬性必須傳回使用者代理程式收到來自伺服器、相關應用程式快取或本端資源的回應的第一個位元組之後的立即時間。",
+				"modules-responseEnd-helptext": "此屬性必須傳回使用者代理程式收到現行文件的最後一個位元組之後的立即時間，或關閉傳輸連線之前的立即時間（採用先發生者）。這裡的文件可以接收自伺服器、相關應用程式快取或本端資源。",
+				"modules-domLoading-helptext": "此屬性必須傳回使用者代理程式將現行文件就緒設為「載入」之前的立即時間。",
+				"modules-domInteractive-helptext": "此屬性必須傳回使用者代理程式將現行文件就緒設為「互動」之前的立即時間。",
+				"modules-domContentLoadedEventStart-helptext": "此屬性必須傳回使用者代理程式在文件上激發 DOMContentLoaded 事件之前的立即時間。",
+				"modules-domContentLoadedEventEnd-helptext": "此屬性必須傳回文件 DOMContentLoaded 事件完成之後的立即時間。",
+				"modules-domComplete-helptext": "此屬性必須傳回使用者代理程式將現行文件就緒設為「完成」之前的立即時間。如果現行文件就緒變更為相同的狀態多次，則 domLoading、domInteractive、domContentLoadedEventStart、domContentLoadedEventEnd 及 domComplete 必須傳回對應文件就緒變更第一次出現的時間。",
+				"modules-loadEventStart-helptext": "此屬性必須傳回激發現行文件的載入事件之前的立即時間。尚未激發載入事件時，它必須傳回零。",
+				"modules-loadEventEnd-helptext": "此屬性必須傳回現行文件的載入事件完成時的時間。未激發載入事件或載入事件未完成時，它必須傳回零。",
+				"modules-mobile-events-helptext": "啟用行動式階段作業的事件重播。",
+				"modules-hashchange-helptext": "啟用時，此選項會在頁面的 URL 中識別 hashchange 時產生螢幕視圖事件。螢幕視圖事件會插入階段作業資料中，而且「UI 擷取」所擷取的 UI 事件可以組織在其發生的螢幕視圖下方。",
+				"modules-scroll-winsize-helptext": "附註：根據應用程式，追蹤視窗捲動可能會產生大量事件。針對行動式階段作業，只在 BBR 中，才支援重播擷取自用戶端的捲動事件。",
+
+                "performance-calculateRenderTime": "計算不支援「W3C 導覽計時」的瀏覽器的呈現時間",
+                "performance-calculateRenderTime-helptext": "測量頁面載入與程式庫載入之間的時間差異，<br>以計算呈現時間。",
+                "performance-calculateRenderTime-description": "啟用此設定時，程式庫會將呈現時間計算為其載入時間與頁面載入時間之間的差異。為了取得精確的測量，請確保在頁面載入週期盡早載入程式庫。",
+				"performance-renderTimeThreshold": "renderTimeThreshold：",
+				"performance-renderTimeThreshold-helptext": "呈現時間上限（毫秒）。預設值為 10 分鐘<br>（600000 毫秒）。超出臨界值的任何測量呈現時間<br>會報告為 'invalidRenderTime'，而不會包括在<br>呈現時間效能報告中。",
+
+				"replay-customEventName-placeholder": "輸入單一事件名稱。例如：mousedown",
+				"replay-customEventTarget-placeholder": "輸入目標元素的 CSS 選取器。",
+				"replay-customEvent": "自訂重播事件",
+				"replay-customEvent-helptext": "輸入委派目標元素、文件或視窗的 CSS 選取器",
+				"replay-addCustomDelegate": "新增自訂重播事件",
+				"replay-customEvent-name": "事件名稱",
+				"replay-customEvent-target": "事件目標",
+				"replay-customEvent-name-helptext": "在這裡輸入事件名稱。例如：mousedown",
+				"replay-customEvent-target-helptext": "輸入目標元素、文件或視窗的 CSS 選取器",
+				"replay-customEvent-delegateTarget": "事件委派目標（選用）",
+				"replay-customEvent-delegateTarget-helptext": "輸入委派目標元素、文件或視窗的 CSS 選取器。這是選用設定。",
+				"replay-customEvent-recurseFrames": "遞迴頁框（選用）",
+				"replay-customEvent-recurseFrames-helptext": "勾選時，將事件的接聽器套用至文件的子頁框/iframe。這是選用設定。",
+                "replay-customEvent-state": "狀態",
+                "replay-customEventState-placeholder": "輸入要用作自訂事件狀態的內容",
+                "replay-customEvent-state-helptext": "指定針對僅自訂重播事件，如何在 JSON 中設定 target.currState 值。",
+				"replay-removeCustomEvent": "移除自訂重播",
+
+				"domCapture-header": "DOM 擷取",
+				"domCapture-enabled": "啟用 DOM 擷取",
+				"domCapture-enabled-helptext": "警告：啟用「DOM 擷取」對資料傳輸及基礎架構有重大的含意。因此，應審慎地啟用此特性。若已啟用，它需要進一步的配置，才能根據特定的事件及元素來執行「DOM 擷取」。如需詳細資料，請參閱文件。",
+				"domCapture-captureFrames": "擷取頁框",
+				"domCapture-captureFrames-helptext": "勾選時，將會擷取子頁框及 iframe。附註：只能擷取與上層頁面本身相同之網域的來源內容。",
+				"domCapture-removeScripts": "移除 Script",
+				"domCapture-removeScripts-helptext": "勾選時，會移除所擷取 Snapshot 中的所有 Script 標籤。",
+                "domCapture-diffEnabled": "啟用 DOM 差異",
+                "domCapture-diffEnabled-helptext": "勾選時，會在起始的完整 DOM Snapshot 之後傳送 DOM 差異。建議啟用此設定。",
+                "domCapture-maxLength": "長度上限",
+                "domCapture-maxLength-helptext": "如果超出此臨界值，將不會傳送 Snapshot。",
+                "domCapture-maxMutations": "變動數上限",
+                "domCapture-maxMutations-helptext": "如果已達到或已超出此臨界值，會進行完整 DOM Snapshot 而非差異 Snapshot。您可以使用此設定來微調「DOM 擷取」配置，並設定安全限制，以防止由於處理過多的 DOM 變動而發生效能瓶頸。",
+				"domCapture-subHeader": "新增 DOM 擷取觸發程式",
+				"domCapture-trigger": "觸發程式",
+				"domCapture-addTrigger": "新增觸發程式",
+				"domCapture-event": "事件",
+				"domCapture-event-helptext": "可用的事件是 load、unload、click 或 change。",
+				"domCapture-screenview": "螢幕視圖",
+				"domCapture-addScreenview": "新增螢幕視圖",
+				"domCapture-removeScreenview": "移除螢幕視圖",
+				"domCapture-delay": "延遲",
+				"domCapture-delay-helptext": "選用延遲（毫秒），在此延遲之後應該進行 DOM Snapshot。",
+				"domCapture-delay-placeholder": "輸入數字",
+                "domCapture-fullDOMCapture": "完整 DOM 擷取",
+                "domCapture-fullDOMCapture-helptext": "如果勾選此選項，將會對此觸發程式進行完整 DOM Snapshot。",
+				"domCapture-removeTrigger": "移除觸發程式",
+				"domCapture-addTarget": "新增目標",
+				"domCapture-removeTarget": "移除目標",
+				"domCapture-target": "目標",
+				"domCapture-target-id": "ID",
+				"domCapture-target-id-helptext": "根據三種 ID 類型指定的目標的 ID。",
+				"domCapture-target-idType": "ID 類型",
+				"domCapture-target-idType-helptext": "元素的 HTML ID、XPath 或「自訂 ID」。",
+				"domCapture-target-cssSelector": "CSS 選取器",
+				"domCapture-target-cssSelector-helptext": "新增單一 CSS 選取器字串。",
+                "domCapture-load": "load",
+                "domCapture-unload": "unload",
+                "domCapture-click": "click",
+                "domCapture-change": "change",
+                "domCapture-custom": "custom",
+                "domCapture-custom-eventName": "自訂事件名稱：",
+
+                "DCCookie-header": "Cookie & 階段作業管理",
+                "DCCookie-enabled": "啟用 DCCookie 模組",
+                "DCCookie-enabled-helptext": "DCCookie 模組容許配置「應用程式鍵值」及「階段作業化 Cookie」。使用 Discover SaaS 服務時需要這些項目。如需相關資訊，請參閱 Discover SaaS 文件。",
+                "DCCookie-dcAppKey": "應用程式鍵值",
+                "DCCookie-dcAppKey-helptext": "在此欄位中輸入「Discover SaaS 應用程式鍵值」。",
+                "DCCookie-sessionCookie": "階段作業化 Cookie 名稱",
+                "DCCookie-sessionCookie-helptext": "指定用於階段作業化的 Cookie。指定 <strong>DCXSID</strong> 作為階段作業化 Cookie，將使得 UIC 建立 Cookie（若它尚未存在時）。",
+                
+                "geolocation-header": "地理定位",
+                "geolocation-enable": "啟用地理定位記載",
+                "geolocation-load": "載入事件期間的地理定位",
+                "geolocation-load-helptext": "將在載入事件期間啟用地理定位記載",
+                "geolocation-helptext": "地理定位記載會報告測量的緯度、經度及精確度（如果可用）。",
+
+                "misc-header": "細項設定",
+                "sessionData-options": "階段作業資料共用選項",
+                "sessionData-Enable": "共用階段作業資料",
+                "sessionData-Enable-description": "選取此選項，將會啟用階段作業資料與頁面上其他 Script 的共用。如需詳細資料，請參閱文件。",
+                "sessionData-Enable-helptext": "選取此選項，將會啟用階段作業資料與頁面上其他 Script 的共用。如需詳細資料，請參閱文件。",
+                "sessionId-Cookie": "Cookie",
+                "sessionId-Cookie-description": "如果 Cookie 用於階段作業化，請選取此選項。",
+                "sessionId-Cookie-helptext": "如果 Cookie 用於階段作業化，請選取此選項。",
+                "sessionId-Query": "查詢參數",
+                "sessionId-Query-description": "如果查詢參數用於階段作業化，請選取此選項。",
+                "sessionId-Query-helptext": "如果查詢參數用於階段作業化，請選取此選項。",
+                "sessionId-Cookie-Name": "Cookie 名稱",
+                "sessionId-Cookie-Name-helptext": "用於階段作業化的 Cookie 名稱。例如，DCXSID、jsessionid 等。",
+                "sessionId-Query-Name": "查詢參數名稱",
+                "sessionId-Query-Name-helptext": "用於階段作業化的查詢參數名稱（即 LHS）。",
+                "sessionId-Query-Delimiter": "查詢字串定界字元",
+                "sessionId-Query-Delimiter-helptext": "指定應用程式所使用的查詢字串定界字元。預設值為 &",
+                "sessionId-ValueNeedsHashing": "值需要雜湊處理",
+                "sessionId-ValueNeedsHashingDescription": "如果值需要雜湊處理才能衍生「階段作業 ID」，請選取此選項。",
+                "misc-frames-blacklist-label": "黑名單頁框",
+                "misc-frames-blacklist-helptext": "排除不進行資料收集的頁框的 CSS 選取器。",
+                "misc-frames-blacklist-placeholder": "以「空格逗點空格」形式區隔的 CSS 選取器。",
+
+                "regextester-headline": "測試正規表示式",
+                "regextester-regex": "RegEx",
+                "regextester-flag-i": "不區分大小寫 (i)",
+                "regextester-flag-g": "廣域 (g)",
+                "regextester-sample": "測試範例",
+                "regextester-matches": "相符？",
+                "regextester-copylabel": "（備妥以複製&貼入配置中）",
+                "regextester-btn-test": "測試",
+
+                "unsupported-header": "不幸的是，瀏覽器太舊或不予支援。",
+                "unsupported-sudHeader": "請使用下列其中一個瀏覽器：",
+                "unsupported-infotext": "",
+                "unsupported-firefox-versioninfo": "（17.0 版及以上版本）",
+                "unsupported-safari-versioninfo": "（6.0 版及以上版本）",
+
+                "validation-timerinterval": "計時器間隔無效。請輸入一個介於 1000 到 600000 之間的數字。",
+                "validation-maxevents": "大小（訊息數上限）無效。請輸入一個介於 1 到 100 之間的數字。",
+                "validation-renderTimeThreshold": "呈現時間臨界值無效，請輸入一個數字。",
+                "validation-maxSize": "大小（序列化長度上限）無效。請輸入一個介於 4000 到 1000000 之間的數字。",
+
+                "reload-page": "請重新載入頁面，語言變更才會生效。"
+            }
+
