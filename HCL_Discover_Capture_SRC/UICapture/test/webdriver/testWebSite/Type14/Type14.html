@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+    
+    <script type="text/javascript" src="../jquery/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="../js/DiscoverSDK.js"></script>
+<head>
+    <title>DDX Integration</title>
+    <script type="text/javascript">
+	
+	var count = 1;
+	
+function createCookie(name, value, days) {
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        var expires = "; expires=" + date.toGMTString();
+    } else var expires = "";
+    document.cookie = (name) + "=" + (value) + expires + "; path=/";
+}
+
+function readCookie(name) {
+    var nameEQ = escape(name) + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return unescape(c.substring(nameEQ.length, c.length));
+    }
+    return null;
+}
+
+function eraseCookie() {
+    var cookieName = $("#cookieName").val();
+	createCookie(cookieName, "", -1);
+}
+
+function setCookie(){
+
+var cookieName = $("#cookieName").val();
+var cookieValue = $("#cookieValue").val();
+
+var encodedCookieName = encodeURIComponent(cookieName);
+var encodedCookieValue = encodeURIComponent(cookieValue);
+
+createCookie(encodedCookieName,encodedCookieValue,365);
+
+}
+	
+   function getSessionData() {
+
+	var _sessionData = DCX.getSessionData();
+    var sessionId = _sessionData.dcxSCN;
+    var sessionVal = _sessionData.dcxSCV;
+    
+	verifySessionData(sessionId,sessionVal)
+	
+	}
+	
+	function verifySessionData(key,value)
+	{
+		
+		$("#sessionid").html(key);
+		$("#sessionval").html(value);
+		
+	}
+	function calllogScreenviewUnload(){
+  
+  DCX.logScreenviewUnload("TestScreenViewLoad")
+}
+	
+    </script>
+	
+	
+</head>
+<body>
+    
+	<div style="margin-top:50px">
+
+	<label>Cookie Name </label> <input id="cookieName" value="" />
+	
+	<label>Cookie Value </label> <input id="cookieValue" value="" />
+	 <br />
+	 <input type="button" name="setcookie" id="setcookie" value="setCookie" onclick="setCookie();return false;"/>
+	  <input type="button" name="erasecookie" id="erasecookie" value="eraseCookie" onclick="eraseCookie();return false;"/>
+	</div>
+	
+	<br />
+	<br />
+	<br />
+	<div> 
+    	<label>Session  Id : </label> <label id="sessionid"></label>
+	</div>
+	<div>
+	   <label>Session Val : </label> <label id="sessionval"></label>
+	</div>
+	<div id="masthead" >  This will trigger a new load event </div>
+	<input type="button" name="testSessionData" id="testSessionData" value="get session data" onclick="getSessionData();return false";/>
+	</br>
+	</br>
+	<a id="changescreenview" class="ignore" href='javascript:alert("ScreenView Changed");DCX.logScreenviewLoad("TestScreenViewLoad"+count, "referrerName",document.getElementById("masthead"));count++;void(0);'> Change screen view </a>
+	</br>
+	</br>
+	<a id="changescreenview1" class="ignore" href='javascript:alert("ScreenView Changed");DCX.logScreenviewLoad("NotCapturedLoad"+count, "referrerName",document.getElementById("masthead"));count++;void(0);'> Change screen view not captured as part of DOM capture </a>
+	</br>
+	</br>
+	<a id="changescreenviewUnload" class="ignore" href='javascript:alert("ScreenView Changed");DCX.logScreenviewUnload("TestScreenViewUnload"+count);count++;void(0);'> Screen view Unload  </a>
+	</br>
+	</br>
+	<a id="changescreenviewUnload1" class="ignore" href='javascript:alert("ScreenView Changed");DCX.logScreenviewUnload("NotCapturedLoad"+count);count++;void(0);'> Screen view Unload not captured as part of DOM capture </a>
+	</br>
+	</br>
+	</br>
+
+	</body>
+</html>

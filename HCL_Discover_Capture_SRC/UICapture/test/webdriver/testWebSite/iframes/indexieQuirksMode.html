@@ -1,0 +1,110 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<meta http-equiv="x-ua-compatible" content="IE=5" >
+    
+<head>
+<script type="text/javascript" src="../jquery/jquery-1.7.1.min.js" ></script>
+    <script type="text/javascript" src="../js/DiscoverSDK.js" ></script>
+    <style type="text/css">
+    table, td, th
+    {
+        border:0px;
+    }
+    table
+    {
+        width:450px;
+    }
+    th, tr
+    {
+        height:25px;
+    }
+
+    input[type=checkbox] {
+        width: 13px;
+        height: 13px;
+        padding: 0px;
+    }
+
+    input[type=radio] {
+        width: 13px;
+        height: 13px;
+        padding: 0px;
+    }
+
+    input[type=button] {
+        -webkit-appearance: button;
+        width: 80px;
+        height: 20px;
+    }
+
+    input[type=text] {
+        -webkit-appearance: none;
+        width: 149px;
+        height: 14px;
+        padding: 0px;
+        -webkit-border-horizontal-spacing: 0;
+        -webkit-border-vertical-spacing: 0;
+        border: 2px inset;
+    }
+
+    input[type=password] {
+        -webkit-appearance: none;
+        width: 149px;
+        height: 14px;
+        padding: 0px;
+        -webkit-border-horizontal-spacing: 0;
+        -webkit-border-vertical-spacing: 0;
+        border: 2px inset;
+    }
+
+    select {
+      -webkit-appearance: none;
+      width: 82px;
+      height: 19px;
+      padding: 0px;
+      font-size: 10px;
+      border: 0px inset;
+
+
+    }
+
+    </style>
+    <title>HTML 4 Test Elements</title>   
+</head>
+<body>
+    <table>
+      <tr>
+        <td><input type="button" name="buttonInput" id="bi" value="Send" /></td>
+      </tr>
+	  <td><input type="text" name="text1" id="si" /></td>
+	  </tr>
+	   <tr>
+        <td>Link</td>
+      </tr>
+      <tr>
+        <td><a href="http://www.discover.com">Click to visit Discover</a></td>
+      </tr>
+	  <tr>
+	  <td><input type="text" name="text2" id="ti" /></td>
+	  </tr>
+    </table>
+	
+	Same domain test iframe :-
+	</br>
+	<iframe  id="iframe01"  src="TestPage1.html" width="50%" height="100px" scrolling="no" frameborder="1"> </iframe>
+     </br>
+    
+	Different domain test iframe :-
+	<div>
+     <iframe id="iframe2" class="Test2" name="iframe2" src="http://infiond.com/UICTestPage/HTML/TestPage2.html" width="50%" height="100px" scrolling="no" frameborder="1"> </iframe>
+     </div>
+	  
+   	IFRAME :-
+	<div>
+     <iframe  id="iframe3"  src="TestPage2.html" width="50%" height="600px" scrolling="yes" frameborder="1"> </iframe>
+     </div>
+</body>
+
+</html>
