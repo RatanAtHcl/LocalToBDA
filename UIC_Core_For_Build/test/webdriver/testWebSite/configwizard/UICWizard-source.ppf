@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project default_configuration_name="Configuration 1" fallback_default_config_name="Configuration 1" file_encoding="UTF-8" file_extension_set_name="javascript" ltd_name="javascript" name="UICWizard-source" version="9.0.3.0">
+	<Configuration name="Configuration 1"/>
+	<Source exclude="false" path="." web="false"/>
+    <Source exclude="true" path="./scripts/main.js" web="false"/>
+	<ProjectScanSettings cache_va="false" global_rules="false" string_analysis="false"/>
+</Project>

@@ -1,0 +1,212 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"-->
+
+<!--html xmlns="http://www.w3.org/1999/xhtml" -->
+<html>
+    
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-16" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.1.js" ></script>
+    
+	<script type="text/javascript" src="modifiedsizzle.js"></script>
+	
+	<script type="text/javascript" src="discoveruiw3c.js" ></script>
+	<script type="text/javascript">
+	
+	    $(function () {
+            //
+            createTextBoxonLoad();
+           
+        });
+		
+		 function onSubmitBtnClickIE()
+        {
+
+          var evt = document.createEvent("Event");
+          evt.initEvent("customIEEvent",true,false);
+          document.getElementById("submitbtnIE").dispatchEvent(evt);
+          
+        }
+
+        function createTextBoxonLoad() {
+            setTimeout(function () {
+                $("#domcapture").append('<input type="text" id="domonload" value="created on load event"> </input> ');
+            }, 500);
+            
+        }
+        function createTextBoxOnClickWithDelay() {
+            //
+            setTimeout(function () {
+                $("#domcapture").append('<input type="text" id="domonclick" value="created on click event"> </input> ');
+            }, 500);
+            
+        }
+		
+		function createTextBoxOnChangeWithDelay() {
+            //
+            setTimeout(function () {
+                $("#domcapture").append('<input type="text" id="domonchange" value="created on change event"> </input> ');
+            }, 500);
+            
+        }
+		
+		function onSubmitBtnClick(e) {
+				//e.preventDefault();
+				
+				var fname= document.getElementById("firstname");
+				var lname=document.getElementById("lastname");
+				var submitbtn = document.getElementById("submitbtn");
+				
+				if(!(fname.value && lname.value)) return true;
+				
+				// On Successful login (if there are no empty fields are found in the form, it is a successful login)
+				// A new Login custom event is triggered
+				var event = new CustomEvent(
+					"Login", 
+					{
+						detail: {
+							message: "FirstName: " + fname.value + " LastName: " + lname.value,
+							time: new Date(),
+						},
+						bubbles: true,
+						cancelable: true
+					}
+				);
+				submitbtn.dispatchEvent(event);
+				return true;
+			}
+
+			// Listen for the event.
+			document.addEventListener('Login', function (e) { 
+				var capturedEventDiv = document.getElementById("capturedEvent");
+				capturedEventDiv.innerHTML= "Received Login Event </br>" + 
+											" Target ID : " + e.target.id + 
+											" Details: " + e.detail.message
+											;											
+			}, false);
+	
+	</script>
+    <style type="text/css">
+    table, td, th
+    {
+        border:0px;
+    }
+    table
+    {
+        width:450px;
+    }
+    th, tr
+    {
+        height:25px;
+    }
+
+    input[type=checkbox] {
+        width: 13px;
+        height: 13px;
+        padding: 0px;
+    }
+
+    input[type=radio] {
+        width: 13px;
+        height: 13px;
+        padding: 0px;
+    }
+
+    input[type=button] {
+        -webkit-appearance: button;
+        width: 80px;
+        height: 20px;
+    }
+
+    input[type=text] {
+        -webkit-appearance: none;
+        width: 149px;
+        height: 14px;
+        padding: 0px;
+        -webkit-border-horizontal-spacing: 0;
+        -webkit-border-vertical-spacing: 0;
+        border: 2px inset;
+    }
+
+    input[type=password] {
+        -webkit-appearance: none;
+        width: 149px;
+        height: 14px;
+        padding: 0px;
+        -webkit-border-horizontal-spacing: 0;
+        -webkit-border-vertical-spacing: 0;
+        border: 2px inset;
+    }
+
+  
+
+    </style>
+    <title>HTML 4 Test Elements</title> 
+    	
+</head>
+<body>
+<form action="demo_form.asp">
+			First name: <input type="text" name="fname" id="firstname"><br>
+			Last name: <input type="text" name="lname" id="lastname"><br>
+			<input type="button" value="Submit" id="submitbtn" onclick="onSubmitBtnClick('e');return false;">
+			</br>
+			</br>
+			<input type="button" value="Submit IE" id="submitbtnIE" onclick="onSubmitBtnClickIE();return false">
+		</form>
+		<div id="capturedEvent">
+			
+		</div>
+    <table>
+	<tr>
+    <td><a id "hash" href="#text">Go to text </a></td>
+      </tr>
+      <tr>
+        <td><input type="button" name="buttonInput" id="bi" value="Continue" /></td>
+      </tr>
+       <tr>
+        <td><input type="text" id="si" name="Textbox1"/></td>
+      </tr>
+	     <tr>
+        <td><input type="text" id="ti" name="Textbox2"/></td>
+      </tr>
+    </table>
+	<input type="button" id="DOM_Click" onclick="createTextBoxOnClickWithDelay(); return false;" value="Click"/>
+	<br/>
+
+	<select name="selectList" onchange="createTextBoxOnChangeWithDelay(); return false">
+            <optgroup label="color">
+                <option label="red">RED</option>
+                <option label="green">GREEN</option>
+                <option label="blue">BLUE</option>
+            </optgroup>
+	</select>
+	</br>
+	<b>Dynamic textbox display below.</b>
+	 <div id="domcapture">
+        
+    </div>
+	<br/>
+	<Div id="text">
+	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</div>
+
+	
+	Same domain test iframe :-
+	</br>
+	<iframe  id="iframe01"  src="TestPage1.html" width="50%" height="150px" scrolling="yes" frameborder="1"> </iframe>
+     </br>
+    
+	Different domain test iframe :-
+	<div>
+     <iframe id="iframe2" class="Test2" name="iframe2" src="http://infiond.com/UICTestPage/HTML/TestPage2.html" width="50%" height="100px" scrolling="no" frameborder="1"> </iframe>
+     </div>
+	  
+   
+</body>
+
+</html>

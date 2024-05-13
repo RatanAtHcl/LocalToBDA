@@ -1,0 +1,331 @@
+// NLS_CHARSET=UTF-8
+{
+                "site-title": "UIC 구성 마법사",
+                "page-headline": "UIC 구성 마법사",
+				"uic-version": "UIC 버전 ",
+                "advanced-options": "고급 옵션",
+                "btn-prev": "이전",
+                "btn-next": "다음",
+                "btn-finish": "완료",
+                "btn-reset": "기본값으로 다시 설정",
+                "btn-regextester": "RegEx 테스터",
+
+                "library-type-prod-min": "프로덕션 빌드(축소됨)",
+                "library-type-prod": "프로덕션 빌드(축소되지 않음)",
+                "library-type-dev": "개발 빌드(축소되지 않음)",
+
+                "core-inactivityTimeout": "비활성 제한시간(밀리초)",
+                "core-inactivityTimeout-helptext": "비활성 제한시간은 이 시간 동안 사용자 활동이 없는 경우 UIC가 자체 종료되는 제한시간 값을 지정합니다." +
+                                                   "비활성 제한시간 값이 지정되지 않으면 기본 제공 제한시간 값인 10분이 사용됩니다. " +
+                                                   "<br /><em>참고:</em> 제한시간 값을 0으로 설정하면 이 기능이 사용 안함으로 설정됩니다. 이로 인해 사용되지 않는 UI 적중이 발생할 수 있으므로 권장되지 않습니다.",
+
+                "browserService-header": "브라우저 서비스 구성",
+                "browserService-subHeader": "플레이버 선택:",
+                "browserService-jQuery": "jQuery",
+                "browserService-jQuery-helptext": "jQuery 플레이버는 웹 앱이 jQuery 1.7 이상을 사용하는 경우에만 지원됩니다.",
+                "browserService-jQuery-description": "UIC 라이브러리의 jQuery 플레이버는 브라우저 간 DOM 액세스를 위해 jQuery API를 사용합니다.",
+                "browserService-w3c": "W3C",
+                "browserService-w3c-helptext": "전체 사용자를 대상으로 합니다.",
+                "browserService-w3c-description": "UIC 라이브러리의 W3C 플레이버는 직접 브라우저 DOM API를 사용합니다." +
+                                                  "<br /><em>참고:</em> W3C 플레이버는 써드파티 Sizzle JS 라이브러리도 포함해야 합니다. 고급 옵션의 Sizzle URL 섹션을 참조하십시오.",
+
+                "browserService-useCapture": "이벤트 청취에 캡처 단계 사용",
+                "browserService-useCapture-helptext": "이벤트 리스너를 등록할 때 이벤트 캡처 단계를 사용합니다. 사용 안함으로 설정되면 이벤트 버블링이 사용되며, 이벤트가 버블링하지 못하도록 금지된 경우 일부 이벤트가 누락될 수 있습니다. 이 설정을 사용할 것을 권장합니다." +
+                                                      "<br /><em>참고:</em> 이전 버전의 Internet Explorer(IE 8 이하)는 이벤트 캡처 단계를 지원하지 않으며 자동으로 이벤트 버블링 사용으로 되돌아갑니다." +
+                                                      "<br />이 설정에 대한 추가 세부사항은 W3C DOM 스펙(http://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-flow-capture)을 참조하십시오.",
+                "browserService-sizzleObject": "Sizzle 오브젝트",
+                "browserService-sizzleObject-helptext": "Sizzle 오브젝트에 대한 경로입니다. 건너뛰는 경우 window.Sizzle이 기본적으로 사용됩니다." +
+                                                        "<br /><br /><em>참고:</em> W3C 서비스를 사용할 때 이전 버전의 Internet Explorer(IE 8 이하)에서 라이브러리가 올바르게 작동하려면 Sizzle이 필요합니다." +
+                                                        " 앱이 jQuery의 버전을 사용하는 경우 jQuery가 이미 Sizzle을 포함하고 있으므로 별도의 Sizzle이 필요하지 않습니다." +
+                                                        " Sizzle은 http://sizzlejs.com/에서 얻을 수 있습니다.",
+                "browserService-jQueryObject": "jQuery 오브젝트",
+                "browserService-jQueryObject-helptext": "jQuery 오브젝트에 대한 경로입니다. 건너뛰는 경우 window.jQuery가 기본적으로 사용됩니다.",
+                "browserService-blacklistedElements": "블랙리스트 요소",
+                "browserService-blacklistedElements-placeholder": "공백-쉼표-공백으로 구분된 정규식 또는 ID입니다.",
+                "browserService-blacklistedElements-helptext": "고유하지 않거나 동적으로 생성되지 않은 요소 ID를 블랙리스트로 설정하십시오. 블랙리스트로 설정된 항목과 일치하는 요소 ID는 사용자 정의 속성 값 또는 XPATH로 바뀝니다." +
+                                                               "<br /><br />팁: 블랙리스트를 구성하는 데 사용된 정규식의 유효성을 검증하려면 RegEx 테스터를 사용하십시오.",
+                "browserService-customID": "사용자 정의 속성 ID",
+                "browserService-customID-placeholder": "속성 이름입니다.",
+                "browserService-customID-helptext": "요소의 HTML ID를 사용할 수 없거나 블랙리스트로 설정된 경우 해당 요소를 고유하게 식별하는 데 사용할 수 있는 하나 이상의 속성입니다.",
+				"browserService-ieExcludedLinks": "Internet Explorer 제외 링크",
+				"browserService-ieExcludedLinks-placeholder": "쉼표로 구분된 CSS 선택기입니다.",
+				"browserService-ieExcludedLinks-helptext": "이 구성은 CSS 선택기의 배열로서 지정됩니다. 예를 들어, 이 구성은 다음과 같이 지정될 수 있습니다. " +
+															" a[href^='javascript:'] " +
+															"이는 다음 링크에 의해 트리거된 beforeunload를 무시합니다. < a href='javascript:void(0);'>여기를 클릭< /a>" +
+															"<br/>참고: 올바르지 않은 문자(예: $)가 지정되고 \\를 사용하여 올바르게 이스케이프되지 않은 경우 Chrome 및 Webkit 브라우저에서 예외가 발생합니다.",
+                "queueService-header": "큐 서비스 구성",
+                "queueService-subHeader": "라이브러리의 내부 큐 구성",
+                "queueService-queueName": "이름",
+                "queueService-queueName-helptext": "이 릴리스에서는 하나의 큐만 지원됩니다. 큐 이름은 'DEFAULT'여야 합니다. 이 값을 변경하지 마십시오.",
+                "queueService-queueEndpoint": "엔드포인트(대상 페이지)",
+                "queueService-queueEndpoint-helptext": "캡처된 데이터가 게시될 웹 서버의 대상 페이지 URL입니다. 이 릴리스에서는 상호 도메인 URL은 지원되지 않습니다.",
+                "queueService-queueSize-events": "크기(최대 메시지 수)",
+                "queueService-queueSize-events-helptext": "큐를 비울 임계값입니다. 테스트의 경우 1-50 사이의 값과 프로덕션 배치의 경우 20-50 사이의 값이 권장됩니다.",
+                "queueService-queueSize-serialized": "크기(최대 직렬화된 길이)",
+                "queueService-queueSize-serialized-helptext": "큐를 비울 직렬화된 큐 길이 임계값입니다. 프로덕션 배치의 경우 8000 - 20000 사이의 값이 권장됩니다." +
+                                                    "<br/>참고: gzip 인코딩을 사용하는 경우 값은 사전 인코딩된 크기 한계를 반영하도록 증가되어야 합니다." +
+                                                    "<br/>경고: 이 설정을 사용하면 임계값을 확인하기 위해 큐를 직렬화해야 하므로 성능에 영향을 줄 수 있습니다.",
+                "queueService-queueSize-serialized-label": " (0 값은 이 설정을 사용 안함으로 설정함)",
+                "queueService-queueTimer": "타이머 간격(밀리초)",
+                "queueService-queueTimer-label": " 밀리초(0 값은 타이머를 사용 안함으로 설정함)",
+                "queueService-queueTimer-helptext": "새도우 찾아보기 시나리오를 사용하기 위해 메시지 수와 관계없이 큐를 정기적으로 비우도록 타이머 값을 설정할 수 있습니다. 대부분의 경우에는 이 설정을 사용 안함 상태로 두는 것이 가장 좋습니다.",
+
+                "queueService-crossDomainEnabled": "상호 도메인 게시 메시지를 사용으로 설정합니다.",
+                "queueService-crossDomainFrameSelector": "상호 도메인 프레임 선택기",
+                "queueService-crossDomainFrameSelector-helptext": "상호 도메인 프레임 선택기는 요청을 게시하도록 구성된 페이지에 iframe 또는 프레임 요소를 지정해야 합니다.",
+
+				"queueService-asyncReqOnUnload": "페이지 로드 해제 시 비동기 XHR을 사용합니다.",
+				"queueService-asyncReqOnUnload-helptext": "페이지 로드 해제 동안 비동기 요청을 사용하려면 이 옵션을 선택하십시오.<br />경고: 페이지 로드 해제 시 비동기 요청을 사용하도록 설정하면 데이터가 완전하지 않거나 누락될 수 있습니다.",
+
+                "queueService-checkEndpoint": "엔드포인트 확인",
+                "queueService-checkEndpoint-helptext": "Discover 엔드포인트가 사용 가능한지 확인하려면 비동기 요청을 보내십시오.",
+                "queueService-endpointCheckTimeout": "엔드포인트 제한시간 확인",
+                "queueService-endpointCheckTimeout-helptext": "Discover 엔드포인트가 사용 가능한지 확인하는 비동기 요청의 제한시간입니다.",
+
+                "queueService-queueSerializer": "시리얼라이저",
+                "queueService-queueSerializer-JSON": "JSON",
+                "queueService-queueSerializer-XML": "XML",
+                "queueService-queueSerializer-helptext": "JSON 직렬화만 지원됩니다.",
+                "queueService-addQueue": "다른 큐 추가",
+
+                "messageService-header": "메시지 서비스 구성",
+                "messageService-subHeader": "개인 마스킹 구성",
+                "messageService-targets": "대상",
+                "messageService-id": "ID",
+                "messageService-id-helptext": "마스크해야 하는 요소의 HTML ID, XPath 또는 사용자 정의 속성 ID('attrName=attrValue')입니다.",
+                "messageService-idType": "ID 유형",
+                "messageService-idType--1": "HTML ID",
+                "messageService-idType--2": "xPath",
+                "messageService-idType--3": "사용자 정의 속성 ID",
+                "messageService-idType-helptext": "올바른 ID 유형을 선택하십시오.",
+                "messageService-addTarget": "다른 대상 추가",
+                "messageService-maskType": "마스크 유형",
+                "messageService-maskType-1": "비어 있음",
+                "messageService-maskType-2": "기본",
+                "messageService-maskType-3": "유형    ",
+                "messageService-maskType-4": "사용자 정의",
+                "messageService-maskType-helptext": "마스크 유형은 값을 변환하는 방법을 정의합니다." +
+                                                    "<dl>" +
+                                                        "<dt><b>비어 있음:</b></dt>" +
+                                                        "<dd>값이 비어 있는 문자열로 설정됩니다.</dd>" +
+                                                        "<dt><b>기본:</b></dt>" +
+                                                        "<dd>값이 고정 문자열 \"XXXXX\"로 바뀝니다.</dd>" +
+                                                        "<dt><b>유형:</b></dt>" +
+                                                        "<dd>" +
+                                                            "값은 각각 다음과 같이 마스크에 의해 바뀝니다." +
+                                                            "<ul>" +
+                                                                "<li>소문자는 \"x\"로 바뀝니다.</li>" +
+                                                                "<li>대문자는 \"X\"로 바뀝니다.</li>" +
+                                                                "<li>숫자는 \"9\"로 바뀝니다.</li>" +
+                                                                "<li>기호는 \"@\"로 바뀝니다.</li>" +
+                                                            "</ul>" +
+                                                            "따라서 \"HelloWorld123\" 문자열은 \"XxxxxXxxxx999\"가 됩니다." +
+                                                        "</dd>" +
+                                                        "<dt><b>사용자 정의:</b></dt>" +
+                                                        "<dd>값은 MaskFunction 텍스트 상자에 작성해야 하는 사용자 정의 함수의 리턴값에 의해 바뀝니다.</dd>" +
+                                                    "</dl>",
+                "messageService-maskFunction": "함수 마스크",
+                "messageService-maskFunction-helptext": "마스크 해제된 문자열을 승인하고 마스크된 값을 리턴하는 JavaScript 함수입니다.",
+                "messageService-addConfiguration": "개인 구성 추가",
+				"messageService-cssSelector": "CSS 선택기",
+				"messageService-cssSelector-helptext": "단일 CSS 선택기 문자열을 추가하십시오.",
+				"services-message-privacy-cssSelector-placeholder": "여기에 CSS 선택기 문자열을 추가하십시오.",
+				"messageService-removePrivacyConfigurationTarget": "대상 제거",
+				"messageService-removePrivacyConfiguration": "개인 구성 제거",
+
+                "serializer-header": "시리얼라이저 서비스 구성",
+                "serializer-defaultToBuiltin": "사용 가능한 항목이 없는 경우 기본 제공 구문 분석/시리얼라이저 사용",
+                "serializer-defaultToBuiltin-helptext": "UIC에는 고유의 JSON 구문 분석기/시리얼라이저 기본 구현이 제공됩니다. JSON 구문 분석기/시리얼라이저는 다음과 같이 선택됩니다.<br />" +
+                                                        "<ol>" +
+                                                          "<li>아래 구성에서 JSON 구문 분석기/시리얼라이저가 명시적으로 지정되는 경우 UIC는 이를 사용합니다." +
+                                                          "<li>아래 구성에서 JSON 구문 분석기/시리얼라이저가 명시적으로 지정되지 않는 경우 UIC는 브라우저에서 JSON을 고유하게 지원하는지 확인합니다." +
+                                                          "<li>브라우저가 JSON을 고유하게 지원하지 않고 이 선택란을 선택하는 경우, UIC는 고유하게 제공되는 JSON의 기본 구현을 사용합니다." +
+                                                          "<li>위의 항목이 모두 해당되지 않는 경우 UIC는 자동으로 실패합니다." +
+                                                        "</ol>",
+                "serializer-parsers": "구문 분석기",
+                "serializer-parsers-helptext": "이 목록에는 UIC가 사용해야 하는 구문 분석기 함수(예: JSON.parse)가 포함되어 있습니다. 첫 번째 항목이 가장 중요합니다. UIC는 첫 번째 항목을 찾지 못하면 다음 항목(지정된 경우)을 찾고 이를 찾지 못하면 다시 다음 항목을 찾습니다.",
+                "serializer-parser": "구문 분석기",
+                "serializer-addParser": "다른 구문 분석기 추가",
+                "serializer-stringifiers": "시리얼라이저",
+                "serializer-stringifiers-helptext": "이 목록에는 UIC가 사용해야 하는 시리얼라이저 함수(예: JSON.stringify)가 포함되어 있습니다. 첫 번째 항목이 가장 중요합니다. UIC는 첫 번째 항목을 찾지 못하면 다음 항목(지정된 경우)을 찾고 이를 찾지 못하면 다시 다음 항목을 찾습니다.",
+                "serializer-stringifier": "시리얼라이저",
+                "serializer-addStringifier": "다른 시리얼라이저 추가",
+
+				"encoder-header": "인코더 서비스 구성",
+				"encoder": "인코더",
+				"encoder-enable": "사용",
+                "encoder-enable-helptext": "이 서비스를 사용하도록 설정하면 UIC가 요청 데이터에 gzip 압축을 적용할 수 있습니다. 인코더 서비스는 UIC가 초기화되기 전에 페이지에 포함되고 초기화될 'pako' 개방 소스 라이브러리에 따라 달라지는 점을 참고하십시오. 다운로드를 포함한 'pako'에 대한 자세한 정보는 https://github.com/nodeca/pako를 참조하십시오.",
+				"encoder-encode": "인코딩",
+				"encoder-defaultEncoding": "기본 인코딩",
+				"encoder-helptext": "압축 인코더 서비스를 구성합니다. 기본적으로 gzip이 구성됩니다.",
+				"encoder-defaultEncoding-helptext": "UIC가 HTTP 요청 헤더에 지정할 인코딩 유형입니다. 기본적으로 'Content-encoding: gzip'입니다.",
+				"encoder-encode-helptext": "인코더에 대한 경로입니다. 기본적으로 'window.pako.gzip'입니다.",
+
+                "modules-header": "모듈",
+                "modules-subHeader": "사용으로 설정된 모듈 선택",
+                "modules-performance": "성능",
+                "modules-performance-helptext": "W3C 탐색 타이밍 특성",
+                "modules-PerformanceSettings": "성능 설정",
+                "modules-replay": "재생",
+                "modules-replay-helptext": "재생, 사용성 및 단계 기반 이벤트를 사용으로 설정하기 위한 사용자 상호작용 모니터링입니다.",
+				"modules-usability": "Usability",
+				"modules-usability-helptext": "mouseout, mousemove 및 click usability 이벤트를 구성에 추가합니다.",
+                "modules-moduleBaseURL": "moduleBase URL:",
+                "modules-moduleBaseURL-helptext": "서버에서 동적으로 로드할 수 있는 모듈로부터의 위치입니다. 이 옵션은 현재 릴리스에서는 사용되지 않습니다.",
+                "modules-replay-events": "이벤트 재생",
+                "modules-hover-tracking": "위로 마우스 이동 추적 사용",
+                "modules-mobile-events": "모바일 이벤트 사용",
+                "modules-hashchange": "해시 변경에서 화면 보기 사용",
+                "modules-scroll-winsize": "화면 이동 및 창 크기 추적 사용",
+				"modules-navigationStart-helptext": "이 속성은 사용자 에이전트가 이전 문서를 로드 해제하기 위한 프롬프트 표시를 완료한 직후의 시간을 리턴해야 합니다. 이전 문서가 없는 경우 이 속성은 fetchStart와 동일한 값을 리턴해야 합니다.",
+				"modules-unloadEventStart-helptext": "이전 문서의 원본과 현재 문서의 원본이 동일한 경우[IETF RFC 6454], 이 속성은 사용자 에이전트가 이전 문서의 로드 해제 이벤트를 시작하기 직전의 시간을 리턴해야 합니다. 이전 문서가 없거나 이전 문서의 원본이 현재 문서의 원본과 다른 경우, 이 속성은 0을 리턴해야 합니다.",
+				"modules-unloadEventEnd-helptext": "이전 문서의 원본과 현재 문서의 원본이 동일한 경우, 이 속성은 사용자 에이전트가 이전 문서의 로드 해제 이벤트를 완료한 직후의 시간을 리턴해야 합니다. 이전 문서가 없거나 이전 문서의 원본이 현재 문서의 원본과 다른 경우 또는 로드 해제가 아직 완료되지 않은 경우, 이 속성은 0을 리턴해야 합니다. 탐색할 때 HTTP 경로 재지정 또는 이와 동등한 요청이 있고 모든 경로 재지정 또는 이와 동등한 요청이 동일한 원본에서 유래하지는 않은 경우, unloadEventStart와 unloadEventEnd는 0을 리턴해야 합니다.",
+				"modules-redirectStart-helptext": "탐색할 때 HTTP 경로 재지정 또는 이와 동등한 요청이 있고 모든 경로 재지정 또는 이와 동등한 요청이 동일한 원본에서 유래하는 경우, 이 속성은 경로 재지정을 시작하는 페치의 시작 시간을 리턴해야 합니다. 그렇지 않으면 이 속성은 0을 리턴해야 합니다.",
+				"modules-redirectEnd-helptext": "탐색할 때 HTTP 경로 재지정 또는 이와 동등한 요청이 있고 모든 경로 재지정 및 이와 동등한 요청이 동일한 원본에서 유래하는 경우, 이 속성은 마지막 경로 재지정의 응답의 마지막 바이트를 수신한 직후의 시간을 리턴해야 합니다. 그렇지 않으면 이 속성은 0을 리턴해야 합니다.",
+				"modules-fetchStart-helptext": "새 자원을 HTTP GET 또는 이와 동등한 함수를 사용하여 페치할 경우 fetchStart는 사용자 에이전트가 모든 관련 애플리케이션 캐시 검사를 시작하기 직전의 시간을 리턴해야 합니다. 그렇지 않은 경우에는 사용자 에이저트가 자원 페치를 시작하는 시간을 리턴해야 합니다.",
+				"modules-domainLookupStart-helptext": "이 속성은 사용자 에이전트가 현재 문서에 대한 도메인 이름 검색을 시작하기 직전의 시간을 리턴해야 합니다. 지속적 연결[RFC 2616]이 사용되거나 현재 문서가 관련 애플리케이션 캐시 또는 로컬 자원에서 검색되는 경우, 이 속성은 fetchStart와 동일한 값을 리턴해야 합니다.",
+				"modules-domainLookupEnd-helptext": "이 속성은 사용자 에이전트가 현재 문서에 대한 도메인 이름 검색을 완료한 직후의 시간을 리턴해야 합니다. 지속적 연결[RFC 2616]이 사용되거나 현재 문서가 관련 애플리케이션 캐시 또는 로컬 자원에서 검색되는 경우, 이 속성은 fetchStart와 동일한 값을 리턴해야 합니다.",
+				"modules-connectStart-helptext": "이 속성은 사용자 에이전트가 문서를 검색하기 위해 서버에 대한 연결 설정을 시작하기 직전의 시간을 리턴해야 합니다. 지속적 연결[RFC 2616]이 사용되거나 현재 문서가 관련 애플리케이션 캐시 또는 로컬 자원에서 검색되는 경우, 이 속성은 domainLookupEnd의 값을 리턴해야 합니다.",
+				"modules-connectEnd-helptext": "이 속성은 사용자 에이전트가 현재 문서를 검색하기 위해 서버에 대한 연결 설정을 완료한 직후의 시간을 리턴해야 합니다. 지속적 연결[RFC 2616]이 사용되거나 현재 문서가 관련 애플리케이션 캐시 또는 로컬 자원에서 검색되는 경우, 이 속성은 domainLookupEnd의 값을 리턴해야 합니다. 전송 연결이 실패하고 사용자 에이전트가 연결을 다시 여는 경우 connectStart 및 connectEnd는 새 연결의 해당 값을 리턴해야 합니다. connectEnd는 전송 연결을 설정하기 위한 시간 간격과 SSL 핸드쉐이크 및 SOCKS 인증과 같은 기타 시간 간격을 포함해야 합니다.",
+				"modules-secureConnectionStart-helptext": "이 속성은 선택사항입니다. 이 속성을 사용할 수 없는 사용자 에이전트는 이 속성을 정의된 대로 설정해야 합니다. 이 속성이 사용 가능한 경우 현재 페이지의 스킴이 HTTPS이면 이 속성은 사용자 에이전트가 현재 연결을 안전하게 보호하기 위해 핸드쉐이크 프로세스를 시작하기 직전의 시간을 리턴해야 합니다. 이 속성은 사용 가능하지만 HTTPS는 사용되지 않으면 이 속성은 0을 리턴해야 합니다.",
+				"modules-requestStart-helptext": "이 속성은 사용자 에이전트가 서버, 관련 애플리케이션 캐시 또는 로컬 자원에서 현재 문서 요청을 시작하기 직전의 시간을 리턴해야 합니다. 요청이 전송된 후 전송 연결이 실패하고 사용자 에이전트가 연결을 다시 연 후 요청을 다시 전송하는 경우, requestStart는 새 요청의 해당 값을 리턴해야 합니다.",
+				"modules-responseStart-helptext": "이 속성은 사용자 에이전트가 서버, 관련 애플리케이션 캐시 또는 로컬 자원에서 응답의 첫 번째 바이트를 수신한 직후의 시간을 리턴해야 합니다.",
+				"modules-responseEnd-helptext": "이 속성은 사용자 에이전트가 현재 문서의 마지막 바이트를 수신한 직후 또는 전송 연결이 닫히기 직전의 시간(어느 쪽이든 먼저 도달하는 시간)을 리턴해야 합니다. 여기에서 문서는 서버, 관련 애플리케이션 캐시 또는 로컬 자원에서 수신될 수 있습니다.",
+				"modules-domLoading-helptext": "이 속성은 사용자 에이전트가 현재 문서 준비 상태를 '로드 중'으로 설정하기 직전의 시간을 리턴해야 합니다.",
+				"modules-domInteractive-helptext": "이 속성은 사용자 에이전트가 현재 문서 준비 상태를 '대화식'으로 설정하기 직전의 시간을 리턴해야 합니다.",
+				"modules-domContentLoadedEventStart-helptext": "이 속성은 사용자 에이전트가 문서에서 DOMContentLoaded 이벤트를 실행하기 직전의 시간을 리턴해야 합니다.",
+				"modules-domContentLoadedEventEnd-helptext": "이 속성은 문서의 DOMContentLoaded 이벤트가 완료된 직후의 시간을 리턴해야 합니다.",
+				"modules-domComplete-helptext": "이 속성은 사용자 에이전트가 현재 문서 준비 상태를 '완료'로 설정하기 직전의 시간을 리턴해야 합니다. 현재 문서 준비 상태가 여러 번 동일한 상태로 변경되는 경우 domLoading, domInteractive, domContentLoadedEventStart, domContentLoadedEventEnd 및 domComplete는 해당 문서 준비 상태로 처음 변경된 시간을 리턴해야 합니다.",
+				"modules-loadEventStart-helptext": "이 속성은 현재 문서의 로드 이벤트가 실행되기 직전의 시간을 리턴해야 합니다. 로드 이벤트가 아직 실행되지 않은 경우에는 0을 리턴해야 합니다.",
+				"modules-loadEventEnd-helptext": "이 속성은 현재 문서의 로드 이벤트가 완료된 시간을 리턴해야 합니다. 로드 이벤트가 아직 실행되지 않았거나 완료되지 않은 경우에는 0을 리턴해야 합니다.",
+				"modules-mobile-events-helptext": "모바일 세션에서 이벤트 재생을 사용으로 설정합니다.",
+				"modules-hashchange-helptext": "사용으로 설정된 경우 이 옵션은 페이지의 URL에서 해시 변경이 식별되면 화면 보기 이벤트를 생성합니다. 화면 보기 이벤트는 세션 데이터에 삽입되고 UI 캡처에 의해 캡처된 UI 이벤트는 해당 이벤트가 발생한 화면 보기 아래에 구성될 수 있습니다.",
+				"modules-scroll-winsize-helptext": "참고: 애플리케이션에 따라 추적 창 화면 이동 시 상당한 수의 이벤트가 생성될 수 있습니다. 클라이언트에서 캡처된 화면 이동 이벤트의 재생은 BBR 전용의 모바일 세션에서만 지원됩니다.",
+
+                "performance-calculateRenderTime": "W3C 탐색 타이밍을 지원하지 않는 브라우저의 렌더링 시간 계산",
+                "performance-calculateRenderTime-helptext": "렌더링 시간은 페이지 로드와 라이브러리 로드 간의 <br>시간 차이를 측정하여 계산됩니다.",
+                "performance-calculateRenderTime-description": "이 설정이 사용으로 설정되면 라이브러리는 라이브러리 로드 시간과 페이지 로드 시간 간의 차이로 렌더링 시간을 계산합니다. 정확한 측정을 위해 라이브러리가 페이지 로드 주기에서 가능한 한 일찍 로드되도록 하십시오.",
+				"performance-renderTimeThreshold": "renderTimeThreshold: ",
+				"performance-renderTimeThreshold-helptext": "최대 렌더링 시간(밀리초)입니다. 기본값은 10분<br>(600000밀리초)입니다. 임계값을 초과하는 것으로 측정된 렌더링 시간은 <br>'invalidRenderTime'으로 보고되고 렌더링 시간 <br>성능 보고서에 포함되지 않습니다.",
+
+				"replay-customEventName-placeholder": "단일 이벤트 이름을 입력하십시오. 예: mousedown",
+				"replay-customEventTarget-placeholder": "대상 요소에 대한 CSS 선택기를 입력하십시오.",
+				"replay-customEvent": "사용자 정의 재생 이벤트",
+				"replay-customEvent-helptext": "위임 대상 요소 또는 문서 또는 창에 대한 CSS 선택기를 입력하십시오.",
+				"replay-addCustomDelegate": "사용자 정의 재생 이벤트 추가",
+				"replay-customEvent-name": "이벤트 이름",
+				"replay-customEvent-target": "이벤트 대상",
+				"replay-customEvent-name-helptext": "여기에 이벤트 이름을 입력하십시오. 예: mousedown",
+				"replay-customEvent-target-helptext": "대상 요소 또는 문서 또는 창에 대한 CSS 선택기를 입력하십시오.",
+				"replay-customEvent-delegateTarget": "이벤트 위임 대상(선택사항)",
+				"replay-customEvent-delegateTarget-helptext": "위임 대상 요소 또는 문서 또는 창에 대한 CSS 선택기를 입력하십시오. 이 설정은 선택사항입니다.",
+				"replay-customEvent-recurseFrames": "순환 프레임(선택사항)",
+				"replay-customEvent-recurseFrames-helptext": "선택하면 이벤트에 대한 리스너가 문서의 하위 프레임/iframe에 적용됩니다. 이 설정은 선택사항입니다.",
+                "replay-customEvent-state": "상태",
+                "replay-customEventState-placeholder": "사용자 정의 이벤트의 상태로 사용할 특성을 입력하십시오.",
+                "replay-customEvent-state-helptext": "사용자 정의 재생 이벤트 전용으로 target.currState 값이 JSON에 설정되는 방법을 지정합니다.",
+				"replay-removeCustomEvent": "사용자 정의 재생 제거",
+
+				"domCapture-header": "DOM 캡처",
+				"domCapture-enabled": "DOM 캡처 사용",
+				"domCapture-enabled-helptext": "경고: DOM 캡처 사용은 데이터 전송 및 인프라스트럭처에 중요한 영향을 미칩니다. 따라서 이 기능은 신중하게 사용해야 합니다. 사용하도록 설정한 경우 특정 이벤트 및 요소에 기반하는 DOM 캡처만 수행하도록 추가 구성이 필요합니다. 자세한 내용은 문서를 참조하십시오.",
+				"domCapture-captureFrames": "프레임 캡처",
+				"domCapture-captureFrames-helptext": "선택하면 하위 프레임 및 iframe이 캡처됩니다. 참고: 상위 페이지 자체와 동일한 도메인에서 얻은 컨텐츠만 캡처할 수 있습니다.",
+				"domCapture-removeScripts": "스크립트 제거",
+				"domCapture-removeScripts-helptext": "선택하면 캡처된 스냅샷에서 모든 스크립트 태그가 제거됩니다.",
+                "domCapture-diffEnabled": "DOM 차이 사용",
+                "domCapture-diffEnabled-helptext": "선택하면 초기 전체 DOM 스냅샷 이후 DOM 차이가 전송됩니다. 이 설정을 사용할 것을 권장합니다.",
+                "domCapture-maxLength": "최대 길이",
+                "domCapture-maxLength-helptext": "이 임계값을 초과하면 스냅샷이 전송되지 않습니다.",
+                "domCapture-maxMutations": "최대 변형 수",
+                "domCapture-maxMutations-helptext": "이 임계값을 충족하거나 초과하면 차이점 대신 전체 DOM 스냅샷이 작성됩니다. 이 설정을 사용하여 DOM 캡처 구성을 세부 조정하고 과도한 DOM 변형의 처리로 인한 성능 병목 현상을 방지하는 안전 한계를 설정할 수 있습니다.",
+				"domCapture-subHeader": "DOM 캡처 트리거 추가",
+				"domCapture-trigger": "트리거",
+				"domCapture-addTrigger": "트리거 추가",
+				"domCapture-event": "이벤트",
+				"domCapture-event-helptext": "사용 가능한 이벤트는 로드, 로드 해제, 클릭 또는 변경입니다.",
+				"domCapture-screenview": "화면 보기",
+				"domCapture-addScreenview": "화면 보기 추가",
+				"domCapture-removeScreenview": "화면 보기 제거",
+				"domCapture-delay": "지연",
+				"domCapture-delay-helptext": "이후에 DOM 스냅샷이 작성되어야 하는 선택적 지연(밀리초)입니다.",
+				"domCapture-delay-placeholder": "숫자를 입력하십시오.",
+                "domCapture-fullDOMCapture": "전체 DOM 캡처",
+                "domCapture-fullDOMCapture-helptext": "선택된 경우 이 트리거에 대한 전체 DOM 스냅샷이 작성됩니다.",
+				"domCapture-removeTrigger": "트리거 제거",
+				"domCapture-addTarget": "대상 추가",
+				"domCapture-removeTarget": "대상 제거",
+				"domCapture-target": "대상",
+				"domCapture-target-id": "ID",
+				"domCapture-target-id-helptext": "세 가지 ID 유형 중 하나로 지정된 대상의 ID입니다.",
+				"domCapture-target-idType": "ID 유형",
+				"domCapture-target-idType-helptext": "요소의 HTML ID, XPath 또는 사용자 정의 ID입니다.",
+				"domCapture-target-cssSelector": "CSS 선택기",
+				"domCapture-target-cssSelector-helptext": "단일 CSS 선택기 문자열을 추가하십시오.",
+                "domCapture-load": "로드",
+                "domCapture-unload": "로드 해제",
+                "domCapture-click": "클릭",
+                "domCapture-change": "변경",
+                "domCapture-custom": "사용자 정의",
+                "domCapture-custom-eventName": "사용자 정의 이벤트 이름:",
+
+                "DCCookie-header": "쿠키 & 세션 관리",
+                "DCCookie-enabled": "DCCookie 모듈 사용",
+                "DCCookie-enabled-helptext": "DCCookie 모듈은 애플리케이션 키 및 세션화 쿠키의 구성을 허용합니다. 이는 Discover SaaS 서비스를 사용할 때 필요합니다. 추가 정보에 대해서는 Discover SaaS 문서를 참조하십시오.",
+                "DCCookie-dcAppKey": "애플리케이션 키",
+                "DCCookie-dcAppKey-helptext": "이 필드에 Discover SaaS 애플리케이션 키를 입력하십시오.",
+                "DCCookie-sessionCookie": "세션화 쿠키 이름",
+                "DCCookie-sessionCookie-helptext": "세션화에 사용되는 쿠키를 지정하십시오. 세션화 쿠키로 <strong>DCXSID</strong>를 지정하면 쿠키가 이미 존재하지 않을 경우 UIC가 쿠키를 작성하게 합니다.",
+                
+                "geolocation-header": "위치정보",
+                "geolocation-enable": "위치정보 로깅 사용",
+                "geolocation-load": "로드 이벤트 동안 위치정보",
+                "geolocation-load-helptext": "로드 이벤트 동안 위치정보 로깅을 사용으로 설정합니다.",
+                "geolocation-helptext": "위치정보 로깅은 사용 가능한 경우 측정 위도, 경도 및 정확성을 보고합니다.",
+
+                "misc-header": "기타 설정",
+                "sessionData-options": "세션 데이터 공유 옵션",
+                "sessionData-Enable": "세션 데이터 공유",
+                "sessionData-Enable-description": "이 옵션을 선택하면 페이지의 다른 스크립트와 세션 데이터를 공유할 수 있습니다. 자세한 내용은 문서를 참조하십시오.",
+                "sessionData-Enable-helptext": "이 옵션을 선택하면 페이지의 다른 스크립트와 세션 데이터를 공유할 수 있습니다. 자세한 내용은 문서를 참조하십시오.",
+                "sessionId-Cookie": "쿠키",
+                "sessionId-Cookie-description": "쿠키가 세션화에 사용되는 경우 이 옵션을 선택하십시오.",
+                "sessionId-Cookie-helptext": "쿠키가 세션화에 사용되는 경우 이 옵션을 선택하십시오.",
+                "sessionId-Query": "쿼리 매개변수",
+                "sessionId-Query-description": "쿼리 매개변수가 세션화에 사용되는 경우 이 옵션을 선택하십시오.",
+                "sessionId-Query-helptext": "쿼리 매개변수가 세션화에 사용되는 경우 이 옵션을 선택하십시오.",
+                "sessionId-Cookie-Name": "쿠키 이름",
+                "sessionId-Cookie-Name-helptext": "세션화에 사용되는 쿠키의 이름입니다. 예를 들어, DCXSID, jsessionid 등입니다.",
+                "sessionId-Query-Name": "쿼리 매개변수 이름",
+                "sessionId-Query-Name-helptext": "세션화에 사용되는 쿼리 매개변수의 이름(LHS)입니다.",
+                "sessionId-Query-Delimiter": "쿼리 문자열 구분 기호",
+                "sessionId-Query-Delimiter-helptext": "애플리케이션에서 사용될 쿼리 문자열 구분 기호를 지정하십시오. 기본값: &",
+                "sessionId-ValueNeedsHashing": "값을 해시해야 함",
+                "sessionId-ValueNeedsHashingDescription": "세션 ID를 도출하기 위해 값을 해시해야 하는 경우 이 옵션을 선택하십시오.",
+                "misc-frames-blacklist-label": "블랙리스트로 설정된 프레임",
+                "misc-frames-blacklist-helptext": "데이터 콜렉션에서 제외된 프레임의 CSS 선택기입니다.",
+                "misc-frames-blacklist-placeholder": "공백-쉼표-공백으로 구분된 CSS 선택기입니다.",
+
+                "regextester-headline": "정규식 테스트",
+                "regextester-regex": "정규식",
+                "regextester-flag-i": "대소문자 구분 안함(i)",
+                "regextester-flag-g": "글로벌(g)",
+                "regextester-sample": "테스트 샘플",
+                "regextester-matches": "일치?",
+                "regextester-copylabel": "(구성에 복사하여 붙여넣을 준비가 완료됨)",
+                "regextester-btn-test": "테스트",
+
+                "unsupported-header": "너무 오래되었거나 지원되지 않는 브라우저입니다.",
+                "unsupported-sudHeader": "다음 브라우저 중 하나를 사용하십시오.",
+                "unsupported-infotext": "",
+                "unsupported-firefox-versioninfo": "(버전 17.0 이상)",
+                "unsupported-safari-versioninfo": "(버전 6.0 이상)",
+
+                "validation-timerinterval": "타이머 간격이 올바르지 않습니다.1000과 600000 사이의 숫자를 입력하십시오.",
+                "validation-maxevents": "크기(최대 메시지 수)가 올바르지 않습니다. 1과 100 사이의 숫자를 입력하십시오.",
+                "validation-renderTimeThreshold": "렌더링 시간 임계값이 올바르지 않습니다. 숫자를 입력하십시오.",
+                "validation-maxSize": "크기(최대 직렬화된 길이)가 올바르지 않습니다. 4000과 1000000 사이의 숫자를 입력하십시오.",
+
+                "reload-page": "언어 변경사항을 적용하려면 페이지를 다시 로드하십시오."
+            }
+

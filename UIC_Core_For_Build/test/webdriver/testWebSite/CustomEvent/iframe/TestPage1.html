@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<title>Page with Custom events </title>
+		<script type="text/javascript" src="../../jquery/jquery-1.8.1.js" ></script>
+		<script type="text/javascript">
+		
+	    function onSubmitBtnClickIE()
+        {
+
+          var evt = document.createEvent("Event");
+          evt.initEvent("customIEEvent",true,false);
+          document.getElementById("submitbtnIE").dispatchEvent(evt);
+          
+        }
+		
+			function onSubmitBtnClick(e) {
+				//e.preventDefault();
+				
+				var fname= document.getElementById("firstname");
+				var lname=document.getElementById("lastname");
+				var submitbtn = document.getElementById("submitbtn");
+				
+				if(!(fname.value && lname.value)) return true;
+				
+				// On Successful login (if there are no empty fields are found in the form, it is a successful login)
+				// A new Login custom event is triggered
+				var event = new CustomEvent(
+					"Login", 
+					{
+						detail: {
+							message: "FirstName: " + fname.value + " LastName: " + lname.value,
+							time: new Date(),
+						},
+						bubbles: true,
+						cancelable: true
+					}
+				);
+				submitbtn.dispatchEvent(event);
+				return true;
+			}
+
+			// Listen for the event.
+			document.addEventListener('Login', function (e) { 
+				var capturedEventDiv = document.getElementById("capturedEvent");
+				capturedEventDiv.innerHTML= "Received Login Event </br>" + 
+											" Target ID : " + e.target.id + 
+											" Details: " + e.detail.message
+											;											
+			}, false);
+			
+		</script>
+	</head>
+	<body>
+		<form action="demo_form.asp">
+			First name: <input type="text" name="fname" id="firstname"><br>
+			Last name: <input type="text" name="lname" id="lastname"><br>
+			<input type="button" value="Submit" id="submitbtn" onclick="onSubmitBtnClick('e');return false">
+			</br>
+			<input type="button" value="Submit IE" id="submitbtnIE" onclick="onSubmitBtnClickIE();return false">
+		</form>
+		<div id="capturedEvent">
+			
+		</div>
+			
+		
+	</body>
+</html>

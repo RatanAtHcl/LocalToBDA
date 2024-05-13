@@ -1,0 +1,331 @@
+// NLS_CHARSET=UTF-8
+{
+                "site-title": "Asistente de configuración de UIC",
+                "page-headline": "Asistente de configuración de UIC",
+				"uic-version": "Versión de UIC ",
+                "advanced-options": "Opciones avanzadas",
+                "btn-prev": "Anterior",
+                "btn-next": "Siguiente",
+                "btn-finish": "Finalizar",
+                "btn-reset": "Restablecer a valores predeterminados",
+                "btn-regextester": "Probador de expresiones regulares",
+
+                "library-type-prod-min": "Compilación de producción (minificada)",
+                "library-type-prod": "Compilación de producción (no minificada)",
+                "library-type-dev": "Compilación de desarrollo (no minificada)",
+
+                "core-inactivityTimeout": "Tiempo de espera de inactividad (milisegundos)",
+                "core-inactivityTimeout-helptext": "El tiempo de espera de inactividad especifica un periodo de tiempo durante el que no hay ninguna actividad del usuario y UIC finaliza de forma automática. " +
+                                                   "El valor de tiempo de espera predeterminado de 10 minutos se utiliza si no se especifica un valor de tiempo de espera de inactividad. " +
+                                                   "<br /><em>Nota:</em> Si se especifica un tiempo de espera de 0, se inhabilita esta función. Esto puede provocar que existan hits de IU huérfanos, por lo que se recomienda.",
+
+                "browserService-header": "Configuración del servicio de navegador",
+                "browserService-subHeader": "Seleccione un tipo:",
+                "browserService-jQuery": "jQuery",
+                "browserService-jQuery-helptext": "El tipo jQuery se admite SOLO si la aplicación web utiliza jQuery 1.7 o superior.",
+                "browserService-jQuery-description": "El tipo jQuery de la biblioteca UIC utiliza la API jQuery para el acceso DOM entre navegadores.",
+                "browserService-w3c": "W3C",
+                "browserService-w3c-helptext": "Para todos los demás.",
+                "browserService-w3c-description": "El tipo W3C de la biblioteca UIC utiliza directamente las API DOM de navegador." +
+                                                  "<br /><em>Nota:</em> el tipo W3C requiere que se incluya la biblioteca Sizzle JS de terceros también. Consulte la sección URL de Sizzle en las opciones avanzadas.",
+
+                "browserService-useCapture": "Utilizar fase de captura para escucha de eventos",
+                "browserService-useCapture-helptext": "Permite la fase de captura de eventos durante el registro de escuchas de eventos. Si se inhabilita, se utiliza el desencadenamiento de eventos, lo cual puede provocar que falten algunos eventos si se impide su desencadenamiento. Se recomienda habilitar esta opción." +
+                                                      "<br /><em>Nota:</em> Las versiones anteriores de Internet Explorer (IE 8 y anteriores) no soportan la fase de captura de eventos y automáticamente revierten al desencadenamiento de eventos." +
+                                                      "<br />Para obtener detalles acerca de este valor, consulte la especificación W3C DOM: http://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-flow-capture",
+                "browserService-sizzleObject": "Objeto Sizzle",
+                "browserService-sizzleObject-helptext": "Vía de acceso al objeto Sizzle. Si se omite, se utiliza window.Sizzle de forma predeterminada." +
+                                                        "<br /><br /><em>Nota:</em> Sizzle es necesario para que la biblioteca funcione correctamente en versiones anteriores de Internet Explorer (IE 8 y anteriores) cuando se utiliza el servicio W3C." +
+                                                        " Si la aplicación utiliza cualquier versión de jQuery, no se necesita una inclusión de Sizzle aparte puesto que jQuery ya incluye Sizzle." +
+                                                        " Sizzle se puede obtener en http://sizzlejs.com/",
+                "browserService-jQueryObject": "Objeto jQuery",
+                "browserService-jQueryObject-helptext": "Vía de acceso al objeto jQuery. Si se omite, se utiliza window.jQuery de forma predeterminada.",
+                "browserService-blacklistedElements": "Elementos en la lista negra",
+                "browserService-blacklistedElements-placeholder": "ID o expresiones regulares separados por espacio coma espacio.",
+                "browserService-blacklistedElements-helptext": "Incluya en lista negra los ID de elementos que no sean únicos y/o generados dinámicamente. Los ID de elemento que coinciden con cualquiera de las entradas de lista negra se sustituirán por los valores de atributo personalizado o XPATH." +
+                                                               "<br /><br />Sugerencia: utilice el probador de expresión regular para validar las expresiones regulares utilizadas para configurar la lista negra.",
+                "browserService-customID": "ID de atributo personalizado",
+                "browserService-customID-placeholder": "Nombre del atributo.",
+                "browserService-customID-helptext": "Se pueden utilizar uno o varios atributos para identificar de forma exclusiva un elemento cuando su ID HTML no está disponible o no está incluido en lista negra.",
+				"browserService-ieExcludedLinks": "Enlaces excluidos de Internet Explorer",
+				"browserService-ieExcludedLinks-placeholder": "Selectores CSS separados por comas.",
+				"browserService-ieExcludedLinks-helptext": "Esta configuración se especifica como una matriz de selectores CSS. Por ejemplo, la configuración se especificaría como: " +
+															" a[href^='javascript:'] " +
+															"para ignorar beforeunload desencadenado por el enlace siguiente: < a href='javascript:void(0);'>Haga clic aquí< /a>" +
+															"<br/>NOTA: Si se especifica un carácter no válido (por ejemplo $) y no va precedido correctamente de caracteres de escape con \\ dará como resultado una excepción en los navegadores Chrome y Webkit.",
+                "queueService-header": "Configuración del servicio de cola",
+                "queueService-subHeader": "Configurar la cola interna de la biblioteca",
+                "queueService-queueName": "Nombre",
+                "queueService-queueName-helptext": "Solo se admite una cola en este release. El nombre de cola DEBE ser 'DEFAULT'. No modifique este valor.",
+                "queueService-queueEndpoint": "Punto final (página de destino)",
+                "queueService-queueEndpoint-helptext": "El URL de página de destino en el servidor web donde se enviarán los datos capturados. No se admiten URL entre dominios en este release.",
+                "queueService-queueSize-events": "Tamaño (máx. mensajes)",
+                "queueService-queueSize-events-helptext": "El umbral después del cual se vaciará la cola. Los valores recomendados están entre 1 y 50 para prueba y entre 20 y 50 para despliegue de producción.",
+                "queueService-queueSize-serialized": "Tamaño (máx. longitud serializada)",
+                "queueService-queueSize-serialized-helptext": "El umbral de longitud de cola serializada después del cual se vaciará la cola. Los valores recomendados están entre 8000 y 20000 para despliegue de producción." +
+                                                    "<br/>NOTA: Si se utiliza la codificación gzip, entonces el valor se debe aumentar para reflejar el límite de tamaño precodificado." +
+                                                    "<br/>AVISO: Si se habilita este valor es posible que el rendimiento se vea afectado en algunos casos porque depende de la serialización de la cola para comprobar el umbral.",
+                "queueService-queueSize-serialized-label": " (un valor de 0 inhabilita este ajuste)",
+                "queueService-queueTimer": "Intervalo de temporizador (milisegundos)",
+                "queueService-queueTimer-label": " milisegundos (un valor de 0 inhabilita este ajuste)",
+                "queueService-queueTimer-helptext": "Para habilitar los escenarios de exploración duplicados, puede establecer el valor del temporizador para que vacíe periódicamente la cola independientemente del número de mensajes. En la mayoría de los otros casos, es mejor dejar esta opción inhabilitada.",
+
+                "queueService-crossDomainEnabled": "Habilitar mensajes POST entre dominios.",
+                "queueService-crossDomainFrameSelector": "Selector de trama entre dominios",
+                "queueService-crossDomainFrameSelector-helptext": "El selector de trama entre dominios debe especificar la trama de información o el elemento de trama en la página que se ha configurado para las solicitudes POST.",
+
+				"queueService-asyncReqOnUnload": "Habilitar XHR asíncrono en la descarga de página.",
+				"queueService-asyncReqOnUnload-helptext": "Marque esta opción para habilitar la solicitud asíncrona durante la descarga de página.<br />AVISO: si se habilita la solicitud asíncrona en la descarga de página puede dar como resultado que falten datos o estén incompletos.",
+
+                "queueService-checkEndpoint": "Comprobar punto final",
+                "queueService-checkEndpoint-helptext": "Enviar una solicitud asíncrona para comprobar si el punto final Discover está disponible.",
+                "queueService-endpointCheckTimeout": "Comprobar tiempo de espera de punto final",
+                "queueService-endpointCheckTimeout-helptext": "El tiempo de espera para que la solicitud asíncrona compruebe si el punto final Discover está disponible.",
+
+                "queueService-queueSerializer": "Serializador",
+                "queueService-queueSerializer-JSON": "JSON",
+                "queueService-queueSerializer-XML": "XML",
+                "queueService-queueSerializer-helptext": "Solo se admite la serialización JSON.",
+                "queueService-addQueue": "Añadir otra cola",
+
+                "messageService-header": "Configuración del servicio de mensajería",
+                "messageService-subHeader": "Configuración de máscara de privacidad",
+                "messageService-targets": "Destinos",
+                "messageService-id": "ID",
+                "messageService-id-helptext": "ID HTML, XPath o ID de atributo personalizdo ('attrName=attrValue') del elemento que se debe enmascarar.",
+                "messageService-idType": "Tipo de ID",
+                "messageService-idType--1": "ID HTML",
+                "messageService-idType--2": "xPath",
+                "messageService-idType--3": "ID de atributo personalizado",
+                "messageService-idType-helptext": "Seleccione el tipo de ID correcto.",
+                "messageService-addTarget": "Añadir otro destino",
+                "messageService-maskType": "Tipo de máscara",
+                "messageService-maskType-1": "Vacío",
+                "messageService-maskType-2": "Básico",
+                "messageService-maskType-3": "Tipo",
+                "messageService-maskType-4": "Personalizado",
+                "messageService-maskType-helptext": "El tipo de máscara define cómo se debe transformar el valor." +
+                                                    "<dl>" +
+                                                        "<dt><b>Vacío:</b></dt>" +
+                                                        "<dd>El valor se establece en una serie vacía.</dd>" +
+                                                        "<dt><b>Básico:</b></dt>" +
+                                                        "<dd>El valor se sustituye por la serie fija: \"XXXXX\".</dd>" +
+                                                        "<dt><b>Tipo:</b></dt>" +
+                                                        "<dd>" +
+                                                            "El valor se sustituye por una máscara donde todos los:" +
+                                                            "<ul>" +
+                                                                "<li>caracteres en minúscula se sustituyen por: \"x\",</li>" +
+                                                                "<li>caracteres en mayúscula se sustituyen por: \"X\",</li>" +
+                                                                "<li>números se sustituyen por: \"9\",</li>" +
+                                                                "<li>símbolos se sustituyen por: \"@\".</li>" +
+                                                            "</ul>" +
+                                                            "De modo que la serie: \"HelloWorld123\" se convierte en: \"XxxxxXxxxx999\"" +
+                                                        "</dd>" +
+                                                        "<dt><b>Personalizado:</b></dt>" +
+                                                        "<dd>El valor se sustituye por el valor de retorno de una función personalizada que se debe grabar en el recuadro de texto MaskFunction.</dd>" +
+                                                    "</dl>",
+                "messageService-maskFunction": "Función máscara",
+                "messageService-maskFunction-helptext": "Función de JavaScript que acepta una serie sin enmascarar y devuelve el valor enmascarado.",
+                "messageService-addConfiguration": "Añadir configuración de privacidad",
+				"messageService-cssSelector": "Selector CSS",
+				"messageService-cssSelector-helptext": "Añadir una serie de selector CSS única",
+				"services-message-privacy-cssSelector-placeholder": "Añadir una serie de selector CSS aquí",
+				"messageService-removePrivacyConfigurationTarget": "Eliminar destino",
+				"messageService-removePrivacyConfiguration": "Eliminar configuración de privacidad",
+
+                "serializer-header": "Configuración del servicio de serializador",
+                "serializer-defaultToBuiltin": "Utilizar analizador o serializador incorporado si no hay ninguno disponible",
+                "serializer-defaultToBuiltin-helptext": "UIC viene con su propia implementación básica de un analizador o serializador JSON. La elección del analizador o serializador JSON se realiza de la manera siguiente:<br />" +
+                                                        "<ol>" +
+                                                          "<li>Si se especifica de forma explícita un analizador o serializador JSON en la configuración siguiente, UIC lo utilizará." +
+                                                          "<li>Si no se especifica de forma explícita un analizador o serializador JSON en la configuración siguiente, UIC comprobará si el navegador tiene soporte nativo de JSON." +
+                                                          "<li>Si el navegador no admite JSON de forma nativa y está seleccionado este recuadro de selección, UIC utilizará su implementación básica de JSON." +
+                                                          "<li>Si ninguna de las opciones anteriores es aplicable, UIC fallará de forma silenciosa." +
+                                                        "</ol>",
+                "serializer-parsers": "Analizadores",
+                "serializer-parsers-helptext": "La lista contiene funciones de analizador que UIC debe utilizar (por ejemplo, JSON.parse). La primera es la más importante. Si UIC no la encuentra, intentará la próxima (si se ha especificado), etc.",
+                "serializer-parser": "Analizador",
+                "serializer-addParser": "Añadir otro analizador",
+                "serializer-stringifiers": "Serializadores",
+                "serializer-stringifiers-helptext": "La lista contiene funciones de serializador que UIC debe utilizar (por ejemplo, JSON.stringify). La primera es la más importante. Si UIC no la encuentra, intentará la próxima (si se ha especificado), etc.",
+                "serializer-stringifier": "Serializador",
+                "serializer-addStringifier": "Añadir otro serializador",
+
+				"encoder-header": "Configuración del servicio de codificador",
+				"encoder": "Codificador",
+				"encoder-enable": "Habilitar",
+                "encoder-enable-helptext": "Habilite este servicio para permitir que UIC aplique la compresión gzip a los datos de la solicitud. Tenga en cuenta que el servicio de codificador depende de que la biblioteca de código abierto 'pako' se incluya y se inicie en la página antes de que empiece UIC. Para obtener más información sobre 'pako', incluidas las descargas, consulte: https://github.com/nodeca/pako",
+				"encoder-encode": "Codificar",
+				"encoder-defaultEncoding": "Codificación predeterminada",
+				"encoder-helptext": "Configurar el servicio codificador de compresión. De forma predeterminada está configurado gzip.",
+				"encoder-defaultEncoding-helptext": "El tipo de codificación que UIC especificará en la cabecera de solicitud HTTP. De forma predeterminada 'Content-encoding: gzip'.",
+				"encoder-encode-helptext": "La vía de acceso del codificador. De forma predeterminada 'window.pako.gzip'.",
+
+                "modules-header": "Módulos",
+                "modules-subHeader": "Seleccionar módulos habilitados",
+                "modules-performance": "performance",
+                "modules-performance-helptext": "Propiedades de Navigation Timing de W3C",
+                "modules-PerformanceSettings": "Valores de rendimiento",
+                "modules-replay": "replay",
+                "modules-replay-helptext": "Supervisión de interacción del usuario para habilitar la reproducción, la usabilidad y los eventos basados en pasos.",
+				"modules-usability": "Usability",
+				"modules-usability-helptext": "Añade los eventos de usability mouseout, mousemove y click a la configuración.",
+                "modules-moduleBaseURL": "URL de moduleBase:",
+                "modules-moduleBaseURL-helptext": "Ubicación en el servidor desde el que se pueden cargar dinámicamente los módulos. Esta opción no se utiliza en el release actual.",
+                "modules-replay-events": "Eventos de reproducción",
+                "modules-hover-tracking": "Habilitar seguimiento contextual",
+                "modules-mobile-events": "Habilitar eventos de móviles",
+                "modules-hashchange": "Habilitar vistas de pantalla de hashchange",
+                "modules-scroll-winsize": "Habilitar seguimiento de desplazamiento y tamaño de ventana",
+				"modules-navigationStart-helptext": "Este atributo debe devolver la hora inmediatamente después de que el agente de usuario termine de solicitar la descarga del documento anterior. Si no hay ningún documento anterior, este atributo debe devolver el mismo valor que fetchStart.",
+				"modules-unloadEventStart-helptext": "Si el documento anterior y el documento actual tienen el mismo origen [IETF RFC 6454], este atributo debe devolver la hora inmediatamente antes de que el agente de usuario inicie el evento de descarga del documento anterior. Si no hay ningún documento anterior o el documento anterior tiene un origen distinto del documento actual, este atributo debe devolver cero.",
+				"modules-unloadEventEnd-helptext": "Si el documento anterior y el documento actual tienen el mismo origen, este atributo debe devolver el tiempo inmediatamente después de que el agente de usuario finalice el evento de descarga del documento anterior. Si no hay ningún documento anterior o el documento anterior tiene un origen distinto del documento actual o no se ha completado todavía la descarga, este atributo debe devolver cero. Si hay redirecciones HTTP o equivalentes al navegar y no todas las redirecciones HTTP o equivalentes son del mismo origen, unloadEventStart y unloadEventEnd deben devolver cero.",
+				"modules-redirectStart-helptext": "Si hay redirecciones HTTP o equivalentes al navegar y si todas las redirecciones o equivalentes son del mismo origen, este atributo debe devolver la hora de inicio de la captura que inicia la redirección. De lo contrario, este atributo debe devolver cero.",
+				"modules-redirectEnd-helptext": "Si hay redirecciones HTTP o equivalentes al navegar y todas las redirecciones o equivalentes son del mismo origen, este atributo debe devolver la hora inmediatamente después de recibir el último byte de la respuesta de la última redirección. De lo contrario, este atributo debe devolver cero.",
+				"modules-fetchStart-helptext": "Si el nuevo recurso se va a capturar mediante HTTP GET o equivalente, fetchStart debe devolver la hora inmediatamente antes de que el agente de usuario comience a comprobar las memorias caché de aplicaciones relevantes. De lo contrario, debe devolver la hora en que el agente de usuario comienza a captar el recurso.",
+				"modules-domainLookupStart-helptext": "Este atributo debe devolver la hora inmediatamente antes de que el agente de usuario inicie la búsqueda del nombre de dominio para el documento actual. Si se utiliza una conexión persistente [RFC 2616] o el documento actual se recupera de memorias cachés de aplicaciones relevantes o recursos locales, este atributo debe devolver el mismo valor que fetchStart.",
+				"modules-domainLookupEnd-helptext": "Este atributo debe devolver la hora inmediatamente después de que el agente de usuario termine la búsqueda del nombre de dominio para el documento actual. Si se utiliza una conexión persistente [RFC 2616] o el documento actual se recupera de memorias cachés de aplicaciones relevantes o recursos locales, este atributo debe devolver el mismo valor que fetchStart.",
+				"modules-connectStart-helptext": "Este atributo debe devolver la hora inmediatamente antes de que el agente de usuario empiece a establecer la conexión al servidor para recuperar el documento. Si se utiliza una conexión persistente [RFC 2616] o el documento actual se recupera de memorias cachés de aplicaciones relevantes o recursos locales, este atributo debe devolver el valor de domainLookupEnd.",
+				"modules-connectEnd-helptext": "Este atributo debe devolver la hora inmediatamente después de que el agente de usuario termine de establecer la conexión al servidor para recuperar el documento actual. Si se utiliza una conexión persistente [RFC 2616] o el documento actual se recupera de memorias cachés de aplicaciones relevantes o recursos locales, este atributo debe devolver el valor de domainLookupEnd. Si la conexión de transporte falla y el agente de usuario reabre una conexión, connectStart y connectEnd deben devolver los valores correspondientes de la nueva conexión. connectEnd debe incluir el intervalo de tiempo para establecer la conexión de transporte así como otro intervalo de tiempo como reconocimiento SSL y autenticación SOCKS.",
+				"modules-secureConnectionStart-helptext": "Este atributo es opcional. Los agentes de usuario que no tienen este atributo disponible deben establecerlo como no definido. Cuando está disponible este atributo, si el esquema de la página actual es HTTPS, este atributo debe devolver la hora inmediatamente antes de que el agente de usuario inicie el proceso de reconocimiento para proteger la conexión actual. Si está disponible este atributo pero no se utiliza HTTPS, este atributo debe devolver cero.",
+				"modules-requestStart-helptext": "Este atributo debe devolver la hora inmediatamente antes de que el agente de usuario comience a solicitar el documento actual del servidor, o de las memorias caché de aplicaciones relevantes o de los recursos locales. Si la conexión de transporte falla después de una solicitud y el agente de usuario reabre una conexión y reenvía la solicitud, requestStart debe devolver los valores correspondientes de la nueva solicitud.",
+				"modules-responseStart-helptext": "Este atributo debe devolver la hora inmediatamente antes de que el agente de usuario reciba el primer byte de la respuesta del servidor, o de las memorias caché de aplicación relevantes o de los recursos locales",
+				"modules-responseEnd-helptext": "Este atributo debe devolver la hora inmediatamente después de que el agente de usuario reciba el último byte del documento actual o inmediatamente antes de que se cierre la conexión de transporte, la acción que se produzca primero. El documento aquí se puede recibir del servidor, de las memorias caché de aplicaciones relevantes o de los recursos locales.",
+				"modules-domLoading-helptext": "Este atributo debe devolver la hora inmediatamente antes de que el agente de usuario establezca la preparación del documento actual en 'cargando'.",
+				"modules-domInteractive-helptext": "Este atributo debe devolver la hora inmediatamente antes de que el agente de usuario establezca la preparación del documento actual en 'interactiva'.",
+				"modules-domContentLoadedEventStart-helptext": "Este atributo debe devolver la hora inmediatamente antes de que el agente de usuario active el evento DOMContentLoaded en el documento.",
+				"modules-domContentLoadedEventEnd-helptext": "Este atributo debe devolver la hora inmediatamente después de que se complete el evento DOMContentLoaded del documento.",
+				"modules-domComplete-helptext": "Este atributo debe devolver la hora inmediatamente antes de que el agente de usuario establezca la preparación del documento actual en 'completa'. Si la preparación del documento actual cambia al mismo estado varias veces, domLoading, domInteractive, domContentLoadedEventStart, domContentLoadedEventEnd y domComplete deben devolver la hora de la primera aparición del cambio de la preparación del documento correspondiente.",
+				"modules-loadEventStart-helptext": "Este atributo debe devolver la hora inmediatamente antes de que se active el evento de carga del documento actual. Debe devolver cero cuando el evento de carga no se haya activado todavía.",
+				"modules-loadEventEnd-helptext": "Este atributo debe devolver la hora en que se complete el evento de carga del documento actual. Debe devolver cero cuando el evento de carga no se haya activado o no se haya completado.",
+				"modules-mobile-events-helptext": "Habilita la reproducción de eventos de sesiones móviles.",
+				"modules-hashchange-helptext": "Cuando está habilitada, esta opción genera eventos de vista de pantalla cuando se ha identificado un cambio hash en el URL de la página. Un evento de vista de pantalla se inserta en los datos de sesión y los eventos de IU capturados por UI Capture se pueden organizar bajo la vista de pantalla en la que se producen.",
+				"modules-scroll-winsize-helptext": "NOTA: en función de la aplicación, el desplazamiento de la ventana de seguimiento puede generar un número significativo de eventos. Se admite la reproducción de los eventos de desplazamiento capturados del cliente para las sesiones móviles solo en BBR.",
+
+                "performance-calculateRenderTime": "Calcular tiempo de representación de los navegadores que no admiten Navigation Timing de W3C",
+                "performance-calculateRenderTime-helptext": "El tiempo de representación se calcula midiendo la diferencia de tiempo <br>entre la carga de página y la carga de biblioteca.",
+                "performance-calculateRenderTime-description": "Cuando está habilitado este valor, la biblioteca calculará el tiempo de representación como una diferencia entre su tiempo de carga y el tiempo de carga de página. Para obtener mediciones precisas, asegúrese de que la biblioteca se cargue lo antes posible en el ciclo de carga de página.",
+				"performance-renderTimeThreshold": "renderTimeThreshold: ",
+				"performance-renderTimeThreshold-helptext": "El tiempo máximo de representación, en milisegundos. El valor predeterminado es 10 minutos <br>(600000 milisegundos). Cualquier tiempo de representación medido que supere <br>el umbral se notifica como 'invalidRenderTime' y no se incluye <br>en los informes de rendimiento de tiempo de representación.",
+
+				"replay-customEventName-placeholder": "Especifique un nombre de evento único, por ejemplo, mousedown",
+				"replay-customEventTarget-placeholder": "Especifique un selector CSS para el elemento de destino.",
+				"replay-customEvent": "Evento de reproducción personalizado",
+				"replay-customEvent-helptext": "Especifique el selector CSS para el elemento de destino delegado, o documento o ventana",
+				"replay-addCustomDelegate": "Añadir un evento de reproducción personalizado",
+				"replay-customEvent-name": "Nombre de evento",
+				"replay-customEvent-target": "Destino de evento",
+				"replay-customEvent-name-helptext": "Especifique el nombre de evento aquí, por ejemplo, mousedown",
+				"replay-customEvent-target-helptext": "Especifique el selector CSS para los elementos de destino, o documento o ventana",
+				"replay-customEvent-delegateTarget": "Destino de delegado de evento (opcional)",
+				"replay-customEvent-delegateTarget-helptext": "Especifique el selector CSS para el elemento de destino delegado, o documento o ventana. Este valor es opcional.",
+				"replay-customEvent-recurseFrames": "Tramas de recurso (opcional)",
+				"replay-customEvent-recurseFrames-helptext": "Si está seleccionado, aplica un escucha para el evento a la trama o tramas de información hijo del documento. Este valor es opcional.",
+                "replay-customEvent-state": "Estado",
+                "replay-customEventState-placeholder": "Especifique la propiedad que se va a utilizar como el estado del envento personalizado",
+                "replay-customEvent-state-helptext": "Especifica cómo se establece el valor target.currState en el JSON para los eventos de reproducción personalizados solo.",
+				"replay-removeCustomEvent": "Eliminar reproducción personalizada",
+
+				"domCapture-header": "Captura de DOM",
+				"domCapture-enabled": "Habilitar la captura de DOM",
+				"domCapture-enabled-helptext": "AVISO: La habilitación de la captura de DOM tiene consecuencias significativas sobre la transmisión y la infraestructura de datos. Por tanto, esta característica debe habilitarse con cuidado. Si se habilita, se requiere configuración adicional para realizar solo la captura DOM en función de eventos y elementos específicos. Consulte la documentación para obtener más detalles.",
+				"domCapture-captureFrames": "Capturar tramas",
+				"domCapture-captureFrames-helptext": "Si está seleccionado se capturarán las tramas hijo y las tramas de información. NOTA: Solo se capturará el contenido que tiene como origen el mismo dominio que la propia página padre.",
+				"domCapture-removeScripts": "Eliminar scripts",
+				"domCapture-removeScripts-helptext": "Si se selecciona esta opción se eliminarán todas las etiquetas de script de la instantánea capturada.",
+                "domCapture-diffEnabled": "Habilitar diferencias de DOM",
+                "domCapture-diffEnabled-helptext": "Si se marca esta opción, las diferencias de DOM se enviarán tras la instantánea completa inicial de DOM. Se recomienda habilitar esta opción.",
+                "domCapture-maxLength": "Longitud máx.",
+                "domCapture-maxLength-helptext": "Si se supera este umbral, no se enviará la instantánea.",
+                "domCapture-maxMutations": "Máximo de mutaciones",
+                "domCapture-maxMutations-helptext": "Si se alcanza o supera este umbral, se tomará una instantánea DOM completa, en lugar de una diferencia. Utilice este valor para ajustar la configuración de capturas de DOM y establecer un límite de seguridad que impida cuellos de botella de rendimiento, debidos al proceso de un número elevado de mutaciones DOM.",
+				"domCapture-subHeader": "Añadir activadores de captura de DOM",
+				"domCapture-trigger": "Desencadenante",
+				"domCapture-addTrigger": "Añadir desencadenante",
+				"domCapture-event": "Evento",
+				"domCapture-event-helptext": "Los eventos disponibles son load, upload, click o change.",
+				"domCapture-screenview": "Vista de pantalla",
+				"domCapture-addScreenview": "Añadir vista de pantalla",
+				"domCapture-removeScreenview": "Eliminar vista de pantalla",
+				"domCapture-delay": "Retardar",
+				"domCapture-delay-helptext": "Retardo opcional (en milisegundos) después del cual se debe tomar la instantánea de DOM.",
+				"domCapture-delay-placeholder": "Especifique un número",
+                "domCapture-fullDOMCapture": "Captura DOM completa",
+                "domCapture-fullDOMCapture-helptext": "Si se selecciona se realizará una instantánea DOM completa para este desencadenante.",
+				"domCapture-removeTrigger": "Eliminar desencadenante",
+				"domCapture-addTarget": "Añadir destino",
+				"domCapture-removeTarget": "Eliminar destino",
+				"domCapture-target": "Destino",
+				"domCapture-target-id": "ID",
+				"domCapture-target-id-helptext": "ID del destino como el del especificado de los tres tipos de ID.",
+				"domCapture-target-idType": "Tipo de ID",
+				"domCapture-target-idType-helptext": "HTML ID, XPath, o ID personalizado del elemento.",
+				"domCapture-target-cssSelector": "Selector CSS",
+				"domCapture-target-cssSelector-helptext": "Añadir una serie de selector CSS única.",
+                "domCapture-load": "load",
+                "domCapture-unload": "unload",
+                "domCapture-click": "click",
+                "domCapture-change": "change",
+                "domCapture-custom": "custom",
+                "domCapture-custom-eventName": "Nombre de evento personalizado:",
+
+                "DCCookie-header": "Gestión de cookies y sesiones",
+                "DCCookie-enabled": "Habilitar módulo DCCookie",
+                "DCCookie-enabled-helptext": "El módulo DCCookie permite la configuración de la clave de aplicación y la cookie de inicio de sesión. Son necesarias si se utiliza el servicio Discover SaaS. Para obtener información adicional, consulte la documentación de Discover SaaS.",
+                "DCCookie-dcAppKey": "Clave de aplicación",
+                "DCCookie-dcAppKey-helptext": "Introduzca la clave de aplicación Discover SaaS en este campo.",
+                "DCCookie-sessionCookie": "Nombre de cookie de inicio de sesión",
+                "DCCookie-sessionCookie-helptext": "Especifique la cookie que se utiliza para el inicio de sesión. Si se especifica <strong>DCXSID</strong> como cookie de inicio de sesión, UIC creará la cookie si aún no existe.",
+                
+                "geolocation-header": "Ubicación geográfica",
+                "geolocation-enable": "Habilitar registro de ubicación geográfica",
+                "geolocation-load": "Ubicación geográfica durante el evento de carga",
+                "geolocation-load-helptext": "Habilitará el registro de ubicación geográfica durante el evento de carga",
+                "geolocation-helptext": "El registro de ubicación geográfica notifica la latitud, la longitud y la precisión de las mediciones si está disponible.",
+
+                "misc-header": "Valores varios",
+                "sessionData-options": "Opciones de compartición de datos de sesión",
+                "sessionData-Enable": "Compartir datos de sesión",
+                "sessionData-Enable-description": "La selección de esta opción permitirá compartir los datos de sesión con otros scripts en la página. Consulte la documentación para obtener detalles.",
+                "sessionData-Enable-helptext": "La selección de esta opción permitirá compartir los datos de sesión con otros scripts en la página. Consulte la documentación para obtener detalles.",
+                "sessionId-Cookie": "Cookie",
+                "sessionId-Cookie-description": "Seleccione esta opción si se utiliza una para la sesionización.",
+                "sessionId-Cookie-helptext": "Seleccione esta opción si se utiliza una para la sesionización.",
+                "sessionId-Query": "Parámetro de consulta",
+                "sessionId-Query-description": "Seleccione esta opción si se utiliza un parámetro de consulta para la sesionización.",
+                "sessionId-Query-helptext": "Seleccione esta opción si se utiliza un parámetro de consulta para la sesionización.",
+                "sessionId-Cookie-Name": "Nombre de cookie",
+                "sessionId-Cookie-Name-helptext": "El nombre de la cookie que se utiliza para el inicio de sesión. Por ejemplo, DCXSID, jsessionid, etc.",
+                "sessionId-Query-Name": "Nombre de parámetro de consulta",
+                "sessionId-Query-Name-helptext": "El nombre (es decir, LHS) del parámetro de consulta que se utiliza para el inicio de sesión.",
+                "sessionId-Query-Delimiter": "Delimitador de serie de consulta",
+                "sessionId-Query-Delimiter-helptext": "Especifique el delimitador de serie de consulta que utiliza la aplicación. El valor predeterminado es &",
+                "sessionId-ValueNeedsHashing": "El valor necesita hashing",
+                "sessionId-ValueNeedsHashingDescription": "Seleccione esta opción si es necesario aplicar hash al valor para derivar el ID de sesión.",
+                "misc-frames-blacklist-label": "Tramas en lista negra",
+                "misc-frames-blacklist-helptext": "Selectores CSS de tramas excluidos de la colección de datos.",
+                "misc-frames-blacklist-placeholder": "Selectores CSS separados por espacio coma espacio.",
+
+                "regextester-headline": "Pruebe las expresiones regulares",
+                "regextester-regex": "Expresión regular",
+                "regextester-flag-i": "No sensible a mayúsculas y minúsculas (i)",
+                "regextester-flag-g": "Global (g)",
+                "regextester-sample": "Muestra de comprobación",
+                "regextester-matches": "¿Coincidencias?",
+                "regextester-copylabel": "(listo para copiar&pegar en config)",
+                "regextester-btn-test": "Probar",
+
+                "unsupported-header": "Lamentablemente el navegador es demasiado antiguo o no se admite.",
+                "unsupported-sudHeader": "Utilice uno de los navegadores siguientes:",
+                "unsupported-infotext": "",
+                "unsupported-firefox-versioninfo": "(Versión 17.0 y superior)",
+                "unsupported-safari-versioninfo": "(Versión 6.0 y superior)",
+
+                "validation-timerinterval": "El intervalo de temporizador no es válido. Especifique un número entre 1000 y 600000.",
+                "validation-maxevents": "Tamaño (máx. mensajes) no es válido. Especifique un número entre 1 y 100.",
+                "validation-renderTimeThreshold": "El umbral de tiempo de representación no es válido, especifique un número.",
+                "validation-maxSize": "Tamaño (máx. longitud serializada) no es válido. Especifique un número entre 4000 y 1000000.",
+
+                "reload-page": "Vuelva a cargar la página para que el cambio de idioma entre en vigor."
+            }
+
