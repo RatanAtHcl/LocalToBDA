@@ -1,1 +1,0 @@
-{"/script.js":{"lineData":[null,1,0,0,0,0,null,null,null,0],"functionData":[0],"branchData":{"2":[null,{"position":10,"nodeLength":22,"src":"typeof obj == \"object\"","evalFalse":0,"evalTrue":0}],"4":[null,{"position":18,"nodeLength":36,"src":"overwrite || !this.hasOwnProperty(p)","evalFalse":0,"evalTrue":0}],"extend":[null,null]}}}

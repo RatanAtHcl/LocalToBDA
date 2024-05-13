@@ -1,0 +1,240 @@
+<jslint>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\core\core.js">
+		<issue line="91" char="1" reason="Unexpected &apos;(space)&apos;." evidence="" />
+		<issue line="172" char="9" reason="Combine this with the previous &apos;var&apos; statement." evidence="var dcxStartTime = (new Date()).getTime()," />
+		<issue line="424" char="44" reason="&apos;core&apos; was used before it was defined." evidence="localTop = localTop || core._getLocalTop();" />
+		<issue line="580" char="41" reason="The &apos;&amp;&amp;&apos; subexpression should be wrapped in parens." evidence="prevQueryString = utils &amp;&amp; utils.getQueryString(location.search) || &apos;&apos;," />
+		<issue line="581" char="37" reason="The &apos;&amp;&amp;&apos; subexpression should be wrapped in parens." evidence="prevUrlInfo = utils &amp;&amp; utils.getOriginAndPath(location) || &apos;&apos;," />
+		<issue line="589" char="41" reason="The &apos;&amp;&amp;&apos; subexpression should be wrapped in parens." evidence="currUrlInfo = utils &amp;&amp; utils.getOriginAndPath(location) || &apos;&apos;," />
+		<issue line="591" char="45" reason="The &apos;&amp;&amp;&apos; subexpression should be wrapped in parens." evidence="currQueryString = utils &amp;&amp; utils.getQueryString(location.search) || &apos;&apos;;" />
+		<issue line="719" char="41" reason="Expected exactly one space between &apos;function&apos; and &apos;(&apos;." evidence="getInternalVersion: function() {" />
+		<issue line="768" char="1" reason="Unexpected &apos;(space)&apos;." evidence="" />
+		<issue line="823" char="57" reason="Unexpected &apos;(space)&apos;." evidence="setState: function (destroyedParent, jMsg) {" />
+		<issue line="825" char="55" reason="Unexpected &apos;(space)&apos;." evidence="destroyedParent : destroyedParent," />
+		<issue line="833" char="1" reason="Unexpected &apos;(space)&apos;." evidence="" />
+		<issue line="840" char="38" reason="Expected exactly one space between &apos;function&apos; and &apos;(&apos;." evidence="setWorkerStatus: function(value) {" />
+		<issue line="847" char="38" reason="Expected exactly one space between &apos;function&apos; and &apos;(&apos;." evidence="getWorkerStatus: function() {" />
+		<issue line="904" char="19" reason="Expected exactly one space between &apos;if&apos; and &apos;(&apos;." evidence="if(state === &apos;unloading&apos; || state === &apos;loaded&apos;) {" />
+		<issue line="939" char="41" reason="Unexpected &apos;continue&apos;." evidence="continue;" />
+		<issue line="954" char="29" reason="Combine this with the previous &apos;var&apos; statement." evidence="var jMsg = {" />
+		<issue line="1077" char="1" reason="Unexpected &apos;(space)&apos;." evidence="" />
+		<issue line="1657" char="61" reason="Expected &apos;cbList&apos; at column 21, not column 61." evidence="cb = bridgeCallbacks.addRequestHeaders, cbList, cbListLen, j;" />
+		<issue line="1657" char="69" reason="Expected &apos;cbListLen&apos; at column 21, not column 69." evidence="cb = bridgeCallbacks.addRequestHeaders, cbList, cbListLen, j;" />
+		<issue line="1657" char="80" reason="Expected &apos;j&apos; at column 21, not column 80." evidence="cb = bridgeCallbacks.addRequestHeaders, cbList, cbListLen, j;" />
+		<issue line="1668" char="29" reason="Combine this with the previous &apos;var&apos; statement." evidence="var headersToAdd = cb.cbFunction();" />
+		<issue line="1855" char="33" reason="Unexpected &apos;continue&apos;." evidence="continue;" />
+		<issue line="1862" char="33" reason="Unexpected &apos;continue&apos;." evidence="continue;" />
+		<issue line="1907" char="30" reason="Don&apos;t make functions within a loop." evidence="}(moduleName, moduleEvents, hIFrame));" />
+		<issue line="1907" char="30" reason="Too many errors. (69% scanned)." evidence="" />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\core\eventTarget.js">
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\core\moduleContext.js">
+		<issue line="203" char="14" reason="Don&apos;t make functions within a loop." evidence="}(coreMethod));" />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\core\utils.js">
+		<issue line="470" char="25" reason="Unexpected &apos;continue&apos;." evidence="continue;" />
+		<issue line="681" char="37" reason="Expected exactly one space between &apos;function&apos; and &apos;(&apos;." evidence="getQueryString: function(str) {" />
+		<issue line="683" char="50" reason="Expected &apos;String&apos; and instead saw &apos;&apos;&apos;&apos;." evidence="str = str.replace(&quot;?&quot;, &quot;&quot;) + &quot;&quot;;" />
+		<issue line="686" char="29" reason="Combine this with the previous &apos;var&apos; statement." evidence="var query = {};" />
+		<issue line="687" char="29" reason="Combine this with the previous &apos;var&apos; statement." evidence="var bit, first, second;" />
+		<issue line="688" char="30" reason="Move &apos;var&apos; declarations to the top of the function." evidence="for (var i = 0; i &amp;lt; s.length; i++) {" />
+		<issue line="688" char="30" reason="Stopping.  (57% scanned)." evidence="" />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\modules\DCCookie.js">
+		<issue line="144" char="6" reason="Expected &apos;function&apos; at column 5, not column 6." evidence="function getVIDFromStorage(vidKey) {" />
+		<issue line="148" char="13" reason="Combine this with the previous &apos;var&apos; statement." evidence="var localStorage = window.localStorage;" />
+		<issue line="158" char="25" reason="Expected exactly one space between &apos;function&apos; and &apos;(&apos;." evidence="function(c) {" />
+		<issue line="159" char="50" reason="Unexpected &apos;|&apos;." evidence="var vid = Math.random() * 16 | 0, v = c == &apos;x&apos; ? vid : (vid &amp; 0x3 | 0x8);" />
+		<issue line="159" char="61" reason="Expected &apos;===&apos; and instead saw &apos;==&apos;." evidence="var vid = Math.random() * 16 | 0, v = c == &apos;x&apos; ? vid : (vid &amp; 0x3 | 0x8);" />
+		<issue line="159" char="81" reason="Unexpected &apos;&amp;&apos;." evidence="var vid = Math.random() * 16 | 0, v = c == &apos;x&apos; ? vid : (vid &amp; 0x3 | 0x8);" />
+		<issue line="159" char="87" reason="Unexpected &apos;|&apos;." evidence="var vid = Math.random() * 16 | 0, v = c == &apos;x&apos; ? vid : (vid &amp; 0x3 | 0x8);" />
+		<issue line="162" char="13" reason="Expected &apos;)&apos; at column 17, not column 13." evidence=");" />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\modules\performance.js">
+		<issue line="87" char="13" reason="The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype." evidence="for (prop in timing) {" />
+		<issue line="296" char="1" reason="Empty block." evidence="" />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\modules\rage_clicks.js">
+		<issue line="15" char="3" reason="Expected &apos;use strict&apos; at column 5, not column 3." evidence="&quot;use strict&quot;;" />
+		<issue line="17" char="3" reason="Expected &apos;var&apos; at column 5, not column 3." evidence="var rageclickModuleConfig = DCX.getModuleConfig(&quot;rageClicks&quot;)," />
+		<issue line="18" char="5" reason="Expected &apos;moduleLoaded&apos; at column 9, not column 5." evidence="moduleLoaded = false;" />
+		<issue line="21" char="3" reason="Expected &apos;var&apos; at column 5, not column 3." evidence="var rageTargetID, currClickTime, elemType, node, elementcheck, elementCount;" />
+		<issue line="21" char="7" reason="Combine this with the previous &apos;var&apos; statement." evidence="var rageTargetID, currClickTime, elemType, node, elementcheck, elementCount;" />
+		<issue line="22" char="3" reason="Expected &apos;var&apos; at column 5, not column 3." evidence="var elementArray = []," />
+		<issue line="22" char="7" reason="Combine this with the previous &apos;var&apos; statement." evidence="var elementArray = []," />
+		<issue line="23" char="5" reason="Expected &apos;rageCheckArray&apos; at column 9, not column 5." evidence="rageCheckArray = []," />
+		<issue line="24" char="5" reason="Expected &apos;rageMaping&apos; at column 9, not column 5." evidence="rageMaping = new Map()," />
+		<issue line="24" char="22" reason="&apos;Map&apos; was used before it was defined." evidence="rageMaping = new Map()," />
+		<issue line="25" char="5" reason="Expected &apos;firstClickMaping&apos; at column 9, not column 5." evidence="firstClickMaping = new Map()," />
+		<issue line="26" char="5" reason="Expected &apos;clickInterval&apos; at column 9, not column 5." evidence="clickInterval = rageclickModuleConfig.clickInterval || 4000," />
+		<issue line="27" char="5" reason="Expected &apos;rageMin&apos; at column 9, not column 5." evidence="rageMin = rageclickModuleConfig.rageMin || 5," />
+		<issue line="28" char="5" reason="Expected &apos;coreConfig&apos; at column 9, not column 5." evidence="coreConfig = DCX.getCoreConfig()," />
+		<issue line="29" char="5" reason="Expected &apos;isRageClickEnabled&apos; at column 9, not column 5." evidence="isRageClickEnabled," />
+		<issue line="30" char="5" reason="Expected &apos;checkElements&apos; at column 9, not column 5." evidence="checkElements = function (element) {" />
+		<issue line="31" char="7" reason="Expected &apos;return&apos; at column 13, not column 7." evidence="return element == rageTargetID;" />
+		<issue line="31" char="22" reason="Expected &apos;===&apos; and instead saw &apos;==&apos;." evidence="return element == rageTargetID;" />
+		<issue line="32" char="5" reason="Expected &apos;}&apos; at column 9, not column 5." evidence="};" />
+		<issue line="36" char="3" reason="Expected &apos;function&apos; at column 5, not column 3." evidence="function setTaggetAndElementType() {" />
+		<issue line="37" char="5" reason="Expected &apos;if&apos; at column 9, not column 5." evidence="if (node.getAttribute(&quot;data-dcxid&quot;)) {" />
+		<issue line="38" char="7" reason="Expected &apos;rageTargetID&apos; at column 13, not column 7." evidence="rageTargetID = node.getAttribute(&quot;data-dcxid&quot;);" />
+		<issue line="39" char="7" reason="Expected &apos;elemType&apos; at column 13, not column 7." evidence="elemType = &apos;data-dcxid&apos;;" />
+		<issue line="40" char="5" reason="Expected &apos;}&apos; at column 9, not column 5." evidence="} else if (node.id) {" />
+		<issue line="41" char="7" reason="Expected &apos;rageTargetID&apos; at column 13, not column 7." evidence="rageTargetID = node.id;" />
+		<issue line="41" char="7" reason="Too many errors. (24% scanned)." evidence="" />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\modules\replay.js">
+		<issue line="336" char="32" reason="Expected exactly one space between &apos;function&apos; and &apos;(&apos;." evidence="getOrgID = function(target) {" />
+		<issue line="337" char="19" reason="Expected exactly one space between &apos;if&apos; and &apos;(&apos;." evidence="if(target &amp;&amp; target.element &amp;&amp; target.element.id) return target.element.id;" />
+		<issue line="337" char="67" reason="Expected &apos;{&apos; and instead saw &apos;return&apos;." evidence="if(target &amp;&amp; target.element &amp;&amp; target.element.id) return target.element.id;" />
+		<issue line="337" char="67" reason="Expected &apos;return&apos; at column 17, not column 67." evidence="if(target &amp;&amp; target.element &amp;&amp; target.element.id) return target.element.id;" />
+		<issue line="364" char="11" reason="Expected exactly one space between &apos;if&apos; and &apos;(&apos;." evidence="if(control.target.origID === undefined || control.target.origID === &quot;&quot;) {" />
+		<issue line="452" char="17" reason="Unexpected &apos;continue&apos;." evidence="continue;" />
+		<issue line="541" char="13" reason="Expected &apos;if&apos; at column 9, not column 13." evidence="if (typeof msg !== &quot;string&quot;) {" />
+		<issue line="542" char="17" reason="Expected &apos;return&apos; at column 13, not column 17." evidence="return;" />
+		<issue line="543" char="13" reason="Expected &apos;}&apos; at column 9, not column 13." evidence="}" />
+		<issue line="568" char="1" reason="Unexpected &apos;(space)&apos;." evidence="" />
+		<issue line="580" char="1" reason="Unexpected &apos;(space)&apos;." evidence="" />
+		<issue line="1267" char="23" reason="Expected &apos;{&apos; and instead saw &apos;return&apos;." evidence="if (!console) return;" />
+		<issue line="1267" char="23" reason="Expected &apos;return&apos; at column 9, not column 23." evidence="if (!console) return;" />
+		<issue line="1268" char="13" reason="Combine this with the previous &apos;var&apos; statement." evidence="var cache = [];" />
+		<issue line="1273" char="42" reason="&apos;HTMLElement&apos; was used before it was defined." evidence="if (value instanceof HTMLElement) {" />
+		<issue line="1275" char="25" reason="Unexpected &apos;else&apos; after &apos;return&apos;." evidence="return value.outerHTML;" />
+		<issue line="1280" char="1" reason="Unexpected &apos;(space)&apos;." evidence="" />
+		<issue line="1283" char="18" reason="Unexpected &apos;(space)&apos;." evidence="}" />
+		<issue line="1286" char="1" reason="Unexpected &apos;(space)&apos;." evidence="" />
+		<issue line="1289" char="1" reason="Unexpected &apos;(space)&apos;." evidence="" />
+		<issue line="1291" char="10" reason="Expected &apos;function&apos; at column 9, not column 10." evidence="function intercept(method){" />
+		<issue line="1291" char="36" reason="Expected exactly one space between &apos;)&apos; and &apos;{&apos;." evidence="function intercept(method){" />
+		<issue line="1291" char="36" reason="Missing space between &apos;)&apos; and &apos;{&apos;." evidence="function intercept(method){" />
+		<issue line="1295" char="39" reason="Expected exactly one space between &apos;function&apos; and &apos;(&apos;." evidence="console[method] = function() {" />
+		<issue line="1298" char="21" reason="Combine this with the previous &apos;var&apos; statement." evidence="var argStringCollection = [];" />
+		<issue line="1298" char="21" reason="Too many errors. (81% scanned)." evidence="" />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\modules\usability.js">
+		<issue line="52" char="36" reason="Expected exactly one space between &apos;function&apos; and &apos;(&apos;." evidence="getOrgID = function(target) {" />
+		<issue line="53" char="23" reason="Expected exactly one space between &apos;if&apos; and &apos;(&apos;." evidence="if(target &amp;&amp; target.element &amp;&amp; target.element.id) return target.element.id" />
+		<issue line="53" char="71" reason="Expected &apos;{&apos; and instead saw &apos;return&apos;." evidence="if(target &amp;&amp; target.element &amp;&amp; target.element.id) return target.element.id" />
+		<issue line="53" char="71" reason="Expected &apos;return&apos; at column 21, not column 71." evidence="if(target &amp;&amp; target.element &amp;&amp; target.element.id) return target.element.id" />
+		<issue line="53" char="95" reason="Expected &apos;;&apos; and instead saw &apos;return&apos;." evidence="if(target &amp;&amp; target.element &amp;&amp; target.element.id) return target.element.id" />
+		<issue line="54" char="30" reason="Expected &apos;;&apos; and instead saw &apos;}&apos;." evidence="return &quot;&quot;" />
+		<issue line="79" char="15" reason="Expected exactly one space between &apos;if&apos; and &apos;(&apos;." evidence="if((typeof uiEvent.target.origID) === undefined || uiEvent.target.origID === &quot;&quot;) {" />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\other\ajaxListener\ajaxListener.js">
+		<issue line="77" char="1" reason="Unexpected &apos;(space)&apos;." evidence="" />
+		<issue line="125" char="11" reason="Expected &apos;for&apos; at column 13, not column 11." evidence="for (var key in data) {" />
+		<issue line="125" char="16" reason="Move &apos;var&apos; declarations to the top of the function." evidence="for (var key in data) {" />
+		<issue line="125" char="16" reason="Stopping.  (15% scanned)." evidence="" />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\other\bridge\iOSBridge.js">
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\other\gestures\gestures.js">
+		<issue line="667" char="26" reason="Don&apos;t make functions within a loop." evidence="});" />
+		<issue line="704" char="89" reason="Confusing use of &apos;!&apos;." evidence="if (typeof webEvent !== &quot;object&quot; || !webEvent.type || (!webEvent.gesture &amp;&amp; !webEvent.type === &quot;unload&quot;) || !webEvent.target) {" />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\other\xdomain\core.js">
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\other\xdomain\xdomainService.js">
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\services\ajaxService.jQuery.js">
+		<issue line="195" char="9" reason="Empty block." evidence="}," />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\services\ajaxService.w3c.js">
+		<issue line="91" char="1" reason="Unexpected &apos;(space)&apos;." evidence="" />
+		<issue line="143" char="13" reason="&apos;makeAjaxCall&apos; was used before it was defined." evidence="makeAjaxCall(message);" />
+		<issue line="369" char="14" reason="Unexpected &apos;(space)&apos;." evidence="}" />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\services\browserBaseService.js">
+		<issue line="238" char="25" reason="Unexpected &apos;continue&apos;." evidence="continue;" />
+		<issue line="244" char="36" reason="Missing space between &apos;,&apos; and &apos;9&apos;." evidence="node &amp;&amp; [1,9].indexOf(node.nodeType) &amp;gt; -1 &amp;&amp; node !== document &amp;&amp; (wantFullPath || !idValid);" />
+		<issue line="303" char="28" reason="Expected &apos;{&apos; and instead saw &apos;try&apos;." evidence="} else try {" />
+		<issue line="306" char="25" reason="Expected &apos;loop&apos; at column 29, not column 25." evidence="loop = true;" />
+		<issue line="307" char="25" reason="Expected &apos;shadowRoot&apos; at column 29, not column 25." evidence="shadowRoot = node.getRootNode();" />
+		<issue line="308" char="25" reason="Expected &apos;node&apos; at column 29, not column 25." evidence="node = shadowRoot.host;" />
+		<issue line="309" char="25" reason="Expected &apos;setHost&apos; at column 29, not column 25." evidence="setHost = true;" />
+		<issue line="312" char="21" reason="Expected exactly one space between &apos;}&apos; and &apos;catch&apos;." evidence="catch (e) {}" />
+		<issue line="312" char="21" reason="Expected &apos;catch&apos; at column 25, not column 21." evidence="catch (e) {}" />
+		<issue line="1051" char="5" reason="Empty block." evidence="}" />
+		<issue line="1224" char="9" reason="Empty block." evidence="}," />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\services\browserService.jQuery.js">
+		<issue line="281" char="9" reason="Empty block." evidence="}," />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\services\browserService.w3c.js">
+		<issue line="244" char="9" reason="Empty block." evidence="}," />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\services\configService.js">
+		<issue line="36" char="9" reason="&apos;configService&apos; was used before it was defined." evidence="configService.publish(&quot;configupdated&quot;, configService.getConfig());" />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\services\domCaptureService.js">
+		<issue line="323" char="40" reason="Unexpected &apos;(space)&apos;." evidence="return attributeName === &quot;type&quot;" />
+		<issue line="324" char="105" reason="Expected &apos;;&apos; and instead saw &apos;}&apos;." evidence="&amp;&amp; mutationRecord.oldValue === &apos;password&apos; &amp;&amp; mutationRecord.target[attributeName] === &apos;text&apos;" />
+		<issue line="332" char="9" reason="Expected &apos;messageServiceConfig&apos; at column 13, not column 9." evidence="messageServiceConfig = configService.getServiceConfig(&quot;message&quot;);" />
+		<issue line="472" char="25" reason="Expected &apos;case&apos; at column 21, not column 25." evidence="case &quot;characterData&quot;:" />
+		<issue line="473" char="25" reason="Expected &apos;case&apos; at column 21, not column 25." evidence="case &quot;childList&quot;:" />
+		<issue line="475" char="29" reason="Expected &apos;mutationCount&apos; at column 25, not column 29." evidence="mutationCount += addToMutatedTargets(xpath, record);" />
+		<issue line="476" char="29" reason="Expected &apos;break&apos; at column 25, not column 29." evidence="break;" />
+		<issue line="477" char="25" reason="Expected &apos;case&apos; at column 21, not column 25." evidence="case &quot;attributes&quot;:" />
+		<issue line="478" char="29" reason="Expected &apos;mutationCount&apos; at column 25, not column 29." evidence="mutationCount += addToMutatedAttributeTargets(xpath, record);" />
+		<issue line="479" char="29" reason="Expected &apos;break&apos; at column 25, not column 29." evidence="break;" />
+		<issue line="480" char="25" reason="Expected &apos;default&apos; at column 21, not column 25." evidence="default:" />
+		<issue line="481" char="29" reason="Expected &apos;utils&apos; at column 25, not column 29." evidence="utils.clog(&quot;Unknown mutation type: &quot; + record.type);" />
+		<issue line="482" char="29" reason="Expected &apos;break&apos; at column 25, not column 29." evidence="break;" />
+		<issue line="499" char="13" reason="Combine this with the previous &apos;var&apos; statement." evidence="var i," />
+		<issue line="504" char="1" reason="Unexpected &apos;(space)&apos;." evidence="" />
+		<issue line="523" char="33" reason="Expected &apos;case&apos; at column 29, not column 33." evidence="case &quot;attributes&quot;:" />
+		<issue line="525" char="37" reason="Expected &apos;onPasswordAttributeChange&apos; at column 33, not column 37." evidence="onPasswordAttributeChange(record);" />
+		<issue line="526" char="37" reason="Expected &apos;break&apos; at column 33, not column 37." evidence="break;" />
+		<issue line="527" char="33" reason="Expected &apos;default&apos; at column 29, not column 33." evidence="default:" />
+		<issue line="529" char="37" reason="Expected &apos;break&apos; at column 33, not column 37." evidence="break;" />
+		<issue line="797" char="6" reason="Expected &apos;function&apos; at column 5, not column 6." evidence="function removeElementsByTagNames(node, tagName) {" />
+		<issue line="801" char="1" reason="Unexpected &apos;(space)&apos;." evidence="" />
+		<issue line="806" char="1" reason="Unexpected &apos;(space)&apos;." evidence="" />
+		<issue line="812" char="17" reason="Expected &apos;}&apos; at column 13, not column 17." evidence="}" />
+		<issue line="813" char="13" reason="Expected &apos;}&apos; at column 9, not column 13." evidence="}" />
+		<issue line="813" char="13" reason="Too many errors. (40% scanned)." evidence="" />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\services\encoderService.js">
+		<issue line="98" char="9" reason="Empty block." evidence="}," />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\services\messageService.js">
+		<issue line="93" char="10" reason="Expected &apos;if&apos; at column 9, not column 10." evidence="if (event.type === 2 &amp;&amp; event.screenview &amp;&amp; event.screenview.type === &apos;LOAD&apos;) {" />
+		<issue line="95" char="18" reason="Unexpected space between &apos;(&apos; and &apos;event&apos;." evidence="if ( event.screenview.name !== &apos;root&apos; &amp;&amp; event.screenview.name !== &apos;rootWithFrames&apos;) {" />
+		<issue line="96" char="21" reason="Combine this with the previous &apos;var&apos; statement." evidence="var name = event.screenview.name;" />
+		<issue line="114" char="1" reason="Unexpected &apos;(space)&apos;." evidence="" />
+		<issue line="799" char="9" reason="Empty block." evidence="}," />
+		<issue line="843" char="17" reason="Combine this with the previous &apos;var&apos; statement." evidence="var tabID = 0;" />
+		<issue line="851" char="17" reason="Combine this with the previous &apos;var&apos; statement." evidence="var messagePackage = {" />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\services\queueService.js">
+		<issue line="21" char="2" reason="Expected &apos;DCX&apos; at column 1, not column 2." evidence="DCX.addService(&quot;queue&quot;, function (core) {" />
+		<issue line="501" char="31" reason="Missing space between &apos;=&apos; and &apos;null&apos;." evidence="CONFIG.dcxWorker =null;" />
+		<issue line="504" char="10" reason="Missing space between &apos;}&apos; and &apos;;&apos;." evidence="};" />
+		<issue line="504" char="10" reason="Unexpected &apos;;&apos;." evidence="};" />
+		<issue line="508" char="24" reason="&apos;Promise&apos; was used before it was defined." evidence="return new Promise(function(resolve, reject) {" />
+		<issue line="508" char="40" reason="Expected exactly one space between &apos;function&apos; and &apos;(&apos;." evidence="return new Promise(function(resolve, reject) {" />
+		<issue line="509" char="45" reason="Expected exactly one space between &apos;function&apos; and &apos;(&apos;." evidence="dcxWorker.onerror = function(error) {" />
+		<issue line="513" char="1" reason="Unexpected &apos;(space)&apos;." evidence="" />
+		<issue line="514" char="52" reason="Expected exactly one space between &apos;function&apos; and &apos;(&apos;." evidence="dcxWorker.onmessageerror = function(error) {" />
+		<issue line="519" char="13" reason="Expected &apos;dcxWorker&apos; at column 17, not column 13." evidence="dcxWorker.onmessage = function(event) {" />
+		<issue line="519" char="43" reason="Expected exactly one space between &apos;function&apos; and &apos;(&apos;." evidence="dcxWorker.onmessage = function(event) {" />
+		<issue line="520" char="17" reason="Expected &apos;var&apos; at column 21, not column 17." evidence="var result;" />
+		<issue line="521" char="17" reason="Expected &apos;result&apos; at column 21, not column 17." evidence="result = event.data;" />
+		<issue line="523" char="17" reason="Expected &apos;handleXhrCallback&apos; at column 21, not column 17." evidence="handleXhrCallback(result);" />
+		<issue line="524" char="13" reason="Expected &apos;}&apos; at column 17, not column 13." evidence="};" />
+		<issue line="526" char="10" reason="Missing space between &apos;}&apos; and &apos;;&apos;." evidence="};" />
+		<issue line="526" char="10" reason="Unexpected &apos;;&apos;." evidence="};" />
+		<issue line="531" char="31" reason="Expected exactly one space between &apos;function&apos; and &apos;(&apos;." evidence=".then(function() {" />
+		<issue line="533" char="16" reason="Expected &apos;console&apos; at column 21, not column 16." evidence="console.log(&quot;Worker successfully loaded&quot;);" />
+		<issue line="534" char="16" reason="Expected &apos;workerLoaded&apos; at column 21, not column 16." evidence="workerLoaded = true;" />
+		<issue line="534" char="16" reason="&apos;workerLoaded&apos; was used before it was defined." evidence="workerLoaded = true;" />
+		<issue line="535" char="16" reason="Expected &apos;DCX&apos; at column 21, not column 16." evidence="DCX.setWorkerStatus(true);" />
+		<issue line="536" char="13" reason="Expected &apos;}&apos; at column 17, not column 13." evidence="});" />
+		<issue line="551" char="9" reason="Expected &apos;if&apos; at column 13, not column 9." evidence="if (serializer) {" />
+		<issue line="552" char="13" reason="Expected &apos;data&apos; at column 17, not column 13." evidence="data = sS.serialize(data, serializer);" />
+		<issue line="552" char="13" reason="Too many errors. (55% scanned)." evidence="" />
+	</file>
+	<file name="C:\Users\db2admin\Desktop\Discover_customer\LocalToBDA\UIC_Core_For_Build\intermediate\services\serializerService.js">
+		<issue line="204" char="9" reason="Empty block." evidence="}," />
+	</file>
+</jslint>
